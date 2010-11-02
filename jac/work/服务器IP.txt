@@ -1,0 +1,16 @@
+211.69.198.221~223
+root
+grid221
+./runReTurn.sh
+test
+1234
+stun.c
+turnAllocateSocketPair
+221
+nohup ./runMeridian.sh &
+nohup ./runReTurn.sh &
+
+
+211.69.198.133
+gridcast
+gridcast
