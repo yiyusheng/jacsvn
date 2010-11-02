@@ -1,0 +1,52 @@
+用户、组管理命令 
+用户管理 
+1、用户帐号文件 
+/etc/passwd 
+
+2、shadow 
+/etc/shadow 
+
+3、添加用户 
+$ adduser 
+
+4、使用passwd命令初始设置用户口令 
+
+5、删除用户 
+$ userdel [- r ] name 
+
+6、修改用户属性 
+$ usemod [ - L ] name 
+$ usermod [ - U ] name 
+$ usermod [ - e ] YYYY-MM-DD name 
+
+7、修改用户模板 
+/etc/skel 
+
+
+用户组管理 
+增加用户组 
+用户组文件： 
+$ /etc/group 
+
+添加用户组： 
+$ groupadd groupname 
+
+在建立用户时指定用户组 
+$adduser [ - g group] name 
+
+删除用户组 
+$ groupdel group 
+
+更改用户的组帐号 
+$ usermod [ - g group ] name 
+
+
+文件权限设定 
+查看文件权限： 
+$ ls –l 
+
+更改文件权限： 
+$chmod [ ugoa…] [+-=] [rwx] file …… 
+
+更改文件的属主和属组： 
+chown OWNER:[:[GROUP]] FILE

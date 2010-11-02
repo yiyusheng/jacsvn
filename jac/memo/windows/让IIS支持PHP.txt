@@ -1,0 +1,113 @@
+一、相关软件
+
+1、Windows 2003 企业版+IIS 6.0
+
+2、PHP 5.2.6
+下载地址：
+http://www.onlinedown.net/soft/1772.htm
+
+3、MYSQL 5 5.0.51a
+下载地址：
+http://www.onlinedown.net/soft/3573.htm
+
+4、Zend 3.3.0a
+下载地址：
+http://www.onlinedown.net/soft/32228.htm
+
+5、PhpMyAdmin 2.11.6 RC1
+下载地址：
+http://www.onlinedown.net/soft/2616.htm
+
+前提条件是先安装好IIS6.0，下面我们开始安装相关软件。
+
+二、安装PHP
+
+1、在IIS中设置本机网站目录为F:\WEB
+
+2、将下载后的php-5.2.6-Win32.zip解压到F盘的PHP目录中
+
+3、将PHP目录中的php.ini-dist文件改名为php.ini，并移动到C:\windows目录中
+
+4、打开c:\windows\php.ini
+找到 register_globals = Off 改为 register_globals = On
+找到 extension_dir = "./" 改为 extension_dir = "F:\php\ext"
+找到
+;extension=php_dbase.dll
+;extension=php_gd2.dll （这是用来支持GD库的）
+;extension=php_mbstring.dll （这不选一般用PHPMYADMIN会出红色提示，故必选）
+;extension=php_mcrypt.dll
+;extension=php_mssql.dll （这个是用来支持MSSQL的，可选）
+;extension=php_mysql.dll （这个是用来支持MYSQL的，要支持MYSQL必选）
+将这些文字前面的"；"去掉，其他的你需要的也可以去掉前面的;然后关闭保存该文件。
+将php目录加到环境变量path中
+三、配置IIS使其支持PHP
+
+1、打开控制面板→管理工具→Internet信息服务(IIS)管理器
+
+2、右击需要PHP功能的网站，选择属性
+
+3、单击“ISAPI筛选器”选项卡，再点击“添加”按钮，在弹出的“筛选器属性”对话框中，依次填入筛选器名称“php”，可执行文件“F:\php\php5isapi.dll”最后点击“确定”按钮退出。
+
+4、单击“主目录”选项卡，选择“配置”按钮，再单击“添加”按钮，在可执行文件中输入“F:\php\php5isapi.dll”，扩展名中输入“.PHP”
+
+5、单击“文档”选项卡，添加默认主页为“index.php”
+
+6、在IIS管理器中单击“Web服务扩展”，再点击“添加一个新的 Web 服务扩展”，设置扩展名为“.PHP”，添加要求的文件为“F:\php\php5isapi.dll”，并选中“设置扩展状态为允许”复选框。
+
+7、开始菜单→运行，输入“CMD”命令，进入命令行，依次输入以下命令。
+net stop w3svc
+net stop iisadmin
+net start w3svc
+
+8、在F盘的WEB目录下新建一个名为“phpinfo.php”的文件，内容如下：
+<?php
+phpinfo();
+?>
+
+9、打开IE浏览器，在地址栏中输入“http://localhost/phpinfo.php”，如正常显示，则PHP配置成功，如不成功可以检查网站目录的权限和IIS权限有没有配置好。
+
+
+四、安装MySQL数据库
+
+安装MySQL比较容易，安装目录不要设置的太深，不要有空格，在安装的时候要设置Root用户的密码就OK了。
+
+1、将下载的“mysql-5.0.51a-win32.zip”解压，运行“setup.exe”文件
+
+2、在第二个安装界面选择“Custom”；自定义安装
+
+3、在第三个安装界面里设置安装路径，我选择的是F:\MySql
+
+4、在第八个安装界面里选择“Standard Configuration”；意思是安装结束后配置MsSQL
+
+5、在第九个安装界面里选择“Include Bin Directory in Windows PATH”
+
+6、在第十个安装界面里设置ROOT用户的密码，搞复杂些，这个用户是MySQL的超级用户，相当于Windows的Administrator，并且选 择“Enable root access from remote machines”，这个选择的意思就是允许 root 用户访问网络中安装在其它机器上的 MySql数据库
+
+7、其它界面不需要进行修改，取默认值就可以了
+
+8、打开命令行，输入“mysql -uroot -p”命令，回车后输入密码，会出现MySQL的命令行，至此MySQL安装结束
+
+
+五、安装Zend
+
+安装Zend比较容易，选择安装目录为F:\PHP\Zend，WEB服务为IIS，并选择WEB站点的目录即可，我选择的是F:\web
+
+六、安装phpMyAdmin
+
+1、将下载的“phpMyAdmin-2.11.6-rc1-all-languages.zip”文件解压，将目录更名为“phpMyAdmin”，然后移动到F:\web目录中
+
+2、编辑F:\web\phpMyAdmin\libraries下的“config.default.php”文件，找到
+cfg['PmaAbsoluteUri'] = '' 改成 cfg['PmaAbsoluteUri'] = 'http://localhost/phpmyadmin/' //将localhost改成你的实际浏览网址，在目录后面一定要加上/
+
+3、找到 cfg['blowfish_secret'] = '' 改成 cfg['blowfish_secret'] = 'www.xiangxuecheng.com' //这里随便填写，只要不留空就行了
+
+4、找到 cfg['Servers'][$i]['host'] = 'localhost' 改成 cfg['Servers'][$i]['host'] = 'localhost' //说明：如果你是连接本机的数据库这里无需修改，如果连接的是远程数据库，请把localhost改成数据库实际的IP地址
+
+5、找到 cfg['Servers'][$i]['auth_type'] = 'config' 改成 cfg['Servers'][$i]['auth_type'] = '' //这里是设置验证的方式，方式是最为安全的
+
+6、最后保存退出，打开浏览器，清除信息，然后输入http://localhost/phpmyadmin，即可进行相关操作
+
+使用Phpmyadmin时可能会出现“无法载入 mysql 扩展，请检查 PHP 配置 - 文档”的情况，
+
+完成上面的步骤，就可以使IIS支持PHP和MySQL数据库，在本机调试一些PHP程序就方便多了,安装后新新启动一下计算机或IIS，可能有的电脑还会出现一些问题，可以上网查查！
+

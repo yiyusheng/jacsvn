@@ -1,0 +1,722 @@
+<!--Download from http://hi.baidu.com/%CC%EC%C2%ED/blog/item/ -->
+<!--STATUS OK-->
+<html><head><meta http-equiv=content-type content="text/html; charset=gb2312"><title>端口的含义_狼族</title>
+<style>.error{color:#FF0000;font-size:12px}</style>
+<script language="javascript" src="端口的含义_files/popup.js"></script>
+<script LANGUAGE="JavaScript" src="端口的含义_files/g_spjs.js"></script>
+<script language="javascript">
+<!--
+
+var allkey="";
+var i=0;
+var flag=0;
+function setpv(allnum)
+{
+	var num = allnum.split('_');
+	document.getElementById("result").innerHTML=num[0];
+}
+		 
+function checkMail(s) 
+{ 
+  	var pattern=/\w+@\w+\.[a-z]+/; 
+  	if(pattern.test(s)) 
+    { 
+       return true; 
+    } 
+  	else 
+   { 
+      return false; 
+   } 
+} 
+
+
+function checkeandu(eanduid)
+{
+	var eanduvalue=G(eanduid).value;
+	var len=bytes(eanduvalue);
+	if(len>128)
+	{
+		showErr(2,"您输入的网址或邮箱太长，请保持在128字节以内。");
+		return false;
+	}
+	else
+	{ 
+		 return true;
+	}
+		
+}
+
+function cmtdel(str)
+{
+	var pop=new Popup({ contentType:3,isReloadOnClose:false,width:340,height:80});
+	pop.setContent("title","删除评论");
+	pop.setContent("confirmCon","您确定要彻底删除这条评论吗？");
+	pop.setContent("callBack",delCallback2);
+	pop.setContent("parameter",{fid:str,popup:pop});
+	pop.build();
+	pop.show();
+	return false;
+}
+function delCallback2(para)
+{
+	var o_pop=para["popup"];
+	o_pop.config.contentType=1;
+	o_pop.setContent("contentUrl","");
+	o_pop.reBuild();
+	G(para["fid"]).target=o_pop.iframeIdName;
+	eval("document."+para["fid"]).submit();
+}
+
+
+
+function checkname(strid)
+{
+	var ele=document.getElementById(strid);
+	var len=bytes(ele.value);
+	if(len>49)
+	{
+		showErr(1,"您输入的姓名太长，请保持在49字节以内。");
+		return false;
+	}
+	else 
+	{		
+		if(len==0)
+		{
+			document.getElementById(strid).value="匿名网友";
+		}
+		 return true;
+	}	
+	
+}
+
+function checktext(textid)
+{
+		document.getElementById(textid).value=trimlr(textid);
+		var str=trimrn(textid);
+		len=str.length;
+		if(len==0 || ((/^[\s,　]+$/gi).test(str)) )
+		{
+			showErr(3,"您必须输入评论内容，请检查。");
+			return false;
+		}
+		else 
+		{
+				if(len>1000)
+				{
+					showErr(3,"您输入的评论内容太长，请保持在500字以内。");
+					return false;
+				}
+			return true;
+		}	
+}
+
+function showErr(index,str)
+{
+	G(index+"_err").style.display="";
+	G(index+"_err_con").innerHTML=str;
+}
+function hidErr(index)
+{
+	G(index+"_err").style.display="none";
+	G(index+"_err_con").innerHTML="";
+}
+
+function alertPop(tit,con)
+{
+	var pop=new Popup({ contentType:4,isReloadOnClose:false,width:340,height:80});
+	pop.setContent("title",tit);
+	pop.setContent("alertCon",con);
+	pop.build();
+	pop.show();
+}
+
+function cmtfull()
+{
+	var cnum=0;
+	if(cnum>=50000)
+	{
+		alertPop("发表评论","单篇日志评论数最多为50000条.");
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+function checkcmtform()
+{
+	if(checkname("spBlogCmtor")&&checkeandu("spBlogCmtURL")&&checktext("spBlogCmtText")&&cmtfull())
+	{
+		submitForm();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+var g_pop=null;
+function submitForm()
+{
+	g_pop=new Popup({ contentType:1,isReloadOnClose:false,width:340,height:80});
+	g_pop.setContent("title","添加评论");
+	g_pop.setContent("contentUrl","");
+	g_pop.build();
+	G("popFormSubmit").target=g_pop.iframeIdName;
+	g_pop.show();
+}
+
+function g_close_pop()
+{
+	g_pop.close();
+}
+
+function formatonlinpic()
+{
+	formatverkey();
+var picobj=document.getElementsByName("onlinepic");
+var picnum=picobj.length;
+	
+	for(var i=0;i<picnum;i++)
+	{
+		if(picobj[i].width>200)
+		{
+			picobj[i].width=200;
+		}
+		if(picobj[i].height>200)
+		{
+			picobj[i].height=200;
+		}
+	}
+
+}
+
+function formatverkey()
+{
+	if(document.getElementById("vercode"))
+	{
+
+			if(document.getElementById("spBlogCmtText").value=="")
+	{
+		document.getElementById("vercode").style.display="none";
+	}
+	}
+
+}
+function showverkey()
+{	
+	if(document.getElementById("vercode"))
+	{
+	document.getElementById("vercode").style.display="";
+	}
+}
+//-->
+</script>
+</head>
+<body onLoad="formatonlinpic();">
+<center>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+if (top.location != self.location) 
+{
+	top.location=self.location;
+}
+//-->
+</SCRIPT>
+<link rel="stylesheet" type="text/css" href="端口的含义_files/2cf876093ece8faf2fddd474.css">
+<link rel="stylesheet" type="text/css" href="端口的含义_files/space.css">
+
+<style> 
+.stage{background:url(http://img.baidu.com/hi/img/tempbg6b.jpg) 
+
+	
+
+			
+	
+}
+</style>
+
+
+
+<style type="text/css">
+#usrbar{padding:4px 10px 3px 0;font-size:12px;height:19px;line-height:19px;color:#000000;font-family:Arial;text-align:right;background:#ffffff;filter:alpha(opacity=65);-moz-opacity:0.5;width:auto !important;width:100%;letter-spacing:normal}
+#usrbar a,#usrbar a:link,#usrbar a:visited{color:#0000CC;text-decoration:underline}
+#ft{clear:both;height:20px;line-height:20px;color:#666666;font-size:12px;font-family:Arial;text-align:center}
+#ft a,#ft a:link,#ft a:visited{color:#7777CC;text-decoration:underline}
+#usrbar,#usrbar a,#usrbar a:link,#usrbar a:visited,#ft,#ft a,#ft a:link,#ft a:visited{letter-spacing:normal}
+</style>
+
+
+
+
+
+<div id="usrbar"><nobr> 
+<script> var myref = encodeURI("http://hi.baidu.com/%CC%EC%C2%ED/blog/item/79460fb3d72a70a7d9335a42%2Ehtml");</script>
+
+                <a href="http://www.baidu.com/" target="_blank">百度首页</a> | <a href="http://hi.baidu.com" target="_blank">百度空间</a>
+        <script LANGUAGE="JavaScript">
+        document.write(" | <a href='http://passport.baidu.com/?login&tpl=sp&tpl_reg=sp&u="+myref+"'>登录</a>");
+        </script>
+        
+</nobr></div>
+<div id="main" align="left">
+<!--[if IE]>
+<script>
+var objmain = document.getElementById("main");
+function updatesize(){ var bodyw = window.document.body.offsetWidth; if(bodyw <= 790) objmain.style.width="772px"; else if(bodyw >= 1016) objmain.style.width="996px"; else objmain.style.width="100%"; }
+updatesize(); window.onresize = updatesize;
+</script>
+<![endif]-->
+	<div id="header">
+	<div class="lc"><div class="rc"></div></div>
+<div class="tit"><a href="/%CC%EC%C2%ED" class="titlink" title="爱问天马的空间 http://hi.baidu.com/天马">狼族</a></div>
+<div class="desc">狼行天下</div>
+<div id="tabline">&nbsp;</div>
+	<div id="tab"><a href="/%CC%EC%C2%ED">主页</a><a href="/%CC%EC%C2%ED/blog" class="on">博客</a><a href="/%CC%EC%C2%ED/album">相册</a><span>|</span><a href="/%CC%EC%C2%ED/profile">个人档案</a>
+	
+		
+	
+
+
+
+	</div>
+</div>
+
+<div class="stage">
+<div class="stagepad">
+<div style="width:100%">
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="modth">
+	<tr><td class="modtl" width="7">&nbsp;</td>
+	<td class="modtc" nowrap><div class="modhead"><span class="modtit">查看文章</span></div></td>
+	<td class="modtc" nowrap align="right"></td>
+	<td class="modtr" width="7">&nbsp;</td>
+	</tr></table>
+
+<div id="m_blog" class="modbox">
+<div class="tit">端口的含义</div>
+<div class="date">2006年10月06日 星期五  14:43</div>
+<table style="table-layout:fixed"><tr><td><div class="cnt"><span style="FONT-SIZE: 12px; LINE-HEIGHT: 180%" twffan="done" >端口的含义<br />
+<br />
+　　<font color="#ff0000" size="3" ><strong >在网络技术中，端口（Port）大致有两种意思：一是物理意义上的端口，比如，ADSL Modem、集线器、交换机、路由器用于连接其他网络设备的接口，如RJ-45端口、SC端口等等。二是逻辑意义上的端口，一般是指TCP/IP协议中的端口，端口号的范围从0到65535，比如用于浏览网页服务的80端口，用于FTP服务的21端口等等。我们这里将要介绍的就是逻辑意义上的端口。 <br />
+<br />
+　　查看端口<br />
+　　在Windows 2000/XP/Server 2003中要查看端口，可以使用Netstat命令：<br />
+　　依次点击&ldquo;开始&rarr;运行&rdquo;，键入&ldquo;cmd&rdquo;并回车，打开命令提示符窗口。在命令提示符状态下键入&ldquo;netstat -a -n&rdquo;，按下回车键后就可以看到以数字形式显示的TCP和UDP连接的端口号及状态。<br />
+<br />
+　　关闭/开启端口<br />
+　　在介绍各种端口的作用前，这里先介绍一下在Windows中如何关闭/打开端口，因为默认的情况下，有很多不安全的或没有什么用的端口是开启的，比如Telnet服务的23端口、FTP服务的21端口、SMTP服务的25端口、RPC服务的135端口等等。为了保证系统的安全性，我们可以通过下面的方法来关闭/开启端口。<br />
+<br />
+　　关闭端口<br />
+　　比如在Windows 2000/XP中关闭SMTP服务的25端口，可以这样做：首先打开&ldquo;控制面板&rdquo;，双击&ldquo;管理工具&rdquo;，再双击&ldquo;服务&rdquo;。接着在打开的服务窗口中找到并双击&ldquo;Simple Mail Transfer Protocol （SMTP）&rdquo;服务，单击&ldquo;停止&rdquo;按钮来停止该服务，然后在&ldquo;启动类型&rdquo;中选择&ldquo;已禁用&rdquo;，最后单击&ldquo;确定&rdquo;按钮即可。这样，关闭了SMTP服务就相当于关闭了对应的端口。<br />
+<br />
+　　开启端口<br />
+　　如果要开启该端口只要先在&ldquo;启动类型&rdquo;选择&ldquo;自动&rdquo;，单击&ldquo;确定&rdquo;按钮，再打开该服务，在&ldquo;服务状态&rdquo;中单击&ldquo;启动&rdquo;按钮即可启用该端口，最后，单击&ldquo;确定&rdquo;按钮即可。<br />
+　　提示：在Windows 98中没有&ldquo;服务&rdquo;选项，你可以使用防火墙的规则设置功能来关闭/开启端口。<br />
+　　端口分类<br />
+<br />
+　　逻辑意义上的端口有多种分类标准，下面将介绍两种常见的分类：<br />
+<br />
+　　1. 按端口号分布划分<br />
+<br />
+　　（1）知名端口（Well-Known Ports）<br />
+　　知名端口即众所周知的端口号，范围从0到1023，这些端口号一般固定分配给一些服务。比如21端口分配给FTP服务，25端口分配给SMTP（简单邮件传输协议）服务，80端口分配给HTTP服务，135端口分配给RPC（远程过程调用）服务等等。<br />
+<br />
+　　（2）动态端口（Dynamic Ports）<br />
+　　动态端口的范围从1024到65535，这些端口号一般不固定分配给某个服务，也就是说许多服务都可以使用这些端口。只要运行的程序向系统提出访问网络的申请，那么系统就可以从这些端口号中分配一个供该程序使用。比如1024端口就是分配给第一个向系统发出申请的程序。在关闭程序进程后，就会释放所占用的端口号。<br />
+　　不过，动态端口也常常被病毒木马程序所利用，如冰河默认连接端口是7626、WAY 2.4是8011、Netspy 3.0是7306、YAI病毒是1024等等。<br />
+<br />
+　　2. 按协议类型划分<br />
+　　按协议类型划分，可以分为TCP、UDP、IP和ICMP（Internet控制消息协议）等端口。下面主要介绍TCP和UDP端口：<br />
+<br />
+　　（1）TCP端口<br />
+　　TCP端口，即传输控制协议端口，需要在客户端和服务器之间建立连接，这样可以提供可靠的数据传输。常见的包括FTP服务的21端口，Telnet服务的23端口，SMTP服务的25端口，以及HTTP服务的80端口等等。<br />
+<br />
+　　（2）UDP端口<br />
+　　UDP端口，即用户数据包协议端口，无需在客户端和服务器之间建立连接，安全性得不到保障。常见的有DNS服务的53端口，SNMP（简单网络管理协议）服务的161端口，QQ使用的8000和4000端口等等。<br />
+　　常见网络端口<br />
+<br />
+　　网络基础知识!端口对照<br />
+<br />
+　　端口：0 <br />
+　　服务：Reserved <br />
+　　说明：通常用于分析操作系统。这一方法能够工作是因为在一些系统中&ldquo;0&rdquo;是无效端口，当你试图使用通常的闭合端口连接它时将产生不同的结果。一种典型的扫描，使用IP地址为0.0.0.0，设置ACK位并在以太网层广播。 <br />
+<br />
+　　端口：1 <br />
+　　服务：tcpmux <br />
+　　说明：这显示有人在寻找SGI Irix机器。Irix是实现tcpmux的主要提供者，默认情况下tcpmux在这种系统中被打开。Irix机器在发布是含有几个默认的无密码的帐户，如：IP、GUEST UUCP、NUUCP、DEMOS 、TUTOR、DIAG、OUTOFBOX等。许多管理员在安装后忘记删除这些帐户。因此HACKER在INTERNET上搜索tcpmux并利用这些帐户。 <br />
+<br />
+　　端口：7 <br />
+　　服务：Echo <br />
+　　说明：能看到许多人搜索Fraggle放大器时，发送到X.X.X.0和X.X.X.255的信息。 <br />
+<br />
+　　端口：19 <br />
+　　服务：Character Generator <br />
+　　说明：这是一种仅仅发送字符的服务。UDP版本将会在收到UDP包后回应含有垃圾字符的包。TCP连接时会发送含有垃圾字符的数据流直到连接关闭。HACKER利用IP欺骗可以发动DoS攻击。伪造两个chargen服务器之间的UDP包。同样Fraggle DoS攻击向目标地址的这个端口广播一个带有伪造受害者IP的数据包，受害者为了回应这些数据而过载。 <br />
+<br />
+　　端口：21 <br />
+　　服务：FTP <br />
+　　说明：FTP服务器所开放的端口，用于上传、下载。最常见的攻击者用于寻找打开anonymous的FTP服务器的方法。这些服务器带有可读写的目录。木马Doly Trojan、Fore、Invisible FTP、WebEx、WinCrash和Blade Runner所开放的端口。 <br />
+<br />
+　　端口：22 <br />
+　　服务：Ssh <br />
+　　说明：PcAnywhere建立的TCP和这一端口的连接可能是为了寻找ssh。这一服务有许多弱点，如果配置成特定的模式，许多使用RSAREF库的版本就会有不少的漏洞存在。 <br />
+<br />
+　　端口：23 <br />
+　　服务：Telnet <br />
+　　说明：远程登录，入侵者在搜索远程登录UNIX的服务。大多数情况下扫描这一端口是为了找到机器运行的操作系统。还有使用其他技术，入侵者也会找到密码。木马Tiny Telnet Server就开放这个端口。 <br />
+<br />
+　　端口：25 <br />
+　　服务：SMTP <br />
+　　说明：SMTP服务器所开放的端口，用于发送邮件。入侵者寻找SMTP服务器是为了传递他们的SPAM。入侵者的帐户被关闭，他们需要连接到高带宽的E-MAIL服务器上，将简单的信息传递到不同的地址。木马Antigen、Email Password Sender、Haebu Coceda、Shtrilitz Stealth、WinPC、WinSpy都开放这个端口。 <br />
+<br />
+　　端口：31 <br />
+　　服务：MSG Authentication <br />
+　　说明：木马Master Paradise、Hackers Paradise开放此端口。 <br />
+<br />
+　　端口：42 <br />
+　　服务：WINS Replication <br />
+　　说明：WINS复制 <br />
+<br />
+　　端口：53 <br />
+　　服务：Domain Name Server（DNS） <br />
+　　说明：DNS服务器所开放的端口，入侵者可能是试图进行区域传递（TCP），欺骗DNS（UDP）或隐藏其他的通信。因此防火墙常常过滤或记录此端口。 <br />
+<br />
+　　端口：67 <br />
+　　服务：Bootstrap Protocol Server <br />
+　　说明：通过DSL和Cable modem的防火墙常会看见大量发送到广播地址255.255.255.255的数据。这些机器在向DHCP服务器请求一个地址。HACKER常进入它们，分配一个地址把自己作为局部路由器而发起大量中间人（man-in-middle）攻击。客户端向68端口广播请求配置，服务器向67端口广播回应请求。这种回应使用广播是因为客户端还不知道可以发送的IP地址。 <br />
+<br />
+　　端口：69 <br />
+　　服务：Trival File Transfer <br />
+　　说明：许多服务器与bootp一起提供这项服务，便于从系统下载启动代码。但是它们常常由于错误配置而使入侵者能从系统中窃取任何 文件。它们也可用于系统写入文件。 <br />
+<br />
+　　端口：79 <br />
+　　服务：Finger Server <br />
+　　说明：入侵者用于获得用户信息，查询操作系统，探测已知的缓冲区溢出错误，回应从自己机器到其他机器Finger扫描。 <br />
+<br />
+　　端口：80 <br />
+　　服务：HTTP <br />
+　　说明：用于网页浏览。木马Executor开放此端口。 <br />
+<br />
+　　端口：99 <br />
+　　服务：Metagram Relay <br />
+　　说明：后门程序ncx99开放此端口。 <br />
+<br />
+　　端口：102 <br />
+　　服务：Message transfer agent(MTA)-X.400 over TCP/IP <br />
+　　说明：消息传输代理。 <br />
+<br />
+　　端口：109 <br />
+　　服务：Post Office Protocol -Version3 <br />
+　　说明：POP3服务器开放此端口，用于接收邮件，客户端访问服务器端的邮件服务。POP3服务有许多公认的弱点。关于用户名和密码交 换缓冲区溢出的弱点至少有20个，这意味着入侵者可以在真正登陆前进入系统。成功登陆后还有其他缓冲区溢出错误。 <br />
+<br />
+　　端口：110 <br />
+　　服务：SUN公司的RPC服务所有端口 <br />
+　　说明：常见RPC服务有rpc.mountd、NFS、rpc.statd、rpc.csmd、rpc.ttybd、amd等 <br />
+<br />
+　　端口：113 <br />
+　　服务：Authentication Service <br />
+　　说明：这是一个许多计算机上运行的协议，用于鉴别TCP连接的用户。使用标准的这种服务可以获得许多计算机的信息。但是它可作为许多服务的记录器，尤其是FTP、POP、IMAP、SMTP和IRC等服务。通常如果有许多客户通过防火墙访问这些服务，将会看到许多这个端口的连接请求。记住，如果阻断这个端口客户端会感觉到在防火墙另一边与E-MAIL服务器的缓慢连接。许多防火墙支持TCP连接的阻断过程中发回RST。这将会停止缓慢的连接。 <br />
+<br />
+　　端口：119 <br />
+　　服务：Network News Transfer Protocol <br />
+　　说明：NEWS新闻组传输协议，承载USENET通信。这个端口的连接通常是人们在寻找USENET服务器。多数ISP限制，只有他们的客户才能访问他们的新闻组服务器。打开新闻组服务器将允许发/读任何人的帖子，访问被限制的新闻组服务器，匿名发帖或发送SPAM。 <br />
+<br />
+　　端口：135 <br />
+　　服务：Location Service <br />
+　　说明：Microsoft在这个端口运行DCE RPC end-point mapper为它的DCOM服务。这与UNIX 111端口的功能很相似。使用DCOM和RPC的服务利用计算机上的end-point mapper注册它们的位置。远端客户连接到计算机时，它们查找end-point mapper找到服务的位置。HACKER扫描计算机的这个端口是为了找到这个计算机上运行Exchange Server吗？什么版本？还有些DOS攻击直接针对这个端口。 <br />
+<br />
+　　端口：137、138、139 <br />
+　　服务：NETBIOS Name Service <br />
+　　说明：其中137、138是UDP端口，当通过网上邻居传输文件时用这个端口。而139端口：通过这个端口进入的连接试图获得NetBIOS/SMB服务。这个协议被用于windows文件和打印机共享和SAMBA。还有WINS Regisrtation也用它。 <br />
+<br />
+　　端口：143 <br />
+　　服务：Interim Mail Access Protocol v2 <br />
+　　说明：和POP3的安全问题一样，许多IMAP服务器存在有缓冲区溢出漏洞。记住：一种LINUX蠕虫（admv0rm）会通过这个端口繁殖，因此许多这个端口的扫描来自不知情的已经被感染的用户。当REDHAT在他们的LINUX发布版本中默认允许IMAP后，这些漏洞变的很流行。这一端口还被用于IMAP2，但并不流行。 <br />
+<br />
+　　端口：161 <br />
+　　服务：SNMP <br />
+　　说明：SNMP允许远程管理设备。所有配置和运行信息的储存在数据库中，通过SNMP可获得这些信息。许多管理员的错误配置将被暴露在Internet。Cackers将试图使用默认的密码public、private访问系统。他们可能会试验所有可能的组合。SNMP包可能会被错误的指向用户的网络。 <br />
+<br />
+　　端口：177 <br />
+　　服务：X Display Manager Control Protocol <br />
+　　说明：许多入侵者通过它访问X-windows操作台，它同时需要打开6000端口。 <br />
+<br />
+　　端口：389 <br />
+　　服务：LDAP、ILS <br />
+　　说明：轻型目录访问协议和NetMeeting Internet Locator Server共用这一端口。 <br />
+<br />
+　　端口：443 <br />
+　　服务：Https <br />
+　　说明：网页浏览端口，能提供加密和通过安全端口传输的另一种HTTP。 <br />
+<br />
+　　端口：456 <br />
+　　服务：[NULL] <br />
+　　说明：木马HACKERS PARADISE开放此端口。 <br />
+<br />
+　　端口：513 <br />
+　　服务：Login,remote login <br />
+　　说明：是从使用cable modem或DSL登陆到子网中的UNIX计算机发出的广播。这些人为入侵者进入他们的系统提供了信息。 <br />
+<br />
+　　端口：544 <br />
+　　服务：[NULL] <br />
+　　说明：kerberos kshell <br />
+<br />
+　　端口：548 <br />
+　　服务：Macintosh,File Services(AFP/IP) <br />
+　　说明：Macintosh,文件服务。 <br />
+<br />
+　　端口：553 <br />
+　　服务：CORBA IIOP （UDP） <br />
+　　说明：使用cable modem、DSL或VLAN将会看到这个端口的广播。CORBA是一种面向对象的RPC系统。入侵者可以利用这些信息进入系统。 <br />
+<br />
+　　端口：555 <br />
+　　服务：DSF <br />
+　　说明：木马PhAse1.0、Stealth Spy、IniKiller开放此端口。 <br />
+<br />
+　　端口：568 <br />
+　　服务：Membership DPA <br />
+　　说明：成员资格 DPA。 <br />
+<br />
+　　端口：569 <br />
+　　服务：Membership MSN <br />
+　　说明：成员资格 MSN。 <br />
+<br />
+　　端口：635 <br />
+　　服务：mountd <br />
+　　说明：Linux的mountd Bug。这是扫描的一个流行BUG。大多数对这个端口的扫描是基于UDP的，但是基于TCP的mountd有所增加（mountd同时运行于两个端口）。记住mountd可运行于任何端口（到底是哪个端口，需要在端口111做portmap查询），只是Linux默认端口是635，就像NFS通常运行于2049端口。 <br />
+<br />
+　　端口：636 <br />
+　　服务：LDAP <br />
+　　说明：SSL（Secure Sockets layer） <br />
+<br />
+　　端口：666 <br />
+　　服务：Doom Id Software <br />
+　　说明：木马Attack FTP、Satanz Backdoor开放此端口 <br />
+<br />
+　　端口：993 <br />
+　　服务：IMAP <br />
+　　说明：SSL（Secure Sockets layer） <br />
+<br />
+　　端口：1001、1011 <br />
+　　服务：[NULL] <br />
+　　说明：木马Silencer、WebEx开放1001端口。木马Doly Trojan开放1011端口。 <br />
+<br />
+　　端口：1024 <br />
+　　服务：Reserved <br />
+　　说明：它是动态端口的开始，许多程序并不在乎用哪个端口连接网络，它们请求系统为它们分配下一个闲置端口。基于这一点分配从端口1024开始。这就是说第一个向系统发出请求的会分配到1024端口。你可以重启机器，打开Telnet，再打开一个窗口运行natstat -a 将会看到Telnet被分配1024端口。还有SQL session也用此端口和5000端口。 <br />
+<br />
+　　端口：1025、1033 <br />
+　　服务：1025：network blackjack 1033：[NULL] <br />
+　　说明：木马netspy开放这2个端口。 <br />
+<br />
+　　端口：1080 <br />
+　　服务：SOCKS <br />
+　　说明：这一协议以通道方式穿过防火墙，允许防火墙后面的人通过一个IP地址访问INTERNET。理论上它应该只允许内部的通信向外到达INTERNET。但是由于错误的配置，它会允许位于防火墙外部的攻击穿过防火墙。WinGate常会发生这种错误，在加入IRC聊天室时常会看到这种情况。 <br />
+<br />
+　　端口：1170 <br />
+　　服务：[NULL] <br />
+　　说明：木马Streaming Audio Trojan、Psyber Stream Server、Voice开放此端口。 <br />
+<br />
+　　端口：1234、1243、6711、6776 <br />
+　　服务：[NULL] <br />
+　　说明：木马SubSeven2.0、Ultors Trojan开放1234、6776端口。木马SubSeven1.0/1.9开放1243、6711、6776端口。 <br />
+<br />
+　　端口：1245 <br />
+　　服务：[NULL] <br />
+　　说明：木马Vodoo开放此端口。 <br />
+<br />
+　　端口：1433 <br />
+　　服务：SQL <br />
+　　说明：Microsoft的SQL服务开放的端口。 <br />
+<br />
+　　端口：1492 <br />
+　　服务：stone-design-1 <br />
+　　说明：木马FTP99CMP开放此端口。 <br />
+<br />
+　　端口：1500 <br />
+　　服务：RPC client fixed port session queries <br />
+　　说明：RPC客户固定端口会话查询 <br />
+<br />
+　　端口：1503 <br />
+　　服务：NetMeeting T.120 <br />
+　　说明：NetMeeting T.120 <br />
+<br />
+　　端口：1524 <br />
+　　服务：ingress <br />
+　　说明：许多攻击脚本将安装一个后门SHELL于这个端口，尤其是针对SUN系统中Sendmail和RPC服务漏洞的脚本。如果刚安装了防火墙就看到在这个端口上的连接企图，很可能是上述原因。可以试试Telnet到用户的计算机上的这个端口，看看它是否会给你一个SHELL。连接到600/pcserver也存在这个问题。</strong ></font ></span ></div></td></tr></table>
+<br>
+<div class="opt">
+<a href="/%CC%EC%C2%ED/blog/category/%B5%E7%C4%D4%CD%F8%C2%E7" title="查看该分类中所有文章">类别：电脑网络</a>
+ 
+	| 浏览(<span id="result"></span>)
+</div>
+
+<div class="line">&nbsp;</div>
+
+<script language="JavaScript">
+allkey=allkey+"1fcbd1005db6cd11728b654b_79460fb3d72a70a7d9335a42_";
+</script>
+
+<div id="in_comment">
+<a name="comment"></a>
+<div class="tit">网友评论：</div>
+<script>
+function writecmt(type,id,cmtname,cmturl,cmttime){
+	var html1="";
+	if(type==1){
+		if(cmturl==""){
+			html1="<a name='"+id+"'>"+cmtname+"</a> - <span class='date'>"+cmttime+"</span> ";
+		}else{
+			html1="<a name='"+id+"' href='"+cmturl+"' target='_blank' title='"+cmturl+"'>"+cmtname+"</a> - <span class='date'>"+cmttime+"</span> ";
+		}
+	}else{
+		if(cmtname=="匿名网友"){
+			if(cmturl==""){
+				html1="<a name='"+id+"'>"+cmtname+"</a> - <span class='date'>"+cmttime+"</span> ";
+			}else{
+				html1="<a name='"+id+"' href='"+cmturl+"' target='_blank' title='"+cmturl+"'>"+cmtname+"</a> - <span class='date'>"+cmttime+"</span>";
+			}
+		}else{
+			if(cmturl==""){
+				html1="<div class='f14' style='display:inline'>网友:<a name='"+id+"'>"+cmtname+"</a> - <span class=\"date\">"+cmttime+"</span></div>";
+			}else{
+				html1="<div class='f14' style='display:inline'>网友:<a name='"+id+"' href='"+cmturl+"' target='_blank' title='"+cmturl+"'>"+cmtname+"</a> - <span class=\"date\">"+cmttime+"</span></div>";
+			}
+		}
+	}
+	document.write(html1);
+}
+
+</script>
+
+
+
+
+
+<div id="page"></div>
+
+</div>
+
+
+<div id="in_send">
+<form name="form1" id="popFormSubmit" action="/%CC%EC%C2%ED/commit" method="post" onSubmit="return checkcmtform()">
+<input type="hidden" name="ct" value="8">
+<input type="hidden" name="cm" value="1">
+<input type="hidden" name="spBlogID" value="79460fb3d72a70a7d9335a42">
+<script LANGUAGE="JavaScript">
+	document.write("<input type='hidden' name='spRefURL' value='"+window.location.href+"'>");
+</script>
+<div class="tit">发表评论：</div>
+<table width="620" border="0" cellspacing="5" cellpadding="0">
+<tr>
+
+<td class="f14">姓　名：</td>
+<td><input type="text" name="spBlogCmtor" id="spBlogCmtor" style="width:220px" onChange="checkname('spBlogCmtor')" maxlength="49" onfocus="hidErr(1);"><div style="display:none" id="nmerror">*姓名最长为50字节</div></td>
+</tr>
+
+<tr id="1_err" style="display:none">
+<td>&nbsp;</td>
+<td><div class="error" id="1_err_con"></div></td>
+</tr>
+
+<tr>
+<td class="f14">网址或邮箱：</td>
+<td><input type="text" name="spBlogCmtURL" id="spBlogCmtURL" style="width:360px" maxlength="128" onChange="checkeandu('spBlogCmtURL')" onfocus="hidErr(2);"> (选填)</td>
+<script>
+G("spBlogCmtor").value="";
+G("spBlogCmtURL").value="";
+</script>
+
+</tr>
+
+<tr id="2_err" style="display:none">
+<td>&nbsp;</td>
+<td><div class="error" id="2_err_con"></div></td>
+</tr>
+
+<tr>
+<td valign="top" class="f14">内　容：</td>
+<td><textarea name="spBlogCmtText" id="spBlogCmtText" style="width:520px;height:155px" onfocus="showverkey();hidErr(3);"></textarea>
+<script>
+G("spBlogCmtText").value="";
+</script>
+</td>
+</tr>
+<tr id="3_err" style="display:none">
+<td>&nbsp;</td>
+<td><div class="error" id="3_err_con"></div></td>
+</tr>
+
+<tr id="vercode">
+<td valign="top" class="f14">验证码：</td>
+<td valign="top"><input type="hidden" name="spVcode" value="B3E7AC532A207A3F94A8E45DECB5685762DE39F92982D67644376FCD74BB0252826A3988F688559256345E6294CAF94E5A5CD476329EFD51ADD194DBD570C1D5" />
+<input type="text" name="spVerifyKey" size="6"  maxlength="4" autocomplete="off">请输入下图中的四位验证码，字母不区分大小写。<br>
+
+		<SCRIPT LANGUAGE="JavaScript">
+
+			var imgsrc="http://post.baidu.com/cgi-bin/genimg?B3E7AC532A207A3F94A8E45DECB5685762DE39F92982D67644376FCD74BB0252826A3988F688559256345E6294CAF94E5A5CD476329EFD51ADD194DBD570C1D5";
+			document.write("<img id='verifypic' src='"+imgsrc+"' width='120' height='40'>");
+
+			function newverifypic(){
+				document.getElementById("verifypic").src = imgsrc +"&t="+ Math.random();
+			}
+		</SCRIPT>
+<a href="javascript:newverifypic();" title="看不清左边的字符">看不清?</a>
+</td>
+</tr>
+
+
+<tr>
+<td valign="top"class="f14">&nbsp;</td>
+<td valign="top" class="f14"><input name="btn_ok" type="submit" value="发表评论"></td>
+</tr>
+</table>
+</form>
+</div>
+
+
+
+
+<br>
+</div>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="8">
+<tr><td class="modbl" width="7">&nbsp;</td>
+<td class="modbc">&nbsp;</td>
+<td class="modbr" width="7">&nbsp;</td>
+</tr></table>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+<script language="javascript">
+<!--
+var hstr="/%CC%EC%C2%ED/brwstat?key1=1";
+document.write("<script src='"+hstr+"&key2="+allkey+"'><\/script>");
+//-->
+</script>
+<br><center><div id="ft">&copy;2007 Baidu</div></center>
+
+<script>
+if(document.getElementById("m_blog"))
+{
+	var imgarray = document.getElementById("m_blog").getElementsByTagName('img');
+	var imgw = document.getElementById("m_blog").offsetWidth;
+	imgw =imgw-40;
+	for(var i=0; i<imgarray.length; i++){
+	if(imgarray[i].className=="blogimg" && imgarray[i].width>=imgw) imgarray[i].width=imgw;
+	}
+}
+</script>
+</center>
+
+
+<img src="端口的含义_files/" style="display:none;"/>
+</body></html>

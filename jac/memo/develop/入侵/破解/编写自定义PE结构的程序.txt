@@ -1,0 +1,176 @@
+正在学PE结构...感谢个位大哥的文章和资料...这里先说声谢谢
+
+一般高级编译器都是编译好的PE头部,例如MASM,TASM等
+一直都说NASM,FASM是低级编译器.可以自定义结构
+但是苦于无人发布相关文章说明..我这里就简单的用NASM写一下
+由于刚学PE结构许多东西都不太懂希望个位大侠指点
+如何打造一个迷你的PE结构..我暂只只能作到617字节
+下面随着学习的深入...还有更迷你的PE出现...
+
+代码可以直接编译..
+编译参数:nasmw -fbin MsgBoxA.asm -o MsgBoxA.exe
+
+请下载最新的NASM for Win32编译器
+当前最新版本:NASM 0.98.39
+
+
+
+代码:
+;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;Small PE Header Demo For NASM
+;Email:Anskya@Gmail.com
+;
+;代码说明:NASM 编写迷你PE代码.(C) 2006.3.20
+;1.自构造PE头部
+;2.自构造导入表结构
+;
+;Thank:Vecna[29A],Nguga aka PedroGC Made NAGOA+.INC
+;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+[BITS 32]
+%define     CODE_BASE    1000h        ;代码基址
+%define    RVADIFF      1000h-200h      ;计算内存数据与硬盘数据相对便宜
+%define    imagebase    00400000h      ;代码基址
+%define     reloc    RVADIFF+imagebase  ;全局偏移--一个很重要的参数
+
+;DOS STUB头部
+MZ_Header:
+.magic                  dw "MZ"    ;01 02----DOS STUB标识[关键数据]
+.cblp                   dw 435Bh  ;03 04--[非关键数据]
+.cp                     dw 415Dh  ;05 06--[非关键数据]
+.crlc                   dw 736Eh  ;07 08--这十个字节我们可以写一点自己的个人信息[非关键数据]
+.cparhdr                dw 796Bh  ;09 10--[非关键数据]
+.minalloc               dw 2161h  ;11 12--[非关键数据]
+
+PE_Header:
+.Signature              dd "PE"    ;13 14 | 15 16----PE 头部起始[关键数据]
+.Machine                dw 14Ch    ;17 18----该文件运行所要求的CPU:IMAGE_FILE_MACHINE_I386[关键数据]
+.NumberOfSections       dw 1    ;19 20----文件节数量[关键数据]
+.TimeDateStamp          dd 0h    ;21  22 | 23 24----文件创建日期和时间[非关键数据]
+.PointerToSymbolTable   dd 0h    ;25 26 | 27 28----调试信息-[非关键数据]
+.NumberOfSymbols        dd 0h    ;29 30 | 31 32----调试信息-[非关键数据]
+.SizeOfOptionalHeader   dw 0E0h    ;33 34----OptionalHeader 结构大小[关键数据]
+.Characteristics        dw 103h    ;35 36----文件信息的标记:比如文件是exe还是dll[关键数据]
+
+Optional_Header:
+.Magic                  dw 10Bh    ;37 38----[关键数据]
+.MajorLinkerVersion     db 0h    ;39----[非关键数据]
+.MinorLinkerVersion     db 0h    ;40----[非关键数据]
+.SizeOfCode             dd 0h    ;41 42 | 43 44----[非关键数据]
+.SizeOfInitializedData  dd 0h    ;45 46 | 47 48----[非关键数据]
+.SizeOfUninitialzedData dd 0h    ;49 50 | 51 52----[非关键数据]
+.AddressOfEntryPoint    dd code+RVADIFF  ;53 54 | 55 56----代码基址+RVA=此值---需要计算[关键数据]
+.BaseOfCode             dd 0h  ;57 58 | 59 60----代码基址[非关键数据]
+;.BaseOfData            dd DATA_BASE  ;数据基址-被下面的.lfanew替换了~这个数值本身也没有什么用
+.lfanew                 dd 0Ch    ;61 62 | 63 64----标识.PE头部的起始位置这里写为C-看上面第13字节
+;DOS STUB部分的最后结尾部分---标识:PE头部的起始位置~他的位置是固定的所以只能写在最后了
+;align 16, DB 0            
+.ImageBase              dd imagebase;65 66 | 67 68----内存映射基址--默认为00400000h[关键数据]
+.SectionAlignment       dd 01000h  ;69 70 | 71 72----内存中节对齐--如果该值是1000h那么每节的起始地址必须是4096的倍数,
+.FileAlignment          dd 0200h  ;73 74 | 75 76----文件对齐[关键数据]..明白吧
+.MajorOperSystemVersion dw 0h    ;77 78--[非关键数据]
+.MinorOperSystemVersion dw 0h    ;79 80--[非关键数据]
+.MajorImageVersion      dw 0h    ;81 82--win32子系统版本。若PE文件是专门为Win32设计的[非关键数据]
+.MinorImageVersion      dw 0h    ;83 84--该子系统版本必定是4.0否则对话框不会有3维立体感[非关键数据]
+.MajorSubsystemVersion  dw 4    ;85 86--[关键数据]
+.MinorSubsystemVersion  dw 0    ;87 88--[关键数据]
+.Reserved1              dd 0    ;89 90 | 91 92----[非关键数据]
+.SizeOfImage            dd 2000h  ;93 94 | 95 96----内存中整个PE映像体的尺寸,它是所有头和节经过节对齐处理后的大小[关键数据]
+.SizeOfHeaders          dd code    ;97 98 | 99 100---所有头+节表的大小,也就等于文件尺寸减去文件中所有节的尺寸,可以以此值作为PE文件第一节的文件偏移量[关键数据]
+.CheckSum               dd 0h    ;101 102 | 103 104----[非关键数据]
+.Subsystem              dw 2    ;105 106----PE文件属子系统,2=Win32 GUI,3=Win32 Console[关键数据]
+.DllCharacteristics     dw 0    ;107 108----[非关键数据]
+
+.SizeOfStackReserve1    dd 100000h  ;109 110 | 111 112----[关键数据]
+.SizeOfStackCommit1     dd 2000h  ;113 114 | 115 116----[关键数据]
+.SizeOfStackReserve2    dd 100000h  ;117 118 | 119 120----[关键数据]
+.SizeOfStackCommit2     dd 2000h  ;121 122 | 123 124----[关键数据]
+
+.LoaderFlags            dd 0h    ;125 126 | 127 128----[非关键数据]
+.NumberOfRvaAndSizes    dd 10h    ;129 130 | 131 132----[关键数据]
+
+Data_Directories:
+.ExportRva            dd 0h    ;133 134 | 135 136----导出表虚拟偏移[非关键数据]
+.ExportSize        dd 0h    ;137 138 | 139 140----导入表长度[非关键数据]
+.ImportRva               dd import+RVADIFF  ;141 142 | 143 144----导入表虚拟偏移[关键数据]
+.ImportSize        dd code_end-import  ;145 146 | 147 148----导入表长度[关键数据]
+;导入表结构部分~这个地方需要仔细构造[尚未研究彻底]
+;.misc_sectionz times 28 dd 0    ;其他部分~对于我们完全没用的
+.ResourceRva       dd 0h    ;资源表虚拟偏移[非关键数据]
+.ResourceSize      dd 0h    ;资源表长度[非关键数据]
+.ExceptionRva      dd 0h    ;没玩过这东东[非关键数据]
+.ExceptionSize      dd 0h    ;没玩过这东东[非关键数据]
+.CertificateRva      dd 0h    ;没玩过这东东[非关键数据]
+.CertificateSize    dd 0h    ;没玩过这东东[非关键数据]
+.BaseRelocationRva    dd 0h    ;基址重定位表虚拟偏移[非关键数据]
+.BaseRelocationSize    dd 0h    ;基址重定位表长度[非关键数据]
+.DebugRva        dd 0h    ;调试信息虚拟偏移[非关键数据]
+.DebugSize        dd 0h    ;调试信息长度[非关键数据]
+.DescriptionRva      dd 0h    ;没玩过这东东[非关键数据]
+.DescriptionSize    dd 0h    ;没玩过这东东[非关键数据]
+.MachineRva        dd 0h    ;没玩过这东东[非关键数据]
+.MachineSize      dd 0h    ;没玩过这东东[非关键数据]
+.TLSRva          dd 0h    ;线程处理数据[关键数据]
+.TLSSize        dd 0h    ;线程处理数据长度[关键数据]
+.LoadConfigRva      dd 0h    ;没玩过这东东[关键数据]
+.LoadConfigSize      dd 0h    ;没玩过这东东[关键数据]
+.BoundImportRva      dd 0h    ;绑定导入表数据[关键数据]
+.BoundImportSize    dd 0h    ;绑定导入表数据长度[关键数据]
+.IATRva          dd 0h    ;没玩过这东东[关键数据]
+.IATSize        dd 0h    ;没玩过这东东[关键数据]
+.DelayImportDescriptor1  dd 0h    ;没玩过这东东[非关键数据]
+.DelayImportDescriptor2  dd 0h    ;没玩过这东东[非关键数据]
+.COMRuntimeHeader1    dd 0h    ;COM+ 时间连接库虚拟偏移地址[非关键数据]
+.COMRuntimeHeader2    dd 0h    ;COM+ 时间连接库长度[非关键数据]
+.Reserved1        dd 0h    ;这东东就真的没听说过了[非关键数据]
+.Reserved2        dd 0h    ;这东东就真的没听说过了[非关键数据]
+;以上乃~~PE结构头部信息~请按照说明进行修改---谢谢我自己
+
+sections:
+.SectionName            db ".Anskya",0
+.VirtualSize            dd CODE_BASE  ;虚拟体积
+.VirtualAddress         dd CODE_BASE  ;虚拟地址
+.SizeOfRawData          dd code_end-code;数据体积
+.PointerToRawData       dd code      ;数据偏移
+.PointerToRelocations   dd 0
+.PointerToLinenumbers   dd 0
+.NumberOfRelocations    dw 0
+.NumberOfLinenumbers    dw 0
+.Characteristics        dd 0E0000060h  ;段属性...不用说了吧
+
+align 200h, DB 0            ;对齐0x200
+
+code:
+  pushad
+  sub eax,eax
+  push eax              ;0
+  push 00400105h            ;把节名称压入堆栈
+  push 00400002h            ;把MZ后面的个人信息压入堆栈
+  push eax              ;MB_OK
+  call [MessageBoxA]          ;调用导入表地址
+  popad
+  ret
+  
+align 16, DB 0
+
+;以下导入表部分....仅仅为了演示就没有写导出表部分...具体参见<<软件加密技术内幕>>
+import  dd 0
+    dd 0
+    dd -1
+    dd dll001+RVADIFF    
+    dd api001+RVADIFF
+    
+    times 5 dd 0          ;空处4*5个00的空位
+    
+dll001   db 'USER32.DLL',0               ;导入DLL名称
+
+api001  dd api101+RVADIFF        ;计算导入表的内存地址
+    dd 0
+    
+api101  dw 0
+    db 'MessageBoxA',0        ;导入函数
+    
+MessageBoxA  equ api001+reloc+4*0    ;函数地址声明...如有多余的函数请api00N+reloc+4*N
+
+code_end:
+

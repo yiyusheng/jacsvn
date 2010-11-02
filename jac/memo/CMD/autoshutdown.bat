@@ -1,0 +1,1 @@
+at 23:59 Shutdown -s -f

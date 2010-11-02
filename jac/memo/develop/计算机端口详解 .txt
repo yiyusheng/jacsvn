@@ -1,0 +1,173 @@
+1　tcpmux　TCP Port Service Multiplexer　 传输控制协议端口服务多路开关选择器 
+2　compressnet　Management Utility　　　　 compressnet 管理实用程序 
+3　compressnet　Compression Process　　　　压缩进程 
+5　rje　Remote Job Entry　　　　　　　　　 远程作业登录 
+7　echo　Echo　　　　　　　　　　　　　　　回显 
+9　discard　Discard　　　　　　　　　　　　丢弃 
+11　systat　Active Users　　　　　　　　　 在线用户 
+13　daytime　Daytime　　　　　　　　　　　 时间 
+17　qotd　Quote of the Day　　　　　　　　 每*引用 
+18　msp　Message Send Protocol　　　　　　 消息发送协议 
+19　chargen　Character Generator　　　　　 字符发生器 
+20　ftp-data　File Transfer [Default Data]　文件传输协议(默认数据口)　 
+21　ftp　File Transfer [Control]　　　　　　文件传输协议(控制) 
+22　ssh　SSH Remote Login Protocol　　　　 SSH远程登录协议 
+23　telnet　Telnet　　　　　　　　　　　　 终端仿真协议 
+24　?　any private mail system　　　　　　 预留给个人用邮件系统 
+25　smtp　Simple Mail Transfer　　　　　　 简单邮件发送协议 
+27　nsw-fe　NSW User System FE　　　　　　 NSW 用户系统现场工程师 
+29　msg-icp　MSG ICP　　　　　　　　　　　 MSG　ICP 
+31　msg-auth　MSG Authentication　　　　　 MSG验证 
+33　dsp　Display Support Protocol　　　　　显示支持协议 
+35　?　any private printer server　　　　　预留给个人打印机服务 
+37　time　Time　　　　　　　　　　　　　　 时间 
+38　rap　Route Access Protocol　　　　　　 路由访问协议 
+39　rlp　Resource Location Protocol　　　　资源定位协议 
+41　graphics　Graphics　　　　　　　　　　 图形 
+42　nameserver　WINS Host Name Server　　　WINS 主机名服务 
+43　nicname　Who Is　　　　　　　　　　　　"绰号" who is服务 
+44　mpm-flags　MPM FLAGS Protocol　　　　　MPM(消息处理模块)标志协议 
+45　mpm　Message Processing Module [recv]　消息处理模块　 
+46　mpm-snd　MPM [default send]　　　　　　消息处理模块(默认发送口) 
+47　ni-ftp　NI FTP　　　　　　　　　　　　 NI FTP 
+48　auditd　Digital Audit Daemon　　　　　 数码音频后台服务　 
+49　tacacs　Login Host Protocol (TACACS)　 TACACS登录主机协议 
+50　re-mail-ck　Remote Mail Checking Protocol　远程邮件检查协议 
+51　la-maint　IMP Logical Address Maintenance　IMP(接口信息处理机)逻辑地址维护 
+52　xns-time　XNS Time Protocol　　　　　　施乐网络服务系统时间协议　　 
+53　domain　Domain Name Server　　　　　　 域名服务器 
+54　xns-ch　XNS Clearinghouse　　　　　　　施乐网络服务系统票据交换 
+55　isi-gl　ISI Graphics Language　　　　　ISI图形语言 
+56　xns-auth　XNS Authentication　　　　　 施乐网络服务系统验证 
+57　?　any private terminal access　　　　 预留个人用终端访问 
+58　xns-mail　XNS Mail　　　　　　　　　　 施乐网络服务系统邮件 
+59　?　any private file service　　　　　　预留个人文件服务 
+60　?　Unassigned　　　　　　　　　　　　　未定义 
+61　ni-mail　NI MAIL　　　　　　　　　　　 NI邮件? 
+62　acas　ACA Services　　　　　　　　　　 异步通　 
+63　whois+ whois+　　　　　　　　　　　　　 WHOIS+ 
+64　covia　Communications Integrator (CI)　通讯接口　 
+65　tacacs-ds　TACACS-Database Service　　 TACACS数据库服务 
+66　sql*net　Oracle SQL*NET　　　　　　　　Oracle SQL*NET 
+67　bootps　Bootstrap Protocol Server　　　引导程序协议服务端 
+68　bootpc　Bootstrap Protocol Client　　　引导程序协议客户端 
+69　tftp　Trivial File Transfer　　　　　　小型文件传输协议 
+70　gopher　Gopher　　　　　　　　　　　　 信息检索协议 
+71　netrjs-1　Remote Job Service　　　　　 远程作业服务 
+72　netrjs-2　Remote Job Service　　　　　 远程作业服务 
+73　netrjs-3　Remote Job Service　　　　　 远程作业服务 
+74　netrjs-4　Remote Job Service　　　　　 远程作业服务 
+75　?　any private dial out service　　　　预留给个人拨出服务 
+76　deos　Distributed External Object Store 分布式外部对象存储　 
+77　?　any private RJE service　　　　　　预留给个人远程作业输入服务 
+78　vettcp　vettcp　　　　　　　　　　　　 修正TCP? 
+79　finger　Finger　　　　　　　　　　　　 FINGER(查询远程主机在线用户等信息) 
+80　http　World Wide Web HTTP　　　　　　　全球信息网超文本传输协议 
+81　hosts2-ns　HOSTS2 Name Server　　　　　HOST2名称服务 
+82　xfer　XFER Utility　　　　　　　　　　 传输实用程序 
+83　mit-ml-dev　MIT ML Device　　　　　　　模块化智能终端ML设备 
+84　ctf　Common Trace Facility　　　　　　 公用追踪设备 
+85　mit-ml-dev　MIT ML Device　　　　　　　模块化智能终端ML设备 
+86　mfcobol　Micro Focus Cobol　　　　　　 Micro Focus Cobol编程语言 
+87　?　any private terminal link　　　　　 预留给个人终端连接 
+88　kerberos　Kerberos　　　　　　　　　　 Kerberros安全认证系统 
+89　su-mit-tg　SU/MIT Telnet Gateway　　　 SU/MIT终端仿真网关 
+90　dnsix　DNSIX Securit Attribute Token Map　DNSIX 安全属性标记图　 
+91　mit-dov　MIT Dover Spooler　　　　　　 MIT Dover假脱机 
+92　npp　Network Printing Protocol　　　　 网络打印协议 
+93　dcp　Device Control Protocol　　　　　 设备控制协议 
+94　objcall　Tivoli Object Dispatcher　　　Tivoli对象调度 
+95　supdup　SUPDUP　　　　　　　　　　　　 
+96　dixie　DIXIE Protocol Specification　　DIXIE协议规范 
+97　swift-rvf　Swift Remote Virtural File Protocol　快速远程虚拟文件协议　 
+98　tacnews　TAC News　　　　　　　　　　　TAC(东京大学自动计算机?)新闻协议 
+99　metagram　Metagram Relay　　　　　　　 
+101/tcp hostname NIC Host Name Server 
+102/tcp iso-tsap ISO-TSAP Class 0 
+103/tcp gppitnp Genesis Point-to-Point Trans Net 
+104/tcp acr-nema ACR-NEMA Digital Imag. & Comm. 300 
+105/tcp cso CCSO name server protocol 
+105/tcp csnet-ns Mailbox Name Nameserver 
+106/tcp 3com-tsmux 3COM-TSMUX 
+107/tcp rtelnet Remote Telnet Service 
+108/tcp snagas SNA Gateway Access Server 
+109/tcp pop2 Post Office Protocol - Version 2 
+110/tcp pop3 Post Office Protocol - Version 3 
+111/tcp sunrpc SUN Remote Procedure Call 
+112/tcp mcidas McIDAS Data Transmission Protocol 
+113/tcp ident 
+114/tcp audionews Audio News Multicast 
+115/tcp sftp Simple File Transfer Protocol 
+116/tcp ansanotify ANSA REX Notify 
+117/tcp uucp-path UUCP Path Service 
+118/tcp sqlserv SQL Services 
+119/tcp nntp Network News Transfer Protocol 
+120/tcp cfdptkt CFDPTKT 
+121/tcp erpc Encore Expedited Remote Pro.Call 
+122/tcp smakynet SMAKYNET 
+123/tcp ntp Network Time Protocol 
+124/tcp ansatrader ANSA REX Trader 
+125/tcp locus-map Locus PC-Interface Net Map Ser 
+126/tcp unitary Unisys Unitary Login 
+127/tcp locus-con Locus PC-Interface Conn Server 
+128/tcp gss-xlicen GSS X License Verification 
+129/tcp pwdgen Password Generator Protocol 
+130/tcp cisco-fna cisco FNATIVE 
+131/tcp cisco-tna cisco TNATIVE 
+132/tcp cisco-sys cisco SYSMAINT 
+133/tcp statsrv Statistics Service 
+134/tcp ingres-net INGRES-NET Service 
+135/tcp epmap DCE endpoint resolution 
+136/tcp profile PROFILE Naming System 
+137/tcp netbios-ns NETBIOS Name Service 
+138/tcp netbios-dgm NETBIOS Datagram Service 
+139/tcp netbios-ssn NETBIOS Session Service 
+140/tcp emfis-data EMFIS Data Service 
+141/tcp emfis-cntl EMFIS Control Service 
+142/tcp bl-idm Britton-Lee IDM 
+143/tcp imap Internet Message Access Protocol 
+144/tcp uma Universal Management Architecture 
+145/tcp uaac UAAC Protocol 
+146/tcp iso-tp0 ISO-IP0 
+147/tcp iso-ip ISO-IP 
+148/tcp jargon Jargon 
+149/tcp aed-512 AED 512 Emulation Service 
+150/tcp sql-net SQL-NET 
+151/tcp hems HEMS 
+152/tcp bftp Background File Transfer Program 
+153/tcp sgmp SGMP 
+154/tcp netsc-prod NETSC 
+155/tcp netsc-dev NETSC 
+156/tcp sqlsrv SQL Service 
+157/tcp knet-cmp KNET/VM Command/Message Protocol 
+158/tcp pcmail-srv PCMail Server 
+159/tcp nss-routing NSS-Routing 
+160/tcp sgmp-traps SGMP-TRAPS 
+161/tcp snmp SNMP 
+162/tcp snmptrap SNMPTRAP 
+163/tcp cmip-man CMIP/TCP Manager 
+164/tcp cmip-agent CMIP/TCP Agent 
+165/tcp xns-courier Xerox 
+166/tcp s-net Sirius Systems 
+167/tcp namp NAMP 
+168/tcp rsvd RSVD 
+169/tcp send SEND 
+170/tcp print-srv Network PostScript 
+171/tcp multiplex Network Innovations Multiplex 
+172/tcp cl/1 Network Innovations CL/1 
+173/tcp xyplex-mux Xyplex 
+174/tcp mailq MAILQ 
+175/tcp vmnet VMNET 
+176/tcp genrad-mux GENRAD-MUX 
+177/tcp xdmcp X Display Manager Control Protocol 
+178/tcp nextstep NextStep Window Server 
+179/tcp bgp Border Gateway Protocol 
+180/tcp ris Intergraph 
+181/tcp unify Unify 
+182/tcp audit Unisys Audit SITP 
+183/tcp ocbinder OCBinder 
+184/tcp ocserver OCServer 
+185/tcp remote-kis Remote-KIS 
+186/tcp kis KIS Protocol 
+187/tcp aci Application Communication Interface 
+188/tcp mumps Plus Five 

@@ -1,0 +1,7 @@
+在终端执行以下命令（第一条是备份现有服务器列表，第二条是使用Gedit编辑） 
+sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
+sudo gedit /etc/apt/sources.list
+从下面各服务器列表内容中选择一段替换文件中的所有内容
+保存编辑好的文件，执行以下命令更新。 
+sudo apt-get update
+sudo apt-get dist-upgrade

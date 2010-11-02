@@ -1,0 +1,1 @@
+ping命令在iputils这个包里面，文本模式下可以用"zypper list-updates"，看输出的结果还有没有可用的更新。或者用yast就yast->software->OnlineUpdate，看有没有可用的更新和GUI下差不多

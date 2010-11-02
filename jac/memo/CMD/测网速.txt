@@ -1,0 +1,4 @@
+ftp 202.103.37.14
+m10 JWJWB
+hash
+get 10m

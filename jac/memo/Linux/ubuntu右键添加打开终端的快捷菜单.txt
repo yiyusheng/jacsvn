@@ -1,0 +1,61 @@
+可能有很多人从Redhat等Linux发行版转到ubuntu上面来遇到的第一个最常用的问题就是，右键单击桌面，发现没有“打开终端”这个选项，下面介绍两种方法来在右键添加“打开终端”这个选项。
+
+第一种方法：
+安装一个包，即可在右键里面添加一个“打开终端”的菜单。
+
+sudo apt-get install nautilus-open-terminal
+
+第二种方法：
+进入主目录的.gnome2/nautilus-scripts目录。新建一个文件，文件名任意（这个文件名会显示在右键菜单里，最好是通俗易懂的，比如“打开终端”或“open-terminal”），文件内容如下。
+
+引用
+#!/bin/bash
+#
+# This script opens a gnome-terminal in the directory you select.
+#
+# Distributed under the terms of GNU GPL version 2 or later
+#
+# Install in ~/.gnome2/nautilus-scripts or ~/Nautilus/scripts
+# You need to be running Nautilus 1.0.3+ to use scripts.
+
+# When a directory is selected, go there. Otherwise go to current
+# directory. If more than one directory is selected, show error.
+if [ -n "$NAUTILUS_SCRIPT_SELECTED_FILE_PATHS" ]; then
+set $NAUTILUS_SCRIPT_SELECTED_FILE_PATHS
+if [ $# -eq 1 ]; then
+destination="$1"
+# Go to file's directory if it's a file
+if [ ! -d "$destination" ]; then
+destination="`dirname "$destination"`"
+fi
+else
+zenity --error --title="Error - Open terminal here" \
+--text="You can only select one directory."
+exit 1
+fi
+else
+destination="`echo "$NAUTILUS_SCRIPT_CURRENT_URI" | sed 's/^file:\/\///'`"
+fi
+
+# It's only possible to go to local directories
+if [ -n "`echo "$destination" | grep '^[a-zA-Z0-9]\+:'`" ]; then
+zenity --error --title="Error - Open terminal here" \
+--text="Only local directories can be used."
+exit 1
+fi
+
+cd "$destination"
+exec x-terminal-emulator
+
+添加完后，把此文件加上可执行的权限。
+
+chmod +x 文件
+
+现在来讲讲两种方法的优劣：
+1. 第二种方法建出来的是一个二级菜单，它先是在右键菜单中添加一个名叫scripts的菜单，在这个菜单下才是我们需要的“打开终端”或“open- terminal”（这个地方的名字是你新建的脚本的文件名），所以显得有些不方便。第一种方法是直接在右键菜单中添加菜单。
+
+2.两种方法都是基于nautilus的，在任何nautilus的界面中，都可以启用此功能，更特别的是第二种方法，它会识别当前目录，打开的终端默认就是当前目录，这点比较人性化，而第一种方法，无论你在什么目录，它打开后默认的目录都是主目录。
+
+PS： 上面的第二点简直就是胡说，经过测试，两种方法的效果都是一样，会识别当前目录的，不知道当时是怎么测试的，汗一个。
+
+PS：第二种方法有很大的扩展性，如果能自己写脚本，可以实现很多自定义的功能，比如发送到邮件／修改文件权限等等实用的功能。这两种方法是可以并存的，如果不嫌麻烦的话，推荐两个都安装，实现并存。

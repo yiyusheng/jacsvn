@@ -1,0 +1,5 @@
+让我们使用sudo atp-get install nautilus-gksu 
+
+(小知识：nautilus,也就是gnome的默认文件管理器 鹦鹉螺 的英文名字，而gksu是sudo的gtk-gnome的图形界面显示库的gui程序，这个脚本就是在nautilus的右键菜单里加入一个通过gksu调用程序的快捷方法) 
+
+按ctrl+alt+退格，重启x界面后，在任何一个文件上点右键,会多一个 以管理员打开 的选项，用这个选项，就能用管理员权限编辑系统文件，或者打开系统文件夹进行复制，删除，拷贝等工作了。

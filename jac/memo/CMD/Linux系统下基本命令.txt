@@ -1,0 +1,29 @@
+uname 显示版本信息（同win2K的 ver） 
+dir 显示当前目录文件,ls -al 显示包括隐藏文件（同win2K的 dir） 
+pwd 查询当前所在的目录位置 
+cd cd　..回到上一层目录，注意cd 与..之间有空格。cd　/返回到根目录。 
+cat 文件名 查看文件内容 
+cat >abc.txt 往abc.txt文件中写上内容。 
+more 文件名 以一页一页的方式显示一个文本文件。 
+cp 复制文件 
+mv 移动文件 
+rm 文件名 删除文件，rm -a 目录名删除目录及子目录 
+mkdir 目录名 建立目录 
+rmdir 删除子目录，目录内没有文档。 
+chmod 设定档案或目录的存取权限 
+grep 在档案中查找字符串 
+diff 档案文件比较 
+find 档案搜寻 
+date 现在的日期、时间 
+who 查询目前和你使用同一台机器的人以及Login时间地点 
+w 查询目前上机者的详细资料 
+whoami 查看自己的帐号名称 
+groups 查看某人的Group 
+passwd 更改密码 
+history 查看自己下过的命令 
+ps 显示进程状态 
+kill 停止某进程 
+gcc 黑客通常用它来编译C语言写的文件 
+su 权限转换为指定使用者 
+telnet IP telnet连接对方主机（同win2K），当出现bash$时就说明连接成功。 
+ftp ftp连接上某服务器（同win2K） 

@@ -1,0 +1,6 @@
+ati mobility radeon x1300
+broadcom 440x 10/100 integrated controller
+sigma tel high definition audio codec
+sda standard compliant sd host controller
+ohci compliant ieee 1394 host controller
+sony dvd+-rw dw-q58a

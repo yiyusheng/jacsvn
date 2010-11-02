@@ -1,0 +1,20 @@
+mysql -h主机地址 -u用户名 －p密码 连接MYSQL;如果刚安装好MYSQL，超级用户root是没有密码的。 
+（例：mysql -h110.110.110.110 -Uroot -P123456 
+注:u与root可以不用加空格，其它也一样） 
+exit 退出MYSQL 
+mysql*** -u用户名 -p旧密码 password 新密码 修改密码 
+grant select on 数据库.* to 用户名@登录主机 identified by \"密码\"; 增加新用户。（注意：和上面不同，下面的因为是MYSQL环境中的命令，所以后面都带一个分号作为命令结束符） 
+show databases; 显示数据库列表。刚开始时才两个数据库：mysql和test。mysql库很重要它里面有MYSQL的系统信息，我们改密码和新增用户，实际上就是用这个库进行操作。 
+
+use mysql； 
+show tables; 显示库中的数据表 
+describe 表名; 显示数据表的结构 
+create database 库名; 建库 
+use 库名； 
+create table 表名 (字段设定列表)； 建表 
+drop database 库名; 
+drop table 表名； 删库和删表 
+delete from 表名; 将表中记录清空 
+select * from 表名; 显示表中的记录 
+mysqldump --opt school>school.bbb 备份数据库：（命令在DOS的\\mysql\\bin目录下执行）;注释:将数据库school备份到school.bbb文件，school.bbb是一个文本文件，文件名任取，打开看看你会有新发现。 
+
