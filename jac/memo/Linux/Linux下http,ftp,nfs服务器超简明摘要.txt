@@ -1,0 +1,37 @@
+http服务器
+使用的工具：apache
+配置文件位置：/usr/local/apache2/conf/httpd.conf (ubuntu一般在/etc/apache2/下）
+默认共享目录：/var/www/ (或在安装目录/htdocs)
+启动命令：/usr/local/apache2/bin/httpd -k start （安装目录/bin/httpd)
+
+nfs服务器：
+使用的工具：nfs,一般预装，同时需要portmap或rpcbind
+配置文件位置：/etc/exports
+默认共享目录：肯定是看配置文件啦＝ ＝，一般好像是/home/share.
+启动命令：
+/etc/init.d/portmap start(或/etc/init.d/rpcbind start)
+/etc/init.d/nfs start
+
+ftp服务器：
+使用的工具：vsftpd
+配置文件位置：/etc/vsftpd.conf
+默认共享目录：/var/ftp （/etc/passwd里ftp的主目录）
+启动命令：/usr/local/sbin/vsftpd
+(需要编辑/etc/xinetd.d/vsftpd 内容如下，没有此文件就自已建个）
+service ftp
+{
+disable = yes
+socket_type             = stream
+wait                    = no
+user                    = root
+server                  = /usr/sbin/in.ftpd
+server_args             = -l -a
+log_on_success          += DURATION USERID
+log_on_failure          += USERID
+nice                    = 10
+}
+
+
+
+
+其它的看配置文件就行了。

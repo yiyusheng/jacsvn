@@ -1,0 +1,54 @@
+今天要在LINUX之间以及LINUX与WINDOWS之间互相传送文件，本来可以用FTP的，一时兴起，决定使用SMB来试一把，因为时间比较短，所以只能记下一部分用到的命令和内容，小记一下：） 
+一、使用环境：
+
+      两台LINUX服务器，一台安装了RHAS3 U3（IP:192.168.9.1），一台安装了红旗服务器版4.1(IP:192.168.10.1)，其他的都是windows服务器，安装了
+windows2000 server。
+以其他机器共享192.168.9.1上的rhhhome目录为例：
+
+二、在linux服务器端开始SAMBA：（以下操作在192.168.9.1上执行）
+
+1、 默认情况下，SMB服务是停止的，首先启动SMB。
+启动SMB服务：service smb start
+
+      如果要开机自动启动SMB，请参考http://www.cublog.cn/u/12207/?u=http://www.cublog.cn/u/12207/showart.php?id=61869
+
+2、 设置SMB共享目录：
+vi /etc/samba/smb.conf ，在最后加入想要共享的文件夹：
+    [rhhhome]                     ；共享名称
+        path = /home/rhh      ；共享文件夹路径
+        writeable = yes         ；是否可写
+        guest ok = yes          ；是否允许GUEST访问
+
+3、 设置SMB用户：
+用root登陆， 
+smbpasswd -a rhh ；增加SMB用户，同时会提示设置密码
+smbpasswd –x rhh ；删除SMB用户
+
+三、在客户端连接SMB服务器：（以下操作在192.168.10.1上执行）
+
+连接SMB共享有两种方式：smbclient和smbmount
+
+1、smbclient:连接后的操作方法与FTP登陆基本一样
+   smbclient -L 192.168.9.1       ；查看共享资源，会看到有一个"rhhhome"共享目录
+
+   smbclient //192.168.9.1/rhhhome -U rhh ；连接SMB共享目录，进入后上传和下载文件的命令用法与FTP类似。例如：
+
+get xxxxx    ；下载某个文件
+
+put xxxxx    ；上传某个文件
+
+   mget *         ；下载当前目录下所有文件
+
+tar c test.tar notes/ ； 打包notes目录下所有文件
+
+2、smbmount:推荐使用－方便
+   mkdir /mnt/smbtmp ；为共享文件建立mount点
+   smbmount //192.168.9.1/rhhhome /mnt/smbtmp -o rhh ；mount共享目录，mount后就可以进入/mnt/smbtmp操作远端主机上的共享目录了。
+
+smbumount /mnt/smbtmp ；umount共享目录
+
+3、用主机名代替IP地址进行连接：
+
+   vi /etc/samba/lmhosts ，加入主机名和IP的映射关系：
+
+例如：加入一行 192.168.9.1 RHAS3   这样上面所有的命令中的IP地址都可以用RHAS3来代替。四、linux下共享windows文件：      在windows共享文件夹的权限中加入可以访问的用户名。 用以上的smbclient和smbmount命令即可。五、windows访问linux共享文件夹：在运行中输入“//192.168.9.1” ,即可打开共享文件夹。

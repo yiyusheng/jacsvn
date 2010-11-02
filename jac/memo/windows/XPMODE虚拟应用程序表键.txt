@@ -1,0 +1,10 @@
+Windows Virtual PC中的程序出现自动出现在Windows 7的开始程序菜单中，就是一个自动发布的过程，要使自动发布功能生效，得满足以下几个条件
+1、必须在Windows Virtual PC中设置启用自动发布功能
+
+2、如果Guest OS是XP系统，必须安装Update for Windows? XP SP3 or above to enable RemoteApp?，如果Guest OS是Vista系统，那么就要安装Update for Windows? Vista SP1 or above to enable RemoteApp?，默认的XPMODE虚拟机是己经有了这个补丁的；
+
+3、在XPMODE中，应用程序必须在“C:\Documents and Settings\All Users\「开始」菜单\程序”目录下有快捷方
+
+4、如果你以的操作你都做好了，发现自动发布功能并不生效，那么你就要检查XPMODE系统的一个注册表项了，路径为HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Virtual Machine\VPCVAppExcludeList
+
+检查应用程序是否在这个列表当中，如果在的话，删除相应的键，自动发布功能应该问题不大了。相反地，如果要拒绝一些应用程序自动发布，你就可以把它们的信息添加到这里

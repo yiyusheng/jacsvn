@@ -1,0 +1,18 @@
+使用/etc/wpa_supplicant/wpa_supplicant.conf来设置网卡使用WPA-PSK认证
+运行 wpa_passphrase your-ssid your-pre-shared-key 产生16进制表示的密码串，其中 your-ssid 是无线网络的ssid，your-pre-shared-key就是WPA-PSK认证所需的密码。产生的结果要放到 /etc/wpa_supplicant.conf 文件中去，内容是：
+network={
+        ssid="your-ssid" #这里是无线网络的ssid
+        proto=WPA
+        key_mgmt=WPA-PSK
+        pairwise=TKIP
+        psk=xxxxxxxxxxxxxxxx #这个就是用wpa_passphrase命令生成的16进制串
+}
+修改/etc/sysconfig/wpa_supplicant
+vi wpa_supplicant
+# wlan0 and wifi0
+# INTERFACES="-iwlan0 -iwifi0"
+INTERFACES="-iath0"
+# ndiswrapper and prism
+# DRIVERS="-Dndiswrapper -Dprism"
+DRIVERS="-Dmadwifi"
+在服务中启动wpa_supplicant

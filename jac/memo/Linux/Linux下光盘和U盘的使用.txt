@@ -1,0 +1,39 @@
+光盘的使用方法： 
+1、光盘的设备文件 
+$ ls –l /dev/cdrom 显示dev目录下的cdrom目录中的详细内容。用来确定光驱位置。 
+
+2、光盘的挂载命令格式： 
+$ mount –t type 设备 目录
+$ mount /dev/cdrom /media/cdrom 将光驱挂载到media文件夹下的cdrom中。
+
+3、光盘内容的读取（2个命令任选一个） 
+$ ls /media/cdrom 读取已挂载的光盘内容。 
+
+4、光盘的卸载 
+$ umount /dev/cdrom 光盘驱动器卸载。 
+$ umount /media/cdrom 光盘驱动器卸载。
+ 
+5、光盘驱动器托盘的弹出与收回 
+$ eject 弹出光驱。 
+$ eject –t 回收光驱。 
+
+6、制作光盘镜像文件 
+# cp /dev/cdrom rhel4-1.iso 
+
+7、光盘镜像文件的挂载与卸载 
+# mount –o loop -t iso9660 rhel4-1.iso /media/cdrom 
+# umount /media/cdrom 
+
+U盘使用方法： 
+1、U盘地识别 
+$ fdisk –l 
+
+2、U盘的挂载与使用 
+$ mount –t vfat /dev/sda1 /mnt/ 
+$ mount –t ntfs /dev/sda1 /mnt/ 
+
+3、U盘的卸载 
+$ umount /dev/sda1 
+
+
+

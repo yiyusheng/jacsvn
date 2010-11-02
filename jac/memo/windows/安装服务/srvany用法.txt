@@ -1,0 +1,13 @@
+I, too, am wanting to use a "svrany" situation on Windows Server 2008, but couldn't find anything much more useful than this thread! (Yes, that is pathetic!) ... other than some references (etc.) to "sc".  So after much banging of my head against a wall with "sc", I decided to experiment , and ... SUCCESS!!!
+
+Here's what to do ...
+
+
+At the time of this posting, there is no Windows Server 2008 Resource Kit Tools, so get the "srvany.exe " from the "Windows Server 2003 Resource Kit Tools " and copy it to a suitable location on your Win2008 server (e.g. C:\Windows\System32\ ). 
+Use "sc " to create a new service that launches "srvany " (e.g. sc create MyService binPath= C:\Windows\System32\srvany.exe DisplayName= "My Custom Service" ) 
+Using RegEdit : create a "Parameters " key for your service (e.g. HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MyService\Paramaters\ ) 
+Using RegEdit : within the newly created "Parameters " key , create a string value called "Application " and enter the full path to the application you are wanting to run as a service.  (No quotes required.) 
+
+And that should do it.
+
+Note : some applications store their settings in a user hive, not under HKEY_LOCAL_MACHINE, so you will need to run the application to configure it, and then configure the service to run as that user.

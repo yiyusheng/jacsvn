@@ -1,0 +1,23 @@
+Linux的文件组织系统称为文件系统层次标准(FHS)
+/  顶层根目录
+/bin  包含基本命令行实用程序
+/boot  包括Linux启动计算机时所要的命令与文件，如统一引导装入器（GRUB）、初始内存盘和Linux内核
+/dev   列出可用的设备驱动程序
+/etc   包含基本Linux配置命令，包括与口令、Apache和Samba之类监控程序和X窗口有关的配置命令
+/home  包括除根用户以外的所有用户的主目录
+/initrd 配置启动期间初始化内存盘使用的空目录，如果删除Linux不能启动，出现kernel panic消息
+/lib   列出几个不同应用程序和Linux内核所需的程序库
+/lost+found  包含孤儿文件，这个目录不是FHS的一部分
+/misc  指定共享NFS目录的公共装载点，不是FHS的一部分
+/mnt   软盘（/mnt/floppy）、CD-ROM（/mnt/cdrom）与Zip盘（/mnt/zip）等可拆介质的公共装载点
+/opt   包括StarOffice之类的第三方应用程序的标准位置
+/proc  包括单前运行的所有内核相关进程
+/root  根用户主目录
+/sbin  包含许多系统管理命令
+/tftpboot  支持无盘工作站，也称为远程终端
+/tmp   作为临时文件的专用存储地址。默认情况下，/etc/cron.daily/tmpwatch脚本从这个目录中清除超过10天的文件
+/usr   包括所有用户可用的程序与数据
+/var   包含变量数据，包括日志文件和打印假脱机
+
+
+

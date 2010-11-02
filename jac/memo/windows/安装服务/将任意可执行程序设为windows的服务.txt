@@ -1,0 +1,27 @@
+   开机自动登陆运行已经可以解决绝大部分程序开机启动的需求。但情况变为只是开机但不能登陆用户时，如果程序仍要运行，这时自然会想到将该程序设置为windows的服务。
+
+    但并不是所有的程序都能作为windows服务运行的，下面是借助windows 2003 资源工具包中srvany工具实现任意程序作为服务的方法。
+
+    1.从微软官方网站下载安装windows 2003资源工具包（Windows Server 2003 Resource Kit Tools）
+
+    2.将C:\Program Files\Windows Resource Kits\Tools\srvany.exe复制到C:\Windows\System32\下
+
+    3.用Sc命令创建服务，例如
+
+        sc create MyService binPath= C:\Windows\System32\srvany.exe DisplayName= "My Custom Service"
+
+        注意等号后必须有一个空格
+
+    4.打开注册表编辑器regedit,找到HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MyService\
+
+    5.新建项HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MyService\Parameters\
+
+    6.在项Parameters下新建字符串类型（REG_SZ）名为"Application"的键，值为你要做为服务启动的程序的完全路径，注意不要加引号
+
+    7.根据实际情况修改你新建服务的启动类型，一般应设置为自动
+
+注意：有些应用程序会将它们的配信息写在注册的用户区，而不是在HKEY_LOCAL_MACHINE，用这种方法可能会出错，可以考虑将服务以该用户的形式运行
+
+ 
+
+当再次开机时，该服务会有两个进程，一个是srvany,一个是你要运行的程序

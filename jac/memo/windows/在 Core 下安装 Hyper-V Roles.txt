@@ -1,0 +1,7 @@
+Windows Server 2008 with Hyper-V （以下简称：Hyper-V）版本中同样包含 Server Core，并且Hyper-V Roles 支持安装在 Core 下，畅想一下未来，相信 Hyper-V 的未来更多的会以 Server Core 为平台作应用部署，原因很简单 Core 更安全、更快、容量更小、更稳定！
+      在 Core 下 Hyper-V Roles 需要使用命令行进行安装，关于 Server Core 的系统安装不再复述，之前的 Blog 也都提及系统的安装及 Server Core 的基础配置，大家可以参考以前的文章，下面进入正题直接开始 Hyper-V Roles 的安装。
+      步骤很简单之需要执行两条命令：
+      1、键入并执行此命令： bcdedit /set hypervisorlaunchtype auto
+2、键入并执行此命令： start /w ocsetup Microsoft-Hyper-V  （注意：必须区分大小写）
+      最后根据提示重新启动计算机，如果要管理 Server Core 下的 Hyper-V，我们需要在一台完整版本的 Hyper-V 上使用 Hyper-V Manager 工具进行管理。 6.jpg (59.29 KB)
+2008-5-26 15:01

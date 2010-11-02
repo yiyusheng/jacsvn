@@ -1,0 +1,233 @@
+通常Linux应用软件的安装包有三种：tar包、rpm包和dpkg包。本文主要提到的rpm包是Redhat Linux提供的一种包封装格式。RPM 有五种基本的操作方式(不包括创建软件包): 安装，卸载，升级，查询和验证。下面我们就来逐一的讲解。 
+
+一、安装RPM包 
+RPM 软件包通常具有类似foo-1.0-1.i386.rpm 的文件名。其中包括 软件包的名称(foo)，版本号(1.0)，发行号(1)， 和 硬件平台(i386)。安装一个软件包只需简单的键入以下命令： 
+
+$ rpm -ivh foo-1.0-1.i386.rpm 
+
+foo　　　　　　　　　　 #################################### 
+
+RPM安装完毕后会打印出软件包的名字(并不一定与文件名相同)， 而后打印一连串的#号以表示安装进度。虽然软件包的安装被设计的尽量简单易行， 但还是可能会发生如下的错误： 
+
+1、软件包已被安装 
+
+如果您的软件包已被安装, 将会出现以下信息： 
+
+$ rpm -ivh foo-1.0-1.i386.rpm 
+
+foo　　　　　　　　　　 package foo-1.0-1 is already installed 
+
+error: foo-1.0-1.i386.rpm cannot be installed 
+
+如果您仍旧要安装该软件包，可以在命令行上使用--replacepkgs 选项，RPM将忽略该错误信息强行安装。 
+
+2、文件冲突 
+
+如果您要安装的软件包中有一个文件已在安装其它软件包时安装，会出现以下错误信息： 
+
+# rpm -ivh foo-1.0-1.i386.rpm 
+
+foo　　　　 /usr/bin/foo conflicts with file from bar-1.0-1 
+
+error: foo-1.0-1.i386.rpm cannot be installed 
+
+要想让RPM 忽略该错误信息， 请使用--replacefiles 命令行选项。 
+
+3、未解决依赖关系 
+
+RPM软件包可能依赖于其它软件包，也就是说要求在安装了特定的软件包之后才能安装该软件包。如果在您安装某个软件包时存在这种未解决的依赖关系。会产生以下信息： 
+
+$ rpm -ivh bar-1.0-1.i386.rpm 
+
+failed dependencies: foo is needed by bar-1.0-1 
+
+您必须安装完所依赖的软件包，才能解决这个问题。如果您想强制安装(这是个坏主意， 因为安装后的软件包未必能正常运行)， 请使用--nodeps 命令行选项。 
+
+二、卸载RPM包 
+卸载软件包就象安装软件包时一样简单： 
+
+$ rpm -e foo 
+
+注意这里使用软件包的名字name “foo”， 而不是软件包文件的名字file “foo-1.0-1.i386.rpm”。 
+
+如果其它软件包依赖于您要卸载的软件包，卸载时则会产生错误信息。如： 
+
+$ rpm -e foo 
+
+removing these packages would break dependencies:foo is needed by bar-1.0-1 
+
+若让RPM忽略这个错误继续卸载(这可不是一个好主意，因为依赖于该软件包的程序可能无法运行)，请使用--nodeps 命令行选项。 
+
+三、升级RPM包 
+升级软件包和安装软件包十分类似： 
+
+$ rpm -Uvh foo-2.0-1.i386.rpm 
+
+foo　　　　　　　　　　 #################################### 
+
+RPM将自动卸载已安装的老板本的foo 软件包，您不会看到有关信息。事实上您可能总是使用 -U 来安装软件包，因为即便以往未安装过该软件包，也能正常运行。因为RPM 执行智能化的软件包升级，自动处理配置文件，您将会看到如下信息： 
+
+saving /etc/foo.conf as /etc/foo.conf.rpmsave 
+
+这表示您对配置文件的修改不一定能向上兼容。 因此，RPM 会先备份老文件再安装新文件。您应当尽快解决这两个配置文件的不同之处，以使系统能持续正常运行。 
+
+因为升级实际包括软件包的卸载与安装两个过程，所以您可能会碰到由这两个操作引起的错误。另一个你可能碰到的问题是：当您使用旧版本的软件包来升级新版本的软件时，RPM会产生以下错误信息： 
+
+$ rpm -Uvh foo-1.0-1.i386.rpm 
+
+foo　　package foo-2.0-1 (which is newer) is already installed 
+
+error: foo-1.0-1.i386.rpm cannot be installed 
+
+如果你确有需要将该软件包”降级，加入 --oldpackage 命令选项就可以了。 
+
+四、查询已安装的软件包 
+使用命令rpm -q来查询已安装软件包的数据库。简单的使用命令 rpm -q foo 会打印出foo软件包 的包名 ，版本号，和发行号： 
+
+$ rpm -q foo 
+
+foo-2.0-1 
+
+除了指定软件包名以外，您还可以使用以下选项来指明要查询哪些软件包的信 息。 这些选项被称之为 “软件包指定选项“。 
+
+●-a 查询所有已安装的软件包 
+
+●-f 将查询包含有文件 . 的软件包 
+
+●-p 查询软件包文件名为 的软件包 
+
+还可以指定查询软件包时所显示的信息。它们被称作信息选择选项： 
+
+●-i 显示软件包信息，如描述, 发行号, 尺寸, 构建日期, 安装日期, 平台, 以及其它一些各类信息。 
+
+●-l 显示软件包中的文件列表。 
+
+●-s 显示软件包中所有文件的状态。 
+
+●-d 显示被标注为文档的文件列表(man 手册, info 手册, README's, etc)。 
+
+●-c 显示被标注为配置文件的文件列表。这些是您要在安装完毕以后加以定制的文件(sendmail.cf, passwd, inittab, etc)。 
+
+对于那些要显示文件列表的文件, 您可以增加-v 命令行选项以获得如同 ls -l 格式的输出。 
+
+五、验证软件包 
+验证软件包是通过比较已安装的文件和软件包中的原始文件信息来进行的。验证主要是比较文件的尺寸, MD5 校验码, 文件权限, 类型, 属主和用户组等。 
+
+rpm-V命令用来验证一个软件包。您可以使用任何包选择选项来查询您要验证的软件包。 命令rpm -V foo 将用来验证foo软件包。又如： 
+
+●验证包含特定文件的软件包：rpm -Vf /bin/vi； 
+
+●验证所有已安装的软件包：rpm -Va； 
+
+●根据一个RPM包来验证：rpm -Vp foo-1.0-1.i386.rpm。 
+
+如果您担心你的RPM数据库已被破坏，就可以使用这种方式。 
+
+如果一切均校验正常将不会产生任何输出。如果有不一致的地方，就会显示出来。 输出格式是8位长字符串, “c” 用以指配置文件, 接着是文件名. 8位字符的每一个 用以表示文件与RPM数据库中一种属性的比较结果。“.” (点) 表示测试通过。下面的字符表示对RPM软件包进行的某种测试失败： 
+
+显示字符　　　　　　　　 错误源 
+
+5　　　　　　　　　　　　MD5 校验码 
+
+S　　　　　　　　　　　　文件尺寸 
+
+L　　　　　　　　　　　　符号连接 
+
+T　　　　　　　　　　　　文件修改日期 
+
+D　　　　　　　　　　　　设备 
+
+U　　　　　　　　　　　　用户 
+
+G　　　　　　　　　　　　用户组 
+
+M　　　　　　　　　　　　模式e (包括权限和文件类型) 
+
+如果有错误信息输出, 您应当认真加以考虑，是通过删除还是重新安装来解决出现的问题。 
+
+六、教你一招 
+RPM不仅是安装/卸载程序的工具，它还是系统维护和诊断的一把好手。看过下面几个例子你就会领教它的厉害了。 
+
+●如果您误删了一些文件，但您不能肯定到底都删除了那些文件，怎么办？您可以键入：rpm -Va。 
+
+rpm会在屏幕上显示出文件删除的情况。若你发现一些文件丢失了或已被损坏, 您就可以重新安装或先卸载再安装该软件包。 
+
+●如果您碰到了一个自己不认识的文件，要想查处它属于哪个软件包，您可以输入以下命令： 
+
+rpm -qf /usr/X11R6/bin/xjewel 
+
+输出的结果会是：xjewel-1.6-1。 
+
+●如果发生综合以上两个例子的情况，如文件/usr/bin/paste出了问题。您想知道哪个软件包中包含该文件，您这时可以简单的键入：rpm -Vf /usr/bin/paste。 
+
+●如果您想了解正在使用的程序的详细信息, 您可以键入如下命令来获得软件包中关于该程序的文档信息： 
+
+rpm -qdf /usr/bin/ispell 
+
+输出结果为: 
+
+/usr/man/man4/ispell.4 
+
+/usr/man/man4/english.4 
+
+/usr/man/man1/unsq.1 
+
+/usr/man/man1/tryaffix.1 
+
+/usr/man/man1/sq.1 
+
+/usr/man/man1/munchlist.1 
+
+/usr/man/man1/ispell.1 
+
+/usr/man/man1/findaffix.1 
+
+/usr/man/man1/buildhash.1 
+
+/usr/info/ispell.info.gz 
+
+/usr/doc/ispell-3.1.18-1/README 
+
+●您发现了一个新的koules RPM，但您不知道它是做什么的，您可以键入如下命令： 
+
+rpm -qip koules-1.2-2.i386.rpm 
+
+●现在您想了解koules的 RPM包在系统里安装了哪些文件，您可以键入： 
+
+rpm -qlp koules-1.2-2.i386.rpm，输出结果为： 
+
+/usr/man/man6/koules.6 
+
+/usr/lib/games/kouleslib/start.raw 
+
+/usr/lib/games/kouleslib/end.raw 
+
+/usr/lib/games/kouleslib/destroy2.raw 
+
+/usr/lib/games/kouleslib/destroy1.raw 
+
+/usr/lib/games/kouleslib/creator2.raw 
+
+/usr/lib/games/kouleslib/creator1.raw 
+
+/usr/lib/games/kouleslib/colize.raw 
+
+/usr/lib/games/kouleslib 
+
+/usr/games/koules 
+
+以上只是几个常见例子。随着您进一步的使用RPM，您会发现它的各种功能选项组合可以实现更为强大的RPM包管理功能
+
+
+转自：http://www.cndw.com/tech/server/2006040431784.asp
+
+
+
+另：src.rpm包安装方法
+1.执行rpm -i your-package.src.rpm 
+2. cd /usr/src/redhat/SPECS 
+3. rpmbuild -bp your-package.specs 一个和你的软件包同名的specs文件 
+4. cd /usr/src/redhat/BUILD/your-package/ 一个和你的软件包同名的目录 
+5. ./configure 这一步和编译普通的源码软件一样，可以加上参数 
+6. make 
+7. make install

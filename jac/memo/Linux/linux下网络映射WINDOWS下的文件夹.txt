@@ -1,0 +1,49 @@
+环境：
+
+UBUNTU ip：192.168.1.1 已经在家目录下建立一个权限为777的文件夹 GX
+
+WINDOWS ip：192.168.1.2 其中共享文件夹的名字为11
+
+UBUNTU操作：
+
+sudo apt-get install samba 
+sudo apt-get install smbfs
+apt-get install libsmbclient libpam-smbpass
+sudo /etc/init.d/samba restart
+
+然后再：
+mount -t smbfs -o username=Administrator //192.168.1.2/11 /home/xf2cn/gx
+
+如果是想正常显示中文，采用以下命令：
+
+mount -t smbfs -o username=Administrator,iochartset=cp936,codepage=cp936 //192.168.1.2/11 /home/xf2cn/gx
+
+卸载的话，使用以下命令
+
+umount /home/xf22cn/gx
+
+
+问题的由来：
+
+今天在用VMware>RHEL4搭Web服务器时，相通过原码编译安装httpd，但httpd原码包在真实机XP（D：\linux software)中，当时脑海里就想到了两种方法一：通过WinSCP工具传输，，二：通过在linux上挂载windows
+分区。第一点方法比较简单，只要懂得用WinSCP工具就行，就可以从winodws中往linux中传文件，平常也经常使用这种方法。于是今天想通过第二种方法来实现 windows到linux的文件传输，但问题随之就来了，问题一：我忘记了mount的语法，问题二：忘记了带空格的文件夹名在linux表示方法。
+
+
+
+问题的寻解：
+
+
+问题一：linux挂载windows分区（来源：http://www.javaeye.com/wiki/topic/443767
+）
+挂接Windows文件共享，Windows网络共享的核心是SMB/CIFS，在linux下要挂接(mount)windows的磁盘共享，就必须安装和使用samba软件包。现在流行的linux发行版绝大多数已经包含了samba软件包，如果安装linux系统时未安装samba请首先安装samba。当然也可以到 www.samba.org网站下载......新的版本是3.0.10版。当windows系统共享设置好以后，就可以在linux客户端挂接(mount)了，具体操作如下：
+# mkdir –
+p /mnt/samba 　　
+注：建立一个目录用来作挂接点(mount point) 
+# mount -t smbfs-o username=administrator,password=pldy123 //10.140.133.23/c$ /mnt/samba 　　
+注：administrator和 pldy123 是ip地址为10.140.133.23 windows计算机的一个用户名和密码，c$是这台计算机的一个磁盘共享
+
+
+问题二：linux下带空格文件夹名表示方法
+   linux\ software
+“linux software”
+‘linux software’

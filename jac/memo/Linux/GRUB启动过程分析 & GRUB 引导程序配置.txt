@@ -1,0 +1,149 @@
+计算机在启动的时候，首先由BIOS中的程序执行自检，自检通过后，就根据CMOS的配置找到第一个可启动磁盘的MBR中的Boot Loader程序（一般在启动盘的第一个物理扇区，占416字节），并把控制权交给Boot Loader，由Boot Loader进一步完成操作系统内核的加载。当Boot Loader找到内核之后，就把控制权交给操作系统内核，由内核继续完成系统的启动。可以看出，Boot Loader 是计算机启动中第二个要执行的程序，它是引导操作系统的关键程序。可以引导操作系统的Boot Loader主要有LiLo、GRUB以及Windows下的MBR程序。其中，GRUB是目前使用最为广泛，并且非常优秀的一款启动引导程序。
+
+GRUB对设备的命名
+首先，GRUB对设备的命名必须包含在小括号( )内；其次，GRUB不区分IDE硬盘和SCSI硬盘，统一使用hdx，其中x指定BIOS中硬盘的编号，并从0开始计数，而且IDE硬盘编号小于SCSI硬盘；第三，GRUB用fdx指定软盘设备，x是软盘驱动器号。下面是一些GRUB对设备命名的举例：q (fd0)表示第1个软盘q (hd0,1)表示第1个硬盘的第2个分区q (hd0,0)/boot/vmlinuz表示第1个硬盘的第一个分区下的boot/目录下的vmlinuz文件。如果没有指定某个分区，则表示使用整个设备，否则只使用指定的分区q (hd0,2,a)专用于FreeBSD，FreeBSD有一个slice概念，把一个分区进一步分为几个slice，此处指明是第1块硬盘的第3个分区中的slice a。
+GRUB的执行流程 当系统加电后，固化在BIOS中的程序首先对系统硬件进行自检，自检通过后，就加载启动磁盘上的MBR，并将控制权交给MBR中的程序(stage1)，stage1执行，判断自己是否GRUB，如果是且配置了stage1_5，则加载stage1_5，否则就转去加载启动扇区，接着，stage2被加载并执行，由stage2借助stage1_5驱动文件系统，并查找grub.conf，显示启动菜单供用户选择，然后根据用户的选择或默认配置加载操作系统内核，并将控制权交给操作系统内核，由内核完成操作系统的启动。GRUB涉及到几个重要的文件： 第一个就是stage1。它被安装在MBR扇区（0面0磁道的第1扇区），大小为512字节（446字节代码+64字节分区表+2字节标志55AA），它负责加载存放于0面0道第2扇区的start程序。第二个是stage1_5。stage1_5负责识别文件系统和加载stage2，所以stage1_5往往有多个，以支持不同文件系统的读取。在安装GRUB的时候，GRUB会根据当前/boot/分区类型，加载相应的stage1_5到0面0磁道的第3扇区。stage1_5是由start加载的。第三个是stage2。它负责显示启动菜单和提供用户交互接口，并根据用户选择或默认配置加载操作系统内核。同前两个文件不同，stage2是存放在磁盘上/boot/grub下。第四个是menu.lst(/boot/grub/grub.conf的链接)。grub.conf是一个基于脚本的文本文件，其中包含菜单显示的配置和各个操作系统的内核加载配置。GRUB根据grub.conf显示启动菜单，提供同用户交互界面。GRUB正是根据用户选择或默认配置和grub.conf的内核配置加载相应的内核程序，并把控制权交给内核程序，使得内核程序完成真正的操作系统的启动。其它重要文件，GRUB除了上面叙述的主要文件之外，还包括支持交互功能的一些磁盘程序。主要包括/sbin/下的grub、grub-install、grub-md5-crypt和grub-terminfo和/usr/bin/mbchk，以及/boot/grub下的设备映像文件(device.map)和菜单背景图像文件(splash.xpm.gz)。通过上面的分析总结，可以很容易地看出，GRUB实际上包含两部分，一部分被安装在磁盘的特殊扇区，另外一部分则以文件的形式存在。要让GRUB启动操作系统，就必须首先把GRUB的stage1和stage1_5(根据文件系统自动选择是否安装)安装到磁盘的特殊扇区，另外，在磁盘的/boot/grub下存在有grub.conf、device.map等文件和支持交互的程序，而且这些程序必须在PATH环境变量指定的路径中。具备了这些知识，相信不管是安装、配置、备份或修复GRUB都不是件很难的是情。
+安装GRUB到MBR
+GRUB的工作目录是在/boot/grub下，而make install并没将其安装到/boot/grub。所以，安装完成后要执行如下一些操作：a） 把/usr/local/share/grub/i386-pc/目录下的所有文件统统拷贝到/boot/grub/目录下（要先下载源码包进行./configure,make, make install)
+#cp /usr/local/share/grub/i386-pc/* /boot/grub/b） 在/boot/grub下创建grub.conf文件，并建立一个到grub.conf的软链接menu.lst#cd /boot/grub#touch grub.conf#ln -s grub.conf menu.lst注意！如果已经存在grub.conf，就最好不要再次创建，需要时直接修改即可。c） 确认/usr/local/sbin和/usr/local/bin在PATH变量的值中，执行如下命令检查#env |grep PATH如果发现/usr/local/sbin和/usr/local/bin不在PATH变量中，可以通过如下命令修改：#export PATH=$PATH /usr/local/sbin:/usr/local/bind） 安装GRUB到MBRGRUB在启动中，被BIOS调用，只有放在MBR中才可以被调用，所以，GRUB要让BIOS调用，就必须安装在MBR中。实际上是将stage1安装到MBR中，也可能根据文件系统选择安装了stage1_5。下面，提供几个安装GRUB的例子：#grub-install /dev/hda //将GRUB安装到第1块IDE硬盘的MBR#grub-install /dev/sda //将GRUB安装到第1块SCSI硬盘的MBR#grub-install /dev/fd0 //将GRUB安装到软盘#grub-install /dev/hda1 //将GRUB安装到第1快硬盘的0扇区，当用其它引导程序引导系统时，往往选择这种方式，以免覆盖其它引导程序。e） 在GRUB的命令行模式下安装GRUB关于GRUB命令行模式及其操作方法请参考3小节的内容。在系统显示启动菜单时候按下c键，或者系统启动后在命令行执行/usr/sbin/grub程序，都可以进入GRUB的命令行模式。命令行模式下安装GRUB的基本过程如下：q 指定启动设备grub>root (hd0,0) #除了root后必须有空格，别的位置均不能有空格！此处（hd0，0）是指第1块硬盘的第1个分区。如果不能确定包含GRUB的stage1文件的分区，可以通过find指令查找确定：grub> find /boot/grub/stage1 #查找stage1GRUB将会查找文件/boot/grub/stage1并显示包含这个文件的设备名，这个设备就是上面要用到的设备。q 安装GRUBgrub> setup (hd0) #除了setup后必须有空格，别的位置均不能有空格！这条命令将会在第1块硬盘的MBR安装GRUB，如果不想在MBR安装GRUB，而是希望将GRUB安装在某分区的引导扇区的话，可以用下面的命令安装：grub> setup (hd0,0) #除了setup后必须有空格，别的位置均不能有空格！这将会在第1块硬盘的第1个分区的引导扇区安装GRUB。q 退出GRUBgrub>quitf） 重启机器，新安装的GRUB生效
+GRUB配置文件示例 grub.conf是GRUB的配置文件，其结构比较简单，可以分为两部分，第一步分是全局配置，另外一部分就是每个操作系统的启动配置。其中可以有多个操作系统的菜单配置。下面就是一个具体的例子。#=================/boot/grub/grub.conf文件范例==================
+timeout 30 # 等待用户选择菜单项的时间（以秒计），超时则引导默认的选项
+default 0 # 默认选项，第一项
+fallback 1 # 如果第一项出错，则启动下面的后备选项
+splashimage=(hd0,0)/grub/splash.xpm.gz #GRUB启动画面
+
+#以下是启动Linux的配置
+titleRed Hat Linux Enterprise AS3 for syd168 #启动项的菜单标题
+root (hd0,0) #指定根文件系统，第1块硬盘第1个扇区中的/boot。
+kernel /vmlinuz-2.4.18 ro root=LABEL=/ #内核在/boot中
+initrd /initrd-2.4.18-14.img #启动RAM盘在/boot下
+
+#以下是启动Windows的配置，如果只有Linux就不需要
+title Windows2003 Enterprise for syd168 #Windows启动菜单标题
+root noverify(hd0,1) #该操作系统在hd0的第二分区，不mount
+chainloader +1 #从第一个硬盘的第二个分区引导Windows
+
+#=================/boot/grub/grub.conf文件范例==================
+上面的例子，只是简单说明了GRUB中启动Linux和Windows的配置方法。更多的启动配置请参考下面内容。
+
+5. 引导多系统配置GRUB支持多操作系统引导。用GRUB引导后可以进入命令行模式或者菜单模式，可以通过灵活的命令行模式选择引导各个分区的操作系统，指定引导参数。GRUB支持三种引导方法，一种是直接引导操作系统内核，另一种是通过chainload进行间接引导，第三种就是通过网络引导操作系统。对于GRUB能够支持的Linux，FreeBSD，OpenBSD，NetBSD，GUN Mach等可以通过直接引导完成，但是对于GRUB不支持的操作系统（如Windows），需要用第二种方法chainload来完成。下面就分别来看看这几种引导方法：
+(1) 直接引导
+配置过程通常如下：
+a） 用root命令设置包含操作系统内核的根设备
+b） 用kernel命令装载内核映象文件，如果这个内核引导的时有参数的话，可以直接将参数加在内核文件名的后面
+c） 用module或modulenounzip装载内核模块
+d） boot开始引导
+(2) chainload引导
+a） 设置GRUB的根设备，用rootnoverify (hdx，y)指定
+b） 开始引导，用chainloader +1指定，此处“+1”是指示GRUB读入分区的第一个扇区的引导记录。
+c） 执行boot开始引导
+以上是一般的chainloader方式，对于DOS和WINDOWS，可以简单地用两条指令进行引导：chainloader (hdx，y)+1，然后boot，其中x，y用来指明所在分区号。
+(3) 从网络引导：
+为了使GRUB能够支持从网络引导，需要在编译时打开网络支持选项（请参考源文件中的netboot/README.netboot）。另外，要在网络中 设置两个服务：动态IP服务（BOOTP、DHCP或RARP）和FTP服务。然后，分别针对不同的服务器BOOTP，DHCP或RARP运行 bootp，dhcp或rarp。如果一切设置无误的话GRUB就会给出IP，IP netmask和TFTP服务器的IP和网关的IP地址。最后，从网上得到操作系统的映象文件。下面是一个例子：
+grub> bootp
+Probing...[NE*000]
+NE2000 base ...
+Address: 192.168.110.23 Netmask: 255.255.255.0
+Server: 192.168.110.14 Gateway: 192.168.110.1
+grub> root (nd)
+grub> kernel /tftproot/gnumach.gz root=sd0s1
+======================================================================
+
+全世界linuxer都知道grub是什么东西，但对于MBR引导到grub再引导到具体操作系统的这个流程可能有不少朋友就比较迷糊了。这不，cu上一位朋友就发出了这样一个求助贴：
+
+
+假如现在一台电脑上装了WIN2000系统，那么我现在在装上LINUX系统和GRUB，那么假如把GRUB装在主分区的话，GRUB直接 引导 LINUX和WIN2000，我是可以理解的，因为MBR中是GRUB的STAGE1（对不对呢？），MBR通过检查DPT分区信息引导系统跳转至DBR （活动分区），我这里想问的活动分区是什么时候设的呢？那么装GRUB到MBR里，那原来MBR中的WIN的引导信息是怎么处理的呢？是不是我们假如说装 GRUB到MBR的时候，GRUB就把GRUB所在那个区设置为了活动分区了呢？然后GRUB引导时候，MBR就找到那个活动分区找到所需要的文件，然后 继续呢？假如说把GRUB装到其他分区（非主引导区）的话，那是怎么样实现GRUB先启动的呢？不是先MBR吗？因为装到了其他分区，没有改主引导区，因 此主引导区还是WIN2000的引导数据啊，怎么会GRUB先启动了呢？这是为什么呢？跟活动分区有关系没有呢？我看资料上写的是哪个系统启动哪个系统就 是活动分区，可是那样的话，似乎就解释不通了啊，就是最最开始这个地方一直不懂，理不清楚。
+
+
+下面就是cu各个玩家对这个问题分析讨论的总结。
+
+
+首先让我们看看传统的启动流程：加载并运行Master Boot Record(MBR)主引导区内容（如lilo等）。然后扫描分区表，定位活动分区，并将活动分区上的引导扇区内容加载到内存中执行。
+
+
+系统引导过程主要由以下几个步骤组成（以硬盘启动为例）
+
+
+1、 开机；
+
+2、 BIOS加电自检（POST——Power On Self Test），内存地址为0fff：0000；
+
+3、 将硬盘第一个扇区（0头0道1扇区，也就是Boot Sector）读入内存地址0000：7c00处；
+
+4、 检查（WORD）0000：7dfe是否等于0xaa55.若不等于则转去尝试其他介质；如果没有其他启动介质，则显示 “No ROM BASIC” ，然后死机；
+
+5、 跳转到0000：7c00处执行MBR中的程序；
+
+6、 MBR先将自己复制到0000：0600处，然后继续执行；
+
+7、 在主分区表中搜索标志为活动的分区。如果发现没有活动分区或者不止一个活动分区，则停止；
+
+8、 将活动分区的第一个扇区读入内存地址0000：7c00处；
+
+9、 检查（WORD）0000：7dfe是否等于0xaa55，若不等于则显示 “Missing Operating System”，然后停止，或尝试软盘启动；
+
+10、 跳转到0000：7c00处继续执行特定系统的启动程序；
+
+11、 启动系统。
+
+
+装grub到逻辑分区，那么就一定把grub装入的逻辑分区设为活动的。不过，这时候，grub接管了11步以后的动作：从stage 1.5读出grub.conf。再由配置和用户选择决定下一步的引导行为。
+
+
+一般安装grub都有两种情况，对于安装到MBR这种情况而言，GRUB直接覆盖了原来的MBR引导程序。这也是为什么要换回“原来的 windows的引导方式”，只要用dos引导fdisk /mbr一下就可以的原因。为什么可以这样做，请注意，1-11步中有两个地方出现了0000:7c00。不管是dos boot sector还是nt loader它本身也是从0000:7c00运行的。其实ms当年开发分区管理的这个小程序相当于是在bios引导boot sector中插进去的。grub因为也是写的从0000:7c00这个内存开始的子程序，那么既可以被BIOS加载又可以被dos的MBR加载应该好理 解了吧。
+
+
+开机自检后，引导权交给了硬盘的MBR，此时grub就启动了。由grub来引导windows /linux都可以。注意:linux不一定要安装在活动分区，因为引导程序在MBR！但是windows一定要安装在活动分区（可引导的 windows),第二个windows可以不安装在活动分区，但它的引导文件一定在活动分区。
+
+
+大体顺序是：
+
+
+grub—->windows–>查找引导文件—引导加载—启动windows
+
+grub—->linux—>查找引导文件(/boot)–>引导加载—启动linux
+
+
+那么，如果把grub安装到了其它的分区上，不是MBR呢？这是grub所装在的那个主分区必须被设为活动分区。因为MBR(物理主引导分 区)中其实并没有 OS相关的引导程序的，通常MBR只是扫描并读取随后的分区表，找到相应的活动分区，读取相应活动分区的第一个扇区的512字节程序并运行，该程序负责进 一步引导相应分区的相应系统。因此，大概的运行次序是
+
+BIOS—>MBR—->GRUB—->菜单。
+
+
+这样，大体的真实流程就可以总结如下了：
+
+
+1、 开机；
+
+2、 BIOS加电自检（POST——Power On Self Test），内存地址为0fff：0000；
+
+3、 将硬盘第一个扇区（0头0道1扇区，也就是Boot Sector）读入内存地址0000：7c00处；
+
+4、 检查（WORD）0000：7dfe是否等于0xaa55.若不等于则转去尝试其他介质；如果没有其他启动介质，则显示 “No ROM BASIC” ，然后死机；
+
+5、 跳转到0000：7c00处执行MBR中的程序；
+
+6、 MBR先将自己复制到0000：0600处，然后继续执行；假如先装XP后装LINUX，并且LINUX没有装在MBR，那这个MBR中的数据还是WIN 写的数据，它的作用都是下步中所说的作用，就是搜索主分区表中标志为活动的分区，那么这个时候就必须把GRUB所在的主分区设置为活动的分区，这个时候才 能正常的启动GRUB，然后GRUB的STAGE1在调STAGE1.5和其他的，从而来引导整个系统。假如说先装XP后装LINUX，但是GRUB装在 了MBR，那样STAGE1直接调入内存，STAGE1在调STAGE1.5和STAGE2等，从而来引导系统。那这个时候是不需要将GRUB其他文件所 在的主分区设为活动分区的，它直接调STAGE1.5等，然后再调STAGE2等，来识别文件系统，从而实现可多启动。
+
+7、 在主分区表中搜索标志为活动的分区。如果发现没有活动分区或者不止一个活动分区，则停止；
+
+8、 将活动分区的第一个扇区读入内存地址0000：7c00处；
+
+9、 检查（WORD）0000：7dfe是否等于0xaa55，若不等于则显示 “Missing Operating System”，然后停止，或尝试软盘启动；
+
+10、 跳转到0000：7c00处继续执行特定系统的启动程序；
+
+11、 启动系统。
+
+
+一点资料：
+
+
+能正常工作的grub应该包括一下文件：stage1、stage2、*stage1_5、menu.lst。
+
+其中stage1的大小一定是512字节，它要被安装（也就是写入）某个硬盘的主引导记录，或者某个活动分区（这个分区要用fdisk标记 成可启动的）的启动扇区。stage1的主要的也是唯一的作用就是找到你存放在硬盘上某个地方的stage2文件，来完成后续的工作。
+
+
+stage2 文件可以存在在某个特定的文件系统中，比如你分了一个linux分区，在上面创建一个ext2文件系统，然后把这个文件拷贝到这个分区的某个目录下。也可 以把stage2直接存放在硬盘的某个位置，也就是未分区的某个地方。不过，好像没有多少人会这么做吧。
+
+
+因为stage1的容量有限（主引导记录MBR和启动扇区的大小只能够是512字节），所以它对文件系统是无法识别的，那如果你把 stage2存放 在 ext2或者fat格式的文件系统上，它如何来找到这个文件呢？这就要用到上面提到的那些stage1_5的文件了，它们负责解释文件系统。你的 stage2放在什么格式的文件系统上，就要调用对应的那个stage1_5文件。比如，你把stage2存放在ext2格式的文件系统上，就需要 e2fs_stage1_5；stage2存放在fat格式的文件系统上，就需要fat_stage1_5了。

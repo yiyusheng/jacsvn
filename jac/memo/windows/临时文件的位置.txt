@@ -1,0 +1,11 @@
+Win7
+TEMP
+%USERPROFILE%\AppData\Local\Temp
+TMP
+%USERPROFILE%\AppData\Local\Temp
+
+Win2003
+TEMP
+%USERPROFILE%\Local Settings\Temp
+TMP
+%USERPROFILE%\Local Settings\Temp

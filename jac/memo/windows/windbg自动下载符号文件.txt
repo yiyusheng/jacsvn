@@ -1,0 +1,37 @@
+lkd> .sympath SRV*C:\WINDOWS\Symbols*http://msdl.microsoft.com/download/symbols
+Symbol search path is: SRV*D:\WINDOWS\Symbols*http://msdl.microsoft.com/download/symbols
+lkd> !sym noisy
+noisy mode - symbol prompts on
+lkd> !lmi nt
+Loaded Module Info: [nt] 
+         Module: ntkrnlpa
+   Base Address: 804d8000
+     Image Name: ntkrnlpa.exe
+   Machine Type: 332 (I386)
+     Time Stamp: 45e53f9c Wed Feb 28 16:38:52 2007
+           Size: 1f6400
+       CheckSum: 1facf5
+Characteristics: 12e 
+Debug Data Dirs: Type Size     VA Pointer
+             CODEVIEW    25, 9540,    9540 RSDS - GUID: {F612363D-B38C-423C-B085-59DDBCA9F2F7}
+               Age: 1, Pdb: ntkrnlpa.pdb
+     Image Type: MEMORY   - Image read successfully from loaded memory.
+    Symbol Type: EXPORT   - PDB not found
+    Load Report: export symbols
+lkd> .reload /f nt
+SYMSRV: WinInet Interface using proxy server: 202.117.54.197:8080
+SYMSRV: ntkrnlpa.pdb from http://msdl.microsoft.com/download/symbols: 394365 bytes copied         
+DBGHELP: nt - public symbols 
+         D:\WINDOWS\Symbols\ntkrnlpa.pdb\F612363DB38C423CB08559DDBCA9F2F71\ntkrnlpa.pdb
+
+至此修复完毕，下面一测试发现确实好了！哈哈！from Internet for Internet！希望对大家有所帮助！
+lkd> !peb
+PEB at 7ffde000
+    InheritedAddressSpace:    No
+    ReadImageFileExecOptions: No
+    BeingDebugged:            No
+    ImageBaseAddress:         01000000
+    Ldr                       001a1e90
+    Ldr.Initialized:          Yes
+......................................................................ok
+

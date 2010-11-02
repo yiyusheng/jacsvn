@@ -1,0 +1,28 @@
+A、网络配置
+
+此功能取代的命令为：
+
+netsh interface ipv4 set address name="<ID>" source=static address=<StaticIP> mask=<SubnetMask> gateway=<DefaultGateway>
+
+说明：
+
+" <ID>：网卡的编号，例如：Idx为4。
+
+" <StaticIP>：静态IP地址，例如：192.168.1.77。
+
+" <SubnetMask>：子网掩码，例如：255.255.255.0。
+
+" <DefaultGateway>：默认网关，例如：192.168.1.1.
+
+B、远程桌面
+
+启用远程桌面的命令为：
+
+Cscript c:\windows\system32\scregedit.wsf /ar 0
+
+C、激活WINDOWS（对应GUI的第一项Activation）
+
+此功能的命令为：
+
+slmgr.vbs -ato
+

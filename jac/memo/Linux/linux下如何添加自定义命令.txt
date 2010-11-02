@@ -1,0 +1,5 @@
+文件：/root/.bashrc，添加以下行：
+
+alias mycodedir = "cd /root/Source_code"
+
+保存，然后重新启动，以后在命令行输入mycodedir 即可执行命令“cd /root/Source_code”，省事又省力
