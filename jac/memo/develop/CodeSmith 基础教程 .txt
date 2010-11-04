@@ -1,0 +1,854 @@
+〇、            前言
+最近两天自己写了个简单的ORM框架，非常的Easy，但是没有相应的代码生成工具，于是就很杯具了！
+
+于是乎，花费了一天的时间学习并写了一个CodeSmith可以使用的模板。在此记录下CodeSmith的学习笔记。
+
+所用工具： CodeSmith Professional v5.1.3.8510，代码示例全部是以C#为例。
+
+一、            工具设置
+CodeSmith默认是不支持中文的，那么我们必须要先设置使其支持中文显示，保存。并且要能够在生成文件中支持中文。
+
+[Tools->Options...->Studio->Editor->Enable unicode]将这个选项勾上，那么CodeSmith就可以显示和保存中文了。 
+在你的模板的最前面的一句话，C#为例： 
+<%@ CodeTemplate TargetLanguage="Text" Src="" Inherits="" Debug="False" CompilerVersion="v3.5" Description="Template description here." %>
+
+中加入ResponseEncoding="UTF-8" 的标签。将会使得生成的文件也支持中文。
+
+[Tools->Options...->Studio->Editor->Convert tab to]去掉这个的勾选，就是不使用空格来替换Tab。 
+ 
+
+二、            模板区域说明
+CodeSmith的模板分为六个区域：模板说明区域，属性设置区域，注册模板区域，引用声明区域，模板区域，函数区域。
+
+(一)        模板说明区域，只有一句话：
+<%@ CodeTemplate ResponseEncoding="UTF-8" TargetLanguage="Text" Src="" Inherits="" Debug="False" CompilerVersion="v3.5" Description="这里是模板说明" %>
+
+(二)        属性设置区域
+你模板需要那些外接参数，都可以写在这里。当然还有一些其他的参数需要些在函数区域，在后面我们再来描述。
+
+1)   String类型参数声明：
+
+<%@ Property Default="AAA" Optional="True" Category="输入参数" Description="这是一个字符串型的参数" %>
+
+2)   Bool类型参数声明：
+
+<%@ Property Default="True" Optional="False" Category="输入参数" Description="这是一个布朗型的参数" %>
+
+3)   DatabaseSchema类型参数声明：
+
+<%@ Property Category="Context" Description="这是一个数据库" %>
+
+4)   TableSchemaCollection类型参数声明：
+
+<%@ Property Category="Context" Description="这是一个数据表集合" %>
+
+5)   TableSchema类型参数声明：
+
+<%@ Property Category="Context" Description="这是一个数据表" %>
+
+(三)        注册模板区域
+在你的模板中可以调用其他的模板用于生成，当然，你调用的模板所需要的参数你都必须给出。注册代码如下：
+
+<%@ Register Template="B.cst" MergeProperties="False" ExcludeProperties="" %>
+
+这就是将B模板注册到A模板中。
+
+(四)        引用声明区域
+在这里要将我们使用到了的应用集都在这里写出来，如果使用到数据库就一定要添加下面的两个。
+
+<%@ Assembly %>
+
+<%@ Import Namespace="SchemaExplorer" %>
+
+要自己控制输出文件的话就需要添加：<%@ Import Namespace="System.IO" %>
+
+(五)        模板区域
+这里就是我们控制要输出的文件或者界面的内容。
+
+直接输出值为<%= ThisIsString %>
+
+调用代码为<% if (ThisIsBool) { %>A<% } %> 如果ThisIsBool为true则输出A。
+
+(六)        函数区域
+在这里我们可以定义我们自己的函数，用于一些复杂的组合、代码的重用等。代码格式和C#完全一样。
+
+ 
+
+三、            模板编写方法
+A.     直接输出
+在模板区域直接输入文本，就会直接输出的output里面了。
+
+ 
+
+B.     变量输出
+例如输出ThisIsString的变量值：<%= ThisIsString %>
+
+再例如输出ThisIsTable的名字：<%= ThisIsTable.Name %>
+
+ 
+
+C.      调用函数
+例如，如果输入的ThisIsBool为true就输出A字符。
+
+<% if (ThisIsBool) { %>A<% } %>
+
+ 
+
+ 
+
+D.    调用模板
+这里我们将在A模板内调用并显示B模板。每个模板都有一个Response来存储模板输出的。模板显示是调用Render()方法来完成的。
+
+<% for(int i = 0; i < ThisIsTableList.Count; i++)
+
+{
+
+    B b = new B();
+
+    b.ThisIsTable = ThisIsTableList[i];
+
+    b.Render(this.Response);
+
+} %>
+
+ 
+
+E.      遍历Database或TableCollection内的表
+这里我们可以使用for或者foreach做循环，为了通用性例子全部使用for做循环。
+
+遍历ThisIsDatabase并输出表名
+
+<% for (int t = 0; t < ThisIsDatabase.Tables.Count; t++) { %>
+
+    <%= ThisIsDatabase.Tables[t].Name %>
+
+<% } %>
+
+ 
+
+F.      遍历Table的列
+遍历ThisIsTable的列并且生成类似如下格式的语句：
+
+//数据库类型：DbType.int
+
+private int _ID;
+
+这里调用了一个方法DataType2CSharpType(System.Data.DbType dbType)在后面将会讲到。
+
+<% for (int c = 0; c < ThisIsTable.Columns.Count; c++) { %>
+
+    //数据库类型：DbType.<%= DataType2CSharpType(ThisIsTable.Columns[c].DataType) %>
+
+    private <%= DataType2CSharpType(ThisIsTable.Columns[c].DataType) %> _<%= ThisIsTable.Columns[c].Name %>;
+
+    
+
+<% } %>
+
+ 输出结果：
+
+    //数据库类型：DbType.int
+
+    private int _ID;
+
+    
+
+    //数据库类型：DbType.int
+
+    private int _ClassID;
+
+    
+
+    //数据库类型：DbType.string
+
+    private string _StudentName;
+
+ 
+
+G.     遍历Table的PK
+<% for (int c = 0; c < ThisIsTable.PrimaryKey.MemberColumns.Count; c++) { %>
+
+主键<%= c %>:<%= ThisIsTable.PrimaryKey.Name %>
+
+    <%= ThisIsTable.PrimaryKey.Table.Name %>.<%= ThisIsTable.PrimaryKey.MemberColumns[c].Name %>
+
+<% } %>
+
+输出结果 ：
+
+主键0:PK_Student
+
+    Student.ID
+
+ 
+
+H.    遍历Table的FK(Table自己是外键表<即Table为明细表>)
+这里说明下，下面的代码仅仅只是对FK里面的列是一对一的有效，如果是多对多的FK需要修改下面的0的地方为循环即可。
+
+<% for (int c = 0; c < ThisIsTable.ForeignKeys.Count; c++) { %>
+
+外键<%= c %>:<%= ThisIsTable.ForeignKeys[c].Name %>
+
+    外键<%= c %>对应的列
+
+    <% for (int i = 0; i < ThisIsTable.ForeignKeys[c].PrimaryKeyMemberColumns.Count; i++) { %>
+
+        <%= ThisIsTable.ForeignKeys[c].ForeignKeyTable.Name %>.<%= ThisIsTable.ForeignKeys[c].ForeignKeyMemberColumns[0].Name %> <——来自于 <%= ThisIsTable.ForeignKeys[c].PrimaryKeyTable.Name %>.<%= ThisIsTable.ForeignKeys[c].PrimaryKeyMemberColumns[0].Name %>
+
+    <% } %>
+
+<% } %>
+
+ 输出结果：
+
+外键0:FK_Student_Class
+
+    外键0对应的列
+
+ 
+
+I.        遍历Table的FK(Table自己是主键表<即Table为父表>)
+<% for (int c = 0; c < ThisIsTable.PrimaryKeys.Count; c++) { %>
+
+其他表外键<%= c %>:<%= ThisIsTable.PrimaryKeys[c].Name %>
+
+    其他表外键<%= c %>对应的列:
+
+    <% for (int i = 0; i < ThisIsTable.PrimaryKeys[c].PrimaryKeyMemberColumns.Count; i++) { %>
+
+        <%= ThisIsTable.PrimaryKeys[c].PrimaryKeyTable.Name %>.<%= ThisIsTable.PrimaryKeys[c].PrimaryKeyMemberColumns[0].Name %> 作用于——> <%= ThisIsTable.PrimaryKeys[c].ForeignKeyTable.Name %>.<%= ThisIsTable.PrimaryKeys[c].ForeignKeyMemberColumns[0].Name %>
+
+    <% } %>
+
+<% } %>
+
+输出结果：
+
+其他表外键0:FK_ExamScore_Student
+
+    其他表外键0对应的列:
+
+        Student.ID 作用于——> ExamScore.StudentID
+
+四、            函数区域用法
+之前我们提到过，有些参数必须要写在函数区域中。当然这些参数就是需要有一些其他组件支持的参数了，比如弹出一个窗口选择文件，或者弹出一个选择文件夹的窗体，用于输入的参数。
+
+1)    添加一个选择目录的输入参数
+下面我们就是定义了一个输入参数OutputDirectory，在运行的输入参数界面，点击这个参数的输入框就会弹出一个选择目录的窗口。
+
+    private string templateOutputDirectory = "";
+
+    
+
+    [Editor(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))] 
+
+    [Optional, NotChecked]
+
+    [Category("OutputInfo")]
+
+    [Description("输出结果的目录。")]
+
+    [DefaultValue("")]
+
+    public string OutputDirectory 
+
+    { 
+
+        get
+
+        {
+
+            if (string.IsNullOrEmpty(templateOutputDirectory))
+
+            {
+
+                return "C:\\"+ (ThisIsDatabase!= null ? ThisIsDatabase.Name : "Output");
+
+            }
+
+            else
+
+            {
+
+                return templateOutputDirectory;
+
+            }
+
+        }
+
+        set
+
+        {
+
+            if (value.EndsWith("\\")) value = value.Substring(0, value.Length - 1);
+
+            templateOutputDirectory = value;
+
+        } 
+
+    }
+
+ 
+
+2)    添加一个选择文件的输入参数
+下面我们就是定义了一个输入参数OutputFile，在运行的输入参数界面，点击这个参数的输入框就会弹出一个选择文件的窗口。
+
+    private string templateOutputFile;
+
+    
+
+    [Editor(typeof(System.Windows.Forms.Design.FileNameEditor), typeof(System.Drawing.Design.UITypeEditor))]    
+
+    [Optional, NotChecked]
+
+    [Category("OutputInfo")]
+
+    [Description("输出文件")]
+
+    [DefaultValue("")]
+
+    public string OutputFile
+
+    {
+
+        get
+
+        {
+
+            if (string.IsNullOrEmpty(templateOutputFile))
+
+            {
+
+                return "C:\\"+ (ThisIsDatabase != null ? ThisIsDatabase.Name + ".cs" : "Output.cs");
+
+            }
+
+            else
+
+            {
+
+                return templateOutputFile;
+
+            }
+
+        }
+
+        set
+
+        {
+
+            templateOutputFile = value;
+
+        }
+
+    }
+
+ 
+
+3)    将数据库类型转化为C#类型的函数
+输入DbType的类型转化后输出C#的类型的字符串。这个函数很常用到。
+
+    public string DataType2CSharpType(System.Data.DbType dbType)
+
+    {
+
+        switch (dbType)
+
+        {
+
+            case DbType.AnsiString:
+
+                return "string";
+
+            case DbType.AnsiStringFixedLength:
+
+                return "string";
+
+            case DbType.Binary:
+
+                return "byte[]";
+
+            case DbType.Boolean:
+
+                return "bool";
+
+            case DbType.Byte:
+
+                return "byte";
+
+            case DbType.Currency:
+
+                return "decimal";
+
+            case DbType.Date:
+
+                return "DateTime";
+
+            case DbType.DateTime:
+
+                return "DateTime";
+
+            case DbType.DateTime2:
+
+                return "DateTime";
+
+            case DbType.DateTimeOffset:
+
+                return "DateTime";
+
+            case DbType.Decimal:
+
+                return "decimal";
+
+            case DbType.Double:
+
+                return "double";
+
+            case DbType.Guid:
+
+                return "Guid";
+
+            case DbType.Int16:
+
+                return "short";
+
+            case DbType.Int32:
+
+                return "int";
+
+            case DbType.Int64:
+
+                return "long";
+
+            case DbType.Object:
+
+                return "object";
+
+            case DbType.SByte:
+
+                return "sbyte";
+
+            case DbType.Single:
+
+                return "float";
+
+            case DbType.String:
+
+                return "string";
+
+            case DbType.StringFixedLength:
+
+                return "string";
+
+            case DbType.Time:
+
+                return "DateTime";
+
+                
+
+            case DbType.UInt16:
+
+                return "ushort";
+
+            case DbType.UInt32:
+
+                return "uint";
+
+            case DbType.UInt64:
+
+                return "ulong";
+
+            case DbType.VarNumeric:
+
+                return "decimal";
+
+            case DbType.Xml:
+
+                return "string";
+
+            default:
+
+                return "object";
+
+        }
+
+    }
+
+ 
+
+ 
+
+4)    获取数据库类型的字段在C#中的默认值
+输入DbType的类型转化后输出C#的类型的默认值。这个函数和上面那个差不多，只是有些时候设置了值后希望给个默认值而已。
+
+    public string DataTypeDefaultValue(System.Data.DbType dbType)
+
+    {
+
+        switch (dbType)
+
+        {
+
+            case DbType.AnsiString:
+
+                return "String.Empty";
+
+            case DbType.AnsiStringFixedLength:
+
+                return "String.Empty";
+
+            case DbType.Binary: //Answer modified was just 0
+
+                return "new byte[] {}";
+
+            case DbType.Boolean:
+
+                return "false";
+
+            case DbType.Byte: //Answer modified was just 0
+
+                return "(byte)0";
+
+            case DbType.Currency:
+
+                return "0";
+
+            case DbType.Date:
+
+                return "DateTime.MinValue";
+
+            case DbType.DateTime:
+
+                return "DateTime.MinValue";
+
+            case DbType.DateTime2:
+
+                return "DateTime.MinValue";
+
+            case DbType.DateTimeOffset:
+
+                return "DateTime.MinValue";
+
+            case DbType.Decimal:
+
+                return "0.0m";
+
+            case DbType.Double:
+
+                return "0.0f";
+
+            case DbType.Guid:
+
+                return "Guid.Empty";
+
+            case DbType.Int16:
+
+                return "(short)0";
+
+            case DbType.Int32:
+
+                return "(int)0";
+
+            case DbType.Int64:
+
+                return "(long)0";
+
+            case DbType.Object:
+
+                return "new object()";
+
+            case DbType.SByte:
+
+                return "(sbyte)0";
+
+            case DbType.Single:
+
+                return "0F";
+
+            case DbType.String:
+
+                return "String.Empty";
+
+            case DbType.StringFixedLength:
+
+                return "String.Empty";
+
+            case DbType.Time:
+
+                return "new DateTime(1900,1,1,0,0,0,0)"; //return "DateTime.MaxValue";
+
+            case DbType.UInt16:
+
+                return "(ushort)0";
+
+            case DbType.UInt32:
+
+                return "(uint)0";
+
+            case DbType.UInt64:
+
+                return "(ulong)0";
+
+            case DbType.VarNumeric:
+
+                return "(decimal)0";
+
+            case DbType.Xml:
+
+                return "String.Empty";
+
+            default:
+
+                return "null";
+
+        }
+
+    }
+
+ 
+
+5)    文件输出函数
+当然了，做了这么多的工作，最后肯定是希望输出成文件咯，在前面我们已经说过了，对于输出的结果是调用Render()方法，那么我们只需要在Render()方法里面输出文件就可以了。
+
+    public override void Render(TextWriter writer)
+
+    {
+
+        if (!Directory.Exists(OutputDirectory))
+
+            Directory.CreateDirectory(OutputDirectory);
+
+        StreamWriter BaseFile = new StreamWriter(OutputFile, false);
+
+        base.Render(writer);
+
+        BaseFile.Close();
+
+    }
+
+ 
+
+当然了，我们也可以再嵌入的其他模板里面调用这些输出的方法，从而达到输出多个文件的目的，这里就不再详细的写代码了。
+
+另附上完整的B的代码：
+
+<%@ CodeTemplate ResponseEncoding="UTF-8" TargetLanguage="Text" Src="" Inherits="" Debug="False" CompilerVersion="v3.5" Description="这里是模板说明" %>
+
+<%@ Property Category="Context" Description="这是一个数据表" %>
+
+ 
+
+<%@ Assembly %>
+
+<%@ Import Namespace="SchemaExplorer" %>
+
+ 
+
+数据表名称：<%= ThisIsTable.Name %>
+
+ 
+
+<% for (int c = 0; c < ThisIsTable.PrimaryKey.MemberColumns.Count; c++) { %>
+
+主键<%= c %>:<%= ThisIsTable.PrimaryKey.Name %>
+
+    <%= ThisIsTable.PrimaryKey.Table.Name %>.<%= ThisIsTable.PrimaryKey.MemberColumns[c].Name %>
+
+<% } %>
+
+ 
+
+<% for (int c = 0; c < ThisIsTable.ForeignKeys.Count; c++) { %>
+
+外键<%= c %>:<%= ThisIsTable.ForeignKeys[c].Name %>
+
+    外键<%= c %>对应的列
+
+    <% for (int i = 0; i < ThisIsTable.ForeignKeys[c].PrimaryKeyMemberColumns.Count; i++) { %>
+
+        <%= ThisIsTable.ForeignKeys[c].ForeignKeyTable.Name %>.<%= ThisIsTable.ForeignKeys[c].ForeignKeyMemberColumns[0].Name %> <——来自于 <%= ThisIsTable.ForeignKeys[c].PrimaryKeyTable.Name %>.<%= ThisIsTable.ForeignKeys[c].PrimaryKeyMemberColumns[0].Name %>
+
+    <% } %>
+
+<% } %>
+
+ 
+
+<% for (int c = 0; c < ThisIsTable.PrimaryKeys.Count; c++) { %>
+
+其他表外键<%= c %>:<%= ThisIsTable.PrimaryKeys[c].Name %>
+
+    其他表外键<%= c %>对应的列:
+
+    <% for (int i = 0; i < ThisIsTable.PrimaryKeys[c].PrimaryKeyMemberColumns.Count; i++) { %>
+
+        <%= ThisIsTable.PrimaryKeys[c].PrimaryKeyTable.Name %>.<%= ThisIsTable.PrimaryKeys[c].PrimaryKeyMemberColumns[0].Name %> 作用于——> <%= ThisIsTable.PrimaryKeys[c].ForeignKeyTable.Name %>.<%= ThisIsTable.PrimaryKeys[c].ForeignKeyMemberColumns[0].Name %>
+
+    <% } %>
+
+<% } %>
+
+ 
+
+数据表Select语句：private const String SelectString = @"
+
+            SELECT
+
+                <% for (int c = 0; c < ThisIsTable.Columns.Count; c++) { %>
+
+                [<%= ThisIsTable.Columns[c].Name %>]<% if (c < ThisIsTable.Columns.Count - 1) { %>,<% } %>
+
+                <% } %>
+
+            FROM [<%= ThisIsTable.Name %>] WHERE 1 = 1 ";
+
+            
+
+各字段数据类型：
+
+<% for (int c = 0; c < ThisIsTable.Columns.Count; c++) { %>
+
+    //数据库类型：DbType.<%= DataType2CSharpType(ThisIsTable.Columns[c].DataType) %>
+
+    private <%= DataType2CSharpType(ThisIsTable.Columns[c].DataType) %> _<%= ThisIsTable.Columns[c].Name %>;
+
+    
+
+<% } %>
+
+ 
+
+<script runat="template">
+
+//将数据库类型转化为C#类型
+
+public string DataType2CSharpType(System.Data.DbType dbType)
+
+{
+
+    switch (dbType)
+
+    {
+
+        case DbType.AnsiString:
+
+            return "string";
+
+        case DbType.AnsiStringFixedLength:
+
+            return "string";
+
+        case DbType.Binary:
+
+            return "byte[]";
+
+        case DbType.Boolean:
+
+            return "bool";
+
+        case DbType.Byte:
+
+            return "byte";
+
+        case DbType.Currency:
+
+            return "decimal";
+
+        case DbType.Date:
+
+            return "DateTime";
+
+        case DbType.DateTime:
+
+            return "DateTime";
+
+        case DbType.DateTime2:
+
+            return "DateTime";
+
+        case DbType.DateTimeOffset:
+
+            return "DateTime";
+
+        case DbType.Decimal:
+
+            return "decimal";
+
+        case DbType.Double:
+
+            return "double";
+
+        case DbType.Guid:
+
+            return "Guid";
+
+        case DbType.Int16:
+
+            return "short";
+
+        case DbType.Int32:
+
+            return "int";
+
+        case DbType.Int64:
+
+            return "long";
+
+        case DbType.Object:
+
+            return "object";
+
+        case DbType.SByte:
+
+            return "sbyte";
+
+        case DbType.Single:
+
+            return "float";
+
+        case DbType.String:
+
+            return "string";
+
+        case DbType.StringFixedLength:
+
+            return "string";
+
+        case DbType.Time:
+
+            return "TimeSpan";
+
+        case DbType.UInt16:
+
+            return "ushort";
+
+        case DbType.UInt32:
+
+            return "uint";
+
+        case DbType.UInt64:
+
+            return "ulong";
+
+        case DbType.VarNumeric:
+
+            return "decimal";
+
+        case DbType.Xml:
+
+            return "string";
+
+        default:
+
+            return "object";
+
+    }
+
+}
+
+</script>
+
+ 
+
+OK，终于写完了，花费了一整天的来写，希望对大家有所帮助！
+
