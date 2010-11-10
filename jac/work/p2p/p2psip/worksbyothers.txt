@@ -1,0 +1,45 @@
+Working Group Items
+C. Jennings, B. Lowekamp, E. Rescorla, S. Baset and H. Schulzrinne, REsource LOcation And Discovery (RELOAD) (July 2008)
+draft-ietf-p2psip-reload-00 
+问题：RELOAD协议一种用于P2PSIP的信号协议，抽象的存储和消息服务，基于证书登记服务的安全模型，NAT穿越
+
+D. Bryan, P. Matthews, E. Shim, D. Willis, and S. Dawkins, Concepts and Terminology for Peer to Peer SIP (July 2008)
+draft-ietf-p2psip-concepts-02 
+问题：P2PSIP的基本概念和术语，P2PSIP的基本框架
+
+L. Huang, Location and Discovery of Subsets of Resources (July 2008)
+draft-licanhuang-p2psip-subsetresourcelocation-00 
+问题：搜索条件过滤后的资源的定位和发现，类SQL的查询
+
+H. Song, X. Jiang, M. Matuszewski, J-E. Ekberg and P. Laitinen, Security requirements in Peer-to-Peer Session Initiation Protocol (P2PSIP) (July 2008)
+draft-matuszewski-p2psip-security-requirements-03
+问题：描述了P2PSIP的安全需求，C/S与P2PSIP安全方面的不同点，对P2PSIP进行了分层的安全分析，分成两种情景的安全威胁
+
+H. Song, H. Zheng, X. Jiang, Diagnose P2PSIP Overlay Network Failures (July 2008)
+draft-zheng-p2psip-diagnose-02 
+问题：介绍了一种简单有效的P2PSIP失败的发现定位机制，用于发现和定位的Echo请求Echo响应消息，这两种消息的处理机制
+
+T. Hardie, Pointers for Peer-to-Peer Overlay Networks, Nodes, or Resources (June 2008)
+draft-hardie-p2psip-p2p-pointers-00 
+问题：用网页EMAIL等方式提供P2P覆盖网络的指针
+
+E. Cooper, A. Johnston, P. Matthews, An ID/Locator Architecture for P2PSIP (November 2007)
+draft-matthews-p2psip-id-loc-01 
+问题：在P2P覆盖网中使用特殊IP识别peer的一种架构，好处有两点：大多数应用程序不需要改变就可以运行、透明的处理了peer的移动行和NAT穿越问题
+
+V. Pascual Avila, M. Matuszewski, E. Shim, H. Zheng, Y. Song, P2PSIP Clients (February 2008)
+draft-pascual-p2psip-clients-01 
+问题：将P2PSIP peer和client进行了区分，peer具有路由功能，client不具有路由功能
+
+Yongchao Song, Xingfeng Jiang, Hewen Zheng, Hui Deng, P2PSIP Client Protocol (February 2008)
+draft-zheng-p2psip-client-protocol-01 
+问题：定义了P2PSIP Client协议，用于client和peer间的通信
+
+G. Camarillo, P. Nikander, J. Hautakorpi, HIP BONE: Host Identity Protocol (HIP) Based Overlay Networking Environment (February 2008)
+draft-camarillo-hip-bone-01 
+问题：引入了基于HIP的覆盖网络框架，使用HIP进行连接管理，其它如数据存储与恢复以及覆盖网络的维护使用的是其它协议
+
+XingFeng Jiang, HeWen Zheng, Service Extensible P2P Peer Protocol (February 2008)
+draft-jiang-p2psip-sep-01 
+问题：描述了可延伸的服务协议（SEP），节点分享信息和组织覆盖网络，使用一个可伸缩的转发机制来避免拥塞，服务发现方法和内建的NAT穿越机制，SEP致力于提高成功率和降低时延
+
