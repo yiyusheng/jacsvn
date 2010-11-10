@@ -8,9 +8,13 @@ stun.c
 turnAllocateSocketPair
 221
 nohup ./runMeridian.sh &
-nohup ./runReTurn.sh &
+nohup ./runReTurn.sh & 
 
 
 211.69.198.133
 gridcast
 gridcast
+
+202.114.10.139
+root
+hzjpkc
