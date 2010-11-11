@@ -18,3 +18,4 @@ gridcast
 202.114.10.139
 root
 hzjpkc
+vnc:hzjpkc
