@@ -1,0 +1,156 @@
+Problem Statement of P2P Streaming Protocol (PPSP)
+                 draft-ietf-ppsp-problem-statement-00.txt
+问题：提出PPSP的概念，希望标准化各种P2P流的信号协议，介绍了术语、概念、激励、PPSP的开发范围、PPSP的用例
+
+P2P Streaming Protocol (PPSP) Requirements
+draft-ietf-ppsp-reqs-00
+问题：枚举了设计PPSP的要求
+
+SIP-based Tracker Protocol
+draft-chen-ppsp-sip-based-tracker-protocol-01 
+问题：引入了一种基于文本的Tracker协议，在SIP消息中携带XML控制消息
+
+Secure naming structure and p2p application interaction
+draft-dannewitz-ppsp-secure-naming-01
+问题：提供一种通用命名方案，确保使用与数据位置无关的相同数据，P2P系统提高效率和数据可用性
+
+The Generic Multiparty Transport Protocol (swift)
+draft-grishchenko-ppsp-swift-01 
+问题：通用多组织传输协议，建立一个单独统一的以内容为中心的传输协议，必须统一数据下载、视频点播、现场直播，混合各种网络模式
+
+Peer Protocol
+draft-gu-ppsp-peer-protocol-01
+问题：引入了一个高层次的节点协议，包括系统架构、协议要求、呼叫流、开放讨论
+
+Survey of P2P Streaming Applications
+draft-gu-ppsp-survey-02
+问题：对流行的P2P流媒体应用的调研，主要包括架构、peer协议、track信号协议，总结了一套通用的P2P流处理模型和相应的信号处理过程
+    P2P流系统的两种组织结构：树状结构、网状结构
+	
+    Joost是网状结构的
+    Joost的关键组织分为：服务器、超级节点、对等节点
+    Joost的服务器分为：目录服务器、版本服务器、后端服务器、内容服务器、图形服务器                   +---------------+       +-------------------+
+                   | Version Server|       |   Tracker Server  |
+                   +---------------+       +-------------------+
+                             \                       |
+                              \                      |
+                               \                     | +---------------+
+                                \                    | |Graphics Server|
+                                 \                   | +---------------+
+                                  \                  |     |
+   +--------------+        +-------------+        +--------------+
+   |Content Server|--------|    Peer1    |--------|Backend Server|
+   +--------------+        +-------------+        +--------------+
+                                     |
+                                     |
+                                     |
+                                     |
+                              +------------+       +---------+
+                              | Super Node |-------|  Peer2  |
+                              +------------+       +---------+    安装阶段：后端服务器为节点以SQLite文件形式提供初始频道列表，本地缓存、节点ID、监听端口是在该SQLite文件中配置的
+	自举阶段：目录服务器提供几个超级节点和内容服务器的地址，peer连接版本服务器获取最新版本，peer从超级节点获取可用节点的列表并开始视频内容流
+	频道切换：超级节点负责重定向客户端到内容服务器或peers
+	peer使用HTTP/HTTPS同服务器通信，使用UDP能超级节点和其它peers通信
+	peer和超级节点间的通信类似为Track协议
+	peer协议：媒体数据以chunk来组织，每个chunk包含5~10秒的视频数据，peer在从超级节点接到节点列表后与其它peer协商找到他们具有的chunks
+	
+	Octoshape的新技术有：丢包弹性传输、自适应比特率、自适应通道优化、自适应接近交付
+	            +------------+   +--------+
+            |   Peer 1   |---| Peer 2 |
+            +------------+   +--------+
+                 |    \    /      |
+                 |     \  /       |
+                 |      \         |
+                 |     / \        |
+                 |    /   \       |
+                 |  /      \      |
+      +--------------+    +-------------+
+      |     Peer 4   |----|    Peer3    |
+      +--------------+    +-------------+
+
+      *****************************************
+                         |
+                         |
+                 +---------------+
+                 | Content Server|
+                 +---------------+
+	Octoshape是网状的，使用类似于P2P文件共享的方式来维护网络拓扑结构，没有目录服务器，peer从内容服务器和peers使用Octoshape协议获取直播流，播放流被划分成多个数据流
+	每个节点有一个保存观看相同频道peer的地址列表，并从中选择一部分做为待机列表，如果当前sender挂掉了就从中选取一个来替代
+	peer协议：当peer加入频道时会使用peer协议通知同一频道的其它peer，地址列表可能因为网络原因而不完全
+	peer向选中的节点发送直播流请求，选中的节点根据自己的上传带宽来决定是否回应（上传带宽不能比播放流小）
+	
+	PPlive具有两种主要的通信协议：注册和节点发现协议、P2P chunk发布协议
+	            +------------+    +--------+
+            |   Peer 2   |----| Peer 3 |
+            +------------+    +--------+
+                     |          |
+                     |          |
+                    +--------------+
+                    |    Peer 1    |
+                    +--------------+
+                            |
+                            |
+                            |
+                    +---------------+
+                    | Tracker Server|
+                    +---------------+
+	Track协议：首先，peer从频道服务器获取频道列表，再选择一个频道并从Track服务器获取该频道的peer列表
+	Peer协议：peer根据peer列表向其它peer获取peer列表并合并，根据这个列表peer可以维护一个用于peer管理和数据传输的网
+	peer使用滑动窗口保存最近几分钟的chunks（包含已播的和未播的），peer间互相发送"buffer-map"信号（peer当前缓存的chunks）（包含peer当前第一个chunk的偏移，一个零一序列表示从偏移开始哪个chunk可用，PPlive使用UDP来传输数据
+	PPlive的视频下载策略：每一小段时间前10名peer贡献主要上传流，这10名peer会周期性的切换；可以在一个时间点向同一个节点的不同chunks发送chunk请求
+	
+	Zattoo也是使用网状结构，使用基于接收者和结点划分的复用方案来发送实时流      -------------------------------
+      |   ------------------        |         --------
+      |   |  Broadcast     |        |---------|Peer1 |-----------
+      |   |  Servers       |        |         --------          |
+      |   Administrative Servers    |                      -------------
+      |   ------------------------  |                      | Super Node|
+      |   | Authentication Server | |                      -------------
+      |   | Rendezvous Server     | |                           |
+      |   | Feedback Server       | |         --------          |
+      |   | Other Servers         | |---------|Peer2 |----------|
+      |   ------------------------| |         --------
+      ------------------------------|
+	
+	
+	
+
+Tracker Protocol
+draft-gu-ppsp-tracker-protocol-02
+问题：描述了P2P流Track协议所具有的功能，包括功能实体、架构、组件，Track信息的编码方式，让节点注册、发布/请求内容、提供节点状态，向节点提供节点列表、发送控制管理信息，与其它Track沟通
+
+PPSP NAT traversal
+draft-li-ppsp-nat-traversal-00 
+问题：对ICE的一些修改，PPSP节点能做为STUN/中转服务器，PPSP协议能够用来传输候选地址，PPSP信号被见议用来测试连接性，代理节点被见议用来中转PPSP信号
+
+P2P Streaming for Mobile Nodes: Scenarios and Related Issues
+draft-lu-ppsp-mobile-04 
+问题：PPSP带有移动节点网络的关键问题，PPSP处理这些情景的附加要求
+
+Design Considerations for a Peer-to-Peer Streaming Protocol
+draft-seedorf-ppsp-design-considerations-01 
+问题：使用类ALTO服务减轻域间流量
+
+A Router Caching Scheme for Streaming Media
+draft-wang-ppsp-router-caching-01 
+问题：路由缓存方案的关键问题
+
+Implementation of a P2P-VoD System with video-segmentation and Network Coding
+draft-wang-ppsp-vod-system-01 
+问题：P2P点播系统的关键问题
+
+P2P Layered Streaming for Heterogeneous Networks in PPSP
+draft-wu-ppsp-p2p-layered-streaming-01 
+问题：支持异质peer节点的分层P2P流
+
+Survey of P2P File Downloading and Streaming Protocol
+draft-wu-ppsp-survey-of-p2p-protocol-01 
+问题：对熟知的P2P文件下载和流应用的消息设计的调研，总结出一套通用的P2P流协议标准化的消息设计
+
+A PPSP Tracker Usage for Reload
+draft-xiao-ppsp-reload-distributed-tracker-00 
+问题：由RELORD协议组织的分布式Track系统，提供文件/通道索引、节点状态的查询服务
+
+P2P Streaming Protocol Pro-incentive Parameters
+draft-zeng-ppsp-protocol-pro-incentive-para-01 
+问题：派生激励机制的通用参数，在消息交换中合并临时激励参数
