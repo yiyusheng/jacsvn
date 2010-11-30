@@ -1,0 +1,36 @@
+Ubuntu默认安装的中文环境为zh_CN.utf8,然后很多windows的文档还是以GB2312或GBK编码保存的,因此十分有必要
+
+在Ubuntu下生成GBK或GB2312的locale.具体方法如下:
+
+1.修改/var/lib/locales/supported.d/local文件,在文件中添加
+
+zh_CN.GBK GBK
+
+zh_CN.GB2312 GB2312 
+
+
+2.sudo dpkg-reconfigure --force locales
+
+然后在输出的结果中会出现
+
+zh_CN.GB2312 done
+
+zh_CN.GBK done 
+
+
+查看当前locale中所有编码
+locale -a
+查看当前的默认编码
+echo $LANG
+将默认默认编码改为GBK
+修改/etc/environment
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/games"
+LANGUAGE="zh_CN:zh:en_US:en"
+GST_ID3_TAG_ENCODING=GBK
+LANG=zh_CN.GBK
+LC_CTYLE=zh_CN.GBK
+CLASSPATH="/usr/lib/jvm/java-1.5.0-sun/lib"
+JAVA_HOME="/usr/lib/jvm/java-1.5.0-sun"
+
+LC_ALL="zh_CN.GBK"接下来重启服务器就行了 reboot init 6 now 
+
