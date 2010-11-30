@@ -1,0 +1,17 @@
+一、gedit
+
+1、在终端运行 gconf-editor；
+
+2、弹出“配置编辑器”，选择“apps→gedit-2→preferences→encodings”，双击右面的“autodetected”，弹出“编辑键”。点击“添加”，输入GB18030后确定，并把GB18030移到第二。
+
+
+二、vi、vim
+
+1、终端输入 sudo nautilus /etc/vim ，弹出vim文件夹。
+
+2、用gedit（或用vi命令）打开vimrc 文件，在文件最下面添加如下代码
+
+set fencs=utf-8,GB18030,ucs-bom,default,latin1
+
+保存即可，这样gvim 编辑器自动检测到编码。
+
