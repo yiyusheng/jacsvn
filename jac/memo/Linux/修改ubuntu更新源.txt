@@ -5,3 +5,16 @@ sudo gedit /etc/apt/sources.list
 保存编辑好的文件，执行以下命令更新。 
 sudo apt-get update
 sudo apt-get dist-upgrade
+
+#电子科技大学
+
+deb http://Ubuntu.uestc.edu.cn/ubuntu/ maverick main restricted universe multiverse
+deb http://Ubuntu.uestc.edu.cn/ubuntu/ maverick-backports main restricted universe multiverse
+deb http://Ubuntu.uestc.edu.cn/ubuntu/ maverick-proposed main restricted universe multiverse
+deb http://Ubuntu.uestc.edu.cn/ubuntu/ maverick-security main restricted universe multiverse
+deb http://Ubuntu.uestc.edu.cn/ubuntu/ maverick-updates main restricted universe multiverse
+deb-src http://Ubuntu.uestc.edu.cn/ubuntu/ maverick main restricted universe multiverse
+deb-src http://Ubuntu.uestc.edu.cn/ubuntu/ maverick-backports main restricted universe multiverse
+deb-src http://Ubuntu.uestc.edu.cn/ubuntu/ maverick-proposed main restricted universe multiverse
+deb-src http://Ubuntu.uestc.edu.cn/ubuntu/ maverick-security main restricted universe multiverse
+deb-src http://Ubuntu.uestc.edu.cn/ubuntu/ maverick-updates main restricted universe multiverse
