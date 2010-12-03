@@ -1,0 +1,29 @@
+66.249.80.104 code.google.com
+
+66.249.80.104 encrypted.google.com
+66.249.80.104 suggestqueries.google.com
+66.249.80.104 mail.google.com
+66.249.80.104 groups.google.com
+66.249.80.104 groups.google.com.hk
+66.249.80.104 docs.google.com
+66.249.80.104 docs0.google.com
+66.249.80.104 docs1.google.com
+66.249.80.104 spreadsheets.google.com
+66.249.80.104 spreadsheets0.google.com
+66.249.80.104 webcache.googleusercontent.com
+66.249.80.104 sites.google.com
+66.249.80.104 talkgadget.google.com
+66.249.80.104 clients1.google.com
+66.249.80.104 clients2.google.com
+66.249.80.104 clients3.google.com
+66.249.80.104 clients4.google.com
+
+203.208.39.99 lh1.ggpht.com
+203.208.39.99 lh2.ggpht.com
+203.208.39.99 lh3.ggpht.com
+203.208.39.99 lh4.ggpht.com
+203.208.39.99 lh5.ggpht.com
+203.208.39.99 lh6.ggpht.com
+203.208.39.99 lh7.ggpht.com
+203.208.39.99 lh8.ggpht.com
+203.208.39.99 lh9.ggpht.com
