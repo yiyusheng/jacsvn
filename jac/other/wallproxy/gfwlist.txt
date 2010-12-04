@@ -5,3 +5,5 @@
 !     ----http://autoproxy-gfwlist.googlecode.com/
 
 google.com
+renren.com
+baidu.com
