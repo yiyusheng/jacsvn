@@ -1,9 +1,5 @@
-[AutoProxy 0.2.9]
-! Checksum: SvQjzb4lYabAYRmu9EHnKA
-! Expires: 6h
-! Last Modified: Sat, 04 Dec 2010 02:44:12 +0800
-!     ----http://autoproxy-gfwlist.googlecode.com/
-
-google.com
-renren.com
-baidu.com
+W0F1dG9Qcm94eSAwLjIuOV0NCiEgQ2hlY2tzdW06IFN2UWp6YjRsWWFiQVlSbXU5
+RUhuS0ENCiEgRXhwaXJlczogNmgNCiEgTGFzdCBNb2RpZmllZDogU2F0LCAwNCBE
+ZWMgMjAxMCAwMjo0NDoxMiArMDgwMA0KISAgICAgLS0tLWh0dHA6Ly9hdXRvcHJv
+eHktZ2Z3bGlzdC5nb29nbGVjb2RlLmNvbS8NCg0KZ29vZ2xlLmNvbQ0KcmVucmVu
+LmNvbQ0KYmFpZHUuY29tDQo=
