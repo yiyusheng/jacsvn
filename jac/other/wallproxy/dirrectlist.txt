@@ -1,4 +1,1 @@
-[AutoProxy 0.2.9]
-
-.google.com
-www.baidu.com
+W0F1dG9Qcm94eSAwLjIuOV0NCg0KLmdvb2dsZS5jb20NCnd3dy5iYWlkdS5jb20=
