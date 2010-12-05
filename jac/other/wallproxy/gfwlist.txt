@@ -1,2 +1,5 @@
-W0F1dG9Qcm94eSAwLjIuOV0NCg0KfHxyZW5yZW4uY29tDQp8fGljaWJhLmNvbQ0K
-fHx5b3VrdS5jb20NCg0K
+[AutoProxy 0.2.9]
+
+||renren.com
+||iciba.com
+||youku.com
