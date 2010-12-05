@@ -22,6 +22,8 @@ PHP_PROXY = [{
 
 DIRECT_PROXY = [{}]
 
+HEADERS = {'Content-Type':'application/octet-stream', 'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.10 (KHTML, like Gecko) Chrome/8.0.552.0 Safari/534.10'}
+
 RULE_STATIC_EXCLUDE = %s
 
 #FOR CERNET
