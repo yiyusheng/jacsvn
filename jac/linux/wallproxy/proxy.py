@@ -236,7 +236,6 @@ if __name__ == '__main__':
     print 'HTTPS Enabled: %s' % ('YES' if ssl_enabled else 'NO')
     print 'OpenSSLModule: %s' % ('YES' if util.crypto else 'NO')
     print 'Proxies Count: GAE(%d) PHP(%d) DIRECT(%d)' % (len(util.GAE_PROXY), len(util.PHP_PROXY), len(util.DIRECT_PROXY))
-    print 'AutoProxyList: %d' % (0 if not util.AUTOPROXY_LIST else len(util.AUTOPROXY_LIST))
     print '---------------------------------------------------'
     httpd = ThreadingHTTPServer(util.LISTEN_ADDR, LocalProxyHandler)
     if util.RELOAD:
