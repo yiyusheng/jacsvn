@@ -4,6 +4,8 @@
 
 # patch by lyricconch 20100925 (performance of autoproxy)
 
+from __future__ import with_statement
+
 __author__ = 'base64.decodestring("d3d3LmVodXN0QGdtYWlsLmNvbQ==")'
 __version__ = '0.3.7'
 
@@ -12,7 +14,7 @@ try:
 except ImportError:
     crypto = None
 import os, sys, re, itertools, random, struct
-import urlparse, urllib2, socket, zlib, httplib, time, mutex
+import urlparse, urllib2, socket, zlib, httplib
 
 def getModulePath():
     if hasattr(sys, 'frozen'):
@@ -223,177 +225,130 @@ def dnsDomainIs(host, domain):
     return host == domain or host.endswith('.' + domain)
 
 def _parseAutoProxyList(ruleList):
-    global RULE_OPTIMIZE
-    from re import sub,compile
-    rules_hash =  [{},{}]
-    rules_shash = [{},{}]
-    rules_share = [[],[]]
+    rules_hash =  [{}, {}]
+    rules_share = [[], []]
 
     for line in ruleList.splitlines()[1:]:
+        # Ignore the first line ([AutoProxy x.x]), empty lines and comments
         line = line.strip()
-        if not line or line[0] in ('[', '!'):
-            continue
-        useProxy = True
-        if line.startswith('@@'):
-            line = line[2:]
-            useProxy = False
-        # Regular expressions
-        if line.startswith('/') and line.endswith('/'):
-            line = line[1:-1]
-            rule_regex = line
-            # [...] =>  .
-            rule_hash = sub(r'\[[^]]+\]', '.', line)
-            # {a,b} =>  *
-            rule_hash = sub(r'\{[^}]+\}', '*', rule_hash)
-            # (?!...) (?=...) =>
-            rule_hash = sub(r'\(\?[!=][^)]\)', '*', rule_hash)
-            # (?:...) (...) =>(...)
-            rule_hash = sub(r'\((\?:)?([^)]+)\)','\2', rule_hash)
-            # * ? + => *
-            rule_hash = sub(r'(?<!\\)[*?+]','*' ,rule_hash)
-            # ^ $ ^| =>
-            rule_hash = sub(r'^\^', '', rule_hash)
-            rule_hash = sub(r'\$$', '', rule_hash)
-            # \w \W \d \D \s \S=> .
-            rule_hash = sub(r'\\[wWdDsS]','.',rule_hash)
-            # . .* => *
-            rule_hash = sub(r'(?<!\\)\.\*?','*', rule_hash)
-            # \. => .
-            rule_hash = sub(r'(?<!\\)\\(\W)',r'\1', rule_hash)
-        else:
-            rule_hash = line
-            # Remove multiple wildcards
-            rule_regex = sub(r'\*+', r'*', line)
-            # Remove anchors following separator placeholder
-            rule_regex = sub(r'\^\|$', r'^', rule_regex, 1)
-            # Escape special symbols
-            rule_regex = sub(r'(\W)', r'\\\1', rule_regex)
-            # Replace wildcards by .*
-            rule_regex = sub(r'\\\*', r'.*', rule_regex)
-            # Process separator placeholders
-            rule_regex = sub(r'\\\^', r'(?:[^\w\-.%\u0080-\uFFFF]|$)', rule_regex)
-            # Process extended ahefnchor at expression start
-            rule_regex = sub(r'^\\\|\\\|', r'^[\w\-]+:\/+(?!\/)(?:[^\/]+\.)?', rule_regex, 1)
-            # Process anchor at expression start
-            rule_regex = sub(r'^\\\|', '^', rule_regex, 1)
-            # Process anchor at expression end
-            rule_regex = sub(r'\\\|$', '$', rule_regex, 1)
-            # Remove leading wildcards
-            rule_regex = sub(r'^(\.\*)', '', rule_regex, 1)
-            # Remove trailing wildcards
-            rule_regex = sub(r'(\.\*)$', '', rule_regex, 1)
-        if rule_regex != '':
-            value = compile(rule_regex)
-            keys = filter(lambda x:x.find('*')==-1, re.findall(RULE_OPTIMIZE,rule_hash))
-            keys.sort(lambda x,y:len(x)-len(y))
-            best_key = keys[-1] if keys else None;
-            rule_type = 1 if useProxy else 0
+        if line and line[0] not in ('[', '!'):
+            rule_type = 1
+            # Exceptions
+            if line.startswith('@@'):
+                line = line[2:]
+                rule_type = 0
+            # Regular expressions
+            if line.startswith('/') and line.endswith('/'):
+                line = line[1:-1]
+            # Other cases
+            else:
+                # Remove multiple wildcards
+                line = re.sub(r'\*+', r'*', line)
+                # Remove anchors following separator placeholder
+                line = re.sub(r'\^\|$', r'^', line, 1)
+                # Escape special symbols
+                line = re.sub(r'(\W)', r'\\\1', line)
+                # Replace wildcards by .*
+                line = re.sub(r'\\\*', r'.*', line)
+                # Process separator placeholders
+                line = re.sub(r'\\\^', r'(?:[^\w\-.%\u0080-\uFFFF]|$)', line)
+                # Process extended anchor at expression start
+                line = re.sub(r'^\\\|\\\|', r'^[\w\-]+:\/+(?!\/)(?:[^\/]+\.)?', line, 1)
+                # Process anchor at expression start
+                line = re.sub(r'^\\\|', '^', line, 1)
+                # Process anchor at expression end
+                line = re.sub(r'\\\|$', '$', line, 1)
+                # Remove leading wildcards
+                line = re.sub(r'^(\.\*)', '', line, 1)
+                # Remove trailing wildcards
+                line = re.sub(r'(\.\*)$', '', line, 1)
 
-            hashed = False
-            while keys:
-                key = keys.pop()
-                if key not in rules_hash[rule_type]:
-                    rules_hash[rule_type][key] = value
-                    hashed = True
-                    break
-            if not hashed :
-                if best_key :
-                    if best_key in rules_shash[rule_type] :
-                        rules_shash[rule_type][best_key].append(value)
+            if line:
+                i = line.find(r'\?')
+                keys = RULE_OPTIMIZE.findall(line if i==-1 else line[:i])
+                hash_key = max(filter(lambda x: x not in ('http','com'), keys),
+                        key=lambda x: len(x)).lower() if keys else None
+                if hash_key:
+                    if hash_key in rules_hash[rule_type]:
+                        rules_hash[rule_type][hash_key].append(line)
                     else:
-                        rules_shash[rule_type][best_key]=[value]
+                        rules_hash[rule_type][hash_key] = [line]
                 else:
-                    rules_share[rule_type].append(value)
+                    rules_share[rule_type].append(line)
 
-    dh = len(rules_hash[0].keys())
-    dk = len(rules_shash[0].keys())
-    de = reduce(lambda x,y: x+len(y),rules_shash[0].itervalues(),0)
-    ds = len(rules_share[0])
-    ph = len(rules_hash[1].keys())
-    pk = len(rules_shash[1].keys())    
-    pe = reduce(lambda x,y: x+len(y),rules_shash[1].itervalues(),0)
-    ps = len(rules_share[1])
-    da = dh + de + ds
-    pa = ph + pe + ps
-
-    print '  optimize_param**: %s\ttotal: %d\tdirect: %d proxy: %d' % (RULE_OPTIMIZE , da+pa , da, pa)
-    print '  direct_hash(very fast): %6d / %2.2f%%' % (dh, 100*dh/(da+0.01))
-    print '  direct_shash(fast)    : %6d / %2.2f%% \tkeys: %6d / %2.2f%%' % (de,100*de/(da+0.01),dk,100*dk/(de+0.01))
-    print '  direct_share(slow)    : %6d*/ %2.2f%%' % (ds, 100*ds/(da+0.01))
-    print '  proxy_hash(vary fast) : %6d / %2.2f%%' % (ph, 100*ph/(pa+0.01))
-    print '  proxy_shash(fast)     : %6d / %2.2f%% \tkeys: %6d / %2.2f%%' % (pe,100*pe/(pa+0.01),pk,100*pk/(pe+0.01))
-    print '  proxy_share(slow)     : %6d*/ %2.2f%%' % (ps, 100*ps/(pa+0.01))
-    print '  ** : dont change this unless u know how it works.  * : lower is better.' 
-    
-    del sub, compile
-    return (rules_hash[0],rules_shash[0],rules_share[0],
-        rules_hash[1],rules_shash[1],rules_share[1])
+    # Remove repeated rules
+    cnt_hash = [0, 0]
+    for i in (0, 1):
+        for k,v in rules_hash[i].iteritems():
+            rules_hash[i][k] = [re.compile(r) for r in list(set(v))]
+            cnt_hash[i] += len(rules_hash[i][k])
+    for i, v in enumerate(rules_share):
+        rules_share[i] = [re.compile(r) for r in list(set(v))]
+    print 'Rules count: %d:%d %d:%d %d %d' % (len(rules_hash[0]), cnt_hash[0],
+        len(rules_hash[1]), cnt_hash[1], len(rules_share[0]), len(rules_share[1]))
+    return rules_hash + rules_share
 
 def _initAutoProxyList():
     if not AUTOPROXY_LIST:
-        return None;
-    import base64
-    print 'getting autoproxy data from sources:'
-    ruleListTotal = ""
+        return None
+    ruleLists = []
+    print 'Fetching AutoProxy List:'
     for url in AUTOPROXY_LIST:
         ruleList = None
-        print '  ' + url + '... ',
+        print '  %s...' % url,
         if not url.startswith('file'):
             retval, data = proxyFetch(GAE_PROXY, url)
             if retval == 0:
                 ruleList = data['content']
         #Local file or proxyFetch failed
         if not ruleList:
-            retval, resp = directFetch(DIRECT_PROXY[0], url)
-            if retval == 0:
+            try:
+                resp = urllib2.urlopen(url)
                 ruleList = resp.read()
                 resp.close()
+            except:
+                pass
+
         if ruleList:
             try:
                 #ruleList may have encoded with base64
-                ruleList = base64.decodestring(ruleList)
+                ruleList = ruleList.decode('base64')
             except:
                 pass
-            ruleListTotal += ruleList+'\n';
-            print str(len(ruleList)) + 'bytes.'
+            print '%d bytes' % len(ruleList)
+            ruleLists.append(ruleList)
         else :
             print 'Failed'
-    del base64
-    print "converting autoproxy data to hashed compiledRegex ..."
-    return  _parseAutoProxyList(ruleListTotal)
+    ruleLists = '\n'.join(ruleLists)
+    print 'Converting rules to compiledRegex...'
+    return  _parseAutoProxyList(ruleLists)
 
-def inAutoProxy(url ):
-    global RULE_STATIC, RULE_OPTIMIZE
-    if not RULE_STATIC :
+def inAutoProxy(url):
+    if not AUTOPROXY_LIST:
         return False
 
-    D_HASH,D_SHASH,D_SHARE,P_HASH,P_SHASH,P_SHARE = RULE_STATIC
-    tokens = re.findall(RULE_OPTIMIZE,url)
+    D_HASH, P_HASH, D_SHARE, P_SHARE = AUTOPROXY_LIST
+    i = url.find('?')
+    token = url if i==-1 else url[:i]
+    tokens = filter(lambda x: x not in ('http','com'),
+            RULE_OPTIMIZE.findall(token.lower()))
 
-    for regex in D_SHARE :
-        if regex.search(url) :
-            return False
-    for token in tokens :
-        if token in D_SHASH :
-            for regex in D_SHASH[token] :
+    for token in tokens:
+        if token in D_HASH:
+            for regex in D_HASH[token]:
                 if regex.search(url):
-                    return False;
-        if token in D_HASH :
-            if D_HASH[token].search(url) :
-                return False
-
-    for token in tokens :
-        if token in P_HASH :
-            if P_HASH[token].search(url) :
-                return True
-        if token in P_SHASH :
-            for regex in P_SHASH[token] :
-                if regex.search(url) :
-                    return True;
-    for regex in P_SHARE :
-        if regex.search(url) :
+                    return False
+    for regex in D_SHARE:
+        if regex.search(url):
+            return False
+    for token in tokens:
+        if token in P_HASH:
+            for regex in P_HASH[token]:
+                if regex.search(url):
+                    return True
+    for regex in P_SHARE:
+        if regex.search(url):
             return True
-
     return False
 
 def readFile(filename):
@@ -455,13 +410,14 @@ def _checkCA():
         CA = (_loadPEM(cakey, 0), _loadPEM(cacrt, 2))
 
 def _checkConf(confFile):
-    global LISTEN_ADDR, GAE_PROXY, PHP_PROXY, DIRECT_PROXY, AUTOPROXY_LIST, RELOAD, HEADERS
-    global RULE_STATIC, RULE_OPTIMIZE
+    global LISTEN_ADDR, GAE_PROXY, PHP_PROXY, DIRECT_PROXY
+    global AUTOPROXY_LIST, RULE_OPTIMIZE, RELOAD, HEADERS
     LISTEN_ADDR = ('127.0.0.1', 8086)
     GAE_PROXY = []
     PHP_PROXY = []
     DIRECT_PROXY = [{}]
     AUTOPROXY_LIST = None
+    RULE_OPTIMIZE = r'[\w%]{2,}'
     RELOAD = 5
     HEADERS = {'Content-Type':'application/octet-stream'}
     try:
@@ -469,10 +425,10 @@ def _checkConf(confFile):
         if isinstance(AUTOPROXY_LIST, str):
             AUTOPROXY_LIST = (AUTOPROXY_LIST,)
         _checkProxy()
+        RULE_OPTIMIZE = re.compile(RULE_OPTIMIZE)
+        AUTOPROXY_LIST = _initAutoProxyList()
         #Test FindProxyForURL
         FindProxyForURL('127.0.0.1', 'http://wallproxy/', 'GET', {})
-        RULE_OPTIMIZE = r'[\w%*]{3,}' if not RULE_OPTIMIZE else RULE_OPTIMIZE
-        RULE_STATIC = _initAutoProxyList()
     except Exception, e:
         print 'checkConf() Error: %s' % e
         sys.exit(-1)
@@ -529,7 +485,5 @@ def _checkProxy():
         raise ValueError('GAE_PROXY or PHP_PROXY or DIRECT_PROXY format Error: %s' % e)
 
 base_dir = getModulePath()
-RULE_OPTIMIZE = None
-RULE_STATIC = None
 if crypto: _checkCA()
 checkConf()
