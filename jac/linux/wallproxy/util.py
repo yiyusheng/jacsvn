@@ -6,7 +6,7 @@
 
 from __future__ import with_statement
 
-__author__ = 'base64.decodestring("d3d3LmVodXN0QGdtYWlsLmNvbQ==")'
+__author__ = 'd3d3LmVodXN0QGdtYWlsLmNvbQ=='.decode('base64')
 __version__ = '0.3.7'
 
 try:
