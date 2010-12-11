@@ -1,4 +1,4 @@
-
+﻿
 // Created by Randomwalk.
 // Based on scripts from Lyricconch in Wallproxy.
 
