@@ -1,0 +1,5 @@
+﻿[AutoProxy 0.2.9]
+
+||renren.com
+||iciba.com
+||youku.com
