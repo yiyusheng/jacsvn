@@ -130,8 +130,8 @@ def _getAutoProxyList():
     rules_share = [[],[]]
     
     print "Reading Autoproxy List...."
-    #o = urllib2.urlopen('http://jacsvn.googlecode.com/svn/jac/other/wallproxy/gfwlist.txt')
-    o = file('gfwlist.txt','r')
+    o = urllib2.urlopen('http://jacsvn.googlecode.com/svn/jac/other/PAC/gfwlist.txt')
+    #o = file('gfwlist.txt','r')
     ruleList = o.read()
     o.close()
 
@@ -206,8 +206,8 @@ def _getAutoProxyList():
     return json.dumps((rules_shash[0],rules_share[0],rules_shash[1],rules_share[1]))
 
 def _getIPTableForCERNET():
-    URLs = (r'CERNET.txt', 
-            #r'http://jacsvn.googlecode.com/svn/jac/other/wallproxy/CERNET.txt', 
+    URLs = (#r'CERNET.txt', 
+            r'http://jacsvn.googlecode.com/svn/jac/other/PAC/CERNET.txt', 
             )
             # If other free lists are privided by your own school, replace URLs above with yours.
             # The format of your own list should be the same as that of the lists above. Or just modify the regex below.
@@ -216,8 +216,8 @@ def _getIPTableForCERNET():
     
     print "Reading CERNET Free IP List...."
     for i in URLs:
-        #o = urllib2.urlopen(i)
-        o = file(i,'r')
+        o = urllib2.urlopen(i)
+        #o = file(i,'r')
         s = o.read()
         o.close()
         ips.extend(re.findall('([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)\s+[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+\s+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)',s))
