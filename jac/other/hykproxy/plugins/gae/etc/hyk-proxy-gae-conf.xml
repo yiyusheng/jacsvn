@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Configure>
+    <AppIdBindings/>
+    <HttpProxyUserAgent choice="FireFox36">
+        <UserAgent name="Chrome41">
+          Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.1.249.1045 Safari/532.5
+       </UserAgent>
+        <UserAgent name="FireFox36">
+          Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.3) Gecko/20100403 Firefox/3.6.3
+       </UserAgent>
+    </HttpProxyUserAgent>
+    <compressor>lzf</compressor>
+    <connectionMode>1</connectionMode>
+    <fetchLimitSize>250000</fetchLimitSize>
+    <httpConnectionPoolSize>7</httpConnectionPoolSize>
+    <httpUpStreamEncrypter>se1</httpUpStreamEncrypter>
+    <localProxy>
+        <host>www.google.cn</host>
+        <port>80</port>
+        <user></user>
+        <passwd></passwd>
+    </localProxy>
+    <hyk-proxy-server passwd="anonymouse" user="anonymouse" appid="jachykgae"/>
+    <maxFetcherNumber>3</maxFetcherNumber>
+    <RPCTimeOut>60</RPCTimeOut>
+    <simpleURLEnable>true</simpleURLEnable>
+    <XMPPAccount oldSSLEnable="false" serverPort="0" passwd="" user=""/>
+</Configure>
