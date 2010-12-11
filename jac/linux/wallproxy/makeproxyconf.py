@@ -131,7 +131,7 @@ def _getAutoProxyList():
     rules_share = [[],[]]
     
     print "Reading Autoproxy List...."
-    o = urllib2.urlopen('http://jacsvn.googlecode.com/svn/jac/other/wallproxy/gfwlist.txt')
+    o = urllib2.urlopen('http://jacsvn.googlecode.com/svn/jac/other/PAC/gfwlist.txt')
     #o = file('gfwlist.txt','r')
     ruleList = o.read()
     o.close()
@@ -208,7 +208,7 @@ def _getAutoProxyList():
 
 def _getIPTableForCERNET():
     URLs = (#r'CERNET.txt', 
-            r'http://jacsvn.googlecode.com/svn/jac/other/wallproxy/CERNET.txt', 
+            r'http://jacsvn.googlecode.com/svn/jac/other/PAC/CERNET.txt', 
             )
             # If other free lists are privided by your own school, replace URLs above with yours.
             # The format of your own list should be the same as that of the lists above. Or just modify the regex below.
