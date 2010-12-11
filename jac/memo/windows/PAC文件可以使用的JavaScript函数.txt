@@ -1,0 +1,175 @@
+下面是可用于FindProxyForURL()函数体中的条件函数：
+
+基于主机名的函数：
+
+?isPlainHostName()
+?dnsDomainIs()
+?localHostOrDomainIs()
+?isResolvable()
+?isInNet()
+相关的实用程序函数：
+
+?dnsResolve()
+?myIpAddress()
+?dnsDomainLevels()
+基于 URL/主机名 的条件：
+
+?shExpMatch()
+基于时间的条件：
+
+?weekdayRange()
+?dateRange()
+?timeRange()
+?isPlainHostName(host)
+host 即上文所述不包含端口号的，url中的主机名，下同，不再赘述。如果主机名中不包含域名则返回true。参考如下：
+
+?isPlainHostName("www") 返回 true.
+?isPlainHostName("www.google.com") 返回 false.
+?dnsDomainIs(host, domain)
+domain 用于和hostname进行比较的域名。如果hostname的域名和domain的值相匹配则返回true。参考如下：
+
+?dnsDomainIs("www.google.com", ".google.com") 返回 true.
+?dnsDomainIs("www", ".google.com") 返回 false.
+?dnsDomainIs("www.apple.com", ".google.com") 返回 false.
+?localHostOrDomainIs(host, hostdom)
+hostdom 是要进行匹配的指定的主机名。如果hostname和指定的hostdom相匹配，或者在hostname中没有指定要进行匹配的域名部分，函数返回 true。参考如下：
+
+?localHostOrDomainIs("www. google.com", "www. google.com") 返回 true (exact match).
+?localHostOrDomainIs("www", "www. google.com") 返回 true (hostname match, domain not specified).
+?localHostOrDomainIs("www.apple.com", "www. google.com") 返回 false (domain name mismatch).
+?localHostOrDomainIs("adc.apple.com", "www. google.com") 返回 false (hostname mismatch).
+isResolvable(host)
+
+如果成功解析主机名则返回true。参考如下：
+
+?isResolvable("www.google.com") 返回 true (除非由于防火墙或某些其他原因导致DNS无法解析).
+?isResolvable("bogus.domain.foobar") 返回 false.
+isInNet(host, pattern, mask)
+
+host 在这里可以是DNS主机名，比如www.google.com，也可以是IP地址。如果传递的是主机名，此函数会将其解析成 IP 地址。 pattern 是点分隔格式的 IP 地址模式。
+
+mask 是IP地址模式掩码，用于确定应对IP地址的哪些部分进行匹配。值为0表示忽略；255表示匹配。如果主机的IP地址与指定的IP地址模式匹配，则返回 true。参考如下：
+
+?isInNet(host, "198.95.249.79", "255.255.255.255") 如果host的IP地址为198.95.249.79则返回 true.
+?isInNet(host, "198.95.0.0", "255.255.0.0") 如果host的IP地址为198.95.*.*则返回 true.
+dnsResolve(host)
+
+host 是要解析的主机名。将给定DNS主机名解析成IP地址，并以点分隔格式的字符串形式将其返回。参考如下：
+
+dnsResolve("www.google.com") 返回IP地址 "64.233.189.104".
+
+myIpAddress()
+
+此函数将以点分隔格式的字符串形式返回运行浏览器的那台计算机的IP地址。
+
+dnsDomainLevels(host)
+
+返回url主机名中的DNS层数(圆点数)。参考如下：
+
+dnsDomainLevels("www") 返回 0
+
+dnsDomainLevels("www.google.com") 返回 2
+
+shExpMatch(str, shexp)
+
+str 是要比较的任何字符串(例如，url或主机名)。
+
+shexp 是用以进行比较的shell表达式。如果字符串与指定的 shell 表达式匹配，则此表达式为 true。参考如下：
+
+shExpMatch("http://www.apple.com/downloads/macosx/index.html", "*/macosx/*") 返回 true.
+
+shExpMatch("http://www.apple.com/downloads/support/index.html", "*/macosx/*") 返回 false.
+
+weekdayRange(wd1, wd2, gmt)
+
+wd1 和 wd2 为以下任意一个星期日期字符串： SUN MON TUE WED THU FRI SAT, gmt 或者是字串 GMT 或者省略，前者表示格林威治标准时间，后者表示当地时间。 只有第一个参数wd1是强制性的。wd2、gmt 中的任一个或两者皆可省略。如果只有一个参数，则此函数将在该参数所表示的星期日期返回true。如果指定字符串GMT作为第二个参数，则采用GMT时 间，否则采用当地时区的时间。如果wd1和wd2均被定义，则该条件在当前星期日期介于这两个星期日期之间时为true。首末日期包括在内。参数顺序很重 要；"MON," "WED" 指星期一到星期三，而 "WED," "MON" 是从星期三到下周的星期一。
+
+weekdayRange("MON", "FRI") 从星期一到星期五(当地时区)为 true.
+
+weekdayRange("MON", "FRI", "GMT") 从格林威治标准时间星期一到星期五为 true.
+
+weekdayRange("SAT") 当地时间星期六为 true.
+
+weekdayRange("SAT", "GMT") 格林威治标准时间星期六为 true.
+
+weekdayRange("FRI", "MON") 从星期五到下星期一为 true (注意，顺序很重要).
+
+dateRange(day)
+
+dateRange(day1, day2)
+
+dateRange(mon)
+
+dateRange(month1, month2)
+
+dateRange(year)
+
+dateRange(year1, year2)
+
+dateRange(day1, month1, day2, month2)
+
+dateRange(month1, year1, month2, year2)
+
+dateRange(day1, month1, year1, day2, month2, year2)
+
+dateRange(day1, month1, year1, day2, month2, year2, gmt)
+
+day 每月1到31号中的任意一天(整数类型).
+
+month 是如下表示月份的字符串中的一个：JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC, year 是表示年份的完整数字，例如1995(而不是95)。整数类型。
+
+gmt 或者为字符串GMT，或者保留为空，前者将以格林威治标准时间进行时间比较，后者假定时间处于当地时区。尽管上 面表示的函数语法不是每一个都包含gmt参数，事实上可以在上述9个任一调用配置文件中指定gmt参数，不过，它始终都要作为最后一个参数。如果只指定了 单个值(对于每个类别：day、month、year)，则此函数仅在与指定值匹配的日子才会返回true。如果指定了两个值，则从指定的第一个时间到指 定的第二个时间，结果均为truee。首末日期包括在内。参考如下：
+
+dateRange(1) 在当地时区每月的第一天为 true.
+
+dateRange(1, "GMT") 在GMT时间每月的第一天为 true.
+
+dateRange(1, 15) 在当地时区每月的1号到15号为 true.
+
+dateRange(24, "DEC") 在当地时区每年12月24号为 true.
+
+dateRange(24, "DEC", 1995) 在当地时区1995年12月24号为 true.
+
+dateRange("JAN", "MAR") 在当地时区每年第一季度(1月到3月)为 true.
+
+dateRange(1, "JUN", 15, "AUG") 在当地时区每年6月1号到8月15号为 true, 首末日期包括在内.
+
+dateRange(1, "JUN", 15, 1995, "AUG", 1995) 在当地时区1995年6月1号到8月15号为 true, 首末日期包括在内.
+
+dateRange("OCT", 1995, "MAR", 1996) 在当地时区1995年10月到1996年3月为 true.
+
+dateRange(1995) 在当地时区1995年为 true.
+
+dateRange(1995, 1997) 在当地时区1995年1月1号到1997年12月31号(1995年初到1997年底)为 true.
+
+timeRange(hour)
+
+timeRange(hour1, hour2)
+
+timeRange(hour1, min1, hour2, min2)
+
+timeRange(hour1, min1, sec1, hour2, min2, sec2)
+
+timeRange(hour1, min1, sec1, hour2, min2, sec2, gmt)
+
+hour 是0点(午夜12点)到23点(晚上11点)表示小时的数值中的一个。
+
+min 是表示分钟的0到59中的一个值。
+
+sec 是表示秒钟的0到59中的一个值。
+
+gmt 同上文所述。
+
+timerange(12)中午12点到下午1点之间为 true.
+
+timerange(12, 13)同上例.
+
+timerange(12, "GMT")在GMT时间中午12点到下午1点之间为 true.
+
+timerange(9, 17)上午9点到下午5点之间为 true.
+
+timerange(8, 30, 17, 00)上午8点30分到下午5点之间为 true.
+
+timerange(0, 0, 0, 0, 0, 30)午夜0点到其后的30秒内为 true.
+
+ 
