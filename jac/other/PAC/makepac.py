@@ -9,11 +9,11 @@ PAC = '''
 
 GAEPROXY = 'PROXY 127.0.0.1:48100';
 DIRECT = 'DIRECT';
-RULE_STATIC = 
-%s;
+RULE_STATIC = %s;
+
 //// FOR CERNET
-FreeIPs = 
-%s;
+FreeIPs = %s;
+
 //// FOR CERNET END
 function inAutoProxy(url){
     D_SHASH = RULE_STATIC[0];
