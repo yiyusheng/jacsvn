@@ -9,17 +9,19 @@ PAC = '''
 
 GAEPROXY = 'PROXY 127.0.0.1:48100';
 DIRECT = 'DIRECT';
-RULE_STATIC = %s;
+RULE_EXCLUDE = %s;
+
+RULE_INCLUDE = %s;
 
 //// FOR CERNET
 FreeIPs = %s;
 
 //// FOR CERNET END
-function inAutoProxy(url){
-    D_SHASH = RULE_STATIC[0];
-    D_SHARE = RULE_STATIC[1];
-    P_SHASH = RULE_STATIC[2];
-    P_SHARE = RULE_STATIC[3];
+function inRuleList(url, RULE_LIST){
+    D_SHASH = RULE_LIST[0];
+    D_SHARE = RULE_LIST[1];
+    P_SHASH = RULE_LIST[2];
+    P_SHARE = RULE_LIST[3];
     tokens = url.match(/[\w%%*]{3,}/g);
     for (var regex in D_SHARE){
         if (eval('/'+D_SHARE[regex]+'/').test(url))
@@ -46,8 +48,9 @@ function inAutoProxy(url){
     return false;
 }
 function FindProxyForURL(url, host){
-    if (inAutoProxy(url))
-        return DIRECT;
+    if (inRuleList(url, RULE_EXCLUDE))
+        return DIRECT;    if (inRuleList(url, RULE_INCLUDE))
+        return GAEPROXY;
     
     //// FOR CERNET
     if(isPlainHostName(host)) return DIRECT;
@@ -78,15 +81,16 @@ function FindProxyForURL(url, host){
 
 '''
 
-def _getAutoProxyList():
+def _getRuleList(source):
     RULE_OPTIMIZE = r'[\w%*]{3,}'
     sub = re.sub
     rules_shash = [{},{}]
     rules_share = [[],[]]
     
-    print "Reading Autoproxy List...."
-    o = urllib2.urlopen('http://jacsvn.googlecode.com/svn/jac/other/PAC/gfwlist.txt')
+    print "Reading Rule List...."
+    #o = urllib2.urlopen('http://jacsvn.googlecode.com/svn/jac/other/PAC/gfwlist.txt')
     #o = file('gfwlist.txt','r')
+    o = urllib2.urlopen(source)
     ruleList = o.read()
     o.close()
 
@@ -192,7 +196,9 @@ def _getIPTableForCERNET():
 
 
 if __name__=="__main__":
-    pac = PAC%(_getAutoProxyList(),_getIPTableForCERNET())
+    rule_exclude = 'http://jacsvn.googlecode.com/svn/jac/other/PAC/excludelist.txt'
+    rule_include = 'http://jacsvn.googlecode.com/svn/jac/other/PAC/includelist.txt'
+    pac = PAC%(_getRuleList(rule_exclude),_getRuleList(rule_include),_getIPTableForCERNET())
     print "Writing to file 'proxy.conf'...."
     f = file('jac.pac','w')
     f.write(pac)
