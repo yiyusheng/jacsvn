@@ -11,12 +11,17 @@ GAEPROXY = 'PROXY 127.0.0.1:48100';
 DIRECT = 'DIRECT';
 RULE_EXCLUDE = %s;
 
+RULE_INCLUDE = %s;
+
+//// FOR CERNET
+FreeIPs = %s;
+
 //// FOR CERNET END
-function inRuleList(url){
-    D_SHASH = RULE_EXCLUDE[0];
-    D_SHARE = RULE_EXCLUDE[1];
-    P_SHASH = RULE_EXCLUDE[2];
-    P_SHARE = RULE_EXCLUDE[3];
+function inRuleList(url, RULE_LIST){
+    D_SHASH = RULE_LIST[0];
+    D_SHARE = RULE_LIST[1];
+    P_SHASH = RULE_LIST[2];
+    P_SHARE = RULE_LIST[3];
     tokens = url.match(/[\w%%*]{3,}/g);
     for (var regex in D_SHARE){
         if (eval('/'+D_SHARE[regex]+'/').test(url))
@@ -43,9 +48,33 @@ function inRuleList(url){
     return false;
 }
 function FindProxyForURL(url, host){
-    if (inRuleList(url))
+    if (inRuleList(url, RULE_EXCLUDE))
         return DIRECT;
+    if (inRuleList(url, RULE_INCLUDE))
+        return GAEPROXY;
     
+    //// FOR CERNET
+    if(isPlainHostName(host)) return GAEPROXY;
+    var ip = dnsResolve(host);
+    // no dns result
+    if(!ip) return GAEPROXY;
+    // ipv6
+    if(shExpMatch(ip, '*:*')) return DIRECT;
+    // local
+    if(isInNet(ip,'127.0.0.0','255.0.0.0')) return DIRECT;
+    else if(isInNet(ip,'10.0.0.0','255.0.0.0')) return DIRECT;
+    else if(isInNet(ip,'192.168.0.0','255.255.0.0')) return DIRECT;
+    else if(isInNet(ip,'172.16.0.0','255.240.0.0')) return DIRECT;
+    else if(isInNet(ip,'169.254.0.0','255.255.0.0')) return DIRECT;
+    var bytes = ip.split('.');
+    if (bytes[0] in FreeIPs){
+        var ipvalue = ((bytes[0] & 0xff) << 24) |((bytes[1] & 0xff) << 16) |
+                     ((bytes[2] & 0xff) <<  8) |(bytes[3] & 0xff);
+        for (var i in FreeIPs[bytes[0]]){
+            if ((ipvalue&FreeIPs[bytes[0]][i][1])==(FreeIPs[bytes[0]][i][0]&FreeIPs[bytes[0]][i][1]))
+                return DIRECT;
+        }
+    }
     return GAEPROXY;
     //// FOR CERNET END
     //// DISABLE FOR CERNET: return DIRECT;
@@ -53,7 +82,7 @@ function FindProxyForURL(url, host){
 
 '''
 
-def _getRuleList():
+def _getRuleList(source):
     RULE_OPTIMIZE = r'[\w%*]{3,}'
     sub = re.sub
     rules_shash = [{},{}]
@@ -61,8 +90,8 @@ def _getRuleList():
     
     print "Reading Rule List...."
     #o = urllib2.urlopen('http://jacsvn.googlecode.com/svn/jac/other/PAC/gfwlist.txt')
-    o = file('excludelist.txt','r')
-    #o = urllib2.urlopen(source)
+    #o = file('gfwlist.txt','r')
+    o = urllib2.urlopen(source)
     ruleList = o.read()
     o.close()
 
@@ -136,9 +165,41 @@ def _getRuleList():
                 rules_share[rule_type].append(value)
     return json.dumps((rules_shash[0],rules_share[0],rules_shash[1],rules_share[1]))
 
+def _getIPTableForCERNET():
+    URLs = (#r'CERNET.txt', 
+            r'http://jacsvn.googlecode.com/svn/jac/other/PAC/CERNET.txt', 
+            )
+            # If other free lists are privided by your own school, replace URLs above with yours.
+            # The format of your own list should be the same as that of the lists above. Or just modify the regex below.
+    iptable = []
+    ips = []
+    
+    print "Reading CERNET Free IP List...."
+    for i in URLs:
+        o = urllib2.urlopen(i)
+        #o = file(i,'r')
+        s = o.read()
+        o.close()
+        ips.extend(re.findall('([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)\s+[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+\s+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)',s))
+    for i in ips:
+        ip_seg = map(int,i[0].split('.'))
+        mask_seg = map(int,i[1].split('.'))
+        iptable.append((ip_seg[0],\
+                ((ip_seg[0]<<24)+(ip_seg[1]<<16)+(ip_seg[2]<<8)+ip_seg[3],\
+                (mask_seg[0]<<24)+(mask_seg[1]<<16)+(mask_seg[2]<<8)+mask_seg[3])))
+    hashed = {}
+    for i in iptable:
+        if i[0] in hashed:
+            hashed[i[0]].append(i[1])
+        else:
+            hashed[i[0]] = [i[1]]
+    return json.dumps(hashed)
+
+
 if __name__=="__main__":
-    #ule_exclude = 'http://jacsvn.googlecode.com/svn/jac/other/PAC/excludelist.txt'
-    pac = PAC%(_getRuleList())
+    rule_exclude = 'http://jacsvn.googlecode.com/svn/jac/other/PAC/excludelist.txt'
+    rule_include = 'http://jacsvn.googlecode.com/svn/jac/other/PAC/includelist.txt'
+    pac = PAC%(_getRuleList(rule_exclude),_getRuleList(rule_include),_getIPTableForCERNET())
     print "Writing to file 'proxy.conf'...."
     f = file('jac.pac','w')
     f.write(pac)
