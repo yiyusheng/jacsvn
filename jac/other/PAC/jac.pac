@@ -49,7 +49,7 @@ function FindProxyForURL(url, host){
         return GAEPROXY;
     
     //// FOR CERNET
-    if(isPlainHostName(host)) return DIRECT;
+    if(isPlainHostName(host)) return GAEPROXY;
     var ip = dnsResolve(host);
     // no dns result
     if(!ip) return GAEPROXY;

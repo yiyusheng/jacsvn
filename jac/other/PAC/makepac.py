@@ -49,11 +49,12 @@ function inRuleList(url, RULE_LIST){
 }
 function FindProxyForURL(url, host){
     if (inRuleList(url, RULE_EXCLUDE))
-        return DIRECT;    if (inRuleList(url, RULE_INCLUDE))
+        return DIRECT;
+    if (inRuleList(url, RULE_INCLUDE))
         return GAEPROXY;
     
     //// FOR CERNET
-    if(isPlainHostName(host)) return DIRECT;
+    if(isPlainHostName(host)) return GAEPROXY;
     var ip = dnsResolve(host);
     // no dns result
     if(!ip) return GAEPROXY;
