@@ -300,3 +300,15 @@ farce
 hamper
 ###
 妨碍
+#######
+apogee
+###
+远地点
+#######
+ingratiating
+###
+讨好的，谄媚的
+#######
+burgeon
+###
+迅速成长，发展
