@@ -312,3 +312,15 @@ ingratiating
 burgeon
 ###
 迅速成长，发展
+#######
+paranoid
+###
+偏执狂的，过分怀疑的
+#######
+placid
+###
+安静的，平和的
+#######
+egalitarian
+###
+主张人人平等的
