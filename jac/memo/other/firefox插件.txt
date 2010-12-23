@@ -3,9 +3,11 @@ Firebug
 Firefox Sync
 Flagfox
 Greasemonkey
-Hide Caption
+//Hide Caption
+Tiny Menu
 Locationbar
 Personas
 RefControl
 Tab Mix Lite
 IE
+QuickProxy
