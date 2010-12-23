@@ -27,7 +27,7 @@ def _getIPTableForCERNET():
         o.close()
         ips.extend(re.findall('([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)\s+[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+\s+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)',s))
     for i in ips:
-        routes += 'route add ' + i[0] + ' mask ' + i[1] + ' %GW% METRIC 15\n'
+        routes += 'route -p add ' + i[0] + ' mask ' + i[1] + ' %GW% METRIC 15\n'
 
     return routes
 

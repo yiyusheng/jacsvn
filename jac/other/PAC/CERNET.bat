@@ -1,1086 +1,1086 @@
 
 set GW=192.168.225.1
 
-route add 1.51.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 1.184.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 8.6.19.68 mask 255.255.255.255 %GW% METRIC 15
-route add 8.18.37.105 mask 255.255.255.255 %GW% METRIC 15
-route add 8.18.55.177 mask 255.255.255.255 %GW% METRIC 15
-route add 12.18.186.192 mask 255.255.255.224 %GW% METRIC 15
-route add 12.26.55.108 mask 255.255.255.255 %GW% METRIC 15
-route add 12.26.55.139 mask 255.255.255.255 %GW% METRIC 15
-route add 12.71.45.96 mask 255.255.255.224 %GW% METRIC 15
-route add 12.130.28.208 mask 255.255.255.240 %GW% METRIC 15
-route add 12.154.67.128 mask 255.255.255.128 %GW% METRIC 15
-route add 12.161.242.20 mask 255.255.255.255 %GW% METRIC 15
-route add 12.161.242.72 mask 255.255.255.255 %GW% METRIC 15
-route add 12.161.242.79 mask 255.255.255.255 %GW% METRIC 15
-route add 12.161.242.84 mask 255.255.255.255 %GW% METRIC 15
-route add 12.163.148.101 mask 255.255.255.255 %GW% METRIC 15
-route add 12.166.173.0 mask 255.255.255.192 %GW% METRIC 15
-route add 21.143.112.60 mask 255.255.255.255 %GW% METRIC 15
-route add 27.148.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 38.100.103.0 mask 255.255.255.0 %GW% METRIC 15
-route add 38.100.138.149 mask 255.255.255.255 %GW% METRIC 15
-route add 49.52.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 49.120.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 49.140.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 49.208.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 58.17.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 58.18.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 58.20.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 58.22.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 58.24.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 58.30.12.136 mask 255.255.255.255 %GW% METRIC 15
-route add 58.32.232.0 mask 255.255.252.0 %GW% METRIC 15
-route add 58.53.208.0 mask 255.255.240.0 %GW% METRIC 15
-route add 58.59.1.15 mask 255.255.255.255 %GW% METRIC 15
-route add 58.59.1.16 mask 255.255.255.254 %GW% METRIC 15
-route add 58.59.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 58.60.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 58.63.243.240 mask 255.255.255.255 %GW% METRIC 15
-route add 58.66.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 58.68.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 58.83.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 58.100.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 58.116.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 58.128.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 58.154.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 58.192.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 58.208.0.0 mask 255.255.240.0 %GW% METRIC 15
-route add 58.211.7.0 mask 255.255.255.128 %GW% METRIC 15
-route add 58.211.15.0 mask 255.255.255.0 %GW% METRIC 15
-route add 58.211.72.0 mask 255.255.255.0 %GW% METRIC 15
-route add 58.211.80.0 mask 255.255.255.0 %GW% METRIC 15
-route add 58.211.137.0 mask 255.255.255.192 %GW% METRIC 15
-route add 58.211.141.0 mask 255.255.255.0 %GW% METRIC 15
-route add 58.212.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 58.214.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 58.215.106.0 mask 255.255.255.0 %GW% METRIC 15
-route add 58.217.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 58.218.0.0 mask 255.255.128.0 %GW% METRIC 15
-route add 58.240.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 58.246.163.0 mask 255.255.255.0 %GW% METRIC 15
-route add 58.248.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 59.32.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 59.48.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 59.50.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 59.54.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 59.61.21.0 mask 255.255.255.0 %GW% METRIC 15
-route add 59.61.128.0 mask 255.255.224.0 %GW% METRIC 15
-route add 59.63.128.0 mask 255.255.248.0 %GW% METRIC 15
-route add 59.64.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 59.107.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 59.108.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 59.151.0.0 mask 255.255.128.0 %GW% METRIC 15
-route add 59.175.128.0 mask 255.255.240.0 %GW% METRIC 15
-route add 59.175.228.0 mask 255.255.252.0 %GW% METRIC 15
-route add 60.0.0.0 mask 255.224.0.0 %GW% METRIC 15
-route add 60.63.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 60.166.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 60.168.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 60.190.28.0 mask 255.255.255.0 %GW% METRIC 15
-route add 60.190.31.0 mask 255.255.255.0 %GW% METRIC 15
-route add 60.190.38.0 mask 255.255.254.0 %GW% METRIC 15
-route add 60.190.232.0 mask 255.255.255.0 %GW% METRIC 15
-route add 60.190.241.0 mask 255.255.255.0 %GW% METRIC 15
-route add 60.191.2.224 mask 255.255.255.240 %GW% METRIC 15
-route add 60.194.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 60.206.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 60.208.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 60.217.238.230 mask 255.255.255.255 %GW% METRIC 15
-route add 60.217.239.110 mask 255.255.255.255 %GW% METRIC 15
-route add 60.217.240.0 mask 255.255.240.0 %GW% METRIC 15
-route add 60.247.0.0 mask 255.255.128.0 %GW% METRIC 15
-route add 60.254.132.45 mask 255.255.255.255 %GW% METRIC 15
-route add 61.4.82.0 mask 255.255.254.0 %GW% METRIC 15
-route add 61.4.185.30 mask 255.255.255.255 %GW% METRIC 15
-route add 61.4.188.0 mask 255.255.255.0 %GW% METRIC 15
-route add 61.28.0.0 mask 255.255.240.0 %GW% METRIC 15
-route add 61.29.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 61.48.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 61.56.222.161 mask 255.255.255.255 %GW% METRIC 15
-route add 61.56.222.162 mask 255.255.255.254 %GW% METRIC 15
-route add 61.56.222.164 mask 255.255.255.252 %GW% METRIC 15
-route add 61.56.222.168 mask 255.255.255.248 %GW% METRIC 15
-route add 61.87.192.0 mask 255.255.192.0 %GW% METRIC 15
-route add 61.128.0.0 mask 255.192.0.0 %GW% METRIC 15
-route add 61.200.81.134 mask 255.255.255.255 %GW% METRIC 15
-route add 61.200.81.142 mask 255.255.255.255 %GW% METRIC 15
-route add 61.200.81.144 mask 255.255.255.254 %GW% METRIC 15
-route add 61.232.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 61.236.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 61.240.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 62.4.69.0 mask 255.255.255.0 %GW% METRIC 15
-route add 62.32.98.6 mask 255.255.255.255 %GW% METRIC 15
-route add 62.50.45.35 mask 255.255.255.255 %GW% METRIC 15
-route add 62.50.45.40 mask 255.255.255.254 %GW% METRIC 15
-route add 62.159.60.207 mask 255.255.255.255 %GW% METRIC 15
-route add 62.159.60.208 mask 255.255.255.254 %GW% METRIC 15
-route add 62.159.60.213 mask 255.255.255.255 %GW% METRIC 15
-route add 62.159.60.214 mask 255.255.255.255 %GW% METRIC 15
-route add 62.173.115.116 mask 255.255.255.255 %GW% METRIC 15
-route add 63.73.227.0 mask 255.255.255.0 %GW% METRIC 15
-route add 63.77.221.10 mask 255.255.255.255 %GW% METRIC 15
-route add 63.84.162.0 mask 255.255.255.0 %GW% METRIC 15
-route add 63.86.118.0 mask 255.255.254.0 %GW% METRIC 15
-route add 63.86.141.0 mask 255.255.255.0 %GW% METRIC 15
-route add 63.88.212.181 mask 255.255.255.255 %GW% METRIC 15
-route add 63.89.64.0 mask 255.255.255.0 %GW% METRIC 15
-route add 63.123.194.0 mask 255.255.255.0 %GW% METRIC 15
-route add 63.123.251.0 mask 255.255.255.0 %GW% METRIC 15
-route add 63.125.146.0 mask 255.255.255.0 %GW% METRIC 15
-route add 63.164.11.0 mask 255.255.255.0 %GW% METRIC 15
-route add 63.208.197.0 mask 255.255.255.0 %GW% METRIC 15
-route add 63.209.48.0 mask 255.255.255.0 %GW% METRIC 15
-route add 63.210.142.0 mask 255.255.255.0 %GW% METRIC 15
-route add 63.211.66.0 mask 255.255.255.0 %GW% METRIC 15
-route add 63.215.124.0 mask 255.255.255.0 %GW% METRIC 15
-route add 64.4.0.0 mask 255.255.192.0 %GW% METRIC 15
-route add 64.14.57.184 mask 255.255.255.254 %GW% METRIC 15
-route add 64.14.57.186 mask 255.255.255.255 %GW% METRIC 15
-route add 64.17.226.144 mask 255.255.255.255 %GW% METRIC 15
-route add 64.27.64.232 mask 255.255.255.255 %GW% METRIC 15
-route add 64.27.100.115 mask 255.255.255.255 %GW% METRIC 15
-route add 64.66.190.222 mask 255.255.255.255 %GW% METRIC 15
-route add 64.71.138.0 mask 255.255.255.128 %GW% METRIC 15
-route add 64.94.28.5 mask 255.255.255.255 %GW% METRIC 15
-route add 64.106.196.11 mask 255.255.255.255 %GW% METRIC 15
-route add 64.106.196.17 mask 255.255.255.255 %GW% METRIC 15
-route add 64.124.183.0 mask 255.255.255.0 %GW% METRIC 15
-route add 64.124.231.0 mask 255.255.255.0 %GW% METRIC 15
-route add 64.124.236.0 mask 255.255.255.0 %GW% METRIC 15
-route add 64.151.65.167 mask 255.255.255.255 %GW% METRIC 15
-route add 64.151.65.174 mask 255.255.255.255 %GW% METRIC 15
-route add 64.215.172.0 mask 255.255.255.0 %GW% METRIC 15
-route add 64.233.160.0 mask 255.255.224.0 %GW% METRIC 15
-route add 64.242.1.105 mask 255.255.255.255 %GW% METRIC 15
-route add 65.54.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 65.79.117.208 mask 255.255.255.255 %GW% METRIC 15
-route add 65.168.92.218 mask 255.255.255.255 %GW% METRIC 15
-route add 65.209.24.100 mask 255.255.255.255 %GW% METRIC 15
-route add 65.209.24.102 mask 255.255.255.255 %GW% METRIC 15
-route add 65.215.128.0 mask 255.255.255.0 %GW% METRIC 15
-route add 65.216.151.13 mask 255.255.255.255 %GW% METRIC 15
-route add 65.246.184.0 mask 255.255.254.0 %GW% METRIC 15
-route add 65.249.64.96 mask 255.255.255.224 %GW% METRIC 15
-route add 66.37.210.86 mask 255.255.255.255 %GW% METRIC 15
-route add 66.45.81.158 mask 255.255.255.255 %GW% METRIC 15
-route add 66.45.81.190 mask 255.255.255.255 %GW% METRIC 15
-route add 66.70.68.187 mask 255.255.255.255 %GW% METRIC 15
-route add 66.94.228.0 mask 255.255.255.0 %GW% METRIC 15
-route add 66.98.205.0 mask 255.255.255.0 %GW% METRIC 15
-route add 66.102.0.0 mask 255.255.240.0 %GW% METRIC 15
-route add 66.114.58.27 mask 255.255.255.255 %GW% METRIC 15
-route add 66.117.176.0 mask 255.255.254.0 %GW% METRIC 15
-route add 66.129.67.169 mask 255.255.255.255 %GW% METRIC 15
-route add 66.129.106.149 mask 255.255.255.255 %GW% METRIC 15
-route add 66.133.171.0 mask 255.255.255.0 %GW% METRIC 15
-route add 66.135.47.166 mask 255.255.255.255 %GW% METRIC 15
-route add 66.135.51.239 mask 255.255.255.255 %GW% METRIC 15
-route add 66.150.96.119 mask 255.255.255.255 %GW% METRIC 15
-route add 66.179.148.0 mask 255.255.255.0 %GW% METRIC 15
-route add 66.179.235.32 mask 255.255.255.224 %GW% METRIC 15
-route add 66.218.72.0 mask 255.255.255.0 %GW% METRIC 15
-route add 66.249.64.0 mask 255.255.224.0 %GW% METRIC 15
-route add 67.72.105.0 mask 255.255.255.0 %GW% METRIC 15
-route add 67.96.124.213 mask 255.255.255.255 %GW% METRIC 15
-route add 67.192.35.176 mask 255.255.255.255 %GW% METRIC 15
-route add 67.212.131.81 mask 255.255.255.255 %GW% METRIC 15
-route add 67.212.131.103 mask 255.255.255.255 %GW% METRIC 15
-route add 67.212.131.104 mask 255.255.255.254 %GW% METRIC 15
-route add 67.212.131.106 mask 255.255.255.255 %GW% METRIC 15
-route add 69.32.132.0 mask 255.255.255.0 %GW% METRIC 15
-route add 69.32.182.0 mask 255.255.254.0 %GW% METRIC 15
-route add 69.32.226.0 mask 255.255.255.0 %GW% METRIC 15
-route add 69.63.130.230 mask 255.255.255.255 %GW% METRIC 15
-route add 69.63.132.223 mask 255.255.255.255 %GW% METRIC 15
-route add 69.63.132.224 mask 255.255.255.255 %GW% METRIC 15
-route add 69.63.136.133 mask 255.255.255.255 %GW% METRIC 15
-route add 69.63.136.189 mask 255.255.255.255 %GW% METRIC 15
-route add 69.147.112.0 mask 255.255.255.0 %GW% METRIC 15
-route add 69.174.241.123 mask 255.255.255.255 %GW% METRIC 15
-route add 70.37.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 70.224.107.73 mask 255.255.255.255 %GW% METRIC 15
-route add 72.3.141.36 mask 255.255.255.255 %GW% METRIC 15
-route add 72.3.142.35 mask 255.255.255.255 %GW% METRIC 15
-route add 72.3.188.104 mask 255.255.255.255 %GW% METRIC 15
-route add 72.14.192.0 mask 255.255.192.0 %GW% METRIC 15
-route add 72.15.243.52 mask 255.255.255.255 %GW% METRIC 15
-route add 72.15.246.200 mask 255.255.255.255 %GW% METRIC 15
-route add 72.15.246.212 mask 255.255.255.254 %GW% METRIC 15
-route add 72.15.246.216 mask 255.255.255.254 %GW% METRIC 15
-route add 72.15.246.224 mask 255.255.255.255 %GW% METRIC 15
-route add 72.15.246.226 mask 255.255.255.255 %GW% METRIC 15
-route add 72.15.246.235 mask 255.255.255.255 %GW% METRIC 15
-route add 72.15.246.243 mask 255.255.255.255 %GW% METRIC 15
-route add 72.32.26.50 mask 255.255.255.255 %GW% METRIC 15
-route add 72.32.203.14 mask 255.255.255.255 %GW% METRIC 15
-route add 72.164.152.0 mask 255.255.255.0 %GW% METRIC 15
-route add 72.233.2.58 mask 255.255.255.255 %GW% METRIC 15
-route add 72.237.166.111 mask 255.255.255.255 %GW% METRIC 15
-route add 74.43.216.167 mask 255.255.255.255 %GW% METRIC 15
-route add 74.43.216.168 mask 255.255.255.255 %GW% METRIC 15
-route add 74.43.216.244 mask 255.255.255.254 %GW% METRIC 15
-route add 74.43.216.247 mask 255.255.255.255 %GW% METRIC 15
-route add 74.43.219.0 mask 255.255.255.0 %GW% METRIC 15
-route add 74.125.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 74.200.243.253 mask 255.255.255.255 %GW% METRIC 15
-route add 76.12.47.123 mask 255.255.255.255 %GW% METRIC 15
-route add 76.74.252.80 mask 255.255.255.255 %GW% METRIC 15
-route add 79.136.80.0 mask 255.255.255.0 %GW% METRIC 15
-route add 82.109.207.14 mask 255.255.255.255 %GW% METRIC 15
-route add 82.150.20.0 mask 255.255.252.0 %GW% METRIC 15
-route add 82.165.43.115 mask 255.255.255.255 %GW% METRIC 15
-route add 82.165.251.151 mask 255.255.255.255 %GW% METRIC 15
-route add 82.197.80.72 mask 255.255.255.248 %GW% METRIC 15
-route add 82.197.80.80 mask 255.255.255.254 %GW% METRIC 15
-route add 82.197.80.82 mask 255.255.255.255 %GW% METRIC 15
-route add 83.70.140.0 mask 255.255.252.0 %GW% METRIC 15
-route add 83.138.144.214 mask 255.255.255.255 %GW% METRIC 15
-route add 83.138.147.58 mask 255.255.255.255 %GW% METRIC 15
-route add 83.138.175.80 mask 255.255.255.254 %GW% METRIC 15
-route add 83.138.175.82 mask 255.255.255.255 %GW% METRIC 15
-route add 83.231.175.18 mask 255.255.255.254 %GW% METRIC 15
-route add 83.231.175.24 mask 255.255.255.255 %GW% METRIC 15
-route add 83.231.175.37 mask 255.255.255.255 %GW% METRIC 15
-route add 84.18.160.0 mask 255.255.224.0 %GW% METRIC 15
-route add 87.102.111.227 mask 255.255.255.255 %GW% METRIC 15
-route add 87.102.111.232 mask 255.255.255.255 %GW% METRIC 15
-route add 87.102.111.236 mask 255.255.255.255 %GW% METRIC 15
-route add 87.102.111.250 mask 255.255.255.255 %GW% METRIC 15
-route add 91.208.107.0 mask 255.255.255.0 %GW% METRIC 15
-route add 93.91.19.13 mask 255.255.255.255 %GW% METRIC 15
-route add 93.93.131.33 mask 255.255.255.255 %GW% METRIC 15
-route add 94.236.18.170 mask 255.255.255.255 %GW% METRIC 15
-route add 94.245.68.0 mask 255.255.252.0 %GW% METRIC 15
-route add 98.129.198.65 mask 255.255.255.255 %GW% METRIC 15
-route add 101.4.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 101.76.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 110.56.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 110.64.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 110.75.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 110.76.0.0 mask 255.255.224.0 %GW% METRIC 15
-route add 110.76.32.0 mask 255.255.240.0 %GW% METRIC 15
-route add 110.96.0.0 mask 255.224.0.0 %GW% METRIC 15
-route add 110.173.32.0 mask 255.255.240.0 %GW% METRIC 15
-route add 110.173.64.0 mask 255.255.224.0 %GW% METRIC 15
-route add 110.173.192.0 mask 255.255.224.0 %GW% METRIC 15
-route add 110.176.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 110.189.128.0 mask 255.255.192.0 %GW% METRIC 15
-route add 110.192.0.0 mask 255.224.0.0 %GW% METRIC 15
-route add 111.67.192.0 mask 255.255.240.0 %GW% METRIC 15
-route add 111.114.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 111.116.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 111.186.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 111.221.70.0 mask 255.255.254.0 %GW% METRIC 15
-route add 112.64.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 112.66.64.0 mask 255.255.224.0 %GW% METRIC 15
-route add 112.66.96.0 mask 255.255.248.0 %GW% METRIC 15
-route add 112.90.136.0 mask 255.255.252.0 %GW% METRIC 15
-route add 112.90.140.0 mask 255.255.254.0 %GW% METRIC 15
-route add 112.90.142.0 mask 255.255.255.0 %GW% METRIC 15
-route add 112.90.244.0 mask 255.255.255.0 %GW% METRIC 15
-route add 112.91.133.0 mask 255.255.255.0 %GW% METRIC 15
-route add 112.95.129.56 mask 255.255.255.248 %GW% METRIC 15
-route add 112.95.138.128 mask 255.255.255.128 %GW% METRIC 15
-route add 112.95.140.128 mask 255.255.255.128 %GW% METRIC 15
-route add 112.95.240.0 mask 255.255.252.0 %GW% METRIC 15
-route add 112.111.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 112.125.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 112.128.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 113.24.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 113.31.0.0 mask 255.255.128.0 %GW% METRIC 15
-route add 113.54.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 113.64.0.0 mask 255.224.0.0 %GW% METRIC 15
-route add 113.96.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 113.112.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 113.125.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 113.126.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 113.129.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 113.136.0.0 mask 255.255.240.0 %GW% METRIC 15
-route add 113.142.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 113.248.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 114.80.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 114.111.160.0 mask 255.255.240.0 %GW% METRIC 15
-route add 114.112.160.0 mask 255.255.240.0 %GW% METRIC 15
-route add 114.113.196.0 mask 255.255.252.0 %GW% METRIC 15
-route add 114.113.200.0 mask 255.255.252.0 %GW% METRIC 15
-route add 114.117.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 114.212.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 114.214.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 114.223.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 114.224.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 114.229.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 114.237.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 114.240.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 115.24.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 115.44.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 115.48.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 115.124.16.0 mask 255.255.252.0 %GW% METRIC 15
-route add 115.154.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 115.156.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 115.158.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 115.170.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 115.181.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 115.182.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 115.238.23.0 mask 255.255.255.0 %GW% METRIC 15
-route add 115.252.186.0 mask 255.255.254.0 %GW% METRIC 15
-route add 116.4.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 116.13.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 116.16.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 116.56.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 116.58.208.0 mask 255.255.240.0 %GW% METRIC 15
-route add 116.69.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 116.70.0.0 mask 255.255.240.0 %GW% METRIC 15
-route add 116.76.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 116.193.56.178 mask 255.255.255.255 %GW% METRIC 15
-route add 116.204.96.0 mask 255.255.224.0 %GW% METRIC 15
-route add 116.205.96.0 mask 255.255.224.0 %GW% METRIC 15
-route add 116.213.64.0 mask 255.255.192.0 %GW% METRIC 15
-route add 116.213.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 116.216.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 116.226.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 116.236.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 116.242.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 116.244.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 116.252.183.0 mask 255.255.255.0 %GW% METRIC 15
-route add 116.252.184.0 mask 255.255.255.0 %GW% METRIC 15
-route add 116.254.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 117.8.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 117.22.231.0 mask 255.255.255.0 %GW% METRIC 15
-route add 117.25.168.96 mask 255.255.255.248 %GW% METRIC 15
-route add 117.29.58.0 mask 255.255.255.0 %GW% METRIC 15
-route add 117.31.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 117.53.48.141 mask 255.255.255.255 %GW% METRIC 15
-route add 117.53.48.144 mask 255.255.255.255 %GW% METRIC 15
-route add 117.60.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 117.72.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 117.75.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 117.79.128.0 mask 255.255.224.0 %GW% METRIC 15
-route add 117.84.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 117.89.104.0 mask 255.255.254.0 %GW% METRIC 15
-route add 117.90.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 117.92.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 117.100.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 117.103.16.141 mask 255.255.255.255 %GW% METRIC 15
-route add 117.124.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 117.128.0.0 mask 255.192.0.0 %GW% METRIC 15
-route add 118.67.112.0 mask 255.255.240.0 %GW% METRIC 15
-route add 118.84.204.0 mask 255.255.255.0 %GW% METRIC 15
-route add 118.102.16.0 mask 255.255.240.0 %GW% METRIC 15
-route add 118.123.202.0 mask 255.255.255.0 %GW% METRIC 15
-route add 118.123.232.0 mask 255.255.252.0 %GW% METRIC 15
-route add 118.123.236.0 mask 255.255.255.128 %GW% METRIC 15
-route add 118.123.250.0 mask 255.255.254.0 %GW% METRIC 15
-route add 118.123.252.0 mask 255.255.255.0 %GW% METRIC 15
-route add 118.124.0.0 mask 255.255.224.0 %GW% METRIC 15
-route add 118.132.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 118.144.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 118.194.0.0 mask 255.255.224.0 %GW% METRIC 15
-route add 118.196.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 118.202.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 118.204.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 118.224.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 118.228.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 118.230.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 118.244.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 119.10.0.0 mask 255.255.255.0 %GW% METRIC 15
-route add 119.31.252.0 mask 255.255.255.0 %GW% METRIC 15
-route add 119.31.254.0 mask 255.255.255.0 %GW% METRIC 15
-route add 119.36.124.0 mask 255.255.255.0 %GW% METRIC 15
-route add 119.38.216.0 mask 255.255.248.0 %GW% METRIC 15
-route add 119.42.224.0 mask 255.255.224.0 %GW% METRIC 15
-route add 119.75.208.0 mask 255.255.240.0 %GW% METRIC 15
-route add 119.78.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 119.97.130.0 mask 255.255.255.0 %GW% METRIC 15
-route add 119.97.134.0 mask 255.255.255.0 %GW% METRIC 15
-route add 119.120.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 119.128.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 119.144.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 119.161.128.0 mask 255.255.252.0 %GW% METRIC 15
-route add 119.161.144.0 mask 255.255.240.0 %GW% METRIC 15
-route add 119.161.240.0 mask 255.255.248.0 %GW% METRIC 15
-route add 119.167.235.0 mask 255.255.255.0 %GW% METRIC 15
-route add 119.188.16.0 mask 255.255.248.0 %GW% METRIC 15
-route add 119.253.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 119.254.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 120.32.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 120.40.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 120.94.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 120.132.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 120.133.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 120.134.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 120.196.210.0 mask 255.255.254.0 %GW% METRIC 15
-route add 120.196.250.0 mask 255.255.254.0 %GW% METRIC 15
-route add 120.196.253.0 mask 255.255.255.0 %GW% METRIC 15
-route add 120.196.254.0 mask 255.255.255.0 %GW% METRIC 15
-route add 120.204.200.0 mask 255.255.254.0 %GW% METRIC 15
-route add 121.0.16.0 mask 255.255.240.0 %GW% METRIC 15
-route add 121.4.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 121.8.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 121.16.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 121.32.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 121.36.4.0 mask 255.255.252.0 %GW% METRIC 15
-route add 121.36.8.0 mask 255.255.248.0 %GW% METRIC 15
-route add 121.36.16.0 mask 255.255.248.0 %GW% METRIC 15
-route add 121.37.0.0 mask 255.255.128.0 %GW% METRIC 15
-route add 121.48.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 121.52.160.0 mask 255.255.224.0 %GW% METRIC 15
-route add 121.52.208.0 mask 255.255.240.0 %GW% METRIC 15
-route add 121.58.0.0 mask 255.255.128.0 %GW% METRIC 15
-route add 121.68.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 121.79.128.0 mask 255.255.192.0 %GW% METRIC 15
-route add 121.101.192.0 mask 255.255.192.0 %GW% METRIC 15
-route add 121.192.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 121.199.14.91 mask 255.255.255.255 %GW% METRIC 15
-route add 121.201.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 121.204.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 121.224.0.0 mask 255.255.240.0 %GW% METRIC 15
-route add 121.224.224.0 mask 255.255.224.0 %GW% METRIC 15
-route add 121.232.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 121.234.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 121.248.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 122.10.132.0 mask 255.255.252.0 %GW% METRIC 15
-route add 122.10.136.0 mask 255.255.248.0 %GW% METRIC 15
-route add 122.10.144.0 mask 255.255.240.0 %GW% METRIC 15
-route add 122.10.160.0 mask 255.255.252.0 %GW% METRIC 15
-route add 122.11.32.0 mask 255.255.224.0 %GW% METRIC 15
-route add 122.70.128.0 mask 255.255.248.0 %GW% METRIC 15
-route add 122.70.138.0 mask 255.255.255.0 %GW% METRIC 15
-route add 122.96.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 122.136.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 122.156.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 122.192.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 122.200.64.0 mask 255.255.192.0 %GW% METRIC 15
-route add 122.204.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 122.224.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 122.224.45.240 mask 255.255.255.255 %GW% METRIC 15
-route add 122.224.126.0 mask 255.255.255.0 %GW% METRIC 15
-route add 122.226.240.0 mask 255.255.255.0 %GW% METRIC 15
-route add 122.228.242.128 mask 255.255.255.128 %GW% METRIC 15
-route add 122.229.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 123.4.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 123.8.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 123.49.160.0 mask 255.255.255.0 %GW% METRIC 15
-route add 123.58.160.0 mask 255.255.224.0 %GW% METRIC 15
-route add 123.65.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 123.88.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 123.99.228.0 mask 255.255.255.0 %GW% METRIC 15
-route add 123.100.0.0 mask 255.255.224.0 %GW% METRIC 15
-route add 123.101.160.0 mask 255.255.224.0 %GW% METRIC 15
-route add 123.101.192.0 mask 255.255.192.0 %GW% METRIC 15
-route add 123.103.65.0 mask 255.255.255.0 %GW% METRIC 15
-route add 123.103.66.32 mask 255.255.255.224 %GW% METRIC 15
-route add 123.103.108.104 mask 255.255.255.254 %GW% METRIC 15
-route add 123.112.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 123.128.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 123.138.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 123.144.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 123.148.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 123.150.208.0 mask 255.255.248.0 %GW% METRIC 15
-route add 123.150.216.0 mask 255.255.252.0 %GW% METRIC 15
-route add 123.150.224.0 mask 255.255.224.0 %GW% METRIC 15
-route add 123.151.172.0 mask 255.255.252.0 %GW% METRIC 15
-route add 123.151.176.0 mask 255.255.240.0 %GW% METRIC 15
-route add 123.152.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 123.172.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 123.180.128.0 mask 255.255.255.0 %GW% METRIC 15
-route add 123.196.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 123.234.0.0 mask 255.255.254.0 %GW% METRIC 15
-route add 123.234.2.0 mask 255.255.255.0 %GW% METRIC 15
-route add 124.14.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 124.16.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 124.28.192.0 mask 255.255.192.0 %GW% METRIC 15
-route add 124.29.0.0 mask 255.255.128.0 %GW% METRIC 15
-route add 124.40.41.0 mask 255.255.255.0 %GW% METRIC 15
-route add 124.42.0.0 mask 255.255.128.0 %GW% METRIC 15
-route add 124.64.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 124.66.0.0 mask 255.255.128.0 %GW% METRIC 15
-route add 124.67.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 124.68.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 124.72.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 124.77.0.0 mask 255.255.128.0 %GW% METRIC 15
-route add 124.88.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 124.114.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 124.117.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 124.127.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 124.128.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 124.160.42.0 mask 255.255.255.0 %GW% METRIC 15
-route add 124.160.160.0 mask 255.255.254.0 %GW% METRIC 15
-route add 124.161.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 124.162.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 124.164.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 124.172.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 124.192.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 124.200.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 124.225.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 124.227.230.0 mask 255.255.255.0 %GW% METRIC 15
-route add 124.232.159.0 mask 255.255.255.0 %GW% METRIC 15
-route add 124.234.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 124.238.254.0 mask 255.255.255.0 %GW% METRIC 15
-route add 124.250.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 125.21.245.0 mask 255.255.255.0 %GW% METRIC 15
-route add 125.32.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 125.56.144.45 mask 255.255.255.255 %GW% METRIC 15
-route add 125.64.6.0 mask 255.255.255.0 %GW% METRIC 15
-route add 125.64.16.124 mask 255.255.255.255 %GW% METRIC 15
-route add 125.64.16.126 mask 255.255.255.255 %GW% METRIC 15
-route add 125.70.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 125.73.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 125.76.224.0 mask 255.255.224.0 %GW% METRIC 15
-route add 125.77.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 125.78.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 125.80.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 125.88.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 125.90.64.0 mask 255.255.252.0 %GW% METRIC 15
-route add 125.91.240.0 mask 255.255.252.0 %GW% METRIC 15
-route add 125.91.244.0 mask 255.255.254.0 %GW% METRIC 15
-route add 125.91.253.51 mask 255.255.255.255 %GW% METRIC 15
-route add 125.96.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 125.98.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 125.171.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 125.208.0.0 mask 255.255.240.0 %GW% METRIC 15
-route add 125.211.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 125.216.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 125.252.220.45 mask 255.255.255.255 %GW% METRIC 15
-route add 128.84.158.0 mask 255.255.255.0 %GW% METRIC 15
-route add 128.107.229.0 mask 255.255.255.0 %GW% METRIC 15
-route add 128.220.160.140 mask 255.255.255.255 %GW% METRIC 15
-route add 128.220.160.148 mask 255.255.255.252 %GW% METRIC 15
-route add 128.220.205.153 mask 255.255.255.255 %GW% METRIC 15
-route add 128.220.205.156 mask 255.255.255.255 %GW% METRIC 15
-route add 128.232.233.0 mask 255.255.255.192 %GW% METRIC 15
-route add 129.35.69.21 mask 255.255.255.255 %GW% METRIC 15
-route add 129.35.76.0 mask 255.255.255.0 %GW% METRIC 15
-route add 129.35.77.193 mask 255.255.255.255 %GW% METRIC 15
-route add 129.41.4.137 mask 255.255.255.255 %GW% METRIC 15
-route add 129.41.4.138 mask 255.255.255.255 %GW% METRIC 15
-route add 129.41.4.140 mask 255.255.255.255 %GW% METRIC 15
-route add 129.41.4.143 mask 255.255.255.255 %GW% METRIC 15
-route add 129.41.4.144 mask 255.255.255.252 %GW% METRIC 15
-route add 129.41.4.148 mask 255.255.255.255 %GW% METRIC 15
-route add 129.41.4.154 mask 255.255.255.255 %GW% METRIC 15
-route add 129.41.4.158 mask 255.255.255.255 %GW% METRIC 15
-route add 129.41.4.171 mask 255.255.255.255 %GW% METRIC 15
-route add 129.42.24.230 mask 255.255.255.255 %GW% METRIC 15
-route add 129.42.25.230 mask 255.255.255.255 %GW% METRIC 15
-route add 129.42.32.230 mask 255.255.255.255 %GW% METRIC 15
-route add 129.42.33.230 mask 255.255.255.255 %GW% METRIC 15
-route add 129.42.40.230 mask 255.255.255.255 %GW% METRIC 15
-route add 129.42.41.230 mask 255.255.255.255 %GW% METRIC 15
-route add 130.88.203.58 mask 255.255.255.255 %GW% METRIC 15
-route add 130.102.44.245 mask 255.255.255.255 %GW% METRIC 15
-route add 130.102.44.247 mask 255.255.255.255 %GW% METRIC 15
-route add 130.102.44.248 mask 255.255.255.255 %GW% METRIC 15
-route add 132.151.9.22 mask 255.255.255.255 %GW% METRIC 15
-route add 132.174.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 132.243.5.113 mask 255.255.255.255 %GW% METRIC 15
-route add 134.243.5.21 mask 255.255.255.255 %GW% METRIC 15
-route add 134.243.5.42 mask 255.255.255.255 %GW% METRIC 15
-route add 134.243.5.63 mask 255.255.255.255 %GW% METRIC 15
-route add 134.243.5.70 mask 255.255.255.255 %GW% METRIC 15
-route add 134.243.5.160 mask 255.255.255.255 %GW% METRIC 15
-route add 134.243.85.3 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.129.1 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.140 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.143 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.155 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.161 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.170 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.195 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.201 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.215 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.229 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.239 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.242 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.245 mask 255.255.255.255 %GW% METRIC 15
-route add 135.196.210.248 mask 255.255.255.255 %GW% METRIC 15
-route add 137.189.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 138.12.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 140.98.193.0 mask 255.255.255.0 %GW% METRIC 15
-route add 140.98.194.0 mask 255.255.255.0 %GW% METRIC 15
-route add 140.113.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 140.234.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 141.66.17.139 mask 255.255.255.255 %GW% METRIC 15
-route add 141.66.17.140 mask 255.255.255.255 %GW% METRIC 15
-route add 141.66.18.186 mask 255.255.255.255 %GW% METRIC 15
-route add 141.66.176.200 mask 255.255.255.255 %GW% METRIC 15
-route add 143.89.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 144.81.82.0 mask 255.255.255.0 %GW% METRIC 15
-route add 144.81.87.0 mask 255.255.255.0 %GW% METRIC 15
-route add 144.81.88.0 mask 255.255.254.0 %GW% METRIC 15
-route add 144.212.244.9 mask 255.255.255.255 %GW% METRIC 15
-route add 144.212.244.10 mask 255.255.255.255 %GW% METRIC 15
-route add 144.214.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 145.36.40.90 mask 255.255.255.255 %GW% METRIC 15
-route add 145.36.40.162 mask 255.255.255.255 %GW% METRIC 15
-route add 145.36.42.0 mask 255.255.255.0 %GW% METRIC 15
-route add 145.36.156.10 mask 255.255.255.255 %GW% METRIC 15
-route add 147.8.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 149.7.32.19 mask 255.255.255.255 %GW% METRIC 15
-route add 149.28.1.0 mask 255.255.255.0 %GW% METRIC 15
-route add 149.28.13.0 mask 255.255.255.0 %GW% METRIC 15
-route add 149.28.15.0 mask 255.255.255.0 %GW% METRIC 15
-route add 152.101.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 152.104.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 158.132.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 158.182.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 159.226.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 160.109.98.0 mask 255.255.255.0 %GW% METRIC 15
-route add 160.109.106.0 mask 255.255.254.0 %GW% METRIC 15
-route add 160.109.108.0 mask 255.255.254.0 %GW% METRIC 15
-route add 160.109.112.0 mask 255.255.254.0 %GW% METRIC 15
-route add 160.109.114.0 mask 255.255.255.0 %GW% METRIC 15
-route add 161.207.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 162.105.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 165.193.78.32 mask 255.255.255.240 %GW% METRIC 15
-route add 165.193.81.224 mask 255.255.255.240 %GW% METRIC 15
-route add 165.193.106.0 mask 255.255.254.0 %GW% METRIC 15
-route add 165.193.159.0 mask 255.255.255.0 %GW% METRIC 15
-route add 165.215.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 166.111.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 167.68.6.0 mask 255.255.254.0 %GW% METRIC 15
-route add 167.68.47.14 mask 255.255.255.255 %GW% METRIC 15
-route add 167.68.47.142 mask 255.255.255.255 %GW% METRIC 15
-route add 167.139.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 167.216.166.0 mask 255.255.255.0 %GW% METRIC 15
-route add 168.160.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 170.107.181.137 mask 255.255.255.255 %GW% METRIC 15
-route add 170.107.181.167 mask 255.255.255.255 %GW% METRIC 15
-route add 170.107.185.0 mask 255.255.255.0 %GW% METRIC 15
-route add 170.107.188.0 mask 255.255.252.0 %GW% METRIC 15
-route add 170.224.101.208 mask 255.255.255.255 %GW% METRIC 15
-route add 171.66.120.0 mask 255.255.248.0 %GW% METRIC 15
-route add 171.67.112.0 mask 255.255.240.0 %GW% METRIC 15
-route add 174.46.196.128 mask 255.255.255.128 %GW% METRIC 15
-route add 174.122.136.5 mask 255.255.255.255 %GW% METRIC 15
-route add 174.122.136.6 mask 255.255.255.254 %GW% METRIC 15
-route add 174.122.136.8 mask 255.255.255.255 %GW% METRIC 15
-route add 174.122.136.11 mask 255.255.255.255 %GW% METRIC 15
-route add 174.143.45.135 mask 255.255.255.255 %GW% METRIC 15
-route add 175.41.3.32 mask 255.255.255.240 %GW% METRIC 15
-route add 175.41.3.48 mask 255.255.255.255 %GW% METRIC 15
-route add 175.42.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 175.44.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 175.185.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 175.186.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 180.84.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 180.96.0.0 mask 255.255.254.0 %GW% METRIC 15
-route add 180.100.32.0 mask 255.255.240.0 %GW% METRIC 15
-route add 180.118.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 180.137.0.0 mask 255.255.224.0 %GW% METRIC 15
-route add 180.152.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 180.160.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 180.201.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 180.208.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 182.92.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 183.0.0.0 mask 255.192.0.0 %GW% METRIC 15
-route add 183.168.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 183.170.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 183.172.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 192.41.161.151 mask 255.255.255.255 %GW% METRIC 15
-route add 192.58.150.0 mask 255.255.255.0 %GW% METRIC 15
-route add 192.73.31.0 mask 255.255.255.0 %GW% METRIC 15
-route add 192.73.216.0 mask 255.255.255.0 %GW% METRIC 15
-route add 192.80.71.0 mask 255.255.255.0 %GW% METRIC 15
-route add 192.84.75.0 mask 255.255.255.0 %GW% METRIC 15
-route add 192.84.80.20 mask 255.255.255.255 %GW% METRIC 15
-route add 192.84.80.37 mask 255.255.255.255 %GW% METRIC 15
-route add 192.84.80.38 mask 255.255.255.255 %GW% METRIC 15
-route add 192.86.104.0 mask 255.255.255.0 %GW% METRIC 15
-route add 192.87.127.79 mask 255.255.255.255 %GW% METRIC 15
-route add 192.87.127.97 mask 255.255.255.255 %GW% METRIC 15
-route add 192.87.127.98 mask 255.255.255.255 %GW% METRIC 15
-route add 192.87.127.133 mask 255.255.255.255 %GW% METRIC 15
-route add 192.87.127.134 mask 255.255.255.255 %GW% METRIC 15
-route add 192.132.2.0 mask 255.255.255.0 %GW% METRIC 15
-route add 192.195.245.0 mask 255.255.255.0 %GW% METRIC 15
-route add 192.207.91.0 mask 255.255.255.0 %GW% METRIC 15
-route add 192.231.246.0 mask 255.255.255.0 %GW% METRIC 15
-route add 192.234.21.0 mask 255.255.255.0 %GW% METRIC 15
-route add 192.234.22.0 mask 255.255.255.0 %GW% METRIC 15
-route add 192.245.208.0 mask 255.255.255.0 %GW% METRIC 15
-route add 193.128.223.0 mask 255.255.255.0 %GW% METRIC 15
-route add 193.130.39.176 mask 255.255.255.240 %GW% METRIC 15
-route add 193.130.68.227 mask 255.255.255.255 %GW% METRIC 15
-route add 193.130.69.16 mask 255.255.255.255 %GW% METRIC 15
-route add 193.130.69.71 mask 255.255.255.255 %GW% METRIC 15
-route add 193.131.119.0 mask 255.255.255.0 %GW% METRIC 15
-route add 193.174.24.39 mask 255.255.255.255 %GW% METRIC 15
-route add 193.174.240.6 mask 255.255.255.255 %GW% METRIC 15
-route add 193.174.240.8 mask 255.255.255.255 %GW% METRIC 15
-route add 193.194.158.0 mask 255.255.255.0 %GW% METRIC 15
-route add 194.66.22.0 mask 255.255.255.0 %GW% METRIC 15
-route add 194.119.138.1 mask 255.255.255.255 %GW% METRIC 15
-route add 194.119.138.2 mask 255.255.255.255 %GW% METRIC 15
-route add 194.119.138.6 mask 255.255.255.255 %GW% METRIC 15
-route add 194.119.138.10 mask 255.255.255.255 %GW% METRIC 15
-route add 194.128.228.153 mask 255.255.255.255 %GW% METRIC 15
-route add 194.130.252.0 mask 255.255.255.0 %GW% METRIC 15
-route add 194.209.48.0 mask 255.255.255.0 %GW% METRIC 15
-route add 195.22.150.0 mask 255.255.254.0 %GW% METRIC 15
-route add 195.27.60.0 mask 255.255.255.0 %GW% METRIC 15
-route add 195.27.123.0 mask 255.255.255.0 %GW% METRIC 15
-route add 195.27.130.0 mask 255.255.255.0 %GW% METRIC 15
-route add 195.92.228.61 mask 255.255.255.255 %GW% METRIC 15
-route add 195.92.228.71 mask 255.255.255.255 %GW% METRIC 15
-route add 195.92.230.51 mask 255.255.255.255 %GW% METRIC 15
-route add 195.144.0.13 mask 255.255.255.255 %GW% METRIC 15
-route add 195.144.0.22 mask 255.255.255.255 %GW% METRIC 15
-route add 195.144.0.26 mask 255.255.255.255 %GW% METRIC 15
-route add 195.144.0.32 mask 255.255.255.255 %GW% METRIC 15
-route add 195.144.0.50 mask 255.255.255.254 %GW% METRIC 15
-route add 195.144.0.57 mask 255.255.255.255 %GW% METRIC 15
-route add 195.144.0.58 mask 255.255.255.255 %GW% METRIC 15
-route add 195.144.69.0 mask 255.255.255.0 %GW% METRIC 15
-route add 195.178.165.0 mask 255.255.255.0 %GW% METRIC 15
-route add 198.17.79.0 mask 255.255.255.0 %GW% METRIC 15
-route add 198.45.22.173 mask 255.255.255.255 %GW% METRIC 15
-route add 198.45.22.198 mask 255.255.255.255 %GW% METRIC 15
-route add 198.80.148.147 mask 255.255.255.255 %GW% METRIC 15
-route add 198.81.200.0 mask 255.255.255.0 %GW% METRIC 15
-route add 198.108.24.0 mask 255.255.255.0 %GW% METRIC 15
-route add 198.137.148.0 mask 255.255.254.0 %GW% METRIC 15
-route add 198.137.150.0 mask 255.255.255.0 %GW% METRIC 15
-route add 198.185.16.0 mask 255.255.248.0 %GW% METRIC 15
-route add 198.185.24.0 mask 255.255.254.0 %GW% METRIC 15
-route add 199.1.202.0 mask 255.255.255.0 %GW% METRIC 15
-route add 199.4.154.0 mask 255.255.254.0 %GW% METRIC 15
-route add 199.74.248.13 mask 255.255.255.255 %GW% METRIC 15
-route add 199.98.88.0 mask 255.255.255.0 %GW% METRIC 15
-route add 199.164.217.0 mask 255.255.255.0 %GW% METRIC 15
-route add 202.4.128.0 mask 255.255.224.0 %GW% METRIC 15
-route add 202.4.252.0 mask 255.255.252.0 %GW% METRIC 15
-route add 202.14.80.0 mask 255.255.255.0 %GW% METRIC 15
-route add 202.14.235.3 mask 255.255.255.255 %GW% METRIC 15
-route add 202.14.238.38 mask 255.255.255.255 %GW% METRIC 15
-route add 202.38.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 202.40.138.0 mask 255.255.254.0 %GW% METRIC 15
-route add 202.40.157.0 mask 255.255.255.0 %GW% METRIC 15
-route add 202.40.192.0 mask 255.255.224.0 %GW% METRIC 15
-route add 202.41.240.0 mask 255.255.240.0 %GW% METRIC 15
-route add 202.43.144.0 mask 255.255.240.0 %GW% METRIC 15
-route add 202.43.216.0 mask 255.255.254.0 %GW% METRIC 15
-route add 202.45.32.0 mask 255.255.224.0 %GW% METRIC 15
-route add 202.45.176.0 mask 255.255.240.0 %GW% METRIC 15
-route add 202.69.19.114 mask 255.255.255.255 %GW% METRIC 15
-route add 202.75.64.0 mask 255.255.224.0 %GW% METRIC 15
-route add 202.84.16.0 mask 255.255.254.0 %GW% METRIC 15
-route add 202.89.232.0 mask 255.255.248.0 %GW% METRIC 15
-route add 202.91.176.0 mask 255.255.240.0 %GW% METRIC 15
-route add 202.93.252.0 mask 255.255.252.0 %GW% METRIC 15
-route add 202.95.0.0 mask 255.255.224.0 %GW% METRIC 15
-route add 202.96.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 202.112.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 202.120.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 202.122.32.0 mask 255.255.240.0 %GW% METRIC 15
-route add 202.123.110.0 mask 255.255.255.0 %GW% METRIC 15
-route add 202.125.192.0 mask 255.255.192.0 %GW% METRIC 15
-route add 202.127.0.0 mask 255.255.192.0 %GW% METRIC 15
-route add 202.127.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 202.130.0.0 mask 255.255.224.0 %GW% METRIC 15
-route add 202.130.224.0 mask 255.255.224.0 %GW% METRIC 15
-route add 202.131.208.0 mask 255.255.240.0 %GW% METRIC 15
-route add 202.134.86.130 mask 255.255.255.255 %GW% METRIC 15
-route add 202.152.176.0 mask 255.255.240.0 %GW% METRIC 15
-route add 202.158.160.0 mask 255.255.224.0 %GW% METRIC 15
-route add 202.160.176.0 mask 255.255.240.0 %GW% METRIC 15
-route add 202.165.96.0 mask 255.255.248.0 %GW% METRIC 15
-route add 202.165.104.0 mask 255.255.252.0 %GW% METRIC 15
-route add 202.167.247.0 mask 255.255.255.192 %GW% METRIC 15
-route add 202.179.240.0 mask 255.255.240.0 %GW% METRIC 15
-route add 202.189.96.0 mask 255.255.224.0 %GW% METRIC 15
-route add 202.192.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 203.81.16.0 mask 255.255.240.0 %GW% METRIC 15
-route add 203.81.38.66 mask 255.255.255.254 %GW% METRIC 15
-route add 203.81.38.68 mask 255.255.255.255 %GW% METRIC 15
-route add 203.83.56.0 mask 255.255.248.0 %GW% METRIC 15
-route add 203.84.197.9 mask 255.255.255.255 %GW% METRIC 15
-route add 203.86.0.0 mask 255.255.224.0 %GW% METRIC 15
-route add 203.86.64.0 mask 255.255.224.0 %GW% METRIC 15
-route add 203.87.224.0 mask 255.255.224.0 %GW% METRIC 15
-route add 203.88.32.0 mask 255.255.224.0 %GW% METRIC 15
-route add 203.88.192.0 mask 255.255.224.0 %GW% METRIC 15
-route add 203.91.46.40 mask 255.255.255.255 %GW% METRIC 15
-route add 203.91.120.0 mask 255.255.248.0 %GW% METRIC 15
-route add 203.93.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 203.95.0.0 mask 255.255.248.0 %GW% METRIC 15
-route add 203.98.210.56 mask 255.255.255.248 %GW% METRIC 15
-route add 203.98.210.64 mask 255.255.255.224 %GW% METRIC 15
-route add 203.100.92.0 mask 255.255.252.0 %GW% METRIC 15
-route add 203.100.192.0 mask 255.255.240.0 %GW% METRIC 15
-route add 203.110.167.240 mask 255.255.255.255 %GW% METRIC 15
-route add 203.112.23.19 mask 255.255.255.255 %GW% METRIC 15
-route add 203.119.24.0 mask 255.255.248.0 %GW% METRIC 15
-route add 203.128.128.0 mask 255.255.224.0 %GW% METRIC 15
-route add 203.130.33.32 mask 255.255.255.224 %GW% METRIC 15
-route add 203.134.240.0 mask 255.255.252.0 %GW% METRIC 15
-route add 203.134.244.0 mask 255.255.255.0 %GW% METRIC 15
-route add 203.156.243.195 mask 255.255.255.255 %GW% METRIC 15
-route add 203.156.243.196 mask 255.255.255.254 %GW% METRIC 15
-route add 203.175.128.0 mask 255.255.224.0 %GW% METRIC 15
-route add 203.187.160.0 mask 255.255.224.0 %GW% METRIC 15
-route add 203.188.64.0 mask 255.255.192.0 %GW% METRIC 15
-route add 203.192.0.0 mask 255.255.224.0 %GW% METRIC 15
-route add 203.196.0.0 mask 255.255.252.0 %GW% METRIC 15
-route add 203.196.4.0 mask 255.255.255.0 %GW% METRIC 15
-route add 203.196.7.0 mask 255.255.255.0 %GW% METRIC 15
-route add 203.207.64.0 mask 255.255.192.0 %GW% METRIC 15
-route add 203.207.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 203.208.0.0 mask 255.255.192.0 %GW% METRIC 15
-route add 203.209.224.0 mask 255.255.224.0 %GW% METRIC 15
-route add 203.212.0.0 mask 255.255.240.0 %GW% METRIC 15
-route add 204.8.133.92 mask 255.255.255.255 %GW% METRIC 15
-route add 204.8.133.211 mask 255.255.255.255 %GW% METRIC 15
-route add 204.8.133.213 mask 255.255.255.255 %GW% METRIC 15
-route add 204.8.133.217 mask 255.255.255.255 %GW% METRIC 15
-route add 204.50.102.36 mask 255.255.255.255 %GW% METRIC 15
-route add 204.50.102.245 mask 255.255.255.255 %GW% METRIC 15
-route add 204.126.80.0 mask 255.255.254.0 %GW% METRIC 15
-route add 204.153.51.0 mask 255.255.255.0 %GW% METRIC 15
-route add 204.179.122.0 mask 255.255.255.0 %GW% METRIC 15
-route add 204.228.64.0 mask 255.255.255.0 %GW% METRIC 15
-route add 205.142.245.0 mask 255.255.255.0 %GW% METRIC 15
-route add 205.203.134.1 mask 255.255.255.255 %GW% METRIC 15
-route add 205.203.134.30 mask 255.255.255.255 %GW% METRIC 15
-route add 205.217.165.64 mask 255.255.255.192 %GW% METRIC 15
-route add 205.240.244.0 mask 255.255.252.0 %GW% METRIC 15
-route add 205.243.231.0 mask 255.255.255.0 %GW% METRIC 15
-route add 206.65.170.81 mask 255.255.255.255 %GW% METRIC 15
-route add 206.112.112.0 mask 255.255.255.0 %GW% METRIC 15
-route add 206.188.17.13 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.23 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.33 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.43 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.53 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.63 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.73 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.83 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.93 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.103 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.115 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.185 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.195 mask 255.255.255.255 %GW% METRIC 15
-route add 206.188.17.205 mask 255.255.255.255 %GW% METRIC 15
-route add 207.24.35.0 mask 255.255.255.0 %GW% METRIC 15
-route add 207.24.36.0 mask 255.255.254.0 %GW% METRIC 15
-route add 207.24.38.0 mask 255.255.255.0 %GW% METRIC 15
-route add 207.24.42.0 mask 255.255.254.0 %GW% METRIC 15
-route add 207.24.44.0 mask 255.255.254.0 %GW% METRIC 15
-route add 207.24.128.0 mask 255.255.240.0 %GW% METRIC 15
-route add 207.25.176.0 mask 255.255.248.0 %GW% METRIC 15
-route add 207.46.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 207.54.136.0 mask 255.255.255.0 %GW% METRIC 15
-route add 207.68.146.217 mask 255.255.255.255 %GW% METRIC 15
-route add 207.68.168.0 mask 255.255.255.0 %GW% METRIC 15
-route add 207.68.172.235 mask 255.255.255.255 %GW% METRIC 15
-route add 207.68.178.0 mask 255.255.255.128 %GW% METRIC 15
-route add 207.68.179.192 mask 255.255.255.224 %GW% METRIC 15
-route add 207.97.243.216 mask 255.255.255.255 %GW% METRIC 15
-route add 207.158.24.0 mask 255.255.255.224 %GW% METRIC 15
-route add 207.164.255.103 mask 255.255.255.255 %GW% METRIC 15
-route add 207.170.201.0 mask 255.255.255.0 %GW% METRIC 15
-route add 207.170.231.0 mask 255.255.255.0 %GW% METRIC 15
-route add 207.170.234.0 mask 255.255.255.0 %GW% METRIC 15
-route add 207.170.239.0 mask 255.255.255.0 %GW% METRIC 15
-route add 208.44.56.71 mask 255.255.255.255 %GW% METRIC 15
-route add 208.44.56.210 mask 255.255.255.254 %GW% METRIC 15
-route add 208.44.56.212 mask 255.255.255.252 %GW% METRIC 15
-route add 208.44.56.216 mask 255.255.255.252 %GW% METRIC 15
-route add 208.44.56.220 mask 255.255.255.255 %GW% METRIC 15
-route add 208.76.204.0 mask 255.255.252.0 %GW% METRIC 15
-route add 208.77.250.60 mask 255.255.255.255 %GW% METRIC 15
-route add 208.85.175.16 mask 255.255.255.255 %GW% METRIC 15
-route add 208.99.144.251 mask 255.255.255.255 %GW% METRIC 15
-route add 208.176.18.0 mask 255.255.255.0 %GW% METRIC 15
-route add 208.181.59.245 mask 255.255.255.255 %GW% METRIC 15
-route add 208.181.59.253 mask 255.255.255.255 %GW% METRIC 15
-route add 208.185.238.0 mask 255.255.255.0 %GW% METRIC 15
-route add 208.197.26.35 mask 255.255.255.255 %GW% METRIC 15
-route add 208.197.26.36 mask 255.255.255.255 %GW% METRIC 15
-route add 208.215.179.0 mask 255.255.255.0 %GW% METRIC 15
-route add 208.254.38.80 mask 255.255.255.255 %GW% METRIC 15
-route add 208.254.38.90 mask 255.255.255.255 %GW% METRIC 15
-route add 208.254.79.0 mask 255.255.255.192 %GW% METRIC 15
-route add 209.85.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 209.116.81.5 mask 255.255.255.255 %GW% METRIC 15
-route add 209.133.34.0 mask 255.255.255.0 %GW% METRIC 15
-route add 209.191.64.0 mask 255.255.192.0 %GW% METRIC 15
-route add 209.195.157.0 mask 255.255.255.0 %GW% METRIC 15
-route add 209.208.170.210 mask 255.255.255.254 %GW% METRIC 15
-route add 209.225.25.11 mask 255.255.255.255 %GW% METRIC 15
-route add 209.246.136.0 mask 255.255.255.0 %GW% METRIC 15
-route add 209.249.123.0 mask 255.255.255.0 %GW% METRIC 15
-route add 210.5.0.0 mask 255.255.224.0 %GW% METRIC 15
-route add 210.12.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 210.14.64.0 mask 255.255.224.0 %GW% METRIC 15
-route add 210.14.112.0 mask 255.255.254.0 %GW% METRIC 15
-route add 210.14.127.0 mask 255.255.255.0 %GW% METRIC 15
-route add 210.14.160.0 mask 255.255.224.0 %GW% METRIC 15
-route add 210.14.192.0 mask 255.255.192.0 %GW% METRIC 15
-route add 210.15.0.0 mask 255.255.128.0 %GW% METRIC 15
-route add 210.15.128.0 mask 255.255.192.0 %GW% METRIC 15
-route add 210.21.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 210.22.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 210.25.0.0 mask 255.255.128.0 %GW% METRIC 15
-route add 210.25.128.0 mask 255.255.192.0 %GW% METRIC 15
-route add 210.26.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 210.28.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 210.32.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 210.51.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 210.52.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 210.72.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 210.76.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 210.78.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 210.79.224.0 mask 255.255.224.0 %GW% METRIC 15
-route add 210.82.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 210.87.128.0 mask 255.255.192.0 %GW% METRIC 15
-route add 210.177.136.0 mask 255.255.255.0 %GW% METRIC 15
-route add 210.185.192.0 mask 255.255.192.0 %GW% METRIC 15
-route add 210.192.96.0 mask 255.255.224.0 %GW% METRIC 15
-route add 210.210.18.35 mask 255.255.255.255 %GW% METRIC 15
-route add 211.64.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 211.80.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 211.96.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 211.136.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 211.144.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 211.160.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 212.87.150.203 mask 255.255.255.255 %GW% METRIC 15
-route add 212.87.150.207 mask 255.255.255.255 %GW% METRIC 15
-route add 212.87.150.214 mask 255.255.255.255 %GW% METRIC 15
-route add 212.87.150.216 mask 255.255.255.255 %GW% METRIC 15
-route add 212.87.150.218 mask 255.255.255.255 %GW% METRIC 15
-route add 212.111.43.128 mask 255.255.255.128 %GW% METRIC 15
-route add 212.187.169.0 mask 255.255.255.0 %GW% METRIC 15
-route add 213.52.211.32 mask 255.255.255.224 %GW% METRIC 15
-route add 213.130.39.122 mask 255.255.255.255 %GW% METRIC 15
-route add 213.136.32.0 mask 255.255.255.0 %GW% METRIC 15
-route add 213.161.82.0 mask 255.255.255.0 %GW% METRIC 15
-route add 213.170.149.226 mask 255.255.255.254 %GW% METRIC 15
-route add 213.198.99.117 mask 255.255.255.255 %GW% METRIC 15
-route add 213.199.148.0 mask 255.255.254.0 %GW% METRIC 15
-route add 213.199.174.0 mask 255.255.255.128 %GW% METRIC 15
-route add 213.212.74.227 mask 255.255.255.255 %GW% METRIC 15
-route add 213.212.74.236 mask 255.255.255.255 %GW% METRIC 15
-route add 213.219.33.0 mask 255.255.255.0 %GW% METRIC 15
-route add 213.225.144.157 mask 255.255.255.255 %GW% METRIC 15
-route add 213.225.144.190 mask 255.255.255.255 %GW% METRIC 15
-route add 213.244.181.0 mask 255.255.255.0 %GW% METRIC 15
-route add 216.17.112.0 mask 255.255.240.0 %GW% METRIC 15
-route add 216.27.103.128 mask 255.255.255.128 %GW% METRIC 15
-route add 216.30.190.144 mask 255.255.255.255 %GW% METRIC 15
-route add 216.30.190.146 mask 255.255.255.255 %GW% METRIC 15
-route add 216.30.190.150 mask 255.255.255.255 %GW% METRIC 15
-route add 216.30.190.153 mask 255.255.255.255 %GW% METRIC 15
-route add 216.30.190.185 mask 255.255.255.255 %GW% METRIC 15
-route add 216.30.190.224 mask 255.255.255.255 %GW% METRIC 15
-route add 216.30.190.232 mask 255.255.255.255 %GW% METRIC 15
-route add 216.30.190.234 mask 255.255.255.255 %GW% METRIC 15
-route add 216.30.190.240 mask 255.255.255.255 %GW% METRIC 15
-route add 216.33.115.0 mask 255.255.255.0 %GW% METRIC 15
-route add 216.34.169.192 mask 255.255.255.192 %GW% METRIC 15
-route add 216.35.79.115 mask 255.255.255.255 %GW% METRIC 15
-route add 216.35.79.116 mask 255.255.255.254 %GW% METRIC 15
-route add 216.35.79.118 mask 255.255.255.255 %GW% METRIC 15
-route add 216.35.221.0 mask 255.255.255.0 %GW% METRIC 15
-route add 216.52.17.96 mask 255.255.255.255 %GW% METRIC 15
-route add 216.52.36.0 mask 255.255.254.0 %GW% METRIC 15
-route add 216.52.184.240 mask 255.255.255.255 %GW% METRIC 15
-route add 216.64.147.216 mask 255.255.255.248 %GW% METRIC 15
-route add 216.73.87.52 mask 255.255.255.255 %GW% METRIC 15
-route add 216.74.131.105 mask 255.255.255.255 %GW% METRIC 15
-route add 216.74.159.103 mask 255.255.255.255 %GW% METRIC 15
-route add 216.74.159.106 mask 255.255.255.255 %GW% METRIC 15
-route add 216.74.159.109 mask 255.255.255.255 %GW% METRIC 15
-route add 216.74.159.112 mask 255.255.255.255 %GW% METRIC 15
-route add 216.74.159.121 mask 255.255.255.255 %GW% METRIC 15
-route add 216.83.187.0 mask 255.255.255.0 %GW% METRIC 15
-route add 216.136.168.73 mask 255.255.255.255 %GW% METRIC 15
-route add 216.143.112.0 mask 255.255.255.0 %GW% METRIC 15
-route add 216.146.38.200 mask 255.255.255.252 %GW% METRIC 15
-route add 216.146.38.204 mask 255.255.255.255 %GW% METRIC 15
-route add 216.147.208.0 mask 255.255.240.0 %GW% METRIC 15
-route add 216.162.203.72 mask 255.255.255.248 %GW% METRIC 15
-route add 216.162.203.144 mask 255.255.255.240 %GW% METRIC 15
-route add 216.176.50.163 mask 255.255.255.255 %GW% METRIC 15
-route add 216.200.62.0 mask 255.255.255.0 %GW% METRIC 15
-route add 216.200.249.0 mask 255.255.255.0 %GW% METRIC 15
-route add 216.239.32.0 mask 255.255.224.0 %GW% METRIC 15
-route add 216.244.104.53 mask 255.255.255.255 %GW% METRIC 15
-route add 217.7.141.143 mask 255.255.255.255 %GW% METRIC 15
-route add 217.7.141.144 mask 255.255.255.254 %GW% METRIC 15
-route add 217.7.141.149 mask 255.255.255.255 %GW% METRIC 15
-route add 217.7.141.150 mask 255.255.255.255 %GW% METRIC 15
-route add 217.68.67.34 mask 255.255.255.255 %GW% METRIC 15
-route add 217.68.69.68 mask 255.255.255.254 %GW% METRIC 15
-route add 217.68.69.70 mask 255.255.255.255 %GW% METRIC 15
-route add 217.68.69.84 mask 255.255.255.255 %GW% METRIC 15
-route add 217.154.120.7 mask 255.255.255.255 %GW% METRIC 15
-route add 217.169.56.135 mask 255.255.255.255 %GW% METRIC 15
-route add 217.169.56.154 mask 255.255.255.255 %GW% METRIC 15
-route add 217.169.56.183 mask 255.255.255.255 %GW% METRIC 15
-route add 217.169.56.230 mask 255.255.255.255 %GW% METRIC 15
-route add 217.204.10.34 mask 255.255.255.255 %GW% METRIC 15
-route add 218.0.0.0 mask 255.224.0.0 %GW% METRIC 15
-route add 218.56.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 218.64.0.0 mask 255.224.0.0 %GW% METRIC 15
-route add 218.96.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 218.104.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 218.108.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 218.192.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 218.240.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 218.249.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 219.72.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 219.82.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 219.128.0.0 mask 255.224.0.0 %GW% METRIC 15
-route add 219.216.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 219.224.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 219.242.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 219.244.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 220.112.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 220.154.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 220.160.0.0 mask 255.224.0.0 %GW% METRIC 15
-route add 220.192.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 220.231.0.0 mask 255.255.192.0 %GW% METRIC 15
-route add 220.231.128.0 mask 255.255.128.0 %GW% METRIC 15
-route add 220.232.64.0 mask 255.255.192.0 %GW% METRIC 15
-route add 220.234.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 220.242.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 220.248.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 220.252.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 221.0.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 221.122.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 221.130.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 221.137.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 221.172.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 221.176.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 221.192.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 221.200.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 221.204.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 221.208.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 221.212.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 221.213.18.0 mask 255.255.255.0 %GW% METRIC 15
-route add 221.214.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 221.216.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 221.224.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 222.16.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 222.32.0.0 mask 255.224.0.0 %GW% METRIC 15
-route add 222.64.0.0 mask 255.224.0.0 %GW% METRIC 15
-route add 222.122.11.0 mask 255.255.255.0 %GW% METRIC 15
-route add 222.125.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 222.128.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 222.160.0.0 mask 255.252.0.0 %GW% METRIC 15
-route add 222.168.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 222.176.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 222.192.0.0 mask 255.240.0.0 %GW% METRIC 15
-route add 222.208.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 222.216.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 222.218.0.0 mask 255.255.0.0 %GW% METRIC 15
-route add 222.222.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 222.240.0.0 mask 255.248.0.0 %GW% METRIC 15
-route add 222.248.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 223.2.0.0 mask 255.254.0.0 %GW% METRIC 15
-route add 223.128.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 1.51.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 1.184.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 8.6.19.68 mask 255.255.255.255 %GW% METRIC 15
+route -p add 8.18.37.105 mask 255.255.255.255 %GW% METRIC 15
+route -p add 8.18.55.177 mask 255.255.255.255 %GW% METRIC 15
+route -p add 12.18.186.192 mask 255.255.255.224 %GW% METRIC 15
+route -p add 12.26.55.108 mask 255.255.255.255 %GW% METRIC 15
+route -p add 12.26.55.139 mask 255.255.255.255 %GW% METRIC 15
+route -p add 12.71.45.96 mask 255.255.255.224 %GW% METRIC 15
+route -p add 12.130.28.208 mask 255.255.255.240 %GW% METRIC 15
+route -p add 12.154.67.128 mask 255.255.255.128 %GW% METRIC 15
+route -p add 12.161.242.20 mask 255.255.255.255 %GW% METRIC 15
+route -p add 12.161.242.72 mask 255.255.255.255 %GW% METRIC 15
+route -p add 12.161.242.79 mask 255.255.255.255 %GW% METRIC 15
+route -p add 12.161.242.84 mask 255.255.255.255 %GW% METRIC 15
+route -p add 12.163.148.101 mask 255.255.255.255 %GW% METRIC 15
+route -p add 12.166.173.0 mask 255.255.255.192 %GW% METRIC 15
+route -p add 21.143.112.60 mask 255.255.255.255 %GW% METRIC 15
+route -p add 27.148.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 38.100.103.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 38.100.138.149 mask 255.255.255.255 %GW% METRIC 15
+route -p add 49.52.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 49.120.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 49.140.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 49.208.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 58.17.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 58.18.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 58.20.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 58.22.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 58.24.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 58.30.12.136 mask 255.255.255.255 %GW% METRIC 15
+route -p add 58.32.232.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 58.53.208.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 58.59.1.15 mask 255.255.255.255 %GW% METRIC 15
+route -p add 58.59.1.16 mask 255.255.255.254 %GW% METRIC 15
+route -p add 58.59.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 58.60.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 58.63.243.240 mask 255.255.255.255 %GW% METRIC 15
+route -p add 58.66.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 58.68.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 58.83.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 58.100.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 58.116.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 58.128.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 58.154.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 58.192.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 58.208.0.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 58.211.7.0 mask 255.255.255.128 %GW% METRIC 15
+route -p add 58.211.15.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 58.211.72.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 58.211.80.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 58.211.137.0 mask 255.255.255.192 %GW% METRIC 15
+route -p add 58.211.141.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 58.212.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 58.214.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 58.215.106.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 58.217.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 58.218.0.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 58.240.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 58.246.163.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 58.248.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 59.32.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 59.48.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 59.50.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 59.54.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 59.61.21.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 59.61.128.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 59.63.128.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 59.64.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 59.107.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 59.108.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 59.151.0.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 59.175.128.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 59.175.228.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 60.0.0.0 mask 255.224.0.0 %GW% METRIC 15
+route -p add 60.63.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 60.166.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 60.168.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 60.190.28.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 60.190.31.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 60.190.38.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 60.190.232.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 60.190.241.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 60.191.2.224 mask 255.255.255.240 %GW% METRIC 15
+route -p add 60.194.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 60.206.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 60.208.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 60.217.238.230 mask 255.255.255.255 %GW% METRIC 15
+route -p add 60.217.239.110 mask 255.255.255.255 %GW% METRIC 15
+route -p add 60.217.240.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 60.247.0.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 60.254.132.45 mask 255.255.255.255 %GW% METRIC 15
+route -p add 61.4.82.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 61.4.185.30 mask 255.255.255.255 %GW% METRIC 15
+route -p add 61.4.188.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 61.28.0.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 61.29.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 61.48.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 61.56.222.161 mask 255.255.255.255 %GW% METRIC 15
+route -p add 61.56.222.162 mask 255.255.255.254 %GW% METRIC 15
+route -p add 61.56.222.164 mask 255.255.255.252 %GW% METRIC 15
+route -p add 61.56.222.168 mask 255.255.255.248 %GW% METRIC 15
+route -p add 61.87.192.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 61.128.0.0 mask 255.192.0.0 %GW% METRIC 15
+route -p add 61.200.81.134 mask 255.255.255.255 %GW% METRIC 15
+route -p add 61.200.81.142 mask 255.255.255.255 %GW% METRIC 15
+route -p add 61.200.81.144 mask 255.255.255.254 %GW% METRIC 15
+route -p add 61.232.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 61.236.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 61.240.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 62.4.69.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 62.32.98.6 mask 255.255.255.255 %GW% METRIC 15
+route -p add 62.50.45.35 mask 255.255.255.255 %GW% METRIC 15
+route -p add 62.50.45.40 mask 255.255.255.254 %GW% METRIC 15
+route -p add 62.159.60.207 mask 255.255.255.255 %GW% METRIC 15
+route -p add 62.159.60.208 mask 255.255.255.254 %GW% METRIC 15
+route -p add 62.159.60.213 mask 255.255.255.255 %GW% METRIC 15
+route -p add 62.159.60.214 mask 255.255.255.255 %GW% METRIC 15
+route -p add 62.173.115.116 mask 255.255.255.255 %GW% METRIC 15
+route -p add 63.73.227.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 63.77.221.10 mask 255.255.255.255 %GW% METRIC 15
+route -p add 63.84.162.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 63.86.118.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 63.86.141.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 63.88.212.181 mask 255.255.255.255 %GW% METRIC 15
+route -p add 63.89.64.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 63.123.194.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 63.123.251.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 63.125.146.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 63.164.11.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 63.208.197.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 63.209.48.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 63.210.142.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 63.211.66.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 63.215.124.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 64.4.0.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 64.14.57.184 mask 255.255.255.254 %GW% METRIC 15
+route -p add 64.14.57.186 mask 255.255.255.255 %GW% METRIC 15
+route -p add 64.17.226.144 mask 255.255.255.255 %GW% METRIC 15
+route -p add 64.27.64.232 mask 255.255.255.255 %GW% METRIC 15
+route -p add 64.27.100.115 mask 255.255.255.255 %GW% METRIC 15
+route -p add 64.66.190.222 mask 255.255.255.255 %GW% METRIC 15
+route -p add 64.71.138.0 mask 255.255.255.128 %GW% METRIC 15
+route -p add 64.94.28.5 mask 255.255.255.255 %GW% METRIC 15
+route -p add 64.106.196.11 mask 255.255.255.255 %GW% METRIC 15
+route -p add 64.106.196.17 mask 255.255.255.255 %GW% METRIC 15
+route -p add 64.124.183.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 64.124.231.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 64.124.236.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 64.151.65.167 mask 255.255.255.255 %GW% METRIC 15
+route -p add 64.151.65.174 mask 255.255.255.255 %GW% METRIC 15
+route -p add 64.215.172.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 64.233.160.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 64.242.1.105 mask 255.255.255.255 %GW% METRIC 15
+route -p add 65.54.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 65.79.117.208 mask 255.255.255.255 %GW% METRIC 15
+route -p add 65.168.92.218 mask 255.255.255.255 %GW% METRIC 15
+route -p add 65.209.24.100 mask 255.255.255.255 %GW% METRIC 15
+route -p add 65.209.24.102 mask 255.255.255.255 %GW% METRIC 15
+route -p add 65.215.128.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 65.216.151.13 mask 255.255.255.255 %GW% METRIC 15
+route -p add 65.246.184.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 65.249.64.96 mask 255.255.255.224 %GW% METRIC 15
+route -p add 66.37.210.86 mask 255.255.255.255 %GW% METRIC 15
+route -p add 66.45.81.158 mask 255.255.255.255 %GW% METRIC 15
+route -p add 66.45.81.190 mask 255.255.255.255 %GW% METRIC 15
+route -p add 66.70.68.187 mask 255.255.255.255 %GW% METRIC 15
+route -p add 66.94.228.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 66.98.205.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 66.102.0.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 66.114.58.27 mask 255.255.255.255 %GW% METRIC 15
+route -p add 66.117.176.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 66.129.67.169 mask 255.255.255.255 %GW% METRIC 15
+route -p add 66.129.106.149 mask 255.255.255.255 %GW% METRIC 15
+route -p add 66.133.171.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 66.135.47.166 mask 255.255.255.255 %GW% METRIC 15
+route -p add 66.135.51.239 mask 255.255.255.255 %GW% METRIC 15
+route -p add 66.150.96.119 mask 255.255.255.255 %GW% METRIC 15
+route -p add 66.179.148.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 66.179.235.32 mask 255.255.255.224 %GW% METRIC 15
+route -p add 66.218.72.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 66.249.64.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 67.72.105.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 67.96.124.213 mask 255.255.255.255 %GW% METRIC 15
+route -p add 67.192.35.176 mask 255.255.255.255 %GW% METRIC 15
+route -p add 67.212.131.81 mask 255.255.255.255 %GW% METRIC 15
+route -p add 67.212.131.103 mask 255.255.255.255 %GW% METRIC 15
+route -p add 67.212.131.104 mask 255.255.255.254 %GW% METRIC 15
+route -p add 67.212.131.106 mask 255.255.255.255 %GW% METRIC 15
+route -p add 69.32.132.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 69.32.182.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 69.32.226.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 69.63.130.230 mask 255.255.255.255 %GW% METRIC 15
+route -p add 69.63.132.223 mask 255.255.255.255 %GW% METRIC 15
+route -p add 69.63.132.224 mask 255.255.255.255 %GW% METRIC 15
+route -p add 69.63.136.133 mask 255.255.255.255 %GW% METRIC 15
+route -p add 69.63.136.189 mask 255.255.255.255 %GW% METRIC 15
+route -p add 69.147.112.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 69.174.241.123 mask 255.255.255.255 %GW% METRIC 15
+route -p add 70.37.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 70.224.107.73 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.3.141.36 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.3.142.35 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.3.188.104 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.14.192.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 72.15.243.52 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.15.246.200 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.15.246.212 mask 255.255.255.254 %GW% METRIC 15
+route -p add 72.15.246.216 mask 255.255.255.254 %GW% METRIC 15
+route -p add 72.15.246.224 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.15.246.226 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.15.246.235 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.15.246.243 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.32.26.50 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.32.203.14 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.164.152.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 72.233.2.58 mask 255.255.255.255 %GW% METRIC 15
+route -p add 72.237.166.111 mask 255.255.255.255 %GW% METRIC 15
+route -p add 74.43.216.167 mask 255.255.255.255 %GW% METRIC 15
+route -p add 74.43.216.168 mask 255.255.255.255 %GW% METRIC 15
+route -p add 74.43.216.244 mask 255.255.255.254 %GW% METRIC 15
+route -p add 74.43.216.247 mask 255.255.255.255 %GW% METRIC 15
+route -p add 74.43.219.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 74.125.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 74.200.243.253 mask 255.255.255.255 %GW% METRIC 15
+route -p add 76.12.47.123 mask 255.255.255.255 %GW% METRIC 15
+route -p add 76.74.252.80 mask 255.255.255.255 %GW% METRIC 15
+route -p add 79.136.80.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 82.109.207.14 mask 255.255.255.255 %GW% METRIC 15
+route -p add 82.150.20.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 82.165.43.115 mask 255.255.255.255 %GW% METRIC 15
+route -p add 82.165.251.151 mask 255.255.255.255 %GW% METRIC 15
+route -p add 82.197.80.72 mask 255.255.255.248 %GW% METRIC 15
+route -p add 82.197.80.80 mask 255.255.255.254 %GW% METRIC 15
+route -p add 82.197.80.82 mask 255.255.255.255 %GW% METRIC 15
+route -p add 83.70.140.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 83.138.144.214 mask 255.255.255.255 %GW% METRIC 15
+route -p add 83.138.147.58 mask 255.255.255.255 %GW% METRIC 15
+route -p add 83.138.175.80 mask 255.255.255.254 %GW% METRIC 15
+route -p add 83.138.175.82 mask 255.255.255.255 %GW% METRIC 15
+route -p add 83.231.175.18 mask 255.255.255.254 %GW% METRIC 15
+route -p add 83.231.175.24 mask 255.255.255.255 %GW% METRIC 15
+route -p add 83.231.175.37 mask 255.255.255.255 %GW% METRIC 15
+route -p add 84.18.160.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 87.102.111.227 mask 255.255.255.255 %GW% METRIC 15
+route -p add 87.102.111.232 mask 255.255.255.255 %GW% METRIC 15
+route -p add 87.102.111.236 mask 255.255.255.255 %GW% METRIC 15
+route -p add 87.102.111.250 mask 255.255.255.255 %GW% METRIC 15
+route -p add 91.208.107.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 93.91.19.13 mask 255.255.255.255 %GW% METRIC 15
+route -p add 93.93.131.33 mask 255.255.255.255 %GW% METRIC 15
+route -p add 94.236.18.170 mask 255.255.255.255 %GW% METRIC 15
+route -p add 94.245.68.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 98.129.198.65 mask 255.255.255.255 %GW% METRIC 15
+route -p add 101.4.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 101.76.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 110.56.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 110.64.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 110.75.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 110.76.0.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 110.76.32.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 110.96.0.0 mask 255.224.0.0 %GW% METRIC 15
+route -p add 110.173.32.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 110.173.64.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 110.173.192.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 110.176.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 110.189.128.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 110.192.0.0 mask 255.224.0.0 %GW% METRIC 15
+route -p add 111.67.192.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 111.114.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 111.116.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 111.186.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 111.221.70.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 112.64.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 112.66.64.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 112.66.96.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 112.90.136.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 112.90.140.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 112.90.142.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 112.90.244.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 112.91.133.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 112.95.129.56 mask 255.255.255.248 %GW% METRIC 15
+route -p add 112.95.138.128 mask 255.255.255.128 %GW% METRIC 15
+route -p add 112.95.140.128 mask 255.255.255.128 %GW% METRIC 15
+route -p add 112.95.240.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 112.111.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 112.125.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 112.128.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 113.24.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 113.31.0.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 113.54.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 113.64.0.0 mask 255.224.0.0 %GW% METRIC 15
+route -p add 113.96.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 113.112.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 113.125.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 113.126.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 113.129.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 113.136.0.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 113.142.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 113.248.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 114.80.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 114.111.160.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 114.112.160.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 114.113.196.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 114.113.200.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 114.117.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 114.212.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 114.214.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 114.223.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 114.224.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 114.229.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 114.237.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 114.240.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 115.24.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 115.44.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 115.48.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 115.124.16.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 115.154.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 115.156.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 115.158.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 115.170.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 115.181.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 115.182.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 115.238.23.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 115.252.186.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 116.4.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 116.13.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 116.16.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 116.56.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 116.58.208.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 116.69.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 116.70.0.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 116.76.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 116.193.56.178 mask 255.255.255.255 %GW% METRIC 15
+route -p add 116.204.96.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 116.205.96.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 116.213.64.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 116.213.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 116.216.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 116.226.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 116.236.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 116.242.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 116.244.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 116.252.183.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 116.252.184.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 116.254.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 117.8.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 117.22.231.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 117.25.168.96 mask 255.255.255.248 %GW% METRIC 15
+route -p add 117.29.58.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 117.31.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 117.53.48.141 mask 255.255.255.255 %GW% METRIC 15
+route -p add 117.53.48.144 mask 255.255.255.255 %GW% METRIC 15
+route -p add 117.60.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 117.72.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 117.75.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 117.79.128.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 117.84.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 117.89.104.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 117.90.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 117.92.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 117.100.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 117.103.16.141 mask 255.255.255.255 %GW% METRIC 15
+route -p add 117.124.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 117.128.0.0 mask 255.192.0.0 %GW% METRIC 15
+route -p add 118.67.112.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 118.84.204.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 118.102.16.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 118.123.202.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 118.123.232.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 118.123.236.0 mask 255.255.255.128 %GW% METRIC 15
+route -p add 118.123.250.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 118.123.252.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 118.124.0.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 118.132.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 118.144.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 118.194.0.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 118.196.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 118.202.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 118.204.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 118.224.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 118.228.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 118.230.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 118.244.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 119.10.0.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 119.31.252.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 119.31.254.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 119.36.124.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 119.38.216.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 119.42.224.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 119.75.208.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 119.78.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 119.97.130.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 119.97.134.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 119.120.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 119.128.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 119.144.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 119.161.128.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 119.161.144.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 119.161.240.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 119.167.235.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 119.188.16.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 119.253.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 119.254.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 120.32.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 120.40.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 120.94.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 120.132.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 120.133.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 120.134.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 120.196.210.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 120.196.250.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 120.196.253.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 120.196.254.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 120.204.200.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 121.0.16.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 121.4.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 121.8.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 121.16.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 121.32.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 121.36.4.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 121.36.8.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 121.36.16.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 121.37.0.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 121.48.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 121.52.160.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 121.52.208.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 121.58.0.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 121.68.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 121.79.128.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 121.101.192.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 121.192.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 121.199.14.91 mask 255.255.255.255 %GW% METRIC 15
+route -p add 121.201.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 121.204.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 121.224.0.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 121.224.224.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 121.232.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 121.234.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 121.248.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 122.10.132.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 122.10.136.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 122.10.144.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 122.10.160.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 122.11.32.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 122.70.128.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 122.70.138.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 122.96.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 122.136.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 122.156.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 122.192.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 122.200.64.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 122.204.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 122.224.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 122.224.45.240 mask 255.255.255.255 %GW% METRIC 15
+route -p add 122.224.126.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 122.226.240.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 122.228.242.128 mask 255.255.255.128 %GW% METRIC 15
+route -p add 122.229.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 123.4.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 123.8.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 123.49.160.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 123.58.160.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 123.65.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 123.88.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 123.99.228.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 123.100.0.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 123.101.160.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 123.101.192.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 123.103.65.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 123.103.66.32 mask 255.255.255.224 %GW% METRIC 15
+route -p add 123.103.108.104 mask 255.255.255.254 %GW% METRIC 15
+route -p add 123.112.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 123.128.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 123.138.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 123.144.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 123.148.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 123.150.208.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 123.150.216.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 123.150.224.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 123.151.172.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 123.151.176.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 123.152.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 123.172.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 123.180.128.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 123.196.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 123.234.0.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 123.234.2.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 124.14.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 124.16.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 124.28.192.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 124.29.0.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 124.40.41.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 124.42.0.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 124.64.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 124.66.0.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 124.67.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 124.68.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 124.72.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 124.77.0.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 124.88.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 124.114.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 124.117.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 124.127.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 124.128.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 124.160.42.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 124.160.160.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 124.161.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 124.162.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 124.164.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 124.172.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 124.192.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 124.200.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 124.225.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 124.227.230.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 124.232.159.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 124.234.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 124.238.254.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 124.250.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 125.21.245.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 125.32.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 125.56.144.45 mask 255.255.255.255 %GW% METRIC 15
+route -p add 125.64.6.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 125.64.16.124 mask 255.255.255.255 %GW% METRIC 15
+route -p add 125.64.16.126 mask 255.255.255.255 %GW% METRIC 15
+route -p add 125.70.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 125.73.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 125.76.224.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 125.77.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 125.78.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 125.80.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 125.88.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 125.90.64.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 125.91.240.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 125.91.244.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 125.91.253.51 mask 255.255.255.255 %GW% METRIC 15
+route -p add 125.96.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 125.98.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 125.171.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 125.208.0.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 125.211.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 125.216.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 125.252.220.45 mask 255.255.255.255 %GW% METRIC 15
+route -p add 128.84.158.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 128.107.229.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 128.220.160.140 mask 255.255.255.255 %GW% METRIC 15
+route -p add 128.220.160.148 mask 255.255.255.252 %GW% METRIC 15
+route -p add 128.220.205.153 mask 255.255.255.255 %GW% METRIC 15
+route -p add 128.220.205.156 mask 255.255.255.255 %GW% METRIC 15
+route -p add 128.232.233.0 mask 255.255.255.192 %GW% METRIC 15
+route -p add 129.35.69.21 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.35.76.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 129.35.77.193 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.41.4.137 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.41.4.138 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.41.4.140 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.41.4.143 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.41.4.144 mask 255.255.255.252 %GW% METRIC 15
+route -p add 129.41.4.148 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.41.4.154 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.41.4.158 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.41.4.171 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.42.24.230 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.42.25.230 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.42.32.230 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.42.33.230 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.42.40.230 mask 255.255.255.255 %GW% METRIC 15
+route -p add 129.42.41.230 mask 255.255.255.255 %GW% METRIC 15
+route -p add 130.88.203.58 mask 255.255.255.255 %GW% METRIC 15
+route -p add 130.102.44.245 mask 255.255.255.255 %GW% METRIC 15
+route -p add 130.102.44.247 mask 255.255.255.255 %GW% METRIC 15
+route -p add 130.102.44.248 mask 255.255.255.255 %GW% METRIC 15
+route -p add 132.151.9.22 mask 255.255.255.255 %GW% METRIC 15
+route -p add 132.174.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 132.243.5.113 mask 255.255.255.255 %GW% METRIC 15
+route -p add 134.243.5.21 mask 255.255.255.255 %GW% METRIC 15
+route -p add 134.243.5.42 mask 255.255.255.255 %GW% METRIC 15
+route -p add 134.243.5.63 mask 255.255.255.255 %GW% METRIC 15
+route -p add 134.243.5.70 mask 255.255.255.255 %GW% METRIC 15
+route -p add 134.243.5.160 mask 255.255.255.255 %GW% METRIC 15
+route -p add 134.243.85.3 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.129.1 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.140 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.143 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.155 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.161 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.170 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.195 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.201 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.215 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.229 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.239 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.242 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.245 mask 255.255.255.255 %GW% METRIC 15
+route -p add 135.196.210.248 mask 255.255.255.255 %GW% METRIC 15
+route -p add 137.189.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 138.12.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 140.98.193.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 140.98.194.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 140.113.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 140.234.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 141.66.17.139 mask 255.255.255.255 %GW% METRIC 15
+route -p add 141.66.17.140 mask 255.255.255.255 %GW% METRIC 15
+route -p add 141.66.18.186 mask 255.255.255.255 %GW% METRIC 15
+route -p add 141.66.176.200 mask 255.255.255.255 %GW% METRIC 15
+route -p add 143.89.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 144.81.82.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 144.81.87.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 144.81.88.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 144.212.244.9 mask 255.255.255.255 %GW% METRIC 15
+route -p add 144.212.244.10 mask 255.255.255.255 %GW% METRIC 15
+route -p add 144.214.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 145.36.40.90 mask 255.255.255.255 %GW% METRIC 15
+route -p add 145.36.40.162 mask 255.255.255.255 %GW% METRIC 15
+route -p add 145.36.42.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 145.36.156.10 mask 255.255.255.255 %GW% METRIC 15
+route -p add 147.8.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 149.7.32.19 mask 255.255.255.255 %GW% METRIC 15
+route -p add 149.28.1.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 149.28.13.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 149.28.15.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 152.101.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 152.104.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 158.132.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 158.182.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 159.226.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 160.109.98.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 160.109.106.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 160.109.108.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 160.109.112.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 160.109.114.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 161.207.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 162.105.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 165.193.78.32 mask 255.255.255.240 %GW% METRIC 15
+route -p add 165.193.81.224 mask 255.255.255.240 %GW% METRIC 15
+route -p add 165.193.106.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 165.193.159.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 165.215.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 166.111.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 167.68.6.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 167.68.47.14 mask 255.255.255.255 %GW% METRIC 15
+route -p add 167.68.47.142 mask 255.255.255.255 %GW% METRIC 15
+route -p add 167.139.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 167.216.166.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 168.160.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 170.107.181.137 mask 255.255.255.255 %GW% METRIC 15
+route -p add 170.107.181.167 mask 255.255.255.255 %GW% METRIC 15
+route -p add 170.107.185.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 170.107.188.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 170.224.101.208 mask 255.255.255.255 %GW% METRIC 15
+route -p add 171.66.120.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 171.67.112.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 174.46.196.128 mask 255.255.255.128 %GW% METRIC 15
+route -p add 174.122.136.5 mask 255.255.255.255 %GW% METRIC 15
+route -p add 174.122.136.6 mask 255.255.255.254 %GW% METRIC 15
+route -p add 174.122.136.8 mask 255.255.255.255 %GW% METRIC 15
+route -p add 174.122.136.11 mask 255.255.255.255 %GW% METRIC 15
+route -p add 174.143.45.135 mask 255.255.255.255 %GW% METRIC 15
+route -p add 175.41.3.32 mask 255.255.255.240 %GW% METRIC 15
+route -p add 175.41.3.48 mask 255.255.255.255 %GW% METRIC 15
+route -p add 175.42.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 175.44.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 175.185.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 175.186.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 180.84.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 180.96.0.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 180.100.32.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 180.118.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 180.137.0.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 180.152.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 180.160.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 180.201.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 180.208.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 182.92.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 183.0.0.0 mask 255.192.0.0 %GW% METRIC 15
+route -p add 183.168.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 183.170.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 183.172.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 192.41.161.151 mask 255.255.255.255 %GW% METRIC 15
+route -p add 192.58.150.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 192.73.31.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 192.73.216.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 192.80.71.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 192.84.75.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 192.84.80.20 mask 255.255.255.255 %GW% METRIC 15
+route -p add 192.84.80.37 mask 255.255.255.255 %GW% METRIC 15
+route -p add 192.84.80.38 mask 255.255.255.255 %GW% METRIC 15
+route -p add 192.86.104.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 192.87.127.79 mask 255.255.255.255 %GW% METRIC 15
+route -p add 192.87.127.97 mask 255.255.255.255 %GW% METRIC 15
+route -p add 192.87.127.98 mask 255.255.255.255 %GW% METRIC 15
+route -p add 192.87.127.133 mask 255.255.255.255 %GW% METRIC 15
+route -p add 192.87.127.134 mask 255.255.255.255 %GW% METRIC 15
+route -p add 192.132.2.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 192.195.245.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 192.207.91.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 192.231.246.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 192.234.21.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 192.234.22.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 192.245.208.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 193.128.223.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 193.130.39.176 mask 255.255.255.240 %GW% METRIC 15
+route -p add 193.130.68.227 mask 255.255.255.255 %GW% METRIC 15
+route -p add 193.130.69.16 mask 255.255.255.255 %GW% METRIC 15
+route -p add 193.130.69.71 mask 255.255.255.255 %GW% METRIC 15
+route -p add 193.131.119.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 193.174.24.39 mask 255.255.255.255 %GW% METRIC 15
+route -p add 193.174.240.6 mask 255.255.255.255 %GW% METRIC 15
+route -p add 193.174.240.8 mask 255.255.255.255 %GW% METRIC 15
+route -p add 193.194.158.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 194.66.22.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 194.119.138.1 mask 255.255.255.255 %GW% METRIC 15
+route -p add 194.119.138.2 mask 255.255.255.255 %GW% METRIC 15
+route -p add 194.119.138.6 mask 255.255.255.255 %GW% METRIC 15
+route -p add 194.119.138.10 mask 255.255.255.255 %GW% METRIC 15
+route -p add 194.128.228.153 mask 255.255.255.255 %GW% METRIC 15
+route -p add 194.130.252.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 194.209.48.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 195.22.150.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 195.27.60.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 195.27.123.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 195.27.130.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 195.92.228.61 mask 255.255.255.255 %GW% METRIC 15
+route -p add 195.92.228.71 mask 255.255.255.255 %GW% METRIC 15
+route -p add 195.92.230.51 mask 255.255.255.255 %GW% METRIC 15
+route -p add 195.144.0.13 mask 255.255.255.255 %GW% METRIC 15
+route -p add 195.144.0.22 mask 255.255.255.255 %GW% METRIC 15
+route -p add 195.144.0.26 mask 255.255.255.255 %GW% METRIC 15
+route -p add 195.144.0.32 mask 255.255.255.255 %GW% METRIC 15
+route -p add 195.144.0.50 mask 255.255.255.254 %GW% METRIC 15
+route -p add 195.144.0.57 mask 255.255.255.255 %GW% METRIC 15
+route -p add 195.144.0.58 mask 255.255.255.255 %GW% METRIC 15
+route -p add 195.144.69.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 195.178.165.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 198.17.79.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 198.45.22.173 mask 255.255.255.255 %GW% METRIC 15
+route -p add 198.45.22.198 mask 255.255.255.255 %GW% METRIC 15
+route -p add 198.80.148.147 mask 255.255.255.255 %GW% METRIC 15
+route -p add 198.81.200.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 198.108.24.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 198.137.148.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 198.137.150.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 198.185.16.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 198.185.24.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 199.1.202.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 199.4.154.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 199.74.248.13 mask 255.255.255.255 %GW% METRIC 15
+route -p add 199.98.88.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 199.164.217.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 202.4.128.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 202.4.252.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 202.14.80.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 202.14.235.3 mask 255.255.255.255 %GW% METRIC 15
+route -p add 202.14.238.38 mask 255.255.255.255 %GW% METRIC 15
+route -p add 202.38.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 202.40.138.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 202.40.157.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 202.40.192.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 202.41.240.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 202.43.144.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 202.43.216.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 202.45.32.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 202.45.176.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 202.69.19.114 mask 255.255.255.255 %GW% METRIC 15
+route -p add 202.75.64.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 202.84.16.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 202.89.232.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 202.91.176.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 202.93.252.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 202.95.0.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 202.96.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 202.112.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 202.120.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 202.122.32.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 202.123.110.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 202.125.192.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 202.127.0.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 202.127.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 202.130.0.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 202.130.224.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 202.131.208.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 202.134.86.130 mask 255.255.255.255 %GW% METRIC 15
+route -p add 202.152.176.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 202.158.160.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 202.160.176.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 202.165.96.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 202.165.104.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 202.167.247.0 mask 255.255.255.192 %GW% METRIC 15
+route -p add 202.179.240.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 202.189.96.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 202.192.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 203.81.16.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 203.81.38.66 mask 255.255.255.254 %GW% METRIC 15
+route -p add 203.81.38.68 mask 255.255.255.255 %GW% METRIC 15
+route -p add 203.83.56.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 203.84.197.9 mask 255.255.255.255 %GW% METRIC 15
+route -p add 203.86.0.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 203.86.64.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 203.87.224.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 203.88.32.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 203.88.192.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 203.91.46.40 mask 255.255.255.255 %GW% METRIC 15
+route -p add 203.91.120.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 203.93.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 203.95.0.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 203.98.210.56 mask 255.255.255.248 %GW% METRIC 15
+route -p add 203.98.210.64 mask 255.255.255.224 %GW% METRIC 15
+route -p add 203.100.92.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 203.100.192.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 203.110.167.240 mask 255.255.255.255 %GW% METRIC 15
+route -p add 203.112.23.19 mask 255.255.255.255 %GW% METRIC 15
+route -p add 203.119.24.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 203.128.128.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 203.130.33.32 mask 255.255.255.224 %GW% METRIC 15
+route -p add 203.134.240.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 203.134.244.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 203.156.243.195 mask 255.255.255.255 %GW% METRIC 15
+route -p add 203.156.243.196 mask 255.255.255.254 %GW% METRIC 15
+route -p add 203.175.128.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 203.187.160.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 203.188.64.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 203.192.0.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 203.196.0.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 203.196.4.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 203.196.7.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 203.207.64.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 203.207.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 203.208.0.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 203.209.224.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 203.212.0.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 204.8.133.92 mask 255.255.255.255 %GW% METRIC 15
+route -p add 204.8.133.211 mask 255.255.255.255 %GW% METRIC 15
+route -p add 204.8.133.213 mask 255.255.255.255 %GW% METRIC 15
+route -p add 204.8.133.217 mask 255.255.255.255 %GW% METRIC 15
+route -p add 204.50.102.36 mask 255.255.255.255 %GW% METRIC 15
+route -p add 204.50.102.245 mask 255.255.255.255 %GW% METRIC 15
+route -p add 204.126.80.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 204.153.51.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 204.179.122.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 204.228.64.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 205.142.245.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 205.203.134.1 mask 255.255.255.255 %GW% METRIC 15
+route -p add 205.203.134.30 mask 255.255.255.255 %GW% METRIC 15
+route -p add 205.217.165.64 mask 255.255.255.192 %GW% METRIC 15
+route -p add 205.240.244.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 205.243.231.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 206.65.170.81 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.112.112.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 206.188.17.13 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.23 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.33 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.43 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.53 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.63 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.73 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.83 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.93 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.103 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.115 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.185 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.195 mask 255.255.255.255 %GW% METRIC 15
+route -p add 206.188.17.205 mask 255.255.255.255 %GW% METRIC 15
+route -p add 207.24.35.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 207.24.36.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 207.24.38.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 207.24.42.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 207.24.44.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 207.24.128.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 207.25.176.0 mask 255.255.248.0 %GW% METRIC 15
+route -p add 207.46.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 207.54.136.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 207.68.146.217 mask 255.255.255.255 %GW% METRIC 15
+route -p add 207.68.168.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 207.68.172.235 mask 255.255.255.255 %GW% METRIC 15
+route -p add 207.68.178.0 mask 255.255.255.128 %GW% METRIC 15
+route -p add 207.68.179.192 mask 255.255.255.224 %GW% METRIC 15
+route -p add 207.97.243.216 mask 255.255.255.255 %GW% METRIC 15
+route -p add 207.158.24.0 mask 255.255.255.224 %GW% METRIC 15
+route -p add 207.164.255.103 mask 255.255.255.255 %GW% METRIC 15
+route -p add 207.170.201.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 207.170.231.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 207.170.234.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 207.170.239.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 208.44.56.71 mask 255.255.255.255 %GW% METRIC 15
+route -p add 208.44.56.210 mask 255.255.255.254 %GW% METRIC 15
+route -p add 208.44.56.212 mask 255.255.255.252 %GW% METRIC 15
+route -p add 208.44.56.216 mask 255.255.255.252 %GW% METRIC 15
+route -p add 208.44.56.220 mask 255.255.255.255 %GW% METRIC 15
+route -p add 208.76.204.0 mask 255.255.252.0 %GW% METRIC 15
+route -p add 208.77.250.60 mask 255.255.255.255 %GW% METRIC 15
+route -p add 208.85.175.16 mask 255.255.255.255 %GW% METRIC 15
+route -p add 208.99.144.251 mask 255.255.255.255 %GW% METRIC 15
+route -p add 208.176.18.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 208.181.59.245 mask 255.255.255.255 %GW% METRIC 15
+route -p add 208.181.59.253 mask 255.255.255.255 %GW% METRIC 15
+route -p add 208.185.238.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 208.197.26.35 mask 255.255.255.255 %GW% METRIC 15
+route -p add 208.197.26.36 mask 255.255.255.255 %GW% METRIC 15
+route -p add 208.215.179.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 208.254.38.80 mask 255.255.255.255 %GW% METRIC 15
+route -p add 208.254.38.90 mask 255.255.255.255 %GW% METRIC 15
+route -p add 208.254.79.0 mask 255.255.255.192 %GW% METRIC 15
+route -p add 209.85.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 209.116.81.5 mask 255.255.255.255 %GW% METRIC 15
+route -p add 209.133.34.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 209.191.64.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 209.195.157.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 209.208.170.210 mask 255.255.255.254 %GW% METRIC 15
+route -p add 209.225.25.11 mask 255.255.255.255 %GW% METRIC 15
+route -p add 209.246.136.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 209.249.123.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 210.5.0.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 210.12.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 210.14.64.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 210.14.112.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 210.14.127.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 210.14.160.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 210.14.192.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 210.15.0.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 210.15.128.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 210.21.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 210.22.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 210.25.0.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 210.25.128.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 210.26.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 210.28.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 210.32.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 210.51.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 210.52.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 210.72.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 210.76.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 210.78.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 210.79.224.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 210.82.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 210.87.128.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 210.177.136.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 210.185.192.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 210.192.96.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 210.210.18.35 mask 255.255.255.255 %GW% METRIC 15
+route -p add 211.64.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 211.80.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 211.96.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 211.136.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 211.144.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 211.160.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 212.87.150.203 mask 255.255.255.255 %GW% METRIC 15
+route -p add 212.87.150.207 mask 255.255.255.255 %GW% METRIC 15
+route -p add 212.87.150.214 mask 255.255.255.255 %GW% METRIC 15
+route -p add 212.87.150.216 mask 255.255.255.255 %GW% METRIC 15
+route -p add 212.87.150.218 mask 255.255.255.255 %GW% METRIC 15
+route -p add 212.111.43.128 mask 255.255.255.128 %GW% METRIC 15
+route -p add 212.187.169.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 213.52.211.32 mask 255.255.255.224 %GW% METRIC 15
+route -p add 213.130.39.122 mask 255.255.255.255 %GW% METRIC 15
+route -p add 213.136.32.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 213.161.82.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 213.170.149.226 mask 255.255.255.254 %GW% METRIC 15
+route -p add 213.198.99.117 mask 255.255.255.255 %GW% METRIC 15
+route -p add 213.199.148.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 213.199.174.0 mask 255.255.255.128 %GW% METRIC 15
+route -p add 213.212.74.227 mask 255.255.255.255 %GW% METRIC 15
+route -p add 213.212.74.236 mask 255.255.255.255 %GW% METRIC 15
+route -p add 213.219.33.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 213.225.144.157 mask 255.255.255.255 %GW% METRIC 15
+route -p add 213.225.144.190 mask 255.255.255.255 %GW% METRIC 15
+route -p add 213.244.181.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 216.17.112.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 216.27.103.128 mask 255.255.255.128 %GW% METRIC 15
+route -p add 216.30.190.144 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.30.190.146 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.30.190.150 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.30.190.153 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.30.190.185 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.30.190.224 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.30.190.232 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.30.190.234 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.30.190.240 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.33.115.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 216.34.169.192 mask 255.255.255.192 %GW% METRIC 15
+route -p add 216.35.79.115 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.35.79.116 mask 255.255.255.254 %GW% METRIC 15
+route -p add 216.35.79.118 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.35.221.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 216.52.17.96 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.52.36.0 mask 255.255.254.0 %GW% METRIC 15
+route -p add 216.52.184.240 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.64.147.216 mask 255.255.255.248 %GW% METRIC 15
+route -p add 216.73.87.52 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.74.131.105 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.74.159.103 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.74.159.106 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.74.159.109 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.74.159.112 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.74.159.121 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.83.187.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 216.136.168.73 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.143.112.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 216.146.38.200 mask 255.255.255.252 %GW% METRIC 15
+route -p add 216.146.38.204 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.147.208.0 mask 255.255.240.0 %GW% METRIC 15
+route -p add 216.162.203.72 mask 255.255.255.248 %GW% METRIC 15
+route -p add 216.162.203.144 mask 255.255.255.240 %GW% METRIC 15
+route -p add 216.176.50.163 mask 255.255.255.255 %GW% METRIC 15
+route -p add 216.200.62.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 216.200.249.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 216.239.32.0 mask 255.255.224.0 %GW% METRIC 15
+route -p add 216.244.104.53 mask 255.255.255.255 %GW% METRIC 15
+route -p add 217.7.141.143 mask 255.255.255.255 %GW% METRIC 15
+route -p add 217.7.141.144 mask 255.255.255.254 %GW% METRIC 15
+route -p add 217.7.141.149 mask 255.255.255.255 %GW% METRIC 15
+route -p add 217.7.141.150 mask 255.255.255.255 %GW% METRIC 15
+route -p add 217.68.67.34 mask 255.255.255.255 %GW% METRIC 15
+route -p add 217.68.69.68 mask 255.255.255.254 %GW% METRIC 15
+route -p add 217.68.69.70 mask 255.255.255.255 %GW% METRIC 15
+route -p add 217.68.69.84 mask 255.255.255.255 %GW% METRIC 15
+route -p add 217.154.120.7 mask 255.255.255.255 %GW% METRIC 15
+route -p add 217.169.56.135 mask 255.255.255.255 %GW% METRIC 15
+route -p add 217.169.56.154 mask 255.255.255.255 %GW% METRIC 15
+route -p add 217.169.56.183 mask 255.255.255.255 %GW% METRIC 15
+route -p add 217.169.56.230 mask 255.255.255.255 %GW% METRIC 15
+route -p add 217.204.10.34 mask 255.255.255.255 %GW% METRIC 15
+route -p add 218.0.0.0 mask 255.224.0.0 %GW% METRIC 15
+route -p add 218.56.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 218.64.0.0 mask 255.224.0.0 %GW% METRIC 15
+route -p add 218.96.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 218.104.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 218.108.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 218.192.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 218.240.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 218.249.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 219.72.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 219.82.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 219.128.0.0 mask 255.224.0.0 %GW% METRIC 15
+route -p add 219.216.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 219.224.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 219.242.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 219.244.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 220.112.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 220.154.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 220.160.0.0 mask 255.224.0.0 %GW% METRIC 15
+route -p add 220.192.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 220.231.0.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 220.231.128.0 mask 255.255.128.0 %GW% METRIC 15
+route -p add 220.232.64.0 mask 255.255.192.0 %GW% METRIC 15
+route -p add 220.234.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 220.242.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 220.248.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 220.252.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 221.0.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 221.122.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 221.130.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 221.137.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 221.172.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 221.176.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 221.192.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 221.200.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 221.204.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 221.208.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 221.212.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 221.213.18.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 221.214.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 221.216.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 221.224.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 222.16.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 222.32.0.0 mask 255.224.0.0 %GW% METRIC 15
+route -p add 222.64.0.0 mask 255.224.0.0 %GW% METRIC 15
+route -p add 222.122.11.0 mask 255.255.255.0 %GW% METRIC 15
+route -p add 222.125.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 222.128.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 222.160.0.0 mask 255.252.0.0 %GW% METRIC 15
+route -p add 222.168.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 222.176.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 222.192.0.0 mask 255.240.0.0 %GW% METRIC 15
+route -p add 222.208.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 222.216.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 222.218.0.0 mask 255.255.0.0 %GW% METRIC 15
+route -p add 222.222.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 222.240.0.0 mask 255.248.0.0 %GW% METRIC 15
+route -p add 222.248.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 223.2.0.0 mask 255.254.0.0 %GW% METRIC 15
+route -p add 223.128.0.0 mask 255.254.0.0 %GW% METRIC 15
 
 
