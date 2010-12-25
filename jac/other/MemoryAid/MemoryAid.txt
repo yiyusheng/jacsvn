@@ -522,3 +522,11 @@ caper
 premeditate
 ###
 预谋
+#######
+jumble
+###
+混杂
+#######
+kinetic
+###
+运动的，运动引起的
