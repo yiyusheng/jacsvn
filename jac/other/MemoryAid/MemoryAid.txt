@@ -563,3 +563,15 @@ scathing
 droop
 ###
 低垂，沮丧
+#######
+nickel
+###
+镍
+#######
+patriarch
+###
+家长，族长
+#######
+precursor
+###
+初期形式
