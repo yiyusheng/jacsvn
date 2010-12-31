@@ -597,7 +597,7 @@ dereliction
 ###
 遗弃，弃置
 #######
- sport
+sport
 ###
 炫耀，卖弄
 #######
@@ -624,10 +624,6 @@ inquisitive
 excerpt
 ###
 摘录，节录
-#######
-perspicacious
-###
-独具慧眼的
 #######
 hold
 ###
@@ -777,3 +773,19 @@ treachery
 solvent
 ###
 有偿债能力的，溶剂
+#######
+abut
+###
+邻接，毗邻
+#######
+affinity
+###
+密切关系，吸引
+#######
+alga
+###
+藻类，海藻
+#######
+perspicacious
+###
+独具慧眼的
