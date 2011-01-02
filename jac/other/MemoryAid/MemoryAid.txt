@@ -826,3 +826,12 @@ untoward
 connotation
 ###
 言外之意，内涵
+#################
+
+shattered
+###
+粉碎的，破坏的
+#######
+prerogative
+###
+特权
