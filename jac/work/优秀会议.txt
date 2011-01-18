@@ -1,0 +1,44 @@
+会议
+SIGCOMM
+	SIGCOMM
+	IMC
+	CONEXT
+	HotNet
+
+(NSDI)
+
+SIGMETRICS
+	Performance
+
+SIGOPS
+	SOSP
+	OSDI
+	Eurosys
+	SOCC (SIGMOD)
+	HotOS
+
+SIGSOFT
+	Middleware
+	DEBS
+
+IEEE DC
+	PODC (DISC)
+
+LADIS
+
+实验环境：
+emulab
+
+
+IPTPS 2010
+
+IEEE P2P 2010
+
+Infocom 2010
+
+Sigcomm 2010
+
+CCS 2010
+
+Security 2010
+
