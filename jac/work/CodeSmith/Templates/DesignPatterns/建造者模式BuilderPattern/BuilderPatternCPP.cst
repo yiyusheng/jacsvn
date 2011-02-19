@@ -1,0 +1,60 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="建造者模式的C++实现，关注的是产品的加工顺序" %>
+<%@ Property Name="AbstractProductName" Type="String" Default="AbstractProduct" Category="Context" Description="类名" %>
+<%@ Property Name="TemplateMethodName" Type="String" Default="templateMethod" Category="Context" Description="抽象方法名" %>
+<%@ Property Name="ProductName" Type="String" Default="Product" Category="Context" Description="类名" %>
+<%@ Property Name="AbstractBuilderName" Type="String" Default="AbstractBuilder" Category="Context" Description="类名" %>
+<%@ Property Name="ProductBuilderName" Type="String" Default="ProductBuilder" Category="Context" Description="类名" %>
+<%@ Property Name="DirectorName" Type="String" Default="Director" Category="Context" Description="类名" %>
+class <%= AbstractProductName %>
+{
+protected:
+    virtual void doSomething() = 0;
+public:
+    void <%= TemplateMethodName %>()
+    {
+        this->doSomething();
+    }
+};
+
+class <%= ProductName %> : public <%= AbstractProductName %>
+{
+    virtual void doSomething()
+    {
+
+    }
+};
+
+class <%= AbstractBuilderName %>
+{
+public:
+    virtual void setPart() = 0;
+    virtual <%= ProductName %>* build<%= ProductName %>() = 0;
+};
+
+class <%= ProductBuilderName %> : public <%= AbstractBuilderName %>
+{
+private:
+    <%= ProductName %>* p<%= ProductName %>;
+public:
+    virtual void setPart()
+    {
+
+    }
+
+    virtual <%= ProductName %>* build<%= ProductName %>()
+    {
+        return p<%= ProductName %>;
+    }
+};
+
+class <%= DirectorName %>
+{
+private:
+    <%= ProductBuilderName %>* p<%= ProductBuilderName %>;
+public:
+    <%= ProductName %>* get<%= ProductName %>()
+    {
+        p<%= ProductBuilderName %>->setPart();
+        return p<%= ProductBuilderName %>->build<%= ProductName %>();
+    }
+};

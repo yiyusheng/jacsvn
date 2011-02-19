@@ -1,0 +1,79 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="普通代理的C++实现" %>
+<%@ Property Name="AbstractSubjectName" Type="String" Default="AbstractSubject" Category="Context" Description="类名" %>
+<%@ Property Name="SubjectName" Type="String" Default="Subject" Category="Context" Description="类名" %>
+<%@ Property Name="IProxyName" Type="String" Default="IProxy" Category="Context" Description="类名" %>
+<%@ Property Name="ProxyName" Type="String" Default="Proxy" Category="Context" Description="类名" %>
+class <%= AbstractSubjectName %>
+{
+public:
+    virtual void doSomething() = 0;
+};
+
+class <%= SubjectName %> : public <%= AbstractSubjectName %>
+{
+private:
+    int property;
+public:
+    <%= SubjectName %>(<%= AbstractSubjectName %>* _p<%= ProxyName %>, int _property)
+    {
+        if(_p<%= ProxyName %> != some_condition)
+        {
+            throw new Exception("代理不满足条件");
+        }
+        else
+        {
+            this->property = _property;
+        }
+    }
+    virtual void doSomething()
+    {
+
+    }
+};
+
+class <%= IProxyName %>
+{
+public:
+    virtual void charge() = 0;
+};
+
+class <%= ProxyName %> : public <%= AbstractSubjectName %>, public <%= IProxyName %>
+{
+private:
+    <%= AbstractSubjectName %>* p<%= AbstractSubjectName %>;
+public:
+    Proxy(int _property)
+    {
+        this->p<%= AbstractSubjectName %> = new <%= SubjectName %>(this, _property);
+    }
+
+    virtual void charge()
+    {
+
+    }
+
+    virtual void doSomething()
+    {
+        this->before();
+        this->p<%= AbstractSubjectName %>->doSomething();
+        this->after();
+        this->charge();
+    }
+
+private:
+    void before()
+    {
+
+    }
+
+    void after()
+    {
+
+    }
+};
+
+void main()
+{
+    <%= AbstractSubjectName %>* p<%= ProxyName %> = new <%= ProxyName %>(some_property);
+    p<%= ProxyName %>->doSomething();
+}

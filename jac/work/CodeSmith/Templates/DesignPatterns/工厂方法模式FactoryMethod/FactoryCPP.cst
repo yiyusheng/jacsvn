@@ -1,0 +1,41 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="工厂方法模式的C++实现" %>
+<%@ Property Name="AbstractProductClassName" Type="String" Default="Product" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteProductClassName" Type="String" Default="ConcreteProduct" Category="Context" Description="类名" %>
+<%@ Property Name="AbstractFactoryClassName" Type="String" Default="Factory" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteFactoryClassName" Type="String" Default="ConcreteFactory" Category="Context" Description="类名" %>
+
+class <%= AbstractProductClassName %>
+{
+public:
+    virtual void method1() = 0;
+};
+
+class <%= AbstractFactoryClassName %>
+{
+public:
+    virtual <%= AbstractProductClassName %>* create<%= AbstractProductClassName %>(int productID) = 0;
+};
+
+class <%= ConcreteProductClassName %> : public <%= AbstractProductClassName %>
+{
+public:
+    virtual void method1()
+    {
+
+    }
+};
+
+class <%= ConcreteFactoryClassName %> : public <%= AbstractFactoryClassName %>
+{
+public:
+    virtual <%= AbstractProductClassName %>* create<%= AbstractProductClassName %>(int productID)
+    {
+        switch(productID)
+        {
+        case 1:
+            return new <%= ConcreteProductClassName %>();
+        default:
+            break;
+        }
+    }
+};

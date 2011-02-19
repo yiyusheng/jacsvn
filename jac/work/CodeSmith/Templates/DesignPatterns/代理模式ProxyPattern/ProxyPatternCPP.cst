@@ -1,0 +1,65 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="代理模式的C++实现" %>
+<%@ Property Name="AbstractSubjectName" Type="String" Default="AbstractSubject" Category="Context" Description="类名" %>
+<%@ Property Name="SubjectName" Type="String" Default="Subject" Category="Context" Description="类名" %>
+<%@ Property Name="IProxyName" Type="String" Default="IProxy" Category="Context" Description="类名" %>
+<%@ Property Name="ProxyName" Type="String" Default="Proxy" Category="Context" Description="类名" %>
+class <%= AbstractSubjectName %>
+{
+public:
+    virtual void doSomething() = 0;
+};
+
+class <%= SubjectName %> : public <%= AbstractSubjectName %>
+{
+public:
+    virtual void doSomething()
+    {
+
+    }
+};
+
+class <%= IProxyName %>
+{
+public:
+    virtual void charge() = 0;
+};
+
+class <%= ProxyName %> : public <%= AbstractSubjectName %>, public <%= IProxyName %>
+{
+private:
+    <%= AbstractSubjectName %>* p<%= AbstractSubjectName %>;
+public:
+    Proxy()
+    {
+        this->p<%= AbstractSubjectName %> = this;
+    }
+
+    Proxy(<%= AbstractSubjectName %>* _p<%= AbstractSubjectName %>)
+    {
+        this->p<%= AbstractSubjectName %> = _p<%= AbstractSubjectName %>;
+    }
+
+    virtual void charge()
+    {
+
+    }
+
+    virtual void doSomething()
+    {
+        this->before();
+        this->p<%= AbstractSubjectName %>->doSomething();
+        this->after();
+        this->charge();
+    }
+
+private:
+    void before()
+    {
+
+    }
+
+    void after()
+    {
+
+    }
+};

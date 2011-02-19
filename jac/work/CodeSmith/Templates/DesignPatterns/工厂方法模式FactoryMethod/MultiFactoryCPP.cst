@@ -1,0 +1,55 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="工厂方法模式升级为多个工厂的C++实现" %>
+<%@ Property Name="AbstractProductClassName" Type="String" Default="Product" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteProductClassName1" Type="String" Default="ConcreteProduct1" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteProductClassName2" Type="String" Default="ConcreteProduct2" Category="Context" Description="类名" %>
+<%@ Property Name="AbstractFactoryClassName" Type="String" Default="Factory" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteFactoryClassName1" Type="String" Default="ConcreteFactory1" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteFactoryClassName2" Type="String" Default="ConcreteFactory2" Category="Context" Description="类名" %>
+
+class <%= AbstractProductClassName %>
+{
+public:
+    virtual void method1() = 0;
+};
+
+class <%= AbstractFactoryClassName %>
+{
+public:
+    virtual <%= AbstractProductClassName %>* create<%= AbstractProductClassName %>() = 0;
+};
+
+class <%= ConcreteProductClassName1 %> : public <%= AbstractProductClassName %>
+{
+public:
+    virtual void method1()
+    {
+
+    }
+};
+
+class <%= ConcreteProductClassName2 %> : public <%= AbstractProductClassName %>
+{
+public:
+    virtual void method1()
+    {
+
+    }
+};
+
+class <%= ConcreteFactoryClassName1 %> : public <%= AbstractFactoryClassName %>
+{
+public:
+    virtual <%= AbstractProductClassName %>* create<%= AbstractProductClassName %>()
+    {
+        return new <%= ConcreteProductClassName1 %>();
+    }
+};
+
+class <%= ConcreteFactoryClassName2 %> : public <%= AbstractFactoryClassName %>
+{
+public:
+    virtual <%= AbstractProductClassName %>* create<%= AbstractProductClassName %>()
+    {
+        return new <%= ConcreteProductClassName2 %>();
+    }
+};

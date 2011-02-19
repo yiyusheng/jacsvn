@@ -1,0 +1,100 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="命令模式的C++实现" %>
+<%@ Property Name="AbstractReceiverName" Type="String" Default="AbstractReceiver" Category="Context" Description="类名" %>
+<%@ Property Name="Reciver1Name" Type="String" Default="Reciver1" Category="Context" Description="类名" %>
+<%@ Property Name="Reciver2Name" Type="String" Default="Reciver2" Category="Context" Description="类名" %>
+<%@ Property Name="AbstractCommandName" Type="String" Default="AbstractCommand" Category="Context" Description="类名" %>
+<%@ Property Name="Command1Name" Type="String" Default="Command1" Category="Context" Description="类名" %>
+<%@ Property Name="Command2Name" Type="String" Default="Command2" Category="Context" Description="类名" %>
+<%@ Property Name="InvokerName" Type="String" Default="Invoker" Category="Context" Description="类名" %>
+class <%= AbstractReceiverName %>
+{
+public:
+    virtual void doSomething() = 0;
+};
+
+class <%= Reciver1Name %> : public <%= AbstractReceiverName %>
+{
+public:
+    virtual void doSomething()
+    {
+
+    }
+};
+
+class <%= Reciver2Name %> : public <%= AbstractReceiverName %>
+{
+public:
+    virtual void doSomething()
+    {
+
+    }
+};
+
+class <%= AbstractCommandName %>
+{
+public:
+    virtual void execute() = 0;
+};
+
+class <%= Command1Name %> : public <%= AbstractCommandName %>
+{
+private:
+    <%= AbstractReceiverName %>* pReceiver;
+public:
+    <%= Command1Name %>()
+    {
+        this->pReceiver = new <%= Reciver1Name %>();
+    }
+    <%= Command1Name %>(<%= AbstractReceiverName %>* _pReceiver)
+    {
+        this->pReceiver = _pReceiver;
+    }
+
+    virtual void execute()
+    {
+        this->pReceiver->doSomething();
+    }
+};
+
+class <%= Command2Name %> : public <%= AbstractCommandName %>
+{
+private:
+    <%= AbstractReceiverName %>* pReceiver;
+public:
+    <%= Command2Name %>()
+    {
+        this->pReceiver = new <%= Reciver2Name %>();
+    }
+    <%= Command2Name %>(<%= AbstractReceiverName %>* _pReceiver)
+    {
+        this->pReceiver = _pReceiver;
+    }
+
+    virtual void execute()
+    {
+        this->pReceiver->doSomething();
+    }
+};
+
+class Invoker
+{
+private:
+    <%= AbstractCommandName %>* pCommand;
+public:
+    void setCommand(<%= AbstractCommandName %>* _pCommand)
+    {
+        this->pCommand = _pCommand;
+    }
+    void action()
+    {
+        this->pCommand->execute();
+    }
+};
+
+void main()
+{
+    Invoker* pInvoker = new Invoker();
+    <%= AbstractCommandName %>* pCommand = new <%= Command1Name %>();
+    pInvoker->setCommand(pCommand);
+    pInvoker->action();
+}

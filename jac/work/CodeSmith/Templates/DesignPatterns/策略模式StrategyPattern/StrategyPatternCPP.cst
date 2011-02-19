@@ -1,0 +1,51 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="策略模式的C++实现" %>
+<%@ Property Name="AbstractStrategyName" Type="String" Default="AbstractStrategy" Category="Context" Description="类名" %>
+<%@ Property Name="Strategy1Name" Type="String" Default="Strategy1" Category="Context" Description="类名" %>
+<%@ Property Name="Strategy2Name" Type="String" Default="Strategy2" Category="Context" Description="类名" %>
+<%@ Property Name="ContextName" Type="String" Default="Context" Category="Context" Description="类名" %>
+class <%= AbstractStrategyName %>
+{
+public:
+    virtual void algorithm() = 0;
+};
+
+class <%= Strategy1Name %> : public <%= AbstractStrategyName %>
+{
+public:
+    virtual void algorithm()
+    {
+
+    }
+};
+
+class <%= Strategy2Name %> : public <%= AbstractStrategyName %>
+{
+public:
+    virtual void algorithm()
+    {
+
+    }
+};
+
+class <%= ContextName %>
+{
+private:
+    <%= AbstractStrategyName %>* pStrategy;
+public:
+    <%= ContextName %>(<%= AbstractStrategyName %>* _pStrategy)
+    {
+        this->pStrategy = _pStrategy;
+    }
+
+    void doSomething()
+    {
+        this->pStrategy->algorithm();
+    }
+};
+
+void main()
+{
+    <%= AbstractStrategyName %>* pStategy = new <%= Strategy1Name %>();
+    <%= ContextName %>* p<%= ContextName %> = new <%= ContextName %>(pStategy);
+    p<%= ContextName %>->doSomething();
+}
