@@ -1,0 +1,93 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="抽象工厂方法模式的C++实现，抽象工厂可以生产多个抽象产品类的具体产品" %>
+<%@ Property Name="AbstractProductClassName1" Type="String" Default="Product1" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteProductClassName11" Type="String" Default="ConcreteProduct11" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteProductClassName12" Type="String" Default="ConcreteProduct12" Category="Context" Description="类名" %>
+<%@ Property Name="AbstractProductClassName2" Type="String" Default="Product2" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteProductClassName21" Type="String" Default="ConcreteProduct21" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteProductClassName22" Type="String" Default="ConcreteProduct22" Category="Context" Description="类名" %>
+<%@ Property Name="AbstractFactoryClassName" Type="String" Default="Factory" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteFactoryClassName1" Type="String" Default="ConcreteFactory1" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteFactoryClassName2" Type="String" Default="ConcreteFactory2" Category="Context" Description="类名" %>
+
+class <%= AbstractProductClassName1 %>
+{
+public:
+    virtual void method1() = 0;
+};
+
+class <%= AbstractProductClassName2 %>
+{
+public:
+    virtual void method1() = 0;
+};
+
+class <%= AbstractFactoryClassName %>
+{
+public:
+    virtual <%= AbstractProductClassName1 %>* create<%= AbstractProductClassName1 %>() = 0;
+    virtual <%= AbstractProductClassName2 %>* create<%= AbstractProductClassName2 %>() = 0;
+};
+
+class <%= ConcreteProductClassName11 %> : public <%= AbstractProductClassName1 %>
+{
+public:
+    virtual void method1()
+    {
+
+    }
+};
+
+class <%= ConcreteProductClassName12 %> : public <%= AbstractProductClassName1 %>
+{
+public:
+    virtual void method1()
+    {
+
+    }
+};
+
+class <%= ConcreteProductClassName21 %> : public <%= AbstractProductClassName2 %>
+{
+public:
+    virtual void method1()
+    {
+
+    }
+};
+
+class <%= ConcreteProductClassName22 %> : public <%= AbstractProductClassName2 %>
+{
+public:
+    virtual void method1()
+    {
+
+    }
+};
+
+class <%= ConcreteFactoryClassName1 %> : public <%= AbstractFactoryClassName %>
+{
+public:
+    virtual <%= AbstractProductClassName1 %>* create<%= AbstractProductClassName1 %>
+    {
+        return new <%= ConcreteProductClassName11 %>();
+    }
+    
+    virtual <%= AbstractProductClassName2 %>* create<%= AbstractProductClassName2 %>
+    {
+        return new <%= ConcreteProductClassName21 %>();
+    }
+};
+
+class <%= ConcreteFactoryClassName2 %> : public <%= AbstractFactoryClassName %>
+{
+public:
+    virtual <%= AbstractProductClassName1 %>* create<%= AbstractProductClassName1 %>
+    {
+        return new <%= ConcreteProductClassName12 %>();
+    }
+    
+    virtual <%= AbstractProductClassName2 %>* create<%= AbstractProductClassName2 %>
+    {
+        return new <%= ConcreteProductClassName22 %>();
+    }
+};

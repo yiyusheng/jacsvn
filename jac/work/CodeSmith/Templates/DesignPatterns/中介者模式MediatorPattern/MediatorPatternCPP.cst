@@ -1,0 +1,90 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="中介者模式的C++实现" %>
+<%@ Property Name="AbstractMediatorName" Type="String" Default="AbstractMediator" Category="Context" Description="类名" %>
+<%@ Property Name="MediatorName" Type="String" Default="Mediator" Category="Context" Description="类名" %>
+<%@ Property Name="AbstractColleagueName" Type="String" Default="AbstractColleague" Category="Context" Description="类名" %>
+<%@ Property Name="Colleague1Name" Type="String" Default="Colleague1" Category="Context" Description="类名" %>
+<%@ Property Name="Colleague2Name" Type="String" Default="Colleague2" Category="Context" Description="类名" %>
+class <%= AbstractMediatorName %>
+{
+protected:
+    <%= Colleague1Name %>* p<%= Colleague1Name %>;
+    <%= Colleague2Name %>* p<%= Colleague2Name %>;
+public:
+    <%= Colleague1Name %>* get<%= Colleague1Name %>()
+    {
+        return p<%= Colleague1Name %>;
+    }
+    void set<%= Colleague1Name %>(<%= Colleague1Name %>* p<%= Colleague1Name %>)
+    {
+        this->p<%= Colleague1Name %> = p<%= Colleague1Name %>;
+    }
+    <%= Colleague2Name %>* get<%= Colleague2Name %>()
+    {
+        return p<%= Colleague2Name %>;
+    }
+    void set<%= Colleague2Name %>(<%= Colleague2Name %>* p<%= Colleague2Name %>)
+    {
+        this->p<%= Colleague2Name %> = p<%= Colleague2Name %>;
+    }
+    virtual void doSomething1() = 0;
+    virtual void doSomething2() = 0;
+};
+
+class <%= MediatorName %> : public <%= AbstractMediatorName %>
+{
+public:
+    virtual void doSomething1()
+    {
+        this->p<%= Colleague1Name %>->selfMethod1();
+        this->p<%= Colleague2Name %>->selfMethod2();
+    }
+    virtual void doSomething2()
+    {
+        this->p<%= Colleague1Name %>->selfMethod1();
+        this->p<%= Colleague2Name %>->selfMethod2();
+    }
+};
+
+class <%= AbstractColleagueName %>
+{
+protected:
+    <%= AbstractMediatorName %>* p<%= MediatorName %>;
+public:
+    <%= AbstractColleagueName %>(<%= AbstractMediatorName %>* _p<%= MediatorName %>)
+    {
+        this->p<%= MediatorName %> = _p<%= MediatorName %>;
+    }
+};
+
+class <%= Colleague1Name %> : public <%= AbstractColleagueName %>
+{
+public:
+    <%= Colleague1Name %>(<%= AbstractMediatorName %>* _p<%= MediatorName %>) : <%= AbstractColleagueName %>(_p<%= MediatorName %>)
+    {
+
+    }
+    void selfMethod1()
+    {
+
+    }
+    void depMethod1()
+    {
+        this->p<%= MediatorName %>->doSomething1();
+    }
+};
+class <%= Colleague2Name %> : public <%= AbstractColleagueName %>
+{
+public:
+    <%= Colleague2Name %>(<%= AbstractMediatorName %>* _p<%= MediatorName %>) : <%= AbstractColleagueName %>(_p<%= MediatorName %>)
+    {
+
+    }
+    void selfMethod2()
+    {
+
+    }
+    void depMethod2()
+    {
+        this->p<%= MediatorName %>->doSomething2();
+    }
+};

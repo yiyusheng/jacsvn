@@ -1,0 +1,83 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="装饰模式的C++实现" %>
+<%@ Property Name="AbstractComponentName" Type="String" Default="AbstractComponent" Category="Context" Description="类名" %>
+<%@ Property Name="ComponentName" Type="String" Default="Component" Category="Context" Description="类名" %>
+<%@ Property Name="AbstractDecoratorName" Type="String" Default="AbstractDecorator" Category="Context" Description="类名" %>
+<%@ Property Name="Decorator1Name" Type="String" Default="Decorator1" Category="Context" Description="类名" %>
+<%@ Property Name="Decorator2Name" Type="String" Default="Decorator2" Category="Context" Description="类名" %>
+class <%= AbstractComponentName %>
+{
+public:
+    virtual void operate() = 0;
+};
+
+class <%= ComponentName %> : public <%= AbstractComponentName %>
+{
+public:
+    virtual void operate()
+    {
+
+    }
+};
+
+class <%= AbstractDecoratorName %> : public <%= AbstractComponentName %>
+{
+private:
+    <%= AbstractComponentName %>* p<%= ComponentName %>;
+public:
+    <%= AbstractDecoratorName %>(<%= AbstractComponentName %>* _p<%= ComponentName %>)
+    {
+        this->p<%= ComponentName %> = _p<%= ComponentName %>;
+    }
+    virtual void operate()
+    {
+        this->p<%= ComponentName %>->operate();
+    }
+};
+
+class <%= Decorator1Name %> : public <%= AbstractDecoratorName %>
+{
+public:
+    <%= Decorator1Name %>(<%= AbstractComponentName %>* _p<%= ComponentName %>) : <%= AbstractDecoratorName %>(_p<%= ComponentName %>)
+    {
+
+    }
+private:
+    void method1()
+    {
+
+    }
+public:
+    virtual void operate()
+    {
+        this->method1();
+        <%= AbstractDecoratorName %>::operate();
+    }
+};
+
+class <%= Decorator2Name %> : public <%= AbstractDecoratorName %>
+{
+public:
+    <%= Decorator2Name %>(<%= AbstractComponentName %>* _p<%= ComponentName %>) : <%= AbstractDecoratorName %>(_p<%= ComponentName %>)
+    {
+
+    }
+private:
+    void method2()
+    {
+
+    }
+public:
+    virtual void operate()
+    {
+        this->method2();
+        <%= AbstractDecoratorName %>::operate();
+    }
+};
+
+void main()
+{
+    <%= AbstractComponentName %>* p<%= ComponentName %> = new <%= ComponentName %>();
+    p<%= ComponentName %> = new <%= Decorator1Name %>(p<%= ComponentName %>);
+    p<%= ComponentName %> = new <%= Decorator2Name %>(p<%= ComponentName %>);
+    p<%= ComponentName %>->operate();
+}

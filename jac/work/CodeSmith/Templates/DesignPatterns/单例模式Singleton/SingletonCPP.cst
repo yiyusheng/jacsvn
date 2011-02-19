@@ -1,0 +1,22 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="单例模式的C++实现，非线程安全" %>
+<%@ Property Name="ClassName" Type="String" Default="Singleton" Category="Context" Description="类名" %>
+class <%= ClassName %>
+{
+private:
+    static <%= ClassName %> *pInstance;
+
+    <%= ClassName %>()
+    {
+    }
+public:
+    <%= ClassName %>* getInstance()
+    {
+        if(this->pInstance == NULL)
+        {
+            this->pInstance = new <%= ClassName %>();
+		}
+        return this->pInstance;
+    }
+};
+
+<%= ClassName %>* <%= ClassName %>::pInstance = NULL;

@@ -1,0 +1,14 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="原型模式的C++实现" %>
+<%@ Property Name="PrototypeClassName" Type="String" Default="CPrototype" Category="Context" Description="类名" %>
+class <%= PrototypeClassName %>
+{
+public:
+    <%= PrototypeClassName %>()
+    {
+    }
+    virtual ~<%= PrototypeClassName %>()
+    {
+    }
+    
+    virtual <%= PrototypeClassName %>* Clone() = 0;
+};

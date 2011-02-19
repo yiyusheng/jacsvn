@@ -1,0 +1,95 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="责任链模式的C++实现" %>
+<%@ Property Name="LevelName" Type="String" Default="Level" Category="Context" Description="类名" %>
+<%@ Property Name="RequestName" Type="String" Default="Request" Category="Context" Description="类名" %>
+<%@ Property Name="ResponseName" Type="String" Default="Response" Category="Context" Description="类名" %>
+<%@ Property Name="AbstractHandlerName" Type="String" Default="AbstractHandler" Category="Context" Description="类名" %>
+<%@ Property Name="Handler1Name" Type="String" Default="Handler1" Category="Context" Description="类名" %>
+<%@ Property Name="Handler2Name" Type="String" Default="Handler2" Category="Context" Description="类名" %>
+class <%= LevelName %>
+{
+public:
+    int equals(<%= LevelName %>* p<%= LevelName %>)
+    {
+        return 1;
+    }
+};
+
+class <%= RequestName %>
+{
+public:
+    <%= LevelName %>* get<%= RequestName %><%= LevelName %>()
+    {
+        return NULL;
+    }
+};
+
+class <%= ResponseName %>
+{
+
+};
+
+class <%= AbstractHandlerName %>
+{
+private:
+    <%= AbstractHandlerName %>* pNextHandler;
+protected:
+    virtual <%= LevelName %>* getHandler<%= LevelName %>() = 0;
+    virtual <%= ResponseName %>* echo(<%= RequestName %>* p<%= RequestName %>) = 0;
+public:
+    <%= ResponseName %>* handleMessage(<%= RequestName %>* p<%= RequestName %>)
+    {
+        <%= ResponseName %>* p<%= ResponseName %> = NULL;
+        if(this->getHandler<%= LevelName %>()->equals(p<%= RequestName %>->get<%= RequestName %><%= LevelName %>()))
+        {
+            p<%= ResponseName %> = this->echo(p<%= RequestName %>);
+        }
+        else
+        {
+            if(this->pNextHandler != NULL)
+                p<%= ResponseName %> = this->pNextHandler->handleMessage(p<%= RequestName %>);
+            else
+            {
+
+            }
+        }
+        return p<%= ResponseName %>;
+    }
+    void setNext(<%= AbstractHandlerName %>* _pHandler)
+    {
+        this->pNextHandler = _pHandler;
+    }
+};
+
+class <%= Handler1Name %> : public <%= AbstractHandlerName %>
+{
+protected:
+    <%= ResponseName %>* echo(<%= RequestName %>* p<%= RequestName %>)
+    {
+        return NULL;
+    }
+    <%= LevelName %>* getHandler<%= LevelName %>()
+    {
+        return NULL;
+    }
+};
+
+class <%= Handler2Name %> : public <%= AbstractHandlerName %>
+{
+protected:
+    <%= ResponseName %>* echo(<%= RequestName %>* p<%= RequestName %>)
+    {
+        return NULL;
+    }
+    <%= LevelName %>* getHandler<%= LevelName %>()
+    {
+        return NULL;
+    }
+};
+
+void main()
+{
+    <%= AbstractHandlerName %>* p<%= Handler1Name %> = new <%= Handler1Name %>();
+    <%= AbstractHandlerName %>* p<%= Handler2Name %> = new <%= Handler2Name %>();
+    p<%= Handler1Name %>->setNext(p<%= Handler2Name %>);
+    <%= ResponseName %>* p<%= ResponseName %> = p<%= Handler1Name %>->handleMessage(new <%= RequestName %>());
+}

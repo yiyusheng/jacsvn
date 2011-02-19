@@ -1,0 +1,15 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="模板方法模式的C++实现" %>
+<%@ Property Name="AbstractClassName" Type="String" Default="AbstractClass" Category="Context" Description="类名" %>
+<%@ Property Name="TemplateMethodName" Type="String" Default="templateMethod" Category="Context" Description="抽象方法名" %>
+class <%= AbstractClassName %>
+{
+protected:
+    virtual void doSomething1() = 0;
+    virtual void doSomething2() = 0;
+public:
+    void <%= TemplateMethodName %>()
+    {
+        this->doSomething1();
+        this->doSomething2();
+    }
+};
