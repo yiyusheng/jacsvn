@@ -1,0 +1,52 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="对象适配器模式的C++实现" %>
+<%@ Property Name="AbstractTargetName" Type="String" Default="AbstractTarget" Category="Context" Description="类名" %>
+<%@ Property Name="TargetName" Type="String" Default="Target" Category="Context" Description="类名" %>
+<%@ Property Name="AdapteeName" Type="String" Default="Adaptee" Category="Context" Description="类名" %>
+<%@ Property Name="AdapterName" Type="String" Default="Adapter" Category="Context" Description="类名" %>
+class <%= AbstractTargetName %>
+{
+public:
+	virtual void doSomething() = 0;
+};
+
+class <%= TargetName %> : public <%= AbstractTargetName %>
+{
+public:
+	virtual void doSomething()
+	{
+
+	}
+};
+
+//需要被转换的类，不是抽象类
+class <%= AdapteeName %>
+{
+public:
+	void doSomething2()
+	{
+
+	}
+};
+
+class <%= AdapterName %> : public <%= AbstractTargetName %>
+{
+private:
+    <%= AdapteeName %>* p<%= AdapteeName %>;
+public:
+    <%= AdapterName %>(<%= AdapteeName %>* _p<%= AdapteeName %>)
+    {
+        this->p<%= AdapteeName %> = _p<%= AdapteeName %>;
+    }
+	virtual void doSomething()
+	{
+		this->p<%= AdapteeName %>->doSomething2();
+	}
+};
+
+void main()
+{
+	<%= AbstractTargetName %>* p<%= TargetName %> = new <%= TargetName %>();
+	p<%= TargetName %>->doSomething();
+	<%= AbstractTargetName %>* p<%= TargetName %>2 = new <%= AdapterName %>();
+	p<%= TargetName %>2->doSomething();
+}

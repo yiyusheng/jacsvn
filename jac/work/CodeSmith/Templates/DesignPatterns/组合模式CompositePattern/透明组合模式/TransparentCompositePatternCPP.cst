@@ -1,0 +1,83 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="透明组合模式的C++实现" %>
+<%@ Property Name="ComponentName" Type="String" Default="Component" Category="Context" Description="类名" %>
+<%@ Property Name="CompositeName" Type="String" Default="Composite" Category="Context" Description="类名" %>
+<%@ Property Name="LeafName" Type="String" Default="Leaf" Category="Context" Description="类名" %>
+<%@ Property Name="ArrayListName" Type="String" Default="ArrayList" Category="Context" Description="类名" %>
+class <%= ComponentName %>
+{
+private:
+    <%= ComponentName %>* pParent;
+public:
+    virtual void doSomething() = 0;
+    virtual void add(<%= ComponentName %>* p<%= ComponentName %>) = 0;
+    virtual void remove(<%= ComponentName %>* p<%= ComponentName %>) = 0;
+    virtual <%= ArrayListName %><<%= ComponentName %>>* getChildren() = 0;
+    <%= ComponentName %>* getParent()
+    {
+        return this->pParent;
+    }
+protected:
+    void setParent(<%= ComponentName %>* _pParent)
+    {
+        this->pParent = _pParent;
+    }
+};
+
+class <%= CompositeName %> : public <%= ComponentName %>
+{
+private:
+    <%= ArrayListName %><<%= ComponentName %>>* p<%= ComponentName %><%= ArrayListName %>;
+public:
+    <%= CompositeName %>()
+    {
+        p<%= ComponentName %><%= ArrayListName %> = new <%= ArrayListName %><<%= ComponentName %>>();
+    }
+    virtual void add(<%= ComponentName %>* p<%= ComponentName %>)
+    {
+        p<%= ComponentName %>->setParent(this);
+        this->p<%= ComponentName %><%= ArrayListName %>->add(p<%= ComponentName %>);
+    }
+    virtual void remove(<%= ComponentName %>* p<%= ComponentName %>)
+    {
+        this->p<%= ComponentName %><%= ArrayListName %>->remove(p<%= ComponentName %>);
+    }
+    virtual <%= ArrayListName %><<%= ComponentName %>>* getChildren()
+    {
+        return this->p<%= ComponentName %><%= ArrayListName %>;
+    }
+    virtual void doSomething()
+    {
+
+    }
+};
+
+class <%= LeafName %> : public <%= ComponentName %>
+{
+public:
+    virtual void doSomething()
+    {
+
+    }
+    virtual void add(<%= ComponentName %>* p<%= ComponentName %>)
+    {
+        throw new UnsupportedOperationException();
+    }
+    virtual void remove(<%= ComponentName %>* p<%= ComponentName %>)
+    {
+        throw new UnsupportedOperationException();
+    }
+    virtual <%= ArrayListName %><<%= ComponentName %>>* getChildren()
+    {
+        throw new UnsupportedOperationException();
+    }
+};
+
+void main()
+{
+    <%= CompositeName %>* pRoot = new <%= CompositeName %>();
+    root.doSomething();
+    <%= CompositeName %>* pBranch = new <%= CompositeName %>();
+    <%= LeafName %>* p<%= LeafName %> = new <%= LeafName %>();
+    pRoot->add(pBranch);
+    pBranch->add(p<%= LeafName %>);
+}

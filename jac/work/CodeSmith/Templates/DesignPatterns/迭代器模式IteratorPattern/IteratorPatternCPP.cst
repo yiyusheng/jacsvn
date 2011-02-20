@@ -1,0 +1,101 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="责任链模式的C++实现" %>
+<%@ Property Name="IteratorName" Type="String" Default="Iterator" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteIteratorName" Type="String" Default="ConcreteIterator" Category="Context" Description="类名" %>
+<%@ Property Name="AggregateName" Type="String" Default="Aggregate" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteAggregateName" Type="String" Default="ConcreteAggregate" Category="Context" Description="类名" %>
+<%@ Property Name="ContentClassName" Type="String" Default="void" Category="Context" Description="类名" %>
+<%@ Property Name="ArrayClassName" Type="String" Default="vector" Category="Context" Description="类名" %>
+class <%= IteratorName %>
+{
+public:
+    virtual <%= ContentClassName %>* pNext() = 0;
+    virtual bool hasNext() = 0;
+    virtual bool remove() = 0;
+};
+
+class <%= ConcreteIteratorName %> : public <%= IteratorName %>
+{
+private:
+    <%= ArrayClassName %>* p<%= ArrayClassName %>;
+public:
+    int cursor;
+    <%= ConcreteIteratorName %>(<%= ArrayClassName %>* _p<%= ArrayClassName %>)
+    {
+        this->p<%= ArrayClassName %> = _p<%= ArrayClassName %>;
+        cursor = 0;
+    }
+    virtual int hasNext()
+    {
+        if(this->cursor == this->p<%= ArrayClassName %>->size())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    virtual <%= ContentClassName %>* pNext()
+    {
+        <%= ContentClassName %>* pResult = NULL;
+        if(this->hasNext())
+        {
+            pResult = this->p<%= ArrayClassName %>->at(this->cursor);
+        }
+        else
+        {
+            pResult = NULL;
+        }
+        return pResult
+    }
+    virtual bool remove()
+    {
+        this->pVector->erase(this->cursor);
+        return true;
+    }
+};
+
+//抽象容器
+class <%= AggregateName %>
+{
+public:
+    virtual void add(<%= ContentClassName %>* p<%= ContentClassName %>);
+    virtual void remove(<%= ContentClassName %>* p<%= ContentClassName %>);
+    virtual <%= IteratorName %> iterator();
+};
+
+class <%= ConcreteAggregateName %> : public <%= AggregateName %>
+{
+private:
+    vector* p<%= ArrayClassName %>;
+public:
+    <%= ConcreteAggregateName %>()
+    {
+        p<%= ArrayClassName %> = new <%= ArrayClassName %>();
+    }
+    virtual void add(<%= ContentClassName %>* p<%= ContentClassName %>)
+    {
+        this->p<%= ArrayClassName %>->insert(p<%= ContentClassName %>);
+    }
+    virtual void remove(<%= ContentClassName %>* p<%= ContentClassName %>)
+    {
+        this->p<%= ArrayClassName %>->erase(p<%= ContentClassName %>);
+    }
+    virtual 
+    {
+        return new <%= ConcreteIteratorName %>(this->p<%= ArrayClassName %>);
+    }
+}
+
+void main()
+{
+	<%= AggregateName %>* p<%= AggregateName %> = new <%= ConcreteAggregateName %>();
+    p<%= AggregateName %>->add("abc");
+    p<%= AggregateName %>->add("aaa");
+    p<%= AggregateName %>->add("1234");
+    <%= IteratorName %>* p<%= IteratorName %> = p<%= AggregateName %>->iterator();
+    while(p<%= IteratorName %>->hasNext())
+    {
+        printf(p<%= IteratorName %>->pNext());
+    }
+}
