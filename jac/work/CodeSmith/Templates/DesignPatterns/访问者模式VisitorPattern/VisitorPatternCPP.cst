@@ -1,0 +1,65 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="访问者模式的C++实现" %>
+<%@ Property Name="IVisitorName" Type="String" Default="IVisitor" Category="Context" Description="类名" %>
+<%@ Property Name="AbstractElementName" Type="String" Default="AbstractElement" Category="Context" Description="类名" %>
+<%@ Property Name="Element1Name" Type="String" Default="Element1" Category="Context" Description="类名" %>
+<%@ Property Name="Element2Name" Type="String" Default="Element2" Category="Context" Description="类名" %>
+<%@ Property Name="VisitorName" Type="String" Default="Visitor" Category="Context" Description="类名" %>
+class <%= IVisitorName %>
+{
+public:
+    virtual void visit(<%= Element1Name %>* _pEl1) = 0;
+    virtual void visit(<%= Element2Name %>* _pEl2) = 0;
+};
+
+class <%= AbstractElementName %>
+{
+public:
+    virtual void doSomething() = 0;
+    virtual void accept(<%= IVisitorName %>* _p<%= VisitorName %>) = 0;
+};
+
+class <%= Element1Name %> : public <%= AbstractElementName %>
+{
+public:
+    virtual void doSomething()
+    {
+
+    }
+    virtual void accept(<%= IVisitorName %>* _p<%= VisitorName %>)
+    {
+        _p<%= VisitorName %>->visit(this);
+    }
+};
+
+class <%= Element2Name %> : public <%= AbstractElementName %>
+{
+public:
+    virtual void doSomething()
+    {
+
+    }
+    virtual void accept(<%= IVisitorName %>* _p<%= VisitorName %>)
+    {
+        _p<%= VisitorName %>->visit(this);
+    }
+};
+
+class <%= VisitorName %> : public <%= IVisitorName %>
+{
+public:
+    virtual void visit(<%= Element1Name %>* _pEl1)
+    {
+        _pEl1->doSomething();
+    }
+    virtual void visit(<%= Element2Name %>* _pEl2)
+    {
+        _pEl2->doSomething();
+    }
+};
+
+void main()
+{
+    <%= AbstractElementName %>* pEl = new <%= Element1Name %>();
+    <%= IVisitorName %>* p<%= VisitorName %> = new <%= VisitorName %>();
+    pEl->accept(p<%= VisitorName %>);
+}

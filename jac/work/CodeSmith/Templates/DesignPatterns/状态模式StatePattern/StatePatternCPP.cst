@@ -1,0 +1,91 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="状态模式的C++实现" %>
+<%@ Property Name="BehaviorName" Type="String" Default="Behavior" Category="Context" Description="类名" %>
+<%@ Property Name="AbstractStateName" Type="String" Default="AbstractState" Category="Context" Description="类名" %>
+<%@ Property Name="State1Name" Type="String" Default="State1" Category="Context" Description="类名" %>
+<%@ Property Name="State2Name" Type="String" Default="State2" Category="Context" Description="类名" %>
+<%@ Property Name="ContextName" Type="String" Default="Context" Category="Context" Description="类名" %>
+class <%= BehaviorName %>
+{
+public:
+    virtual void behave1() = 0;
+    virtual void behave2() = 0;
+};
+
+class <%= AbstractStateName %> : public <%= BehaviorName %>
+{
+protected:
+    <%= ContextName %>* p<%= ContextName %>;
+public:
+    void set<%= ContextName %>(<%= ContextName %>* _p<%= ContextName %>)
+    {
+        this->p<%= ContextName %> = _p<%= ContextName %>;
+    }
+};
+
+class <%= ContextName %> : public <%= BehaviorName %>
+{
+public:
+    static <%= AbstractStateName %>* PSTATE1;
+    static <%= AbstractStateName %>* PSTATE2;
+private:
+    <%= AbstractStateName %>* pCurrentState;
+public:
+    <%= AbstractStateName %>* getCurrentState()
+    {
+        return pCurrentState;
+    }
+    void setCurrentState(<%= AbstractStateName %>* _pCurrentState)
+    {
+        this->pCurrentState = _pCurrentState;
+        this->pCurrentState->set<%= ContextName %>(this);
+    }
+    virtual void behave1()
+    {
+        this->pCurrentState->behave1();
+    }
+    virtual void behave2()
+    {
+        this->pCurrentState->behave2();
+    }
+};
+
+class <%= State1Name %> : public <%= AbstractStateName %>
+{
+public:
+    virtual void behave1()
+    {
+        //本状态下必须处理的逻辑
+    }
+    virtual void behave2()
+    {
+        //设置当前状态为<%= State2Name %>
+        <%= AbstractStateName %>::p<%= ContextName %>->setCurrentState(<%= ContextName %>::PSTATE2);
+        <%= AbstractStateName %>::p<%= ContextName %>->behave2();
+    }
+};
+
+class <%= State2Name %> : public <%= AbstractStateName %>
+{
+public:
+    virtual void behave1()
+    {
+        //设置当前状态为<%= State1Name %>
+        <%= AbstractStateName %>::p<%= ContextName %>->setCurrentState(<%= ContextName %>::PSTATE1);
+        <%= AbstractStateName %>::p<%= ContextName %>->behave1();
+    }
+    virtual void behave2()
+    {
+        //本状态下必须处理的逻辑
+    }
+};
+
+<%= AbstractStateName %>* <%= ContextName %>::PSTATE1 = new <%= State1Name %>();
+<%= AbstractStateName %>* <%= ContextName %>::PSTATE2 = new <%= State2Name %>();
+
+void main()
+{
+    <%= ContextName %>* p<%= ContextName %> = new <%= ContextName %>();
+    p<%= ContextName %>->setCurrentState(<%= ContextName %>::PSTATE1);
+    p<%= ContextName %>->behave1();
+    p<%= ContextName %>->behave2();
+}

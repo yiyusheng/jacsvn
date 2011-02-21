@@ -1,0 +1,43 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="门面模式的C++实现" %>
+<%@ Property Name="SubsystemAName" Type="String" Default="SubsystemA" Category="Context" Description="类名" %>
+<%@ Property Name="SubsystemBName" Type="String" Default="SubsystemB" Category="Context" Description="类名" %>
+<%@ Property Name="FacadeName" Type="String" Default="Facade" Category="Context" Description="类名" %>
+class <%= SubsystemAName %>
+{
+public:
+    void doSomethingA()
+    {
+
+    }
+};
+
+class <%= SubsystemBName %>
+{
+public:
+    void doSomethingB()
+    {
+
+    }
+};
+
+class <%= FacadeName %>
+{
+private:
+    <%= SubsystemAName %>* pA;
+    <%= SubsystemBName %>* pB;
+public:
+    <%= FacadeName %>()
+    {
+        pA = new <%= SubsystemAName %>();
+        pB = new <%= SubsystemBName %>();
+    }
+
+    void methodA()
+    {
+        this->pA->doSomethingA();
+    }
+    void methodB()
+    {
+        this->pB->doSomethingB();
+    }
+};
