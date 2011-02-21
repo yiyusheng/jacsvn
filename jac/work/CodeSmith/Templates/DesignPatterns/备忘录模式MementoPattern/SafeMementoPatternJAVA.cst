@@ -1,0 +1,57 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="安全备忘录模式的C++实现" %>
+<%@ Property Name="MementoName" Type="String" Default="Memento" Category="Context" Description="类名" %>
+<%@ Property Name="OriginatorName" Type="String" Default="Originator" Category="Context" Description="类名" %>
+<%@ Property Name="CaretakerName" Type="String" Default="Caretaker" Category="Context" Description="类名" %>
+<%@ Property Name="IMementoName" Type="String" Default="IMemento" Category="Context" Description="类名" %>
+//对外的空接口保证安全性
+public interface <%= IMementoName %> {
+}
+
+public class <%= OriginatorName %> {
+    private int state;
+
+    public int getState() {
+        return state;
+    }
+    public void setState(int _state) {
+        this.state = _state;
+    }
+    public <%= IMementoName %> create<%= MementoName %>() {
+        return new <%= MementoName %>(this.state);
+    }
+    public void restore<%= MementoName %>(<%= IMementoName %> _p<%= MementoName %>) {
+        this.setState(((<%= MementoName %>)_p<%= MementoName %>).getState());
+    }
+    
+    //私有内置类
+    private class <%= MementoName %> implements <%= IMementoName %> {
+        private int state;
+        private <%= MementoName %>(int _state) {
+            this.state = _state;
+        }
+        private int getState() {
+            return state;
+        }
+        private void setState(int _state) {
+            this.state = _state;
+        }
+    };
+};
+
+public class <%= CaretakerName %> {
+    private <%= IMementoName %> p<%= MementoName %>;
+    public <%= IMementoName %> get<%= MementoName %>() {
+        return p<%= MementoName %>;
+    }
+    public void set<%= MementoName %>(<%= IMementoName %> _p<%= MementoName %>) {
+        this.p<%= MementoName %> = _p<%= MementoName %>;
+    }
+};
+
+void main()
+{
+    <%= OriginatorName %> p<%= OriginatorName %> = new <%= OriginatorName %>();
+    <%= CaretakerName %> p<%= CaretakerName %> = new <%= CaretakerName %>();
+    p<%= CaretakerName %>.set<%= MementoName %>(p<%= OriginatorName %>.create<%= MementoName %>());
+    p<%= OriginatorName %>.restore<%= MementoName %>(p<%= CaretakerName %>.get<%= MementoName %>());
+}

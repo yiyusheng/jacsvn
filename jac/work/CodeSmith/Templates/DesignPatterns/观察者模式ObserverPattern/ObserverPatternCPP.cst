@@ -1,0 +1,65 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="观察者模式的C++实现" %>
+<%@ Property Name="ObservableName" Type="String" Default="Observable" Category="Context" Description="类名" %>
+<%@ Property Name="SubjectName" Type="String" Default="Subject" Category="Context" Description="类名" %>
+<%@ Property Name="ObserverName" Type="String" Default="Observer" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteObserverName" Type="String" Default="ConcreteObserver" Category="Context" Description="类名" %>
+<%@ Property Name="MessageClassName" Type="String" Default="void" Category="Context" Description="类名" %>
+<%@ Property Name="ContainerClassName" Type="String" Default="void" Category="Context" Description="类名" %>
+
+class <%= ObservableName %>
+{
+private:
+    <%= ContainerClassName %><<%= ObserverName %>>* p<%= ObserverName %><%= ContainerClassName %>;
+public:
+    <%= ObservableName %>()
+    {
+        p<%= ObserverName %><%= ContainerClassName %> = new <%= ContainerClassName %><<%= ObserverName %>>();
+    }
+    void add<%= ObserverName %>(<%= ObserverName %>* p<%= ObserverName %>)
+    {
+        this->p<%= ObserverName %><%= ContainerClassName %>->insert(p<%= ObserverName %>);
+    }
+    void remove<%= ObserverName %>(<%= ObserverName %>* p<%= ObserverName %>)
+    {
+        this->p<%= ObserverName %><%= ContainerClassName %>->erase(p<%= ObserverName %>);
+    }
+    void notify<%= ObserverName %>s(<%= MessageClassName %>* p<%= MessageClassName %>)
+    {
+        for(int i = 0; i < this->p<%= ObserverName %><%= ContainerClassName %>->size(); i++)
+        {
+            this->p<%= ObserverName %><%= ContainerClassName %>->at(i)->update(this, p<%= MessageClassName %>);
+        }
+    }
+};
+
+class <%= SubjectName %> : public <%= ObservableName %>
+{
+public:
+    void doSomething()
+    {
+        <%= ObservableName %>::notify<%= ObserverName %>s("aaa");
+    }
+};
+
+class <%= ObserverName %>
+{
+public:
+    virtual void update(<%= ObservableName %>* _p<%= ObservableName %>,<%= MessageClassName %>* _p<%= MessageClassName %>) = 0;
+};
+
+class <%= ConcreteObserverName %> : public <%= ObserverName %>
+{
+public:
+    virtual void update(<%= ObservableName %>* _p<%= ObservableName %>,<%= MessageClassName %>* _p<%= MessageClassName %>)
+    {
+
+    }
+};
+
+void main()
+{
+    <%= SubjectName %>* p<%= SubjectName %> = new <%= SubjectName %>();
+    <%= ObserverName %>* p<%= ObserverName %> = new <%= ConcreteObserverName %>();
+    p<%= SubjectName %>->add<%= ObserverName %>(p<%= ObserverName %>);
+    p<%= SubjectName %>->doSomething();
+}
