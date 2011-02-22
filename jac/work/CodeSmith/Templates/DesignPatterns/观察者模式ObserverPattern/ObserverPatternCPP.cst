@@ -4,8 +4,7 @@
 <%@ Property Name="ObserverName" Type="String" Default="Observer" Category="Context" Description="类名" %>
 <%@ Property Name="ConcreteObserverName" Type="String" Default="ConcreteObserver" Category="Context" Description="类名" %>
 <%@ Property Name="MessageClassName" Type="String" Default="void" Category="Context" Description="类名" %>
-<%@ Property Name="ContainerClassName" Type="String" Default="void" Category="Context" Description="类名" %>
-
+<%@ Property Name="ContainerClassName" Type="String" Default="vector" Category="Context" Description="类名" %>
 class <%= ObservableName %>
 {
 private:

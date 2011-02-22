@@ -1,0 +1,62 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="享元模式的C++实现" %>
+<%@ Property Name="FlyweightName" Type="String" Default="Flyweight" Category="Context" Description="类名" %>
+<%@ Property Name="ConcreteFlyweightName" Type="String" Default="ConcreteFlyweight" Category="Context" Description="类名" %>
+<%@ Property Name="FlyweightFactoryName" Type="String" Default="FlyweightFactory" Category="Context" Description="类名" %>
+<%@ Property Name="ExtrinsicTypeName" Type="String" Default="string" Category="Context" Description="类名" %>
+<%@ Property Name="IntrinsicTypeName" Type="String" Default="string" Category="Context" Description="类名" %>
+class <%= FlyweightName %>
+{
+    //外部状态
+protected:
+    <%= ExtrinsicTypeName %>* pExtrinsic;
+    //内部状态
+private:
+    <%= IntrinsicTypeName %>* pIntrinsic;
+public:
+    <%= FlyweightName %>(<%= ExtrinsicTypeName %>* _pExtrinsic)
+    {
+        this->pExtrinsic = _pExtrinsic;
+    }
+    <%= IntrinsicTypeName %>* getIntrinsic()
+    {
+        return pIntrinsic;
+    }
+    void setIntrinsic(<%= IntrinsicTypeName %>* _pIntrinsic)
+    {
+        this->pIntrinsic = _pIntrinsic;
+    }
+    virtual void operate() = 0;
+};
+
+class <%= ConcreteFlyweightName %> : public <%= FlyweightName %>
+{
+public:
+    <%= ConcreteFlyweightName %>(<%= ExtrinsicTypeName %>* _pExtrinsic) : <%= FlyweightName %>(_pExtrinsic)
+    {
+
+    }
+    virtual void operate()
+    {
+
+    }
+};
+
+class <%= FlyweightFactoryName %>
+{
+private:
+    static hash_map<<%= ExtrinsicTypeName %>, <%= FlyweightName %>*>* pPool;
+public:
+    static <%= FlyweightName %>* get<%= FlyweightName %>(<%= ExtrinsicTypeName %>* _pExtrinsic)
+    {
+        <%= FlyweightName %>* p<%= FlyweightName %> = NULL;
+        if(pPool->count(*_pExtrinsic) > 0)
+            p<%= FlyweightName %> = pPool->at(*_pExtrinsic);
+        else
+        {
+            p<%= FlyweightName %> = new <%= ConcreteFlyweightName %>(_pExtrinsic);
+            pPool->insert(pair<<%= ExtrinsicTypeName %>, <%= FlyweightName %>*>(*_pExtrinsic, p<%= FlyweightName %>));
+        }
+        return p<%= FlyweightName %>;
+    }
+};
+hash_map<<%= ExtrinsicTypeName %>, <%= FlyweightName %>*>* <%= FlyweightFactoryName %>::pPool = new hash_map<<%= ExtrinsicTypeName %>, <%= FlyweightName %>*>();

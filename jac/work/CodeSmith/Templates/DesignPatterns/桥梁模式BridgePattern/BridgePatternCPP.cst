@@ -1,0 +1,65 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="桥梁模式的C++实现" %>
+<%@ Property Name="AbstractImplementorName" Type="String" Default="AbstractImplementor" Category="Context" Description="类名" %>
+<%@ Property Name="Implementor1Name" Type="String" Default="Implementor1" Category="Context" Description="类名" %>
+<%@ Property Name="AbstractionName" Type="String" Default="Abstraction" Category="Context" Description="类名" %>
+<%@ Property Name="RefinedAbstractionName" Type="String" Default="RefinedAbstraction" Category="Context" Description="类名" %>
+class <%= AbstractImplementorName %>
+{
+public:
+    virtual void doSomething() = 0;
+    virtual void doSomething2() = 0;
+};
+
+class <%= Implementor1Name %> : public <%= AbstractImplementorName %>
+{
+public:
+    virtual void doSomething()
+    {
+
+    }
+    virtual void doSomething2()
+    {
+
+    }
+};
+
+class <%= AbstractionName %>
+{
+private:
+    <%= AbstractImplementorName %>* pImplementor;
+public:
+    <%= AbstractionName %>(<%= AbstractImplementorName %>* _pImplementor)
+    {
+        this->pImplementor = _pImplementor;
+    }
+
+    virtual void doSomething()
+    {
+        this->pImplementor->doSomething();
+    }
+    <%= AbstractImplementorName %>* getImplementor()
+    {
+        return this->pImplementor;
+    }
+};
+
+class <%= RefinedAbstractionName %> : public <%= AbstractionName %>
+{
+public:
+    <%= RefinedAbstractionName %>(<%= AbstractImplementorName %>* _pImplementor) : <%= AbstractionName %>(_pImplementor)
+    {
+
+    }
+    virtual void doSomething()
+    {
+        <%= AbstractionName %>::doSomething();
+        <%= AbstractionName %>::getImplementor()->doSomething2();
+    }
+};
+
+void main()
+{
+    <%= AbstractImplementorName %>* pImplementor = new <%= Implementor1Name %>();
+    <%= AbstractionName %>* p<%= RefinedAbstractionName %> = new <%= RefinedAbstractionName %>(pImplementor);
+    p<%= RefinedAbstractionName %>->doSomething();
+}
