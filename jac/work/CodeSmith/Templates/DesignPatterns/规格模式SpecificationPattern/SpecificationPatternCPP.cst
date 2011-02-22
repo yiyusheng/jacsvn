@@ -1,0 +1,137 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="规格模式的C++实现" %>
+<%@ Property Name="ISpecificationName" Type="String" Default="ISpecification" Category="Context" Description="类名" %>
+<%@ Property Name="CompositeSpecificationName" Type="String" Default="CompositeSpecification" Category="Context" Description="类名" %>
+<%@ Property Name="AndSpecificationName" Type="String" Default="AndSpecification" Category="Context" Description="类名" %>
+<%@ Property Name="OrSpecificationName" Type="String" Default="OrSpecification" Category="Context" Description="类名" %>
+<%@ Property Name="NotSpecificationName" Type="String" Default="NotSpecification" Category="Context" Description="类名" %>
+<%@ Property Name="BizSpecificationName" Type="String" Default="BizSpecification" Category="Context" Description="类名" %>
+<%@ Property Name="BizSpecificationParameterName" Type="String" Default="void" Category="Context" Description="类名" %>
+<%@ Property Name="IObjectProviderName" Type="String" Default="IObjectProvider" Category="Context" Description="类名" %>
+<%@ Property Name="ObjectSearcherName" Type="String" Default="ObjectSearcher" Category="Context" Description="类名" %>
+<%@ Property Name="CandidateClassName" Type="String" Default="void" Category="Context" Description="类名" %>
+<%@ Property Name="ContainerClassName" Type="String" Default="vector" Category="Context" Description="类名" %>
+class <%= ISpecificationName %>
+{
+public:
+    virtual bool isSatisfiedBy(<%= CandidateClassName %>* pCandidate) = 0;
+    virtual <%= ISpecificationName %>* and(<%= ISpecificationName %>* pSpecification) = 0;
+    virtual <%= ISpecificationName %>* or(<%= ISpecificationName %>* pSpecification) = 0;
+    virtual <%= ISpecificationName %>* not() = 0;
+};
+
+class <%= CompositeSpecificationName %> : public <%= ISpecificationName %>
+{
+public:
+    virtual <%= ISpecificationName %>* and(<%= ISpecificationName %>* pSpecification)
+    {
+        return new <%= AndSpecificationName %>(this, pSpecification);
+    }
+    virtual <%= ISpecificationName %>* or(<%= ISpecificationName %>* pSpecification)
+    {
+        return new <%= OrSpecificationName %>(this, pSpecification);
+    }
+    virtual <%= ISpecificationName %>* not()
+    {
+        return new <%= NotSpecificationName %>(this);
+    }
+};
+
+class <%= AndSpecificationName %> : public <%= CompositeSpecificationName %>
+{
+private:
+    <%= ISpecificationName %>* pLeft;
+    <%= ISpecificationName %>* pRight;
+public:
+    <%= AndSpecificationName %>(<%= ISpecificationName %>* _pLeft, <%= ISpecificationName %>* _pRight)
+    {
+        this->pLeft = _pLeft;
+        this->pRight = _pRight;
+    }
+    virtual bool isSatisfiedBy(<%= CandidateClassName %>* pCandidate)
+    {
+        return pLeft->isSatisfiedBy(pCandidate) && pRight->isSatisfiedBy(pCandidate);
+    }
+};
+
+class <%= OrSpecificationName %> : public <%= CompositeSpecificationName %>
+{
+private:
+    <%= ISpecificationName %>* pLeft;
+    <%= ISpecificationName %>* pRight;
+public:
+    <%= OrSpecificationName %>(<%= ISpecificationName %>* _pLeft, <%= ISpecificationName %>* _pRight)
+    {
+        this->pLeft = _pLeft;
+        this->pRight = _pRight;
+    }
+    virtual bool isSatisfiedBy(<%= CandidateClassName %>* pCandidate)
+    {
+        return pLeft->isSatisfiedBy(pCandidate) || pRight->isSatisfiedBy(pCandidate);
+    }
+};
+
+class <%= NotSpecificationName %> : public <%= CompositeSpecificationName %>
+{
+private:
+    <%= ISpecificationName %>* pSpecification;
+public:
+    <%= NotSpecificationName %>(<%= ISpecificationName %>* _pSpecification)
+    {
+        this->pSpecification = _pSpecification;
+    }
+    virtual bool isSatisfiedBy(<%= CandidateClassName %>* pCandidate)
+    {
+        return !pSpecification->isSatisfiedBy(pCandidate);
+    }
+};
+
+//具体业务规格书
+class <%= BizSpecificationName %> : public <%= CompositeSpecificationName %>
+{
+private:
+    <%= BizSpecificationParameterName %>* p<%= BizSpecificationParameterName %>;
+public:
+    <%= BizSpecificationName %>(<%= BizSpecificationParameterName %>* _p<%= BizSpecificationParameterName %>)
+    {
+        this->p<%= BizSpecificationParameterName %> = _p<%= BizSpecificationParameterName %>;
+    }
+    virtual bool isSatisfiedBy(<%= CandidateClassName %>* pCandidate)
+    {
+        return false;
+    }
+};
+
+class <%= IObjectProviderName %>
+{
+public:
+    virtual <%= ContainerClassName %><<%= CandidateClassName %>*>* find<%= CandidateClassName %>(<%= ISpecificationName %>* _pSpecification) = 0;
+};
+
+class <%= ObjectSearcherName %> : public <%= IObjectProviderName %>
+{
+private:
+    <%= ContainerClassName %><<%= CandidateClassName %>*>* p<%= CandidateClassName %>List;
+public:
+    <%= ObjectSearcherName %>(<%= ContainerClassName %><<%= CandidateClassName %>*>* _p<%= CandidateClassName %>List)
+    {
+        this->p<%= CandidateClassName %>List = _p<%= CandidateClassName %>List;
+    }
+    virtual <%= ContainerClassName %><<%= CandidateClassName %>*>* find<%= CandidateClassName %>(<%= ISpecificationName %>* _pSpecification)
+    {
+        <%= ContainerClassName %><<%= CandidateClassName %>*>* pResult = new <%= ContainerClassName %><<%= CandidateClassName %>*>();
+        for(int i = 0; i < p<%= CandidateClassName %>List->size(); i++)
+        {
+            if(_pSpecification->isSatisfiedBy(p<%= CandidateClassName %>List[i]))
+                pResult->insert(p<%= CandidateClassName %>List[i]);
+        }
+        return pResult;
+    }
+
+void main()
+{
+    <%= ContainerClassName %><<%= CandidateClassName %>*>* p<%= CandidateClassName %>List = new <%= ContainerClassName %><<%= CandidateClassName %>*>();
+    p<%= CandidateClassName %>List->insert(new <%= CandidateClassName %>());
+    <%= IObjectProviderName %>* p<%= ObjectSearcherName %> = new <%= ObjectSearcherName %>(p<%= CandidateClassName %>List);
+    <%= ISpecificationName %>* p<%= BizSpecificationName %> = new <%= BizSpecificationName %>(new <%= BizSpecificationParameterName %>());
+    <%= ContainerClassName %><<%= CandidateClassName %>*>* pResult = p<%= ObjectSearcherName %>->find<%= CandidateClassName %>(p<%= BizSpecificationName %>->and(p<%= BizSpecificationName %>));
+}

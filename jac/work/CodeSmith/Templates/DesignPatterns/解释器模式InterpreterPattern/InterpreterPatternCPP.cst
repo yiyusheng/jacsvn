@@ -1,0 +1,152 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C++" ResponseEncoding= "UTF-8" Description="解释器模式的C++实现" %>
+<%@ Property Name="ExpressionName" Type="String" Default="Expression" Category="Context" Description="类名" %>
+<%@ Property Name="TerminalExpressionName" Type="String" Default="TerminalExpression" Category="Context" Description="类名" %>
+<%@ Property Name="NonterminalExpressionName" Type="String" Default="NonterminalExpression" Category="Context" Description="类名" %>
+#include <string>
+#include <hash_map>
+#include <stack>
+using namespace std;
+using namespace stdext;
+
+#define Context hash_map<string, int>
+#define Result int
+
+class <%= ExpressionName %>
+{
+public:
+    virtual Result interpreter(Context* pContext) = 0;
+};
+
+class <%= TerminalExpressionName %> : public <%= ExpressionName %>
+{
+public:
+    virtual Result interpreter(Context* pContext)
+    {
+        return NULL;
+    }
+};
+
+class <%= NonterminalExpressionName %> : public <%= ExpressionName %>
+{
+public:
+    <%= NonterminalExpressionName %>(<%= ExpressionName %>* pLeft, <%= ExpressionName %>* pRight)
+    {
+
+    }
+    Result interpreter(Context* pContext)
+    {
+        return NULL;
+    }
+};
+
+class VarExpression : public <%= ExpressionName %>
+{
+private:
+    string key;
+public:
+    VarExpression(string _key)
+    {
+        this->key = _key;
+    }
+    virtual Result interpreter(Context* pContext)
+    {
+        return pContext->at(this->key);
+    }
+};
+
+class SymbolExpression : public <%= ExpressionName %>
+{
+protected:
+    <%= ExpressionName %>* pLeft;
+    <%= ExpressionName %>* pRight;
+public:
+    SymbolExpression(<%= ExpressionName %>* _pLeft, <%= ExpressionName %>* _pRight)
+    {
+        this->pLeft = _pLeft;
+        this->pRight = _pRight;
+    }
+};
+
+class AddExpression : public SymbolExpression
+{
+public:
+    AddExpression(<%= ExpressionName %>* _pLeft, <%= ExpressionName %>* _pRight) : SymbolExpression(_pLeft, _pRight)
+    {
+
+    }
+    virtual Result interpreter(Context* pContext)
+    {
+        return SymbolExpression::pLeft->interpreter(pContext) + SymbolExpression::pRight->interpreter(pContext);
+    }
+};
+
+class SubExpression : public SymbolExpression
+{
+public:
+    SubExpression(<%= ExpressionName %>* _pLeft, <%= ExpressionName %>* _pRight) : SymbolExpression(_pLeft, _pRight)
+    {
+
+    }
+    virtual Result interpreter(Context* pContext)
+    {
+        return SymbolExpression::pLeft->interpreter(pContext) - SymbolExpression::pRight->interpreter(pContext);
+    }
+};
+
+class Calculator
+{
+private:
+    <%= ExpressionName %>* p<%= ExpressionName %>;
+public:
+    Calculator(string expStr)
+    {
+        //语法容器
+        stack<<%= ExpressionName %>*>* pStack = new stack<<%= ExpressionName %>*>();
+        <%= ExpressionName %>* pLeft =NULL;
+        <%= ExpressionName %>* pRight = NULL;
+        string key;
+        //进行语法判断，并产生递归调用
+        for(int i = 0; i < expStr.length(); i++)
+        {
+            switch(expStr[i])
+            {
+            case '+':
+                pLeft = pStack->top();
+                pStack->pop();
+                key = expStr[++i];
+                pRight = new VarExpression(key);
+                pStack->push(new AddExpression(pLeft,pRight));
+                break;
+            case '-':
+                pLeft = pStack->top();
+                pStack->pop();
+                key = expStr[++i];
+                pRight = new VarExpression(key);
+                pStack->push(new SubExpression(pLeft,pRight));
+                break;
+            default://公式中的变量
+                key = expStr[i];
+                pStack->push(new VarExpression(key));
+            }
+        }
+        //最后的总语法树，整体表答示
+        this->p<%= ExpressionName %> = pStack->top();
+    }
+    Result run(Context* pContext)
+    {
+        return this->p<%= ExpressionName %>->interpreter(pContext);
+    }
+};
+
+void main()
+{
+    string expStr = "a+b-c";
+    Context* pContext = new Context();
+    string key;
+    pContext->insert(pair<string, int>("a", 100));
+    pContext->insert(pair<string, int>("b", 20));
+    pContext->insert(pair<string, int>("c", 40));
+    Calculator* pCal = new Calculator(expStr);
+    printf("%d", pCal->run(pContext));
+    getchar();
+}
