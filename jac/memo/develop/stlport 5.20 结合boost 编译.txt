@@ -1,0 +1,62 @@
+stlport/stl/config/user_config.h(316) : _STLP_USE_BOOST_SUPPORT
+如果要用boost 编译 请使用这个宏
+
+
+stlport/stl/type_traits.h
+
+需要包含这个 boost/type_traits/remove_const.hpp, 居然遗漏了
+
+请在stlport/stl/type_traits.h 
+
+#ifdef _STLP_USE_BOOST_SUPPORT
+# include <stl/boost_type_traits.h>
+# include <boost/type_traits/add_reference.hpp>
+# include <boost/type_traits/add_const.hpp>
+# include <boost/type_traits/remove_const.hpp>    //新添加的
+#endif /* _STLP_USE_BOOST_SUPPORT */
+
+
+
+configure --help 
+此时会列出配置参数，其中：
+配置所用的编译器，列表如下：
+   msvc6    Microsoft Visual C++ 6.0
+   msvc7    Microsoft Visual C++ .NET 2002
+   msvc71   Microsoft Visual C++ .NET 2003
+   msvc8    Microsoft Visual C++ 2005
+
+   msvc9    Microsoft Visual C++ 2008
+   icl      Intel C++ Compiler
+   evc3     Microsoft eMbedded Visual C++ 3 (*)
+   evc4     Microsoft eMbedded Visual C++ .NET (*)
+   evc8     Microsoft Visual C++ 2005 compiling for CE
+   gcc      GNU C++ Compiler (MinGW package)
+   dmc      Digital Mars Compiler
+   bcc      Borland C++ Compiler
+我使用的是2008，所以使用：
+msvc9
+
+--with-static-rtl：编译为静态库(项目属性选择/MT会用到这个产生的lib)
+--with-dynamic-rtl：编译为动态库(项目属性选择/MD会用到这个产生的lib)
+
+--use-boost <boost install path>：如果使用boost这填入boost的安装目录
+
+--extra-cxxflag <additional compilation options>：需要传给cl编译程序的另外的命令
+如 /arch:SSE (启用sse优化) /arch:SSE2 (启用sse2优化)
+
+几个重要的说完，我自己的配置命令是：
+configure msvc9 --with-static-rtl --use-boost 我的boost目录 
+
+接着按提示
+nmake clean install
+即完成了stl的编译
+
+接下来将obj目录里生成的*.lib、*.dll、*.pdb、*.exp、*.dll.manifest复制到%stlport%/lib
+windows path环境变量最后添加;%stlport%/lib
+
+然后在visual studio的include目录添加%stlport%/stlport目录
+                     lib    目录添加%stlport%/lib 目录
+
+即可正常使用stlport了
+
+注：%stlport%即指stlport安装目录
