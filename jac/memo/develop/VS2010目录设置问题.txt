@@ -1,0 +1,16 @@
+vs2010拿掉了Tools->裡面的設定VC++Directories
+
+全部移到Porject自己個別設定，那如果我有4-50個project不就要設定到死
+
+所以他有一個GLOBAL的設定，直接選擇VC++ directories Inherit 就能使用
+
+檔名是這樣的 Microsoft.cpp.[Platform].users.props (會在安裝時產生)
+
+位置在$(USERPROFILE)\appdata\local\microsoft\msbuild\v4.0
+
+我是用notepad++直接開起來改，存檔
+
+用property manager編輯也是可以
+
+參考: http://blogs.msdn.com/b/vcblog/archive/2010/03/02/visual-studio-2010-c-project-upgrade-guide.aspx
+
