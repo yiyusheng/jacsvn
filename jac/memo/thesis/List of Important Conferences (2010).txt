@@ -1,0 +1,164 @@
+Last Modified 2010/04/19
+Part I 
+1.     International Conference on Architectural Support for Programming Languages and Operating Systems (ASPLOS)
+
+2.     ACM Conference on Computer and Communication Security (CCS)
+
+3.     International Conference on Dependable Systems and Networks (DSN)
+
+4.     USENIX Conference on File and Storage Techniques (FAST)
+
+5.     IEEE Symposium on Foundations of Computer Science (FOCS)
+
+6.     International Symposium on High Performance Computer Architecture (HPCA)      
+
+7.     IEEE International Symposium on High Performance Distributed Computing (HPDC)
+
+8.     International Conference on Distributed Computing Systems (ICDCS)
+
+9.     International Conference on Data Engineering (ICDE)
+
+10.   IEEE International Conference on Network Protocols (ICNP)
+
+11.   ACM International Conference on Supercomputing (ICS)
+
+12.   International Conference on Software Engineering (ICSE)
+
+13.   International Joint Conference on Artificial Intelligence (IJCAI)
+
+14.   IEEE Conference on Computer Communications (INFOCOM)
+
+15.   International Symposium on Computer Architecture (ISCA)
+
+16.   ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD)
+
+17.   Annual IEEE/ACM International Symposium on Microarchitecture (MICRO)
+
+18.   ACM/IFIP/USENIX International Middleware Conference (Middleware)
+
+19.   ACM International Conference on Multimedia (MM)
+
+20.   ACM International Conference on Mobile Systems, Applications, and Services (MobiSys)
+
+21.   USENIX Conference on Operating System and Design (OSDI)
+
+22.   ACM Conference on Programming Language Design and Implementation (PLDI)
+
+23.   Annual ACM Symposium on Principles of Distributed Computing (PODC)
+
+24.   ACM Symposium on Principles of Programming Languages (POPL)
+
+25.   ACM SIGPLAN Symposium on Principles and Practice of Parallel Programming (PPoPP)
+
+26.   IEEE Real-Time Systems Symposium (RTSS)
+
+27.   Supercomputing (SC'XY) Conference
+
+28.   ACM SIGCOMM Conference (SIGCOMM)
+
+29.   ACM Conference on Computer Graphics and Interactive Techniques (SIGGRAPH)
+
+30.   ACM Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR)
+
+31.   ACM Conference on Measurement and Modeling of Computer Systems (SIGMETRICS)
+
+32.   International Conference on Management of Data and Symposium on Principles of Database Systems (SIGMOD/PODS)
+
+33.   ACM Symposium on Operating Systems Principles (SOSP)  
+
+34.   IEEE Symposium on Security and Privacy (SP)
+
+35.   Annual ACM Symposium on Parallel Algorithms and Architectures (SPAA)
+
+36.   Annual ACM Symposium on Theory of Computing (STOC)
+
+37.   USENIX Annual Technical Conference (USENIX)
+
+38.   ACM International Conference on Virtual Execution Environments (VEE)
+
+39.   International Conference on Very Large Data Bases (VLDB)
+
+40.   International World Wide Web Conference (WWW)
+
+¡¡
+
+Part II 
+1.     National Conference on Artificial Intelligence (AAAI)
+
+2.     International Symposium on Code Generation and Optimization (CGO)
+
+3.     ACM Conference on Human Factors in Computing Systems (CHI)
+
+4.     IEEE International Conference on Cluster Computing (CLUSTER)
+
+5.     Annual International Cryptology Conference (CRYPTO)
+
+6.     ACM Conference on Computer Supported Cooperative Work (CSCW)
+
+7.     IEEE Conference on Computer Vision and Pattern Recognition (CVPR)
+
+8.     ACM Conference on Electronic Commerce (EC)
+
+9.     Annual Eurocrypt Conference (Eurocrypt)
+
+10.   European Conference on Computer Systems (EuroSys)
+
+11.   ACM Symposium on the Foundations of Software Engineering (FSE)
+
+12.   Workshop on Hot Topics in Networking (HotNets)
+
+13.   Workshop on Hot Topics in Operating Systems (HotOS)
+
+14.   IEEE International Conference on Computer Vision (ICCV)
+
+15.   IEEE International Conference on Data Mining (ICDM)
+
+16.   International Conference on Machine Learning (ICML)
+
+17.   International Conference on Parallel Processing (ICPP)   
+
+18.   USENIX Internet Measurement Conference (IMC)
+
+19.   IEEE International Parallel and Distributed Processing Symposium (IPDPS)
+
+20.   International Semantic Web Conference (ISWC)
+
+21.   USENIX Large Installation System Administration Conference (LISA)
+
+22.   International Symposium on Modeling, Analysis, and Simulation of Computer & Telecommunication Systems (MASCOTS)
+
+23.   ACM Multimedia Systems Conference (MMSys)
+
+24.   International Conference on Mobile Computing and Networking (MobiCom)
+
+25.   ACM International Symposium on Mobile Ad Hoc Networking and Computing (MobiHoc)
+
+26.   IEEE Symposium on Mass Storage Systems/NASA Goddard Conference on Mass Storage Systems and Technologies (MSS/MSST)
+
+27.   International Workshop on Network and Operating System Support for Digital Audio and Video (NOSSDAV)
+
+28.   USENIX Symposium on Networked Systems Design and Implementation (NSDI)
+
+29.   International Conference on Object Oriented Programming, Systems, Languages and Applications (OOPSLA)
+
+30.   International Conference on Parallel Architectures and Compilation Techniques (PACT)
+
+31.   IEEE International Conference on Pervasive Computing and Communications (PerCom)
+
+32.   IFIP International Symposium on Computer Performance Modeling, Measurement and Evaluation (Performance)
+
+33.   SIAM Conference on Parallel Processing for Scientific Computing (PP)
+
+34.   International Symposium on the Recent Advances in Intrusion Detection (RAID)
+
+35.   IEEE Real-Time and Embedded Technology and Applications Symposium (RTAS)
+
+36.   ACM Symposium on Access Control Models and Technologies (SACMAT)
+
+37.   USENIX Security Symposium (Security)
+
+38.   ACM Conference on Embedded Networked Sensor Systems (SenSys)
+
+39.   ACM-SIAM Symposium on Discrete Algorithms (SODA)
+
+40.   International Symposium on Reliable Distributed Systems (SRDS)
