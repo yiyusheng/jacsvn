@@ -1,5 +1,5 @@
 linux   ctrl+d
 
-windows ctrl+z
+windows ctrl+z F6
 
 要在控制台里面输入EOF  输入上面的代码就可以了
