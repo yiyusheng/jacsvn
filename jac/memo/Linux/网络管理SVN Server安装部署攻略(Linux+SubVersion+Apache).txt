@@ -100,3 +100,47 @@ trevor = rw
 [TrainingRepos:/]
 @training = rw
 权限配置文件中，关键的几个概念是：目标和权限，也就是为谁分配什么样的权限。读为r，写为w，如果没有权限那么什么也不写即可。
+chown -r www-data:www-data
+
+最近因為工作的需要,有很多東西需要自己測試,所以就架了一台SVN Server
+為了避免自己日後健忘(年紀大了...嗚嗚) 所以紀錄一下
+
+先寫一下自己的硬體配備吧
+
+CPU  AMD AthonX2 4400+
+Ram  2G DDR II X2
+HD     SATA 160GX2 IDE 160X1
+OS     Windows XP SP3 + VMWare Fedora 10
+
+1.首先先安裝fedora 10囉.
+2.登入root,並進入console介面,(對了避免出太大的問題,先把selinex關掉吧)
+3.yum -y install subversion
+4.svnadmin create "目錄名稱"
+5.修改"目錄名稱"/conf下的svnserver.conf
+ [general]
+anon-access = none
+auth-access = write
+password-db = passwd
+authz-db = authz
+realm = My_Project
+6.修改"目錄名稱"的owner ex: chown -r www-data:www-data "目錄名稱"   <---這邊不改的話會沒**法commit,我就敗在這邊很多次
+7.加入svn的認**使用者 htpasswd -c "目錄名稱"/conf/passwd 使用者名稱
+8.updatedb
+9.修改http的設定加入以下內容
+<Location "目錄名稱"> 
+Bbs.Svn8.Com
+
+
+  DAV svn
+  SVNPath "目錄名稱"
+  AuthType Basic
+  AuthName "Eric Source Control"
+  AuthUserFile "目錄名稱"/conf/passwd
+  Require valid-user
+</Location>
+
+10.yum -y install mod_dav_svn
+重新開啟http
+
+這樣就可以囉,
+本文来自联城技术网（http://tech.16c.cn/）转发请保留地址：http://www.svn8.com/SVNSY/20090423/4909.html
