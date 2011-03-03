@@ -1,0 +1,41 @@
+STLPort静态链接与静态链接
+    库文件类型：
+stlport[d|stld][_x,_static,_statix].<STLport-Version>.lib
+  d : debug build
+  stld: debug build with _STLP_DEBUG (STL safe) mode
+  _x: Build of STLport as a dll but statically link to the native runtime.
+  _static : build of a static library
+  _statix : build of a static library link dynamically to the native runtime.
+   
+  static C/C++ runtime library(libc.lib family)的STLport静态库
+  stlportstld_static.lib
+  stlportd_static.lib
+  stlport_static.lib
+  
+  static C/C++ runtime library(libc.lib family)的STLport动态库
+  stlportstld_x.5.2.lib
+  stlportd_x.5.2.lib
+  stlport_x.5.2.lib
+  
+  dynamic C/C++ runtime library (msvcrt.lib family)的STLport静态库
+  stlportstld_statix.lib
+  stlportd_statix.lib
+  stlport_statix.lib
+  
+  dynamic C/C++ runtime library (msvcrt.lib family)的STLport动态库
+  stlportstld.5.2.lib
+  stlportd.5.2.lib
+  stlport.5.2.lib
+如果程序要使用静态库的话必须定义宏：_STLP_USE_STATIC_LIB(应该先静态库生成MTD)
+如果程序要使用动态库的话必须定义宏: _STLP_USE_DYNAMIC_LIB
+
+注意编译debug 版本设置工程-〉c++ -> 命令行附加选项加入 /GX  /D_STLP_DEBUG。代码生成-〉运行时库必须选择多线程版本的, 没有 /D_STLP_DEBUG  编译时回停留在这里
+
+Static version of ACE libraries are built with ACE_AS_STATIC_LIBS
+defined. This macro should also be used in application projects that link to static ACE libraries
+9.	In “Properties”–”C/C++”–”Preprocessor”–”Preprocessor Definitions” set the following:
+ACE_AS_STATIC_LIBS
+_CRT_SECURE_NO_WARNINGS
+WIN32 
+
+
