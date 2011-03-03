@@ -1,0 +1,102 @@
+一.  安装apr依赖库(Apache Portable Runtime Module)
+
+http://apache.mirror.phpchina.com/apr/apr-1.2.11.tar.gz
+./configure
+make
+make install
+
+http://apache.mirror.phpchina.com/apr/apr-util-1.2.10.tar.gz
+./configure --with-apr=/home/chenmin/apr-1.2.11
+make
+make install
+
+二. 重新编译httpd
+
+检查已安装的 Apache2 是否已经安装了 mod_dav .
+
+如果已经成功安装了Apache，使用 httpd -M 来查看有没有安装 dav_module，如果没有的话 必须附加 ‘–enable-dav’ ‘–enable-dav-fs’ 两个参数重新编译 Apache，否则即使编译通过了svn,apache也会启动不起来.
+
+wget http://apache.mirror.phpchina.com/httpd/httpd-2.2.6.tar.gz
+./configure --enable-dav --enable-dav-fs
+make
+make install
+
+三. 安装subversion
+
+最新的版本 Subversion 可以在这里找到 ：http://subversion.tigris.org/project_packages.html
+http://subversion.tigris.org/downloads/subversion-1.4.5.tar.gz
+
+下载neon库，使svn支持webdav, https加密的链接.
+下载之后放到subversion安装目录下,并重命名即可, subversion会自动监测并配置, 目前只支持 0.25.5.
+
+;cd subversion-SVN-LAST-VERSION-DIR 
+cd subversion-1.4.5
+wget http://www.webdav.org/neon/neon-0.25.5.tar.gz
+tar xzf neon-0.25.5.tar.gz
+mv neon-0.25.5 neon
+
+./configure --with-apxs=/usr/local/apache2/bin/apxs --with-apr=/home/chenmin/apr-1.2.11 --with-apr-util=/home/chenmin/apr-util-1.2.10 --with-ssl
+
+由于没有安装Berkeley DB,所以使用FSFS
+make
+sudo make install
+
+四.  配置subversion和apache
+
+拷贝svn模块到apache模块目录下
+cp /data/subversion-1.4.5/subversion/mod_dav_svn/.libs/mod_dav_svn.so /usr/local/apache2/modules/
+cp /data/subversion-1.4.5/subversion/mod_authz_svn/.libs/mod_authz_svn.so /usr/local/apache2/modules/
+
+编辑httpd.conf
+LoadModule dav_svn_module modules/mod_dav_svn.so
+LoadModule authz_svn_module modules/mod_authz_svn.so
+
+<Location /svn>
+DAV svn
+SVNParentPath /data/svn
+</Location>
+
+运行htpasswd添加用户和密码
+/usr/local/apache2/bin/htpasswd -cm /data/svn/svn-auth-file chenmin
+/usr/local/apache2/bin/htpasswd -m /data/svn/svn-auth-file admin
+
+再次编辑httpd.conf
+<Location /svn>
+DAV svn
+SVNParentPath /data/svn
+AuthType Basic
+AuthName "Subversion repository"
+AuthUserFile /data/svn/svn-auth-file
+Require valid-user
+AuthzSVNAccessFile /data/svn/svn-access-file
+</Location>
+
+其中svn-auth-file是认证文件，存储用户名和密码，svn-access-file是访问权限文件，规定各个目录的访问者的权限, 示例的权限分配的文件的格式如下。
+[groups]
+admin = john, kate
+devteam1 = john, rachel, sally
+devteam2 = kate, peter, mark
+docs = bob, jane, mike
+training = zak
+# Default access rule for ALL repositories
+# Everyone can read, admins can write, Dan German is excluded.
+[/]
+* = r
+@admin = rw
+dangerman =
+# Allow developers complete access to their project repos
+[proj1:/]
+@devteam1 = rw
+[proj2:/]
+@devteam2 = rw
+[bigproj:/]
+@devteam1 = rw
+@devteam2 = rw
+trevor = rw
+# Give the doc people write access to all the docs folders
+[/trunk/doc]
+@docs = rw
+# Give trainees write access in the training repository only
+[TrainingRepos:/]
+@training = rw
+权限配置文件中，关键的几个概念是：目标和权限，也就是为谁分配什么样的权限。读为r，写为w，如果没有权限那么什么也不写即可。
