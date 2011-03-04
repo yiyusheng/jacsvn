@@ -100,7 +100,8 @@ trevor = rw
 [TrainingRepos:/]
 @training = rw
 权限配置文件中，关键的几个概念是：目标和权限，也就是为谁分配什么样的权限。读为r，写为w，如果没有权限那么什么也不写即可。
-chown -r www-data:www-data
+svnadmin create /svndata/newton
+chown -R www-data:www-data /svndata/newton
 
 最近因為工作的需要,有很多東西需要自己測試,所以就架了一台SVN Server
 為了避免自己日後健忘(年紀大了...嗚嗚) 所以紀錄一下
