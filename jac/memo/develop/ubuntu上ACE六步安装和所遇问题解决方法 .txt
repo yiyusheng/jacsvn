@@ -1,0 +1,74 @@
+ACE六步配置：
+
+一、于http://download.dre.vanderbilt.edu/下载相应平台的ACE包，这里写道如果是windows平台下载.zip包，其他平台下载.gz或bz2包，我是乌布图选择了个gz包，我用的是6.0.0；
+
+二、解压包，里面有个ACE-INSTALL.html文档，在线页面地址为http://www.dre.vanderbilt.edu/~schmidt/DOC_ROOT/ACE/ACE-INSTALL.html#unix，按此过程，进行接下来的安装配置；
+
+三、终端命令行内，在所解压的目录（例如/home/administrator/libs/ACE_wrappers）内，建立目录objdir（例如/home/administrator/libs/ACE_wrappers/objdir），并进入之，如下命令：
+
+　　 mkdir objdir       cd objdir
+四、运行命令../configure，这个命令有个参数选项，具体参看资料吧，懒得啃英文也木法，谁让代码都是字母呢；
+
+五、运行make命令，编译库；
+
+六、运行make install命令完成安装。
+
+ 
+
+ACE配置中make所遇到的问题：
+
+1.如果按照上述说明中的安装方法，第五步可能会出现问题，一般在自行编译源码所碰到的错误都会是系统缺少软件包所致，我所遇到的问题是跟ssl有关系，告警如下：
+
+http://www.cnblogs.com/../ace/SSL/SSL_Asynch_BIO.h:29:25: error: openssl/bio.h: 没有那个文件或目录
+
+原因:缺少openssl或者找不到openssl的头文件；
+
+解决：去http://www.openssl.org/source/下载latest程序，经过一番./configure、make、make install安装套路，还有一步为做个链接：
+
+cd /usr/include
+
+ln -s /usr/local/ssl/include/openssl openssl
+
+ 
+
+2.又遇到错误，如下：
+
+home/knight/libs/ACE_wrappers/objdir/examples/IPC_SAP/SSL_SAP/http://www.cnblogs.com/http://www.cnblogs.com/ace/SSL/SSL_SOCK_Stream.inl:148: undefined reference to `SSL_read'
+/home/knight/libs/ACE_wrappers/objdir/examples/IPC_SAP/SSL_SAP/http://www.cnblogs.com/http://www.cnblogs.com/ace/SSL/SSL_SOCK_Stream.inl:151: undefined reference to `SSL_get_error'
+client-SSL-client.o: In function `ACE_SSL_SOCK_Stream::close()':
+/home/knight/libs/ACE_wrappers/objdir/examples/IPC_SAP/SSL_SAP/http://www.cnblogs.com/http://www.cnblogs.com/ace/SSL/SSL_SOCK_Stream.inl:305: undefined reference to `SSL_shutdown'
+
+原因：在编译${ACE_ROOT}/objdir/tests/SSL和${ACE_ROOT}/examples/IPC_SAP/SSL_SAP中makefile指定的库路径LIBS指定有误；
+解决：找到makefile里的LIBS = -lrt -ldl，在后面添加路径【 /usr/local/ssl/lib/libssl.a /usr/local/ssl/lib/libcrypto.a】（注意，这两个静态库路径不是绝对的）。
+
+ 
+
+安装完成
+
+make install 成功后会有如下显示：
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/local/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+默认的安装路径是在/usr/local/lib；
+
+如果程序运行需要动态库.so文件时，需要指定环境变量LD_LIBRARY_PATH；
+
+如果程序连接编译需要动态库.so文件时，需要指定环境变量LD_RUN_PATH。
+
