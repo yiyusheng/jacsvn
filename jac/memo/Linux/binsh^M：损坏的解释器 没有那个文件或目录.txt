@@ -11,3 +11,8 @@ sed -i 's/\r$//' server.sh
 代码:
 :set ff=unix
 :wq
+
+
+$ find . -name *.* -exec dis2unix {} \;
+跳过svn目录的批量递归dos2unix 查找替换
+find . -type f \! -path "*svn*" -exec dos2unix {} \; 
