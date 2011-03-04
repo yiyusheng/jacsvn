@@ -1,0 +1,19 @@
+windows下先执行"C:\Program Files\Microsoft Visual Studio 8\Common7\Tools\vsvars32.bat"
+
+静态库
+STLPort
+Linux下面注意安装目录，可以./configure --prefix=目录
+1. 根目录下configure msvc8 --with-static-rtl
+2. 进入build/lib
+3. nmake clean install
+
+4. 根目录下configure clean
+5. 根目录下configure msvc8 --with-dynamic-rtl
+6. 进入build/lib
+7. nmake clean install
+
+ACE
+1. 新建文件ace/config.h, 内容#include "ace/config-win32.h"
+2. 启动ACE_wrappers_vc8.sln
+3. 修改为生成.lib
+4. 添加ACE_AS_STATIC_LIBS选项
