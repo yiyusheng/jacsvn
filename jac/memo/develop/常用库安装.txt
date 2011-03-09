@@ -1,17 +1,50 @@
-windows下先执行"C:\Program Files\Microsoft Visual Studio 8\Common7\Tools\vsvars32.bat"
-
-静态库
+Linux环境下
 STLPort
-Linux下面注意安装目录，可以./configure --prefix=目录
-1. 根目录下configure msvc8 --with-static-rtl
-2. 进入build/lib
-3. nmake clean install
+1. 修改stlport/stl/type_traits.h
 
-4. 根目录下configure clean
-5. 根目录下configure msvc8 --with-dynamic-rtl
-6. 进入build/lib
-7. nmake clean install
+    需要包含这个 boost/type_traits/remove_const.hpp
 
+    请在stlport/stl/type_traits.h 
+
+    #ifdef _STLP_USE_BOOST_SUPPORT
+    # include <stl/boost_type_traits.h>
+    # include <boost/type_traits/add_reference.hpp>
+    # include <boost/type_traits/add_const.hpp>
+    # include <boost/type_traits/remove_const.hpp>    //新添加的
+    #endif /* _STLP_USE_BOOST_SUPPORT */
+
+2. 根目录下./configure --prefix=/home/jacteefan/CPP/STLport-5.2.1 --with-boost=/home/jacteefan/CPP/boost_1_46_0 --with-static-rtl  --enable-static 
+3. 进入build/lib
+4. make clean install
+
+boost
+ 1. 修改配置文件boost_1_46_0/tools/build/v2/user-config.jam
+    using gcc;
+    using stlport : 5.2.1 : /home/jacteefan/CPP/STLport-5.2.1 : /home/jacteefan/CPP/STLport-5.2.1 ;   
+ 2. ./bootstrap --prefix=/home/jacteefan/CPP/boost_1_46_0
+ 3.  ./bjam stdlib=stlport install
+
+ 
+ windows环境下
+windows下先执行"C:\Program Files\Microsoft Visual Studio 8\Common7\Tools\vsvars32.bat"
+STLport
+1. 同上
+2. 根目录下configure msvc8 --with-static-rtl --with-boost=目录
+3. 进入build/lib
+4. nmake clean install
+5. 重新到根目录下configure msvc8 --clean
+6. configure msvc8 --with-dynamic-rtl --with-boost=目录
+7. 进入build/lib
+8. nmake clean install
+
+boost
+1. 修改配置文件boost_1_37_0\tools\build\v2\user-config.jam
+    using msvc : 8.0 : : <compileflags>/wd4819 <compileflags>/D_CRT_SECURE_NO_DEPRECATE <compileflags>/D_SCL_SECURE_NO_DEPRECATE <compileflags>/D_SECURE_SCL=0 ;
+    using stlport : 5.2.1 : "D:\\work\\VS\\Projects\\STLport-5.2.1\\stlport" : "D:\\work\\VS\\Projects\\STLport-5.2.1\\lib" ;
+ 2. bootstrap
+ 3. bjam stdlib=stlport --build-type=complete msvc-8.0 stage
+ 注意编译debug 版本设置工程-〉c++ -> 命令行附加选项加入 /GX  /D_STLP_DEBUG。代码生成-〉运行时库必须选择多线程版本的
+ 
 ACE
 1. 新建文件ace/config.h, 内容#include "ace/config-win32.h"
 2. 启动ACE_wrappers_vc8.sln
