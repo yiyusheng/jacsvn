@@ -47,7 +47,7 @@ all $(ProjectName): $(TargetDepend)
 	@echo Project:$(ProjectName) success complete! Target:$@
 
 #编译信赖的项目
-ProjectDependList:
+$(ProjectDependList):
 	$(Make) -r -C $(SolutionSrc)/$@
 
 #创建需要的文件夹
