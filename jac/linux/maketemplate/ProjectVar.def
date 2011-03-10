@@ -25,14 +25,14 @@ export LDFLAGS :=
 else
 ifeq ($(ConfigurationType),dll)
 #输出目录
-export OutDir := $(ProjectBin)
+export OutDir := $(ProjectLib)
 #目标名称
 export TargetName := lib$(ProjectName).so
 #代码生成选项
 export LDFLAGS := -shared -fPIC
 else
 #输出目录
-export OutDir := $(SolutionLib)/$(ConfigurationName)
+export OutDir := $(ProjectLib)
 #目标名称
 export TargetName := lib$(ProjectName).a
 #代码生成选项
@@ -49,7 +49,7 @@ export TargetPath := $(OutDir)/$(TargetName)
 #附加包含目录
 export AttachInc := -I$(ProjectInc) -I$(SolutionInc)
 #附加库目录
-export AttachDllDir := -L$(ProjectLib) -L$(ProjectBin) -L$(SolutionLib) -L$(SolutionBin)
+export AttachDllDir := -L$(ProjectLib) -L$(SolutionLib)
 #定义宏
 export DefMacro :=
 ifeq ($(ConfigurationName),debug)
