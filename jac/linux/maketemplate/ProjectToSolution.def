@@ -1,0 +1,35 @@
+#项目目录
+ProjectDir := $(shell pwd)
+#项目名称
+ProjectName := $(shell basename $(ProjectDir))
+
+#配置名称
+#ConfigurationName := release/debug
+ConfigurationName :=
+ifeq ($(findstring debug,$(MAKECMDGOALS)),debug)
+ConfigurationName := debug
+else
+ifeq ($(findstring release,$(MAKECMDGOALS)),release)
+ConfigurationName := release
+endif
+endif
+
+#确保在只有debug和release一个参数时，make能够正常执行
+SingleConfigurationCmd :=
+ifeq ($(MAKECMDGOALS),debug)
+SingleConfigurationCmd := make $(ProjectName) $(ConfigurationName) -r -C $(SolutionDir)
+else
+ifeq ($(MAKECMDGOALS),release)
+SingleConfigurationCmd := make $(ProjectName) $(ConfigurationName) -r -C $(SolutionDir)
+endif
+endif
+
+.PHONY : all release debug
+
+all:
+	make $(ProjectName) $(ConfigurationName) -r -C $(SolutionDir)
+%:
+	make $(ProjectName).$@ $(ConfigurationName) -r -C $(SolutionDir)
+release debug:
+	$(SingleConfigurationCmd)
+

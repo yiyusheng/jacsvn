@@ -21,7 +21,7 @@ boost
  1. ĞŞ¸ÄÅäÖÃÎÄ¼şboost_1_46_0/tools/build/v2/user-config.jam
     using gcc;
     using stlport : 5.2.1 : /home/jacteefan/CPP/STLport-5.2.1 : /home/jacteefan/CPP/STLport-5.2.1 ;   
- 2. ./bootstrap --prefix=/home/jacteefan/CPP/boost_1_46_0
+ 2. ./bootstrap.sh --prefix=/home/jacteefan/CPP/boost_1_46_0
  3.  ./bjam stdlib=stlport install
 
  

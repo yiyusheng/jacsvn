@@ -1,0 +1,6 @@
+
+#被排除的项目
+export ProjectExcludeList :=
+
+include include/makeinclude/SolutionVar.def
+
