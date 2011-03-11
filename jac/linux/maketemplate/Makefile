@@ -18,6 +18,7 @@ solution:
 makeinclude:
 	cp ProjectDepend.mak $(MakeInc)/ProjectDepend.mak;\
 	cp ProjectObject.mak $(MakeInc)/ProjectObject.mak;\
+	cp ProjectTarget.mak $(MakeInc)/ProjectTarget.mak;\
 	cp ProjectToSolution.def $(MakeInc)/ProjectToSolution.def;\
 	cp ProjectVar.def $(MakeInc)/ProjectVar.def;\
 	cp SolutionVar.def $(MakeInc)/SolutionVar.def
@@ -25,6 +26,7 @@ makeinclude:
 makeinclude.clean:
 	-rm -f $(MakeInc)/ProjectDepend.mak;\
 	rm -f $(MakeInc)/ProjectObject.mak;\
+	rm -f $(MakeInc)/ProjectTarget.mak;\
 	rm -f $(MakeInc)/ProjectToSolution.def;\
 	rm -f $(MakeInc)/ProjectVar.def;\
 	rm -f $(MakeInc)/SolutionVar.def

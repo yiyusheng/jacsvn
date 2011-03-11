@@ -43,11 +43,8 @@ endif
 #目标文件
 export TargetPath := $(OutDir)/$(TargetName)
 
-#make的文件搜寻目录
-#export VPATH := $(ProjectInc):$(SolutionInc)
-
 #附加包含目录
-export AttachInc := -I$(ProjectInc) -I$(SolutionInc)
+export AttachInc := -I$(ProjectInc) -I$(SolutionInc) -I$(IntDir)
 #附加库目录
 export AttachDllDir := -L$(ProjectLib) -L$(SolutionLib)
 #定义宏
@@ -65,6 +62,8 @@ export AttachDll :=
 export AttachLib :=
 #编译选项
 export CPPFLAGS := -O3
+#静态库生成选项
+export ARFLAGS := -rs
 
 #预编译头的输出文件
 export GCHFile := $(GCHHead).gch
@@ -84,5 +83,5 @@ export AllDepends := $(AllSources:$(ProjectDir)%.cpp=$(IntDir)%.d)
 export AllObjects := $(AllSources:$(ProjectDir)%.cpp=$(IntDir)%.o)
 
 #需要创建的文件夹
-Folders := $(SolutionBin) $(SolutionLib) $(SolutionTmp) $(ProjectTmp) $(IntDir) $(OutDir)
+ProjectFolders := $(SolutionBin) $(SolutionLib) $(SolutionTmp) $(ProjectTmp) $(IntDir) $(OutDir)
 

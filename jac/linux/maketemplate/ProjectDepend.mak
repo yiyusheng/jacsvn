@@ -16,11 +16,9 @@ export depends := $(sources:.cpp=.d)
 #需要创建的文件夹
 Folders := $(CurInt)
 
-Allobj := $(Allobj) $(objects:%=$(CurInt)/%)
+ObjectDepend := $(Folders) depend SubObjects $(SubDirs)
 
-TargetDepend := $(Folders) depend object $(SubDirs)
-
-all: $(TargetDepend)
+objects: $(ObjectDepend)
 	@echo Project:$(ProjectName) create depends success! Path:$(RefPath)
 
 $(Folders):
@@ -34,10 +32,10 @@ $(depends):%.d: %.cpp
 	echo "	$(CXX) -c $(CPPFLAGS) $< -o $(CurInt)/$*.o" >> $(CurInt)/$@;
 
 
-object:
+SubObjects:
 	$(Make) -f $(MakeInc)/ProjectObject.mak
 
 $(SubDirs):
 	$(Make) -f $(MakeInc)/ProjectDepend.mak -C $@
 
-.PHONY : all depend object $(SubDirs)
+.PHONY : objects depend SubObjects $(SubDirs)
