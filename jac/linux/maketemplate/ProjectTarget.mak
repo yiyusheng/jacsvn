@@ -3,7 +3,7 @@
 export TargetPath := $(OutDir)/$(TargetName)
 
 #make的文件搜寻目录
-export ProjectVPATH := $(subst $(space),:,$(patsubst -I%,%,$(AttachInc))):$(patsubst -L%,%,$(subst $(space),:,$(AttachDllDir))):$(OutDir):$(GCHDir)
+export ProjectVPATH := $(subst $(space),:,$(patsubst -I%,%,$(AttachInc))):$(patsubst -L%,%,$(subst $(space),:,$(AttachDllDir))):$(OutDir)
 VPATH := $(ProjectVPATH)
 
 #终级目标信赖项
@@ -14,7 +14,7 @@ all: $(TargetDepend)
 
 #编译依赖的项目
 $(ProjectDependList):
-	@$(Make) -r -C $(SolutionSrc)/$@
+	@$(Make) $(MGLAGS) -C $(SolutionSrc)/$@
 
 #创建需要的文件夹
 $(ProjectFolders):
