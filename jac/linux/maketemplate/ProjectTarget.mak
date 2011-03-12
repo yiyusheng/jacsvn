@@ -1,17 +1,20 @@
 
+#目标文件
+export TargetPath := $(OutDir)/$(TargetName)
+
 #make的文件搜寻目录
-export VPATH := $(subst $(space),:,$(patsubst -I%,%,$(AttachInc))):$(patsubst -L%,%,$(subst $(space),:,$(AttachDllDir))):$(IntDir):$(OutDir)
+export ProjectVPATH := $(subst $(space),:,$(patsubst -I%,%,$(AttachInc))):$(patsubst -L%,%,$(subst $(space),:,$(AttachDllDir))):$(OutDir):$(GCHDir)
+VPATH := $(ProjectVPATH)
 
 #终级目标信赖项
-TargetDepend := $(ProjectDependList) $(ProjectFolders) $(notdir $(GCH)) objects target
+TargetDepend := $(ProjectDependList) $(ProjectFolders) $(notdir $(GCH)) objects $(TargetName)
 
 #默认目标
-all $(ProjectName): $(TargetDepend)
-	@echo Project:$(ProjectName) success complete! Target:$@
+all: $(TargetDepend)
 
 #编译依赖的项目
 $(ProjectDependList):
-	$(Make) -r -C $(SolutionSrc)/$@
+	@$(Make) -r -C $(SolutionSrc)/$@
 
 #创建需要的文件夹
 $(ProjectFolders):
@@ -28,15 +31,15 @@ endif
 endif
 
 debug release: $(SingleConfigurationDepend)
-	@echo Project:$(ProjectName) success complete! Target:$@
 
 #生成预编译头
 $(GCHFile): $(GCHHead)
-	$(CXX) $(CPPFLAGS) $(ProjectInc)/$(GCHHead) -o $(IntDir)/$(GCHFile)
+	@echo Project:$(ProjectName) create GCHHead $(GCHFile)
+	$(CXX) $(CPPFLAGS) $(ProjectInc)/$(GCHHead) -o $(GCH)
 
 #生成所有obj文件
 objects:
-	$(Make) -f $(MakeInc)/ProjectDepend.mak
+	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectDepend.mak
 
 #根据配置类型选择终极目标的生成命令
 ifeq ($(ConfigurationType),lib)
@@ -44,12 +47,13 @@ CreateTargetCmd := $(AR) $(ARFLAGS) $(TargetPath) $(AllObjects) $(AttachLib)
 else
 CreateTargetCmd := $(CXX) $(CPPFLAGS) $(LDFLAGS) -o $(TargetPath) $(AllObjects) $(AttachLib)
 endif
-target:
+$(TargetName): $(AllObjects)
+	@echo Project:$(ProjectName) create target $(TargetName)
 	$(CreateTargetCmd)
 
-
-.PHONY : all $(ProjectName) clean debug release $(ProjectDependList) objects target
+.PHONY : all clean debug release $(ProjectDependList) objects
 
 clean :
+	@echo Project:$(ProjectName) clean
 	-rm -f $(AllObjects) $(AllDepends) $(TargetPath) $(GCH)
 

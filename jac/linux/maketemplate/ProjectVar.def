@@ -40,11 +40,16 @@ export LDFLAGS :=
 endif
 endif
 
-#目标文件
-export TargetPath := $(OutDir)/$(TargetName)
+#需要创建的文件夹
+ProjectFolders := $(SolutionBin) $(SolutionLib) $(SolutionTmp) $(ProjectTmp) $(IntDir) $(OutDir)
+
+#预编译头的输出文件
+export GCHFile := $(GCHHead).gch
+#预编译头的生成目录
+export GCHDir := $(ProjectTmp)/GCH/$(ConfigurationName)
 
 #附加包含目录
-export AttachInc := -I$(ProjectInc) -I$(SolutionInc) -I$(IntDir)
+export AttachInc := -I$(ProjectInc) -I$(SolutionInc) -I$(GCHDir)
 #附加库目录
 export AttachDllDir := -L$(ProjectLib) -L$(SolutionLib)
 #定义宏
@@ -63,14 +68,13 @@ export AttachLib :=
 #编译选项
 export CPPFLAGS := -O3
 #静态库生成选项
-export ARFLAGS := -rs
+export ARFLAGS := -r -s
 
-#预编译头的输出文件
-export GCHFile := $(GCHHead).gch
 ifdef GCHHead
 #预编译头的输出文件的路径
-GCH := $(IntDir)/$(GCHFile)
+GCH := $(GCHDir)/$(GCHFile)
 CPPFLAGS := $(CPPFLAGS) -Winvalid-pch
+ProjectFolders := $(ProjectFolders) $(ProjectTmp)/GCH $(GCHDir)
 else
 GCH :=
 endif
@@ -81,7 +85,4 @@ export AllSources := $(shell find $(ProjectDir) \( -name "*.cpp" \))
 export AllDepends := $(AllSources:$(ProjectDir)%.cpp=$(IntDir)%.d)
 #项目所有的二进制目标文件
 export AllObjects := $(AllSources:$(ProjectDir)%.cpp=$(IntDir)%.o)
-
-#需要创建的文件夹
-ProjectFolders := $(SolutionBin) $(SolutionLib) $(SolutionTmp) $(ProjectTmp) $(IntDir) $(OutDir)
 

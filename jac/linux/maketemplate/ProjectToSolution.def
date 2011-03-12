@@ -3,6 +3,10 @@ ProjectDir := $(shell pwd)
 #项目名称
 ProjectName := $(shell basename $(ProjectDir))
 
+#make工具
+Make := make
+MGLAGS := -s -r
+
 #配置名称
 #ConfigurationName := release/debug
 ConfigurationName :=
@@ -17,19 +21,19 @@ endif
 #确保在只有debug和release一个参数时，make能够正常执行
 SingleConfigurationCmd :=
 ifeq ($(MAKECMDGOALS),debug)
-SingleConfigurationCmd := make $(ProjectName) $(ConfigurationName) -r -C $(SolutionDir)
+SingleConfigurationCmd := @$(Make) $(ProjectName) $(ConfigurationName) $(MGLAGS) -C $(SolutionDir)
 else
 ifeq ($(MAKECMDGOALS),release)
-SingleConfigurationCmd := make $(ProjectName) $(ConfigurationName) -r -C $(SolutionDir)
+SingleConfigurationCmd := @$(Make) $(ProjectName) $(ConfigurationName) $(MGLAGS) -C $(SolutionDir)
 endif
 endif
 
 .PHONY : all release debug
 
 all:
-	make $(ProjectName) $(ConfigurationName) -r -C $(SolutionDir)
+	@$(Make) $(ProjectName) $(ConfigurationName) $(MGLAGS) -C $(SolutionDir)
 %:
-	make $(ProjectName).$@ $(ConfigurationName) -r -C $(SolutionDir)
+	@$(Make) $(ProjectName).$@ $(ConfigurationName) $(MGLAGS) -C $(SolutionDir)
 release debug:
 	$(SingleConfigurationCmd)
 
