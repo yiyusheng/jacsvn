@@ -5,7 +5,7 @@ export RefPath := $(subst $(ProjectDir),,$(CurDir))
 #当前中间目录
 export CurInt := $(IntDir)/$(RefPath)
 #当前目录下的所有子目录
-SubDirs := $(patsubst %/,%,$(shell ls -d */))
+SubDirs := $(shell ls -p | grep -o -P ".+(?=/)")
 
 #源文件
 export sources := $(wildcard *.cpp)
@@ -16,10 +16,11 @@ export depends := $(sources:.cpp=.d)
 #需要创建的文件夹
 Folders := $(CurInt)
 
+VPATH := $(ProjectVPATH):$(CurInt)
+
 ObjectDepend := $(Folders) depend SubObjects $(SubDirs)
 
 objects: $(ObjectDepend)
-	@echo Project:$(ProjectName) create depends success! Path:$(RefPath)
 
 $(Folders):
 	-mkdir $@
@@ -27,15 +28,17 @@ $(Folders):
 #根据.c文件自动生成依赖项.d文件
 depend: $(depends)
 $(depends):%.d: %.cpp
-	@set -e; rm -f $@; \
+	@echo Project:$(ProjectName) create depend $(RefPath)/$@; \
+	set -e; rm -f $@; \
 	$(CXX) -MM $(CPPFLAGS) $< >> $(CurInt)/$@; \
+	echo "	@echo Project:$(ProjectName) create object $(RefPath)/\$$@;" >> $(CurInt)/$@;
 	echo "	$(CXX) -c $(CPPFLAGS) $< -o $(CurInt)/$*.o" >> $(CurInt)/$@;
 
 
 SubObjects:
-	$(Make) -f $(MakeInc)/ProjectObject.mak
+	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectObject.mak
 
 $(SubDirs):
-	$(Make) -f $(MakeInc)/ProjectDepend.mak -C $@
+	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectDepend.mak -C $@
 
 .PHONY : objects depend SubObjects $(SubDirs)

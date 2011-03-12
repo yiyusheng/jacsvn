@@ -1,8 +1,7 @@
 
-VPATH := $(VPATH):$(CurInt)
+VPATH := $(ProjectVPATH):$(CurInt)
 
 object: $(objects)
-	@echo Project:$(ProjectName) create objects success! Path:$(RefPath)
 
 .PHONY : object
 

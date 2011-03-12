@@ -30,7 +30,8 @@ export SolutionSrc := $(SolutionDir)/src
 export SolutionTmp := $(SolutionDir)/tmp
 
 #项目列表
-export ProjectList := $(filter-out $(ProjectExcludeList),$(patsubst src/%/,%,$(shell ls -d src/*/)))
+export AllProjectList := $(shell ls src/ -p | grep -o -P ".+(?=/)")
+export ProjectList := $(filter-out $(ProjectExcludeList),$(AllProjectList))
 
 #常量空白、空格和跳格
 export empty:=
@@ -39,10 +40,11 @@ export tab:= $(empty)	$(empty)
 
 #make工具
 export Make := make
+export MGLAGS := -s -r
 
 #默认目标
 all: $(ProjectList)
-	@echo Solution:$(SolutionName) success complete! Target:all
+	@echo Solution:$(SolutionName) SUCCESS! Target:$@
 
 #确保在只有debug和release一个参数时，make能够正常执行
 SingleConfigurationDepend :=
@@ -55,7 +57,7 @@ endif
 endif
 
 debug release: $(SingleConfigurationDepend)
-	@echo Solution:$(SolutionName) success complete! Target:$@
+	@echo Solution:$(SolutionName) SUCCESS! Target:$@
 
 .PHONY: all debug release
 
@@ -75,28 +77,27 @@ ifdef GoalProject
 ifndef GoalTarget
 GoalTarget := $(GoalProject)
 else
-ifneq ($(GoalProject),$(findstring $(GoalProject),$(ProjectList)))
+ifneq ($(GoalProject),$(findstring $(GoalProject),$(AllProjectList)))
 $(error unknown project : $(GoalProject))
 endif
 endif
-GoalProject := $(findstring $(GoalProject),$(ProjectList))
+GoalProject := $(findstring $(GoalProject),$(AllProjectList))
+ifeq ($(GoalTarget),$(findstring $(GoalTarget),$(AllProjectList)))
+GoalTarget :=
+endif
 ifdef GoalProject
-$(foreach project,$(ProjectList),$(eval $(call ProjectCmd,$(project),@echo,$(project),nothing,to do)))
-$(eval $(call ProjectCmd,$(GoalProject),$(Make),$(GoalTarget),-r -C,$(SolutionSrc)/$(GoalProject)))
+$(foreach project,$(AllProjectList),$(eval $(call ProjectCmd,$(project),,,,)))
+$(eval $(call ProjectCmd,$(GoalProject),$(Make),$(GoalTarget),$(MGLAGS) -C,$(SolutionSrc)/$(GoalProject)))
 else
-$(foreach project,$(ProjectList),$(eval $(call ProjectCmd,$(project),$(Make),$(GoalTarget),-r -C,$(SolutionSrc)/$(project))))
+$(foreach project,$(AllProjectList),$(eval $(call ProjectCmd,$(project),$(Make),$(GoalTarget),$(MGLAGS) -C,$(SolutionSrc)/$(project))))
 endif
 else
-$(foreach project,$(ProjectList),$(eval $(call ProjectCmd,$(project),$(Make),$(project),-r -C,$(SolutionSrc)/$(project))))
+$(foreach project,$(AllProjectList),$(eval $(call ProjectCmd,$(project),$(Make),,$(MGLAGS) -C,$(SolutionSrc)/$(project))))
 endif
 #将所有规则传递给具体的项目,命名为(项目.规则)
 %: $(ProjectList)
-	@echo Solution:$(SolutionName) success complete! Target:$@
+	@echo Solution:$(SolutionName) SUCCESS! Target:$@
 
-$(ProjectList):
-	$($@MakeCmd) $($@Target) $($@Flag) $($@Dir)
-
-#将(项目.规则)传递给具体的项目
-#$(ProjectList:%=%.%):
-#	$(Make) $* -r -C $(SolutionSrc)/$(basename $@)
+$(AllProjectList):
+	@$($@MakeCmd) $($@Target) $($@Flag) $($@Dir)
 

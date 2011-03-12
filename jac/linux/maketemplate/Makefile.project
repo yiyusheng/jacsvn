@@ -12,6 +12,9 @@ export GCHHead := stdafx.h
 
 include $(MakeInc)/ProjectVar.def
 
+#目标名称
+#TargetName :=
+
 #附加包含目录(修改VPATH)
 #AttachInc := $(AttachInc) -ISomeInc
 
