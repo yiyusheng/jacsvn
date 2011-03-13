@@ -300,3 +300,24 @@ ip命令可以用于连续地监视设备、地址和路由的状态。这个命令选项的格式有点不同，命令
      ip monitor [ file FILE ] [ all | OBJECT-LIST ] 
       示例1:   # rtmon file /var/log/rtmon.log 
       示例2:   # ip monitor file /var/log/rtmon.log r
+
+	  Linux下如果ping一个域名，出现如下状况：
+#ping  www.taobao.com
+ping: unknown host www.taobao.com
+ 
+那是因为系统没有设置DNS的缘故。在此场景下，任何通过域名的操作都会有问题。
+ 
+ 
+[解决办法 ]
+1、查看DNS设置
+#cat /etc/resolv.conf
+如果能看到 nameserver xxx.xxx.xxx.xxx
+说明DNS已经设置，这时要考虑设置的DNS对否。
+ 
+2、设置DNS
+直接编辑 /etc/resolv.conf 即可
+ 
+添加正确的DNS 地址.
+ 
+如下：
+nameserver xxx.xxx.xxx.xxx
