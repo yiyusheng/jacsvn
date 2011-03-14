@@ -18,3 +18,133 @@ deb-src http://Ubuntu.uestc.edu.cn/ubuntu/ maverick-backports main restricted un
 deb-src http://Ubuntu.uestc.edu.cn/ubuntu/ maverick-proposed main restricted universe multiverse
 deb-src http://Ubuntu.uestc.edu.cn/ubuntu/ maverick-security main restricted universe multiverse
 deb-src http://Ubuntu.uestc.edu.cn/ubuntu/ maverick-updates main restricted universe multiverse
+
+
+##163的，电信教育网通用
+deb http://mirrors.163.com/ubuntu/ lucid main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ lucid-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ lucid-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ lucid-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ lucid-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ lucid main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ lucid-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ lucid-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ lucid-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ lucid-backports main restricted universe multiverse
+
+##中科大的源，教育网推荐
+deb http://debian.ustc.edu.cn/ubuntu/ lucid main restricted universe multiverse
+deb http://debian.ustc.edu.cn/ubuntu/ lucid-backports restricted universe multiverse
+deb http://debian.ustc.edu.cn/ubuntu/ lucid-proposed main restricted universe multiverse
+deb http://debian.ustc.edu.cn/ubuntu/ lucid-security main restricted universe multiverse
+deb http://debian.ustc.edu.cn/ubuntu/ lucid-updates main restricted universe multiverse
+deb-src http://debian.ustc.edu.cn/ubuntu/ lucid main restricted universe multiverse
+deb-src http://debian.ustc.edu.cn/ubuntu/ lucid-backports main restricted universe multiverse
+deb-src http://debian.ustc.edu.cn/ubuntu/ lucid-proposed main restricted universe multiverse
+deb-src http://debian.ustc.edu.cn/ubuntu/ lucid-security main restricted universe multiverse
+deb-src http://debian.ustc.edu.cn/ubuntu/ lucid-updates main restricted universe multiverse
+
+##清华大学ubuntu源，不过似乎总会丢失包，好久没试过了 300k/s
+
+##deb http://mirror9.net9.org/ubuntu/ gutsy main multiverse restricted universe
+##deb http://mirror9.net9.org/ubuntu/ gutsy-backports main multiverse restricted universe
+##deb http://mirror9.net9.org/ubuntu/ gutsy-proposed main multiverse restricted universe
+##deb http://mirror9.net9.org/ubuntu/ gutsy-security main multiverse restricted universe
+##deb http://mirror9.net9.org/ubuntu/ gutsy-updates main multiverse restricted universe
+##deb-src http://mirror9.net9.org/ubuntu/ gutsy main multiverse restricted universe
+##deb-src http://mirror9.net9.org/ubuntu/ gutsy-backports main multiverse restricted universe
+##deb-src http://mirror9.net9.org/ubuntu/ gutsy-proposed main multiverse restricted universe
+##deb-src http://mirror9.net9.org/ubuntu/ gutsy-security main multiverse restricted universe
+##deb-src http://mirror9.net9.org/ubuntu/ gutsy-updates main multiverse restricted universe
+
+deb ftp://ftp3.tsinghua.edu.cn/mirror/ubuntu/ubuntu/ feisty main restricted universe multiverse
+deb ftp://ftp3.tsinghua.edu.cn/mirror/ubuntu/ubuntu/ feisty-security main restricted universe multiverse
+deb ftp://ftp3.tsinghua.edu.cn/mirror/ubuntu/ubuntu/ feisty-updates main restricted universe multiver
+
+##上海交大的源
+deb http://ftp.sjtu.edu.cn/ubuntu/ lucid main multiverse restricted universe
+deb http://ftp.sjtu.edu.cn/ubuntu/ lucid-backports main multiverse restricted universe
+deb http://ftp.sjtu.edu.cn/ubuntu/ lucid-proposed main multiverse restricted universe
+deb http://ftp.sjtu.edu.cn/ubuntu/ lucid-security main multiverse restricted universe
+deb http://ftp.sjtu.edu.cn/ubuntu/ lucid-updates main multiverse restricted universe
+deb http://ftp.sjtu.edu.cn/ubuntu-cn/ lucid main multiverse restricted universe
+deb-src http://ftp.sjtu.edu.cn/ubuntu/ lucid main multiverse restricted universe
+deb-src http://ftp.sjtu.edu.cn/ubuntu/ lucid-backports main multiverse restricted universe
+deb-src http://ftp.sjtu.edu.cn/ubuntu/ lucid-proposed main multiverse restricted universe
+deb-src http://ftp.sjtu.edu.cn/ubuntu/ lucid-security main multiverse restricted universe
+deb-src http://ftp.sjtu.edu.cn/ubuntu/ lucid-updates main multiverse restricted universe
+
+##北京交大的源，教育网
+
+deb http://mirror.bjtu.edu.cn/ubuntu/ lucid main multiverse restricted universe
+deb http://mirror.bjtu.edu.cn/ubuntu/ lucid-backports main multiverse restricted universe
+deb http://mirror.bjtu.edu.cn/ubuntu/ lucid-proposed main multiverse restricted universe
+deb http://mirror.bjtu.edu.cn/ubuntu/ lucid-security main multiverse restricted universe
+deb http://mirror.bjtu.edu.cn/ubuntu/ lucid-updates main multiverse restricted universe
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ lucid main multiverse restricted universe
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ lucid-backports main multiverse restricted universe
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ lucid-proposed main multiverse restricted universe
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ lucid-security main multiverse restricted universe
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ lucid-updates main multiverse restricted universe
+
+##成都电子科大的源，教育网推荐
+deb http://ubuntu.uestc.edu.cn/ubuntu/ lucid main restricted universe multiverse
+deb http://ubuntu.uestc.edu.cn/ubuntu/ lucid-backports main restricted universe multiverse
+deb http://ubuntu.uestc.edu.cn/ubuntu/ lucid-proposed main restricted universe multiverse
+deb http://ubuntu.uestc.edu.cn/ubuntu/ lucid-security main restricted universe multiverse
+deb http://ubuntu.uestc.edu.cn/ubuntu/ lucid-updates main restricted universe multiverse
+deb-src http://ubuntu.uestc.edu.cn/ubuntu/ lucid main restricted universe multiverse
+deb-src http://ubuntu.uestc.edu.cn/ubuntu/ lucid-backports main restricted universe multiverse
+deb-src http://ubuntu.uestc.edu.cn/ubuntu/ lucid-proposed main restricted universe multiverse
+deb-src http://ubuntu.uestc.edu.cn/ubuntu/ lucid-security main restricted universe multiverse
+deb-src http://ubuntu.uestc.edu.cn/ubuntu/ lucid-updates main restricted universe multiverse
+
+##兰州大学的源，教育网
+##deb ftp://mirror.lzu.edu.cn/ubuntu/ lucid main multiverse restricted universe
+##deb ftp://mirror.lzu.edu.cn/ubuntu/ lucid-backports main multiverse restricted universe
+##deb ftp://mirror.lzu.edu.cn/ubuntu/ lucid-proposed main multiverse restricted universe
+##deb ftp://mirror.lzu.edu.cn/ubuntu/ lucid-security main multiverse restricted universe
+##deb ftp://mirror.lzu.edu.cn/ubuntu/ lucid-updates main multiverse restricted universe
+##deb ftp://mirror.lzu.edu.cn/ubuntu-cn/ lucid main multiverse restricted universe
+
+##厦门大学更新服务器（教育网服务器）：
+
+##deb ftp://ubuntu.realss.cn/ubuntu/ gutsy main restricted universe multiverse
+##deb ftp://ubuntu.realss.cn/ubuntu/ gutsy-backports restricted universe multiverse
+##deb ftp://ubuntu.realss.cn/ubuntu/ gutsy-proposed main restricted universe multiverse
+##deb ftp://ubuntu.realss.cn/ubuntu/ gutsy-security main restricted universe multiverse
+##deb ftp://ubuntu.realss.cn/ubuntu/ gutsy-updates main restricted universe multiverse
+##deb-src ftp://ubuntu.realss.cn/ubuntu/ gutsy main restricted universe multiverse
+##deb-src ftp://ubuntu.realss.cn/ubuntu/ gutsy-backports main restricted universe multiverse
+##deb-src ftp://ubuntu.realss.cn/ubuntu/ gutsy-proposed main restricted universe multiverse
+##deb-src ftp://ubuntu.realss.cn/ubuntu/ gutsy-security main restricted universe multiverse
+##deb-src ftp://ubuntu.realss.cn/ubuntu/ gutsy-updates main restricted universe multiverse
+
+##中国台湾 台湾大学更新服务器（推荐网通用户使用，电信PING平均响应速度41MS。强烈推荐此源，比较完整，较少出现同步问题）：
+
+##deb http://ubuntu.csie.ntu.edu.tw/ubuntu/ gutsy main restricted universe multiverse
+##deb-src http://ubuntu.csie.ntu.edu.tw/ubuntu/ gutsy main restricted universe multiverse
+##deb http://ubuntu.csie.ntu.edu.tw/ubuntu/ gutsy-updates main restricted universe multiverse
+##deb-src http://ubuntu.csie.ntu.edu.tw/ubuntu/ gutsy-updates main restricted universe multiverse
+##deb http://ubuntu.csie.ntu.edu.tw/ubuntu/ gutsy-backports main restricted universe multiverse
+##deb-src http://ubuntu.csie.ntu.edu.tw/ubuntu/ gutsy-backports main restricted universe multiverse
+##deb http://ubuntu.csie.ntu.edu.tw/ubuntu/ gutsy-security main restricted universe multiverse
+##deb-src http://ubuntu.csie.ntu.edu.tw/ubuntu/ gutsy-security main restricted universe multiverse
+##deb http://ubuntu.csie.ntu.edu.tw/ubuntu/ gutsy-proposed main multiverse restricted universe
+##deb-src http://ubuntu.csie.ntu.edu.tw/ubuntu/ gutsy-proposed main restricted universe multiverse
+
+
+##搜狐的源
+
+##deb http://mirrors.sohu.com/ubuntu/ lucid main restricted
+##deb-src http://mirrors.sohu.com/ubuntu/ lucid main restricted
+##deb http://mirrors.sohu.com/ubuntu/ lucid-updates main restricted
+##deb-src http://mirrors.sohu.com/ubuntu/ lucid-updates main restricted
+##deb http://mirrors.sohu.com/ubuntu/ lucid universe
+##deb-src http://mirrors.sohu.com/ubuntu/ lucid universe
+##deb http://mirrors.sohu.com/ubuntu/ lucid-updates universe
+##deb-src http://mirrors.sohu.com/ubuntu/ lucid-updates universe
+##deb http://mirrors.sohu.com/ubuntu/ lucid multiverse
+##deb-src http://mirrors.sohu.com/ubuntu/ lucid multiverse
+##deb http://mirrors.sohu.com/ubuntu/ lucid-updates multiverse
+##deb-src http://mirrors.sohu.com/ubuntu/ lucid-updates multiverse[/code]
