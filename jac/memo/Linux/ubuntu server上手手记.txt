@@ -114,6 +114,19 @@ sudo nano /etc/environment
 LC_CTYPE="zh_CN.UTF-8"
 LANG="en_US.UTF-8"
 
+用vim配置语言环境变量
+
+vim /etc/environment
+
+在下面添加如下两行
+
+LANG=”zh_CN.UTF-8″ LANGUAGE=”zh_CN:zh:en_US:en”
+
+如果你想用英文环境了，改成这两行就OK 
+LANG=”en_US.UTF-8″ LANGUAGE=”en_US:en”
+
+
+
 （11）、安装中文字体
 
 sudo apt-get install xfonts-wqy
