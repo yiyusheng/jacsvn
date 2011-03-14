@@ -1,8 +1,8 @@
 sudo apt-get install xorg （显卡驱动）
 sudo apt-get install hal pmount alsa-base （硬件抽象层、自动挂载u盘、alsa声卡）
 
-安装x－windows的基础 
-sudo apt-get install x-window-system-core 
+#安装x－windows的基础 
+#sudo apt-get install x-window-system-core 
 
 安装登录管理器 还可以为kdm/xdm 
 sudo apt-get install gdm 
