@@ -1,0 +1,304 @@
+ubuntu server上手手记web开发 2010-07-26 21:01:42 阅读123 评论0   字号：大中小 订阅 
+
+使用ubuntu server的原因，手提本配置太差了，ubuntu桌面版环境下安装好LAMP后机子就慢的如蜗牛了。
+下面配置步骤：来源于网络：http://blog.tongxiong.com/archives/76 感谢前辈们！
+我仅仅是记录下，以防忘却了。
+（1）首先是 安装
+       配置成LAMP SERVER
+      推荐是也配置成openssh server，可以在gui环境下，远程ssh登录操作
+
+（2）、网络配置
+
+            
+
+《1》Ubuntu Server 修改 IP
+
+打开 /etc/network/interfaces
+
+sudo vim /etc/network/interfaces
+
+加入以下语句：
+
+auto eth0
+iface eth0 inet static 
+address xxx.xxx.xxx.xxx #IP地址 
+netmask xxx.xxx.xxx.xxx #子网掩码 
+gateway xxx.xxx.xxx.xxx #网关 
+
+《2》Ubuntu Server 修改 DNS
+
+打开 /etc/resolv.conf
+
+sudo vim /etc/resolv.conf
+
+改为如下内容：
+
+search localdomain #如果本Server为DNS服务器，可以加上这一句，如果不是，可以不加
+nameserver 172.16.3.4 #希望修改成的DNS 
+nameserver 172.16.3.3 #希望修改成的DNS 
+
+《3》 Ubuntu Server 最后一步，也是最重要的一步
+
+在rc.local里加入这个重启网络配置的命令：
+
+sudo /etc/init.d/networking restart 
+
+版权所有，转载请注明出处： 梧桐叶 de 记事本 
+（3）、修改软件源
+
+sudo vim /etc/apt/sources.list
+在这里文本里面，就是Ubuntu的软件源。默认的软件源可能不适合自己使用（服务器离自己太远，网速达不到。），在网上搜索，可以找到速度比较快的软件源。下面是头兄亲自搭建并维护的软件源（未测试）。
+
+deb http://ubuntu.srt.cn/ubuntu/ lucid main restricted universe multiverse
+deb-src http://ubuntu.srt.cn/ubuntu/ lucid main restricted universe multiverse
+deb http://ubuntu.srt.cn/ubuntu/ lucid-updates main restricted universe multiverse
+deb-src http://ubuntu.srt.cn/ubuntu/ lucid-updates main restricted universe multiverse
+deb http://ubuntu.srt.cn/ubuntu/ lucid-security main restricted universe multiverse
+deb-src http://ubuntu.srt.cn/ubuntu/ lucid-security main restricted universe multiverse
+deb http://ubuntu.srt.cn/ubuntu/ lucid-proposed main restricted universe multiverse
+deb-src http://ubuntu.srt.cn/ubuntu/ lucid-proposed main restricted universe multiverse
+deb http://ubuntu.srt.cn/ubuntu/ lucid-backports main restricted universe multiverse
+deb-src http://ubuntu.srt.cn/ubuntu/ lucid-backports main restricted universe multiverse
+
+（PS：在这里有一个小技巧，如果是在Ubuntu Server上用命令行一个字符一个字符敲入的话，会很累的。还记得我们在安装的时候，选择了OpenSSH嘛，使用SSH服务，可以在远程登录操作）。
+
+（4）、更新locale（伪测试，=ing）
+因为在安装的时候，选择的是HongKong，所以在这里，我们还需要更新一下locale。
+首先打开locale文件，将里面的内容全部给成：en_US.UTF-8
+sudo nano /etc/default/locale
+
+LANG="en_US.UTF-8"
+LANGUAGE="en_US:en"
+
+
+
+
+然后再运行以下命令：
+sudo locale-gen en_US.UTF-8 #将系统本地化更新成en_US.UTF-8
+sudo su #使用root权限
+dpkg-reconfigure locales #更新配置，这步很重要，不能忽略
+exit #退出root权限
+logout #退出登陆，重新登陆后，就OK了
+
+（5）、更新系统
+
+sudo apt-get update #更新软件列表
+sudo apt-get upgrade #更新系统软件
+sudo apt-get dist-upgrade #更新系统升级版本
+sudo apt-get autoclean # 清理旧版本的软件缓存
+sudo apt-get clean # 清理所有软件缓存
+sudo apt-get autoremove # 删除系统不再使用的孤立软件
+sudo apt-get -f install # 修复安装
+
+（6）、安装 Xorg、Fluxbox、Synaptic
+
+sudo apt-get install xorg fluxbox synaptic
+
+（7）、安装英文和中文语言包
+
+sudo aptitude install language-pack-en language-pack-en-base language-pack-zh language-pack-zh-base language-selector language-selector-common
+
+（8）、在英文界面输入中文
+
+sudo fontconfig-voodoo -f zh_CN
+
+（9）、安装fcitx中文输入
+
+sudo apt-get install fcitx
+im-switch -s fcitx
+
+（10）、设定中文输入，系统环境
+
+sudo nano /etc/environment
+在后面加上两句
+LC_CTYPE="zh_CN.UTF-8"
+LANG="en_US.UTF-8"
+
+（11）、安装中文字体
+
+sudo apt-get install xfonts-wqy
+
+（12）、设定系统启用中文字体
+
+sudo nano /etc/fonts/language-selector.conf
+将下面的内容填入这个文件
+
+
+
+01 <fontconfig> 
+
+02     <alias> 
+
+03                 <family>serif</family> 
+
+04                 <prefer> 
+
+05                         <family>Bitstream Vera Serif</family> 
+
+06                         <family>DejaVu Serif</family> 
+
+07                         <family>AR PL ShanHeiSun Uni</family> 
+
+08                         <family>WenQuanYi Bitmap Song</family> 
+
+09                         <family>AR PL ZenKai Uni</family> 
+
+10                 </prefer> 
+
+11         </alias> 
+
+12         <alias> 
+
+13                 <family>sans-serif</family> 
+
+14                 <prefer> 
+
+15                         <family>Bitstream Vera Sans</family> 
+
+16                         <family>DejaVu Sans</family> 
+
+17                         <family>AR PL ShanHeiSun Uni</family> 
+
+18                         <family>WenQuanYi Bitmap Song</family> 
+
+19                         <family>AR PL ZenKai Uni</family> 
+
+20                 </prefer> 
+
+21         </alias> 
+
+22         <alias> 
+
+23                 <family>monospace</family> 
+
+24                 <prefer> 
+
+25                         <family>Bitstream Vera Sans Mono</family> 
+
+26                         <family>DejaVu Sans Mono</family> 
+
+27                         <family>AR PL ShanHeiSun Uni</family> 
+
+28                         <family>WenQuanYi Bitmap Song</family> 
+
+29                         <family>AR PL ZenKai Uni</family> 
+
+30                 </prefer> 
+
+31         </alias> 
+
+32         <match target="font" > 
+
+33                 <test name="family" compare="contains" > 
+
+34                         <string>Song</string> 
+
+35                         <string>Sun</string> 
+
+36                         <string>Kai</string> 
+
+37                         <string>Ming</string> 
+
+38                 </test> 
+
+39                 <!-- check to see if the font is just regular --> 
+
+40                 <test name="weight" compare="less_eq"> 
+
+41                         <int>100</int> 
+
+42         </test> 
+
+43                 <test compare="more_eq" target="pattern" name="weight" > 
+
+44                         <int>180</int> 
+
+45                 </test> 
+
+46                 <edit mode="assign" name="embolden" > 
+
+47                         <bool>true</bool> 
+
+48                 </edit> 
+
+49     </match> 
+
+50         <match target="font" > 
+
+51                 <test name="family" compare="contains" > 
+
+52                         <string>Song</string> 
+
+53                         <string>Sun</string> 
+
+54                         <string>Kai</string> 
+
+55                         <string>Ming</string> 
+
+56                 </test> 
+
+57                 <edit name="globaladvance"> 
+
+58                         <bool>false</bool> 
+
+59                 </edit> 
+
+60                 <edit name="spacing"> 
+
+61                         <int>0</int> 
+
+62                 </edit> 
+
+63                 <edit name="hinting"> 
+
+64                         <bool>true</bool> 
+
+65                 </edit> 
+
+66                 <edit name="autohint"> 
+
+67                         <bool>false</bool> 
+
+68                 </edit> 
+
+69                 <edit name="antialias" mode="assign"> 
+
+70                         <bool>true</bool> 
+
+71                 </edit> 
+
+72                 <test name="pixelsize" compare="less_eq"> 
+
+73                         <int>18</int> 
+
+74                 </test> 
+
+75                 <edit name="antialias" mode="assign" > 
+
+76                         <bool>false</bool> 
+
+77                 </edit> 
+
+78         </match> 
+
+79 </fontconfig> 
+
+（13）、确认系统拥有zh_CN.UTF8
+
+sudo dpkg-reconfigure locales
+
+（14）、安装FireFox
+
+sudo apt-get install firefox
+
+（15）、重启电脑
+
+sudo reboot #sudo poweroff是关闭电脑
+
+（16）、Login 后享受Ubuntu + Fluxbox的惊人速度
+
+startx
+
+（17）、安装xfe文件管理器
+
+sudo apt-get install xfe

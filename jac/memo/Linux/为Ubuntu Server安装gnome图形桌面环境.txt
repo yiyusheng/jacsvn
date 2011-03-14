@@ -1,0 +1,19 @@
+sudo apt-get install xorg （显卡驱动）
+sudo apt-get install hal pmount alsa-base （硬件抽象层、自动挂载u盘、alsa声卡）
+
+安装x－windows的基础 
+sudo apt-get install x-window-system-core 
+
+安装登录管理器 还可以为kdm/xdm 
+sudo apt-get install gdm 
+
+安装Ubuntu的桌面 还可以为Kubunut-desktop/ Xubuntu-desktop 
+sudo apt-get install ubuntu-desktop
+
+注：安装桌面环境或窗口管理器：sudo apt-get install ubuntu-desktop/kubuntu-desktop/xubuntu-desktop。这将分别安装 GNOME、KDE、XFCE 桌面环境。对于 GNOME、KDE、XFCE 这些桌面环境来说，为了获得更强的定制效果，也可仅安装最基本的组件，如：sudo apt-get install gnome-core/kde-core/xfce4。当然，如果不需要桌面环境，也可选择安装窗口管理器代替。那样的话，可以执行指令 sudo apt-get install fluxbox/icewm/enlightenment/fvwm。
+
+安装GNOME的一些基础 
+sudo apt-get install gnome-core
+
+另外： 
+安装软件：sudo apt-get install firefox/gaim/xmms。这将安装 Firefox 浏览器、Gaim 聊天程序、XMMS 音乐播放器。按自己的喜好来安装。 
