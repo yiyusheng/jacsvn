@@ -1,0 +1,79 @@
+When installed on a virtual machine that is running a supported Linux operating system, Linux Integration Services for Hyper-V provides the following functionality:
+
+Driver support for synthetic devices: Linux Integration Services supports the synthetic network controller and the synthetic storage controller that were developed specifically for Hyper-V.
+Fastpath Boot Support for Hyper-V: Boot devices now take advantage of the block Virtualization Service Client (VSC) to provide enhanced performance.
+Timesync: The clock inside the virtual machine will remain synchronized with the clock on the host.
+Integrated Shutdown: Virtual machines running Linux can be shut down from either Hyper-V Manager or System Center Virtual Machine Manager, using the "Shut Down" command.
+Symmetric Multi-Processing (SMP) Support: Supported Linux distributions can use up to 4 virtual processors (VP) per virtual machine.
+
+1. Download Linux Integration Components v2.1
+a. Download Linux Integration Components v2.1 from Microsoft Download site.
+
+b. Extract the .exe file into a temp folder. You will need only LinuxIC v21.iso file.
+
+c. Place the LinuxIC v21.iso file into your VM host server where you can mount the ISO as a CDROM for your Centon Virtual Machine.
+
+ 
+
+2. Installation
+You will need Development Tools installed to be able to compile the Integration Components. You could do that by running yum:
+
+yum groupinstall "Development Tools"
+
+NOTE: This command will try to use your network connection to download and if you used Synthetic Network Adapter for your Hyper-V machine you will not have internet connection. So make sure to install Development Tools during your Centos initial installation.
+
+Now make sure you added LinuxIC v21.iso file to your Hyper-V CDROM as Image.
+
+As the root user, mount the CD in the virtual machine by issuing the following commands at a shell prompt:
+
+mkdir /mnt/cdrom
+mount /dev/cdrom /mnt/cdrom
+
+Copy Linux Integration Services to the virtual machine and unmount CDROM that no longer needed:
+
+mkdir /opt/linux_ic_v21_rtm
+cp ¨CR /mnt/cdrom/* /opt/linux_ic_v21_rtm
+umount /mnt/cdrom
+
+As the root user, run the following command to compile and install the synthetic drivers:
+
+cd /opt/linux_ic_v21_rtm/
+make
+make install
+
+NOTE: If you're using the x64 version of Centos, you have perform an extra step.
+
+Attach the Centos ISO that was used for installation in the virtual machine, and mount it:
+
+mkdir /mnt/cdrom
+mount /dev/cdrom /mnt/cdrom
+
+Install the adjtimex RPM for more accurate time keeping in the virtual machine:
+
+rpm ¨Civh /mnt/cdrom/Centos/adjtimex-1.20-2.1.x86_64.rpm
+
+To verify that all subcomponents are running,, as the root user, issue the following command at a shell prompt:
+
+/sbin/lsmod | grep vsc
+
+Please remmeber when using Network Adapters on Hyper-V, NIC names would be changed from eth0 to seth0.
+
+ 
+
+Uninstalling Linux Integration Services
+To uninstall Linux Integration Services, follow these steps.
+
+1. From the Linux virtual machine, browse to the location where the installation files were copied (for example, /opt/linux).
+
+2. From the command line, run the following command: make uninstall
+
+3. Open /boot/grub/menu.lst or /boot/grub/grub.conf and remove the noprobe entries from the boot entries.
+
+4. Restore the initrd image to the original file. For example:
+
+To configure the Synthetic Storage Controller:
+
+cp /boot/initrd-2.6.16.60-0.54.5-smp.backup0 /boot/initrd-2.6.16.60-0.54.5-smp
+
+5. Reboot the virtual machine.
+
