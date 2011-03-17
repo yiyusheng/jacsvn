@@ -1,0 +1,71 @@
+The latest release of OpenSuse 11.2 ships with the new 190 drivers from nVidia, which are not compatible with Xen. Well that may be but here is how to get it working with the 185 drivers. The main problem is you get a modpost GPL infringment, which prevents the kernel module being linked, but you can get around it:
+
+FATAL: modpost: GPL-incompatible module nvidia.ko uses GPL-only symbol 'xen_features'
+
+Here are the steps:
+
+1) Download NVIDIA-Linux-x86_64-185.18.36-pkg2.run from nvidia
+2) execute
+
+
+chmod +x NVIDIA-Linux-x86_64-185.18.36-pkg2.run
+./NVIDIA-Linux-x86_64-185.18.36-pkg2.run --extract-only
+cd NVIDIA-Linux-x86_64-185.18.36-pkg2/usr/src/nv
+
+3) edit Makefile.kbuild, and after
+
+EXTRA_CFLAGS += -Wall -Wimplicit -Wreturn-type -Wswitch -Wformat -Wchar-subscripts -Wparentheses -Wpointer-arith -Wno-multichar -Werror -mcmodel=kernel -mno-red-zone -fno-defer-pop -MD $(DEFINES) $(INCLUDES) -Wsign-compare -Wno-cast-qual -Wno-error
+
+
+Insert:
+
+
+XEN_FEATURES := $(shell grep "D xen_features" /boot/System.map-$(shell uname -r) | colrm 17)
+EXTRA_LDFLAGS := --defsym xen_features=0x$(XEN_FEATURES)
+
+
+Note: the colrm 17 is applicable to 64bit only. For 32bit, use colrm 9.
+
+4) The usual:
+
+
+export IGNORE_XEN_PRESENCE=1
+export SYSSRC=/lib/modules/$(uname -r)/source
+export SYSOUT=/lib/modules/$(uname -r)/build
+make module
+
+
+Then copy nvidia.ko to /lib/modules/2.6.31.5-0.1-xen/updates/
+and ../../X11R6/lib/modules/drivers/nvidia_drv.so to /usr/lib64/xorg/modules/updates/drivers/
+
+(adjust these for your install).
+
+6) Either modprobe nvidia or reboot and startx
+
+
+让nVidia正常工作
+1.su -c 'vim /etc/X11/xorg.conf.d/50-device.conf'
+Section "Device"
+  Identifier "Default Device"
+   
+  #Driver "radeon"
+  Driver "nv"
+ 
+  ## Required magic for radeon/radeonhd drivers; output name
+  ## (here: "DVI-0") can be figured out via 'xrandr -q'
+  #Option "monitor-DVI-0" "Default Monitor"
+   
+EndSection
+
+2.su -c 'Xorg -configure'
+3.su -c 'mv /root/xorg.conf.new /etc/X11/xorg.conf'
+
+Disable Kernel Mode Setting (KMS)
+
+openSUSE 11.3 uses KMS by default, which is not supported by the proprietary Nvidia driver, therefore you have to disable it.
+
+Add nomodeset to the boot options in /boot/grub/menu.lst
+
+Also remove it from the initrd. Edit /etc/sysconfig/kernel and set NO-KMS-IN-INITRD = yes . Then run:
+
+# mkinitrd
