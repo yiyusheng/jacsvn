@@ -1,0 +1,63 @@
+[base]
+name=CentOS-5 - Base
+repo=os
+baseurl=http://centos.ustc.edu.cn/centos/5.5/os/$basearch/
+http://ftp.sjtu.edu.cn/centos/5.5/os/$basearch/
+http://mirror.lib.tsinghua.edu.cn/centos/5.5/os/$basearch/
+http://mirror.tini4u.net/centos/5.5/os/$basearch/
+http://ftp.daum.net/centos/5.5/os/$basearch/
+http://mirror.secuidc.com/centos/5.5/os/$basearch/
+gpgcheck=1
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
+[update]
+name=CentOS-5 - Updates
+baseurl=http://centos.ustc.edu.cn/centos/5.5/updates/$basearch/
+http://ftp.sjtu.edu.cn/centos/5.5/updates/$basearch/
+http://mirror.lib.tsinghua.edu.cn/centos/5.5/updates/$basearch/
+http://ftp.daum.net/centos/5.5/updates/$basearch/
+http://mirror.secuidc.com/centos/5.5/updates/$basearch/
+http://mirror.tini4u.net/centos/5.5/updates/$basearch/
+gpgcheck=1
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
+[addons]
+name=CentOS-5 - Addons
+baseurl=http://centos.ustc.edu.cn/centos/5.5/addons/$basearch/
+http://ftp.sjtu.edu.cn/centos/5.5/addons/$basearch/
+http://mirror.lib.tsinghua.edu.cn/centos/5.5/addons/$basearch/
+http://ftp.daum.net/centos/5.5/addons/$basearch/
+http://mirror.secuidc.com/centos/5.5/addons/$basearch/
+http://mirror.tini4u.net/centos/5.5/addons/$basearch/
+gpgcheck=1
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
+[extras]
+name=CentOS-5 - Extras
+baseurl=http://centos.ustc.edu.cn/centos/5.5/extras/$basearch/
+http://ftp.sjtu.edu.cn/centos/5.5/extras/$basearch/
+http://mirror.lib.tsinghua.edu.cn/centos/5.5/extras/$basearch/
+http://ftp.daum.net/centos/5.5/extras/$basearch/
+http://mirror.secuidc.com/centos/5.5/extras/$basearch/
+http://mirror.tini4u.net/centos/5.5/extras/$basearch/
+gpgcheck=1
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
+[centosplus]
+name=CentOS-5 - Plus
+baseurl=http://centos.ustc.edu.cn/centos/5.5/centosplus/$basearch/
+http://ftp.sjtu.edu.cn/centos/5.5/centosplus/$basearch/
+http://mirror.lib.tsinghua.edu.cn/centos/5.5/centosplus/$basearch/
+http://ftp.daum.net/centos/5.5/centosplus/$basearch/
+http://mirror.secuidc.com/centos/5.5/centosplus/$basearch/
+http://mirror.tini4u.net/centos/5.5/centosplus/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
+[contrib]
+name=CentOS-5 - Contrib
+baseurl=http://centos.ustc.edu.cn/centos/5.5/contrib/$basearch/
+http://ftp.sjtu.edu.cn/centos/5.5/contrib/$basearch/
+http://mirror.lib.tsinghua.edu.cn/centos/5.5/contrib/$basearch/
+http://ftp.daum.net/centos/5.5/contrib/$basearch/
+http://mirror.secuidc.com/centos/5.5/contrib/$basearch/
+http://mirror.tini4u.net/centos/5.5/contrib/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
