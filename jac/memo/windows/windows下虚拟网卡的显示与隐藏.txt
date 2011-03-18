@@ -1,0 +1,4 @@
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002bE10318}
+然后在右侧窗格双击“Characteristics”打开“编辑DWORD值”对话框，选择“十六进制”，
+81表示不隐藏，89表示隐藏
+里面有个oem1的文件，就是windows\inf\oem1，保存的配置信息
