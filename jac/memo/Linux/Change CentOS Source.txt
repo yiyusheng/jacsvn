@@ -1,7 +1,7 @@
 1.±¸·Ý/etc/yum.repos.d/CentOS-Base.repo
 2.ÐÞ¸Ä
-3.
-rpm --import http://ftp.sjtu.edu.cn/centos/5.5/os/i386/RPM-GPG-KEY-CentOS-5
-rpm --import http://mirror.lib.tsinghua.edu.cn/centos/5.5/os/i386/RPM-GPG-KEY-CentOS-5
-rpm --import http://centos.ustc.edu.cn/centos/5.5/os/i386/RPM-GPG-KEY-CentOS-5
+#3.
+#rpm --import http://ftp.sjtu.edu.cn/centos/5.5/os/i386/RPM-GPG-KEY-CentOS-5
+#rpm --import http://mirror.lib.tsinghua.edu.cn/centos/5.5/os/i386/RPM-GPG-KEY-CentOS-5
+#rpm --import http://centos.ustc.edu.cn/centos/5.5/os/i386/RPM-GPG-KEY-CentOS-5
 4.yum -y update
