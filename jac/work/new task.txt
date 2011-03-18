@@ -1,0 +1,14 @@
+ 蒋洪磊  15:12:44
+ http://www.dimeadozen.org
+蒋洪磊  15:12:53
+ http://scrapy.org/download/
+ 
+ 针对P2P的管控方面的研究都要调研。自己也要多考虑这里面临着那些问题。然后针对流媒体提出具体的管控策略，通过NS2仿真，验证仿真策略有效性。
+http://opss.sourceforge.net/
+ OPSS: an overlay peer-to-peer streaming simulator for large-scale networks
+ 
+ .R. Geambasu, T. Kohno, A. Levy, and H. Levy. Vanish: Increasing data privacy with self-destructing data. In Proc. of the USENIX Security Symposium, August 2009.
+ Roxana Geambasu, Amit A. Levy, Tadayoshi Kohno, Arvind Krishnamurthy, and Henry M. Levy,Comet: An Active Distributed Key-Value Store, In Proc. of  OSDI, 2010.
+ R. Geambasu, T. Kohno, A. Krishnamurthy, A. Levy, H. M. Levy,P. Gardner, and V. Mascaritolo. Cascade: A compositional approach ,to self-destructing data. In Preparation, 2010.
+C. Lesniewski-Lass and M. F. Kaashoek. Whanaungatanga:Sybil-proof distributed hash table. In Proc. of NSDI, 2010.
+G. Urdaneta, G. Pierre, and M. V. Steen. A Survey of DHT Security Techniques (to appear). ACM Computing Survey, 201
