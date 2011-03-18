@@ -1,0 +1,33 @@
+这样方法基本可以达到目标，但是也存在不能识别所有网卡类型。
+还有一种更简单，而且可以100%识别的方法，就是通过“Characteristics”这个值来确定网卡的类型是虚拟网卡还是物理网卡。
+
+Characteristics 值在注册表
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002bE10318}\数字下。
+
+在windows中，Characteristics 的取值如下，Characteristics项可以有1个或多个如下的值(多值应计算总和)：
+
+十六进制值 名字 描述
+
+ox1 NCF_VIRTUAL 说明组件是个虚拟适配器
+ox2 NCF_SOFTWARE_ENUMERATED 说明组件是一个软件模拟的适配器
+ox4 NCF_PHYSICAL 说明组件是一个物理适配器
+ox8 NCF_HIDDEN 说明组件不显示用户接口
+ox10 NCF_NO_SERVICE 说明组件没有相关的服务(设 
+备驱动程序)
+ox20 NCF_NOT_USER_REMOVABLE 说明不能被用户删除(例如， 
+通过控制面板或设备管理器)
+ox40 NCF_MULTIPORT_INSTANCED_ADAPTER 说明组件有多个端口，每个端
+口作为单独的设备安装。每个
+端口有自己的hw_id(组件ID)
+并可被单独安装，这只适合于
+EISA适配器
+ox80 NCF_HAS_UI 说明组件支持用户接口(例如，
+Advanced Page或Customer 
+Properties Sheet)
+ox400 NCF_FILTER 说明组件是一个过滤器
+
+从上面可以看出来，只要用户判断“Characteristics ”的值就可以判断网卡是虚拟网卡还是物理网卡。
+
+如果是虚拟网卡：Characteristics & NCF_VIRTUAL ==NCF_VIRTUAL 
+
+如果是物理网卡：Characteristics & NCF_PHYSICAL ==NCF_PHYSICAL
