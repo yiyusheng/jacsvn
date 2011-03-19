@@ -16,7 +16,6 @@ solution:
 	cp Makefile.solution $(SolutionDir)/Makefile
 
 makeinclude:
-	cp ProjectDepend.mak $(MakeInc)/ProjectDepend.mak;\
 	cp ProjectObject.mak $(MakeInc)/ProjectObject.mak;\
 	cp ProjectTarget.mak $(MakeInc)/ProjectTarget.mak;\
 	cp ProjectToSolution.def $(MakeInc)/ProjectToSolution.def;\
@@ -24,8 +23,7 @@ makeinclude:
 	cp SolutionVar.def $(MakeInc)/SolutionVar.def
 
 makeinclude.clean:
-	-rm -f $(MakeInc)/ProjectDepend.mak;\
-	rm -f $(MakeInc)/ProjectObject.mak;\
+	-rm -f $(MakeInc)/ProjectObject.mak;\
 	rm -f $(MakeInc)/ProjectTarget.mak;\
 	rm -f $(MakeInc)/ProjectToSolution.def;\
 	rm -f $(MakeInc)/ProjectVar.def;\
