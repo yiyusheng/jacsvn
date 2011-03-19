@@ -3,7 +3,7 @@
 export TargetPath := $(OutDir)/$(TargetName)
 
 #make的文件搜寻目录
-export ProjectVPATH := $(subst $(space),:,$(patsubst -I%,%,$(AttachInc))):$(patsubst -L%,%,$(subst $(space),:,$(AttachDllDir))):$(OutDir)
+export ProjectVPATH := $(OutDir):$(patsubst -L%,%,$(subst $(space),:,$(AttachDllDir))):$(subst $(space),:,$(patsubst -I%,%,$(AttachInc)))
 VPATH := $(ProjectVPATH)
 
 #终级目标信赖项
@@ -39,7 +39,7 @@ $(GCHFile): $(GCHHead)
 
 #生成所有obj文件
 objects:
-	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectDepend.mak
+	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectObject.mak
 
 #根据配置类型选择终极目标的生成命令
 ifeq ($(ConfigurationType),lib)
@@ -47,7 +47,7 @@ CreateTargetCmd := $(AR) $(ARFLAGS) $(TargetPath) $(AllObjects) $(AttachLib)
 else
 CreateTargetCmd := $(CXX) $(CPPFLAGS) $(LDFLAGS) -o $(TargetPath) $(AllObjects) $(AttachLib)
 endif
-$(TargetName): $(AllObjects)
+$(TargetName): $(AllObjects) $(AttachLib)
 	@echo Project:$(ProjectName) create target $(TargetName)
 	$(CreateTargetCmd)
 

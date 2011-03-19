@@ -49,7 +49,7 @@ export GCHFile := $(GCHHead).gch
 export GCHDir := $(ProjectTmp)/GCH/$(ConfigurationName)
 
 #附加包含目录
-export AttachInc := -I$(ProjectInc) -I$(SolutionInc) -I$(GCHDir)
+export AttachInc := -I$(GCHDir) -I$(ProjectInc) -I$(SolutionInc)
 #附加库目录
 export AttachDllDir := -L$(ProjectLib) -L$(SolutionLib)
 #定义宏
