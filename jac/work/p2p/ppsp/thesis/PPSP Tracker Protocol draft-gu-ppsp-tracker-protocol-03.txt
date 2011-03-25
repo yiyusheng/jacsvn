@@ -4,15 +4,15 @@
 PPSP                                                               Y. Gu
 Internet-Draft                                                    Huawei
 Intended status: Standards Track                          David A. Bryan
-Expires: April 28, 2011                       Cogent Force, LLC / Huawei
+Expires: September 15, 2011                            Cogent Force, LLC
                                                                 Y. Zhang
                                                                  H. Liao
                                                             China Mobile
-                                                        October 25, 2010
+                                                          March 11, 2011
 
 
-                            Tracker Protocol
-                   draft-gu-ppsp-tracker-protocol-02
+                         PPSP Tracker Protocol
+                   draft-gu-ppsp-tracker-protocol-03
 
 Abstract
 
@@ -44,17 +44,17 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 28, 2011.
+   This Internet-Draft will expire on September 15, 2011.
 
 Copyright Notice
 
-   Copyright (c) 2010 IETF Trust and the persons identified as the
+   Copyright (c) 2011 IETF Trust and the persons identified as the
 
 
 
-Gu, et al.               Expires April 28, 2011                 [Page 1]
+Gu, et al.             Expires September 15, 2011               [Page 1]
 
-Internet-Draft              Tracker Protocol                October 2010
+Internet-Draft            PPSP Tracker Protocol               March 2011
 
 
    document authors.  All rights reserved.
@@ -70,159 +70,103 @@ Internet-Draft              Tracker Protocol                October 2010
    described in the Simplified BSD License.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gu, et al.             Expires September 15, 2011               [Page 2]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
 Table of Contents
 
-   1.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  5
-   2.  Document Conventions . . . . . . . . . . . . . . . . . . . . .  6
-     2.1.  Notational Conventions . . . . . . . . . . . . . . . . . .  6
-     2.2.  Terminology  . . . . . . . . . . . . . . . . . . . . . . .  6
-   3.  Document History . . . . . . . . . . . . . . . . . . . . . . .  6
-   4.  Protocol Overview  . . . . . . . . . . . . . . . . . . . . . .  7
-     4.1.  Functional Entities  . . . . . . . . . . . . . . . . . . .  7
-     4.2.  Assumptions  . . . . . . . . . . . . . . . . . . . . . . .  9
-       4.2.1.  Bootstrapping  . . . . . . . . . . . . . . . . . . . .  9
-       4.2.2.  NAT Traversal  . . . . . . . . . . . . . . . . . . . . 10
-     4.3.  Description of the PPSP Tracker Protocol . . . . . . . . . 10
-       4.3.1.  PPSP Tracker Protocol Methods  . . . . . . . . . . . . 10
-     4.4.  Responses  . . . . . . . . . . . . . . . . . . . . . . . . 14
-       4.4.1.  Response Bodies  . . . . . . . . . . . . . . . . . . . 15
-   5.  Message Syntax and Processing  . . . . . . . . . . . . . . . . 15
-     5.1.  HTTP/XML Encoding  . . . . . . . . . . . . . . . . . . . . 16
-       5.1.1.  Use of HTTP  . . . . . . . . . . . . . . . . . . . . . 16
-       5.1.2.  HTTP Encoding  . . . . . . . . . . . . . . . . . . . . 16
-         5.1.2.1.  Method Field Encoding  . . . . . . . . . . . . . . 17
-       5.1.3.  Common Message Processing  . . . . . . . . . . . . . . 19
-       5.1.4.  CONNECT Messages . . . . . . . . . . . . . . . . . . . 19
-         5.1.4.1.  Forming and Sending a CONNECT Message  . . . . . . 20
-         5.1.4.2.  Recieving and Processing a CONNECT Message . . . . 20
-       5.1.5.  DISCONNECT Messages  . . . . . . . . . . . . . . . . . 20
-         5.1.5.1.  Forming and Sending a DISCONNECT Message . . . . . 20
-         5.1.5.2.  Recieving and Processing a DISCONNECT Message  . . 21
-       5.1.6.  JOIN and JOIN_CHUNK Messages . . . . . . . . . . . . . 21
-         5.1.6.1.  Forming and Sending a JOIN Message . . . . . . . . 21
-         5.1.6.2.  Forming and Sending a JOIN_CHUNK Message . . . . . 22
-         5.1.6.3.  Recieving and Processing a JOIN or JOIN_CHUNK
-                   Message  . . . . . . . . . . . . . . . . . . . . . 23
-       5.1.7.  LEAVE Messages . . . . . . . . . . . . . . . . . . . . 23
-         5.1.7.1.  Forming and Sending a LEAVE Message  . . . . . . . 23
+   1.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  4
+   2.  Terminology  . . . . . . . . . . . . . . . . . . . . . . . . .  5
+   3.  Document History . . . . . . . . . . . . . . . . . . . . . . .  5
+   4.  Protocol Overview  . . . . . . . . . . . . . . . . . . . . . .  6
+     4.1.  Function Entities  . . . . . . . . . . . . . . . . . . . .  6
+     4.2.  Assumptions  . . . . . . . . . . . . . . . . . . . . . . .  8
+       4.2.1.  Bootstrapping  . . . . . . . . . . . . . . . . . . . .  8
+       4.2.2.  NAT Traversal  . . . . . . . . . . . . . . . . . . . .  9
+     4.3.  Description of the PPSP Tracker Protocol . . . . . . . . .  9
+     4.4.  Responses  . . . . . . . . . . . . . . . . . . . . . . . . 12
+   5.  Message Syntax and Processing  . . . . . . . . . . . . . . . . 14
+     5.1.  HTTP/XML Encoding  . . . . . . . . . . . . . . . . . . . . 14
+       5.1.1.  HTTP Encoding  . . . . . . . . . . . . . . . . . . . . 15
+       5.1.2.  Common Message Processing  . . . . . . . . . . . . . . 17
+       5.1.3.  CONNECT Messages . . . . . . . . . . . . . . . . . . . 18
+       5.1.4.  DISCONNECT Messages  . . . . . . . . . . . . . . . . . 19
+       5.1.5.  JOIN and JOIN_CHUNK Messages . . . . . . . . . . . . . 19
+       5.1.6.  LEAVE Messages . . . . . . . . . . . . . . . . . . . . 22
+       5.1.7.  FIND Messages  . . . . . . . . . . . . . . . . . . . . 23
+       5.1.8.  KEEPALIVE Messages . . . . . . . . . . . . . . . . . . 24
+       5.1.9.  STAT Messages  . . . . . . . . . . . . . . . . . . . . 25
+   6.  Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . 28
+   7.  Revision History . . . . . . . . . . . . . . . . . . . . . . . 28
+     7.1.  Changes since -02  . . . . . . . . . . . . . . . . . . . . 28
+   8.  Open Issues and TODO . . . . . . . . . . . . . . . . . . . . . 28
+   9.  Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+     9.1.  Binary Encoding  . . . . . . . . . . . . . . . . . . . . . 29
+       9.1.1.  Common Message Header  . . . . . . . . . . . . . . . . 30
+       9.1.2.  Timeout and Retransmission . . . . . . . . . . . . . . 32
+       9.1.3.  Fragmentation  . . . . . . . . . . . . . . . . . . . . 32
+       9.1.4.  Common Message Processing  . . . . . . . . . . . . . . 33
+       9.1.5.  CONNECT Messages . . . . . . . . . . . . . . . . . . . 34
+       9.1.6.  DISCONNECT Messages  . . . . . . . . . . . . . . . . . 35
+       9.1.7.  JOIN and JOIN_CHUNK Messages . . . . . . . . . . . . . 35
+       9.1.8.  LEAVE Messages . . . . . . . . . . . . . . . . . . . . 38
+       9.1.9.  FIND Messages  . . . . . . . . . . . . . . . . . . . . 38
+       9.1.10. KEEPALIVE Messages . . . . . . . . . . . . . . . . . . 40
+       9.1.11. STAT Messages  . . . . . . . . . . . . . . . . . . . . 41
+   10. References . . . . . . . . . . . . . . . . . . . . . . . . . . 43
+     10.1. Normative References . . . . . . . . . . . . . . . . . . . 43
+     10.2. Informative References . . . . . . . . . . . . . . . . . . 43
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 44
 
 
 
-Gu, et al.               Expires April 28, 2011                 [Page 2]
+
+
+
+
+Gu, et al.             Expires September 15, 2011               [Page 3]
 
-Internet-Draft              Tracker Protocol                October 2010
-
-
-         5.1.7.2.  Recieving and Processing a LEAVE Message . . . . . 24
-       5.1.8.  FIND Messages  . . . . . . . . . . . . . . . . . . . . 24
-         5.1.8.1.  Forming and Sending a FIND Message . . . . . . . . 24
-         5.1.8.2.  Recieving and Processing a FIND Message  . . . . . 25
-       5.1.9.  KEEPALIVE Messages . . . . . . . . . . . . . . . . . . 26
-         5.1.9.1.  Forming and Sending a KEEPALIVE Message  . . . . . 26
-         5.1.9.2.  Recieving and Processing a KEEPALIVE Message . . . 26
-       5.1.10. STAT Messages  . . . . . . . . . . . . . . . . . . . . 27
-         5.1.10.1. Property Types for STAT Messages . . . . . . . . . 27
-         5.1.10.2. Forming and Sending a STAT_REPORT Message  . . . . 27
-         5.1.10.3. Recieving and Processing a STAT_REPORT Message . . 28
-         5.1.10.4. Forming and Sending a STAT_QUERY Message . . . . . 28
-         5.1.10.5. Recieving and Processing a STAT_QUERY Message  . . 29
-     5.2.  Binary Encoding  . . . . . . . . . . . . . . . . . . . . . 29
-       5.2.1.  Common Message Header  . . . . . . . . . . . . . . . . 30
-         5.2.1.1.  Method Field Encoding  . . . . . . . . . . . . . . 31
-       5.2.2.  Timeout and Retransmission . . . . . . . . . . . . . . 32
-       5.2.3.  Fragmentation  . . . . . . . . . . . . . . . . . . . . 32
-       5.2.4.  Common Message Processing  . . . . . . . . . . . . . . 33
-       5.2.5.  CONNECT Messages . . . . . . . . . . . . . . . . . . . 34
-         5.2.5.1.  Forming and Sending a CONNECT Message  . . . . . . 34
-         5.2.5.2.  Recieving and Processing a CONNECT Message . . . . 35
-       5.2.6.  DISCONNECT Messages  . . . . . . . . . . . . . . . . . 35
-         5.2.6.1.  Forming and Sending a DISCONNECT Message . . . . . 35
-         5.2.6.2.  Recieving and Processing a DISCONNECT Message  . . 36
-       5.2.7.  JOIN and JOIN_CHUNK Messages . . . . . . . . . . . . . 36
-         5.2.7.1.  Forming and Sending a JOIN Message . . . . . . . . 36
-         5.2.7.2.  Forming and Sending a JOIN_CHUNK Message . . . . . 37
-         5.2.7.3.  Recieving and Processing a JOIN or JOIN_CHUNK
-                   Message  . . . . . . . . . . . . . . . . . . . . . 38
-       5.2.8.  LEAVE Messages . . . . . . . . . . . . . . . . . . . . 39
-         5.2.8.1.  Forming and Sending a LEAVE Message  . . . . . . . 39
-         5.2.8.2.  Recieving and Processing a LEAVE Message . . . . . 40
-       5.2.9.  FIND Messages  . . . . . . . . . . . . . . . . . . . . 40
-         5.2.9.1.  Forming and Sending a FIND Message . . . . . . . . 40
-         5.2.9.2.  Recieving and Processing a FIND Message  . . . . . 41
-       5.2.10. KEEPALIVE Messages . . . . . . . . . . . . . . . . . . 42
-         5.2.10.1. Forming and Sending a KEEPALIVE Message  . . . . . 42
-         5.2.10.2. Recieving and Processing a KEEPALIVE Message . . . 43
-       5.2.11. STAT Messages  . . . . . . . . . . . . . . . . . . . . 43
-         5.2.11.1. Property Types for STAT Messages . . . . . . . . . 43
-         5.2.11.2. Forming and Sending a STAT_REPORT Message  . . . . 44
-         5.2.11.3. Recieving and Processing a STAT_REPORT Message . . 45
-         5.2.11.4. Forming and Sending a STAT_QUERY Message . . . . . 45
-         5.2.11.5. Recieving and Processing a STAT_QUERY Message  . . 46
-   6.  Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . 46
-   7.  Revision History . . . . . . . . . . . . . . . . . . . . . . . 47
-     7.1.  Changes since -00  . . . . . . . . . . . . . . . . . . . . 47
-
-
-
-Gu, et al.               Expires April 28, 2011                 [Page 3]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
-   8.  Open Issues and TODO . . . . . . . . . . . . . . . . . . . . . 47
-   9.  References . . . . . . . . . . . . . . . . . . . . . . . . . . 48
-     9.1.  Normative References . . . . . . . . . . . . . . . . . . . 48
-     9.2.  Informative References . . . . . . . . . . . . . . . . . . 48
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 49
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gu, et al.               Expires April 28, 2011                 [Page 4]
-
-Internet-Draft              Tracker Protocol                October 2010
+Internet-Draft            PPSP Tracker Protocol               March 2011
 
 
 1.  Introduction
@@ -231,33 +175,31 @@ Internet-Draft              Tracker Protocol                October 2010
    PPSP Tracker Protocol and the PPSP Peer Protocol.  The PPSP Tracker
    Protocol provides communication between Trackers and Peers, by which
    Peers report streaming status to the tracker and request candidate
-   lists from the tracker.  [TODO: Link to PPSP Problem Statement,
-   currently expired] specifies that the Tracker protocol should
-   standardize format/encoding of information and messages between PPSP
-   peers and PPSP trackers.  [I-D.ietf-ppsp-reqs] defines the detailed
-   requirements for Tracker Protocol.
+   lists from the tracker.  [I-D.ietf-ppsp-problem-statement]specifies
+   that the Tracker protocol should standardize format/encoding of
+   information and messages between PPSP peers and PPSP trackers.
+   [I-D.ietf-ppsp-reqs] defines the detailed requirements for Tracker
+   Protocol.
 
    This draft presents a proposal for the PPSP Tracker Protocol.  We
    first analyze and present the functional entities involved in Tracker
    protocol.  Following this, a list of functions are introduced.
-   [TODO: Link to to PPSP Problem Statement, currently expired] and
-   [I-D.ietf-ppsp-reqs] describe a basic set of functions and high-level
-   requirements, however, this draft introduces more detailed and
-   specific ones.  The signaling/control path corresponding to the
-   functions is defined as well.
+   [I-D.ietf-ppsp-problem-statement]and [I-D.ietf-ppsp-reqs]describe a
+   basic set of functions and high-level requirements, however, this
+   draft introduces more detailed and specific ones.  The signaling/
+   control path corresponding to the functions is defined as well.
 
    The main part of the draft is an abstract description of the
    operations required for a PPSP tracker protocol, as well as
    definitions for formal syntax, semantics, and detailed message
-   processing instructions for the PPSP Peer Protocol, using two
-   encodings -- a binary encoding and an HTTP/XML encoding.  This
-   include parameters, methods, and message formats.  Most implemented
-   P2P protocols are proprietary, as introduced in [I-D.gu-ppsp-survey]
-   This draft intends to extract the fundamental features,
-   functionalities and policies of the proprietary protocols, extend it
-   based on implementation experience, and present an early strawman
-   sketch for an extensible protocol as a way to identify open issues
-   and further discussion in the PPSP WG.
+   processing instructions for the PPSP Peer Protocol, using an HTTP/XML
+   encoding.  This include parameters, methods, and message formats.
+   Most implemented P2P protocols are proprietary, as introduced in
+   [I-D.ietf-ppsp-survey].  This draft intends to extract the
+   fundamental features, functionalities and policies of the proprietary
+   protocols, extend it based on implementation experience, and present
+   an early strawman sketch for an extensible protocol as a way to
+   identify open issues and further discussion in the PPSP WG.
 
    At present, this draft attempts to allow for both a BitTorrent style
    offline and real-time streaming protocol, but may currently be biased
@@ -269,30 +211,27 @@ Internet-Draft              Tracker Protocol                October 2010
    which chunks each peer stores.  All these issues are for open
    discussion.
 
-   Please read the open issues in Section 8 PRIOR to reading this draft,
-   as it identifies a number of very critical open issues (and explains
-   some of the numerous holes currently in this draft.)
+   Please read the open issues in for more open issues that need
+   decision from the WG. (Section 8)
 
 
 
 
-Gu, et al.               Expires April 28, 2011                 [Page 5]
+
+
+
+Gu, et al.             Expires September 15, 2011               [Page 4]
 
-Internet-Draft              Tracker Protocol                October 2010
+Internet-Draft            PPSP Tracker Protocol               March 2011
 
 
-2.  Document Conventions
-
-2.1.  Notational Conventions
+2.  Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119].
 
-2.2.  Terminology
-
-   The draft uses the terms defined in [TODO: Link to PPSP Problem
-   Statement, currently expired]
+   The draft uses the terms defined in[I-D.ietf-ppsp-problem-statement]
 
    Additionally, this draft also uses the following terms:
 
@@ -319,31 +258,32 @@ Internet-Draft              Tracker Protocol                October 2010
 
 3.  Document History
 
+   Changes from -02 to -03: The document has been updated to reflect
+   that both Peer-IDs and IP addresses will be returned, rather than
+   only Peer-IDs.  Binary encoding is moved to Appendix B.
+
    Changes from -01 to -02: The document has been updated to reflect
-   that Peer-IDs will be returned, rather than the open issue of Peer-
-   IDs or IP addresses.  This is compatible with the proposal for a peer
-   protocol in [I-D.gu-ppsp-peer-protocol] that uses RELOAD for a
-   mechanism for organizing peers and establishing connections.  As
-   RELOAD has solved the location and NAT traversal, this seems an
-   appropriate design decision and reuse.
+   that Peer-IDs will be returned, rather than the open issue on Peer-
+   IDs or IP addresses.
 
    Changes from -00 to -01: The operations of the protocol and their
    names were changed to help clarify the functions and to eliminate
-
-
-
-Gu, et al.               Expires April 28, 2011                 [Page 6]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
    confusion.  Substantial modifications were made to the proposed
    protocol.
 
 
+
+
+
+
+Gu, et al.             Expires September 15, 2011               [Page 5]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
 4.  Protocol Overview
 
-4.1.  Functional Entities
+4.1.  Function Entities
 
    There are two primary functional entities involved in the PPSP
    Tracker Protocol: Trackers and Peers.
@@ -388,9 +328,13 @@ Internet-Draft              Tracker Protocol                October 2010
 
 
 
-Gu, et al.               Expires April 28, 2011                 [Page 7]
+
+
+
+
+Gu, et al.             Expires September 15, 2011               [Page 6]
 
-Internet-Draft              Tracker Protocol                October 2010
+Internet-Draft            PPSP Tracker Protocol               March 2011
 
 
       Peer
@@ -444,9 +388,9 @@ Internet-Draft              Tracker Protocol                October 2010
 
 
 
-Gu, et al.               Expires April 28, 2011                 [Page 8]
+Gu, et al.             Expires September 15, 2011               [Page 7]
 
-Internet-Draft              Tracker Protocol                October 2010
+Internet-Draft            PPSP Tracker Protocol               March 2011
 
 
         Peer
@@ -500,9 +444,9 @@ Internet-Draft              Tracker Protocol                October 2010
 
 
 
-Gu, et al.               Expires April 28, 2011                 [Page 9]
+Gu, et al.             Expires September 15, 2011               [Page 8]
 
-Internet-Draft              Tracker Protocol                October 2010
+Internet-Draft            PPSP Tracker Protocol               March 2011
 
 
 4.2.2.  NAT Traversal
@@ -519,6 +463,9 @@ Internet-Draft              Tracker Protocol                October 2010
    required, to reach trackers.  Details of how this would be
    acomplished are well understood, and will be included in a future
    draft.
+
+   Though this draft will not describe NAT Traversal mechanism in PPSP
+   in detail, it tries to enable flexible NAT Traversal in future.
 
 4.3.  Description of the PPSP Tracker Protocol
 
@@ -539,195 +486,167 @@ Internet-Draft              Tracker Protocol                October 2010
 
    The specific operations of the protocol are:
 
-4.3.1.  PPSP Tracker Protocol Methods
-
-         CONNECT: Connect is the first method a peer performs.  There is
-         no relationship between peer and tracker before the CONNECT
-         operation completes.  Trackers will never serve a peer that has
-         not connected.  When a peer connects, the tracker records the
-         peer's information, e.g. peer-ID, Connect-time, peer property,
-         peer link status, etc.  After connecting, the peer may send
-         additional requests to the tracker to publish content
-         availability, or obtain lists of peers with specific content
-         from the tracker.  A peer will first obtain a peer-ID and any
-         required security certificates from an offline enrollment
-         server prior to performing a CONNECT operation.
+      CONNECT: Connect is the first method a peer performs.  There is no
+      relationship between peer and tracker before the CONNECT operation
+      completes.  Trackers will never serve a peer that has not
+      connected.  When a peer connects, the tracker records the peer's
+      information, e.g. peer-ID, Connect-time, peer property, peer link
+      status, etc.  After connecting, the peer may send additional
+      requests to the tracker to publish content availability, or obtain
+      lists of peers with specific content from the tracker.  A peer
+      will first obtain a peer-ID and any required security certificates
+      from an offline enrollment server prior to performing a CONNECT
+      operation.
 
 
 
-
-Gu, et al.               Expires April 28, 2011                [Page 10]
+Gu, et al.             Expires September 15, 2011               [Page 9]
 
-Internet-Draft              Tracker Protocol                October 2010
+Internet-Draft            PPSP Tracker Protocol               March 2011
 
 
-               OPEN ISSUE: Should we enable CONNECT to return a Peer-ID/
-               certificates for those cases where the ID is not obtained
-               out of band and we wish to have the tracker serve as the
-               enrollment server?
+         OPEN ISSUE: Should we enable CONNECT to return a Peer-ID/
+         certificates for those cases where the ID is not obtained out
+         of band and we wish to have the tracker serve as the enrollment
+         server?
 
-               The CONNECT message should support passing a certificate
-               that asserts the ownership of the ID, if an ID has
-               already been issued.  Until the group reaches consensus
-               on a mechanism for the certificates, this has not yet
-               been included in the encodings.
+         The CONNECT message should support passing a certificate that
+         asserts the ownership of the ID, if an ID has already been
+         issued.  Until the group reaches consensus on a mechanism for
+         the certificates, this has not yet been included in the
+         encodings.
 
-               The CONNECT message may need to contain information about
-               support for caching (and later messages must be able to
-               pass this information) The peer needs some way to
-               indicate that the peer supports local caching and can
-               provide uploading for other peers.  (Open Question: Do we
-               more detail about caching?  What is cached?  How does
-               this work?  Question of reachability for peers providing
-               cache support to other peers.)
+         The CONNECT message may need to contain information about
+         support for caching (and later messages must be able to pass
+         this information) The peer needs some way to indicate that the
+         peer supports local caching and can provide uploading for other
+         peers.  (Open Question: Do we more detail about caching?  What
+         is cached?  How does this work?  Question of reachability for
+         peers providing cache support to other peers.)
 
-         DISCONNECT: When peer intends to leave the system and no longer
-         will be participating, it sends a DISCONNECT message to the
-         tracker.  The tracker deletes the corresponding records related
-         to the peer, including those in peer status and content status.
-         After disconnecting, a peer can no longer make requests to the
-         tracker, except to connect again, and information about the
-         peer will not be provided to other peers.
+      DISCONNECT: When peer intends to leave the system and no longer
+      will be participating, it sends a DISCONNECT message to the
+      tracker.  The tracker deletes the corresponding records related to
+      the peer, including those in peer status and content status.
+      After disconnecting, a peer can no longer make requests to the
+      tracker, except to connect again, and information about the peer
+      will not be provided to other peers.
 
-         JOIN and JOIN_CHUNK: Peers use JOIN to notify a tracker they
-         wish to participate in a particular swarm, but do not indicate
-         particular chunks they possess.  This may be used if the peer
-         intends to use the peer protocol to convey the chunks, or
-         because this is a live-streaming scenario.  JOIN_CHUNK performs
-         the same function, but with specific chunks listed, specifying
-         which chunks of which swarms it presently stores.  The tracker
-         records the content availability, i.e. adds the peer to the
-         candidate peers list for the notified chunk IDs of a particular
-         swarm.
+      JOIN and JOIN_CHUNK: Peers use JOIN to notify a tracker they wish
+      to participate in a particular swarm, but do not indicate
+      particular chunks they possess.  This may be used if the peer
+      intends to use the peer protocol to convey the chunks, or because
+      this is a live-streaming scenario.  JOIN_CHUNK performs the same
+      function, but with specific chunks listed, specifying which chunks
+      of which swarms it presently stores.  The tracker records the
+      content availability, i.e. adds the peer to the candidate peers
+      list for the notified chunk IDs of a particular swarm.
 
-         LEAVE: Peers use the LEAVE operation to indicate to the tracker
-         that they no longer are participating in (either sharing or
-         requesting) a particular swarm.  The tracker will no longer
-         provide this peer to others when they request to join a swarm.
-         Note that this does NOT notify all peers that are currently
-         connected to the peer -- this is an operation for the peer
-         protocol.  Additionally, note that a DISCONNECT implicitly
-         leaves all swarms the peer is currently participating in --
-         there is no need for a peer that sends a DISCONNECT to send a
-
+      LEAVE: Peers use the LEAVE operation to indicate to the tracker
+      that they no longer are participating in (either sharing or
+      requesting) a particular swarm.  The tracker will no longer
+      provide this peer to others when they request to join a swarm.
+      Note that this does NOT notify all peers that are currently
+      connected to the peer -- this is an operation for the peer
+      protocol.  Additionally, note that a DISCONNECT implicitly leaves
+      all swarms the peer is currently participating in -- there is no
+      need for a peer that sends a DISCONNECT to send a separate LEAVE
+      to the tracker for each swarm in which they are participating.
 
 
-Gu, et al.               Expires April 28, 2011                [Page 11]
+
+
+Gu, et al.             Expires September 15, 2011              [Page 10]
 
-Internet-Draft              Tracker Protocol                October 2010
+Internet-Draft            PPSP Tracker Protocol               March 2011
 
 
-         separate LEAVE to the tracker for each swarm in which they are
-         participating.
+      FIND: Peers use the FIND method to request that the tracker return
+      lists of peers that can provide specific content or are in a
+      particular swarm.  On receiving a FIND message, the tracker finds
+      the candidate peers listed in content status, and returns the list
+      to the requesting peer.  The tracker may take peer status and
+      peers priority into consideration when it picks the candidate
+      peers to add to this list.  Peer priority could be determined by
+      network topology preference (for example the ongoing IETF work in
+      ALTO), operator policy preference, etc.  In Live streaming, when
+      receiving a FIND messages, the tracker also updates content status
+      to involve the new peer under a specific channel.  The FIND
+      operation may specify a particular location within a stream and/or
+      chunks that the peer is interested in.
 
-         FIND: Peers use the FIND method to request that the tracker
-         return lists of peers that can provide specific content or are
-         in a particular swarm.  On receiving a FIND message, the
-         tracker finds the candidate peers listed in content status, and
-         returns the list to the requesting peer.  The tracker may take
-         peer status and peers priority into consideration when it picks
-         the candidate peers to add to this list.  Peer priority could
-         be determined by network topology preference (for example the
-         ongoing IETF work in ALTO), operator policy preference, etc.
-         In Live streaming, when receiving a FIND messages, the tracker
-         also updates content status to involve the new peer under a
-         specific channel.  The FIND operation may specify a particular
-         location within a stream and/or chunks that the peer is
-         interested in.
+         OPEN ISSUE: Should we have a FIND_CHUNK for this operation, for
+         symmetry with the JOIN operations?
 
-               OPEN ISSUE: Should we have a FIND_CHUNK for this
-               operation, for symmetry with the JOIN operations?
+         Tracker can return candidate peer list in a single response
+         message, or split the candidate peers into several peer list.
+         Here is the consideration.  PPSP can provide provider-friendly
+         traffic direction.  E.g., there are 100 peers that have the
+         requested chunks, how should Tracker choose them?  One option
+         is to choose peers upon their capability, the other is to find
+         out from ALTO server which peers are more cost effective.  But
+         P2P application is much complicate, some existing protocols
+         that only try top N peers of the returned peerlist, while some
+         others randomly choose some peers from peerlist.  So ALTO may
+         not helpful in this case.  In this case, if Tracker can reply
+         in a series of responses containing decreasing priority peer
+         lists, PPSP can guarantee that Peers obey Trackers' choice and
+         make no changes to existing Peers.
 
-               Tracker can return candidate peer list in a single
-               response message, or split the candidate peers into
-               several peer list.  Here is the consideration.  PPSP can
-               provide provider-friendly traffic direction.  E.g., there
-               are 100 peers that have the requested chunks, how should
-               Tracker choose them?  One option is to choose peers upon
-               their capability, the other is to find out from ALTO
-               server which peers are more cost effective.  But P2P
-               application is much complicate, some existing protocols
-               that only try top N peers of the returned peerlist, while
-               some others randomly choose some peers from peerlist.  So
-               ALTO may not helpful in this case.  In this case, if
-               Tracker can reply in a series of responses containing
-               decreasing priority peer lists, PPSP can guarantee that
-               Peers obey Trackers' choice and make no changes to
-               existing Peers.
+         While the tracker protocol tries to make as few assumptions
+         about the peer protocol as possible, in this location there is
+         a need to understand some properties of the peer protocol.  If
+         a true peer protocol (for example RELOAD) is used, then the
+         list of peers returned by the tracker will consist of peer-IDs.
+         If a casual, unstructured protocol (for example a BitTorrent-
+         like gossip protocol) is used, then returning IP addresses will
+         be required.  Note that this also has implications about the
+         possible NAT traversal role that a tracker may need to perform.
 
-               While the tracker protocol tries to make as few
-               assumptions about the peer protocol as possible, in this
-               location there is a need to understand some properties of
-               the peer protocol.  If a true peer protocol (for example
-               RELOAD) is used, then the list of peers returned by the
-               tracker will consist of peer-IDs.  If a casual,
-               unstructured protocol (for example a BitTorrent-like
-               gossip protocol) is used, then returning IP addresses
-               will be required.  Note that this also has implications
-               about the possible NAT traversal role that a tracker may
+         OPEN ISSUE: In BitTorrent, metadata about the particular file
+         of information/swarm is encoded in a torrent file, which also
+         provides information about the location of the tracker.  This
+         mechanism is NOT likely to be reused in this protocol, since we
+         wish to allow various mechanisms for bootstrapping/locating the
+         tracker.  As a result, we must also pass the appropriate meta
 
 
 
-Gu, et al.               Expires April 28, 2011                [Page 12]
+Gu, et al.             Expires September 15, 2011              [Page 11]
 
-Internet-Draft              Tracker Protocol                October 2010
+Internet-Draft            PPSP Tracker Protocol               March 2011
 
 
-               need to perform.
+         information about a swarm to the peers from the tracker.
+         Should that be handled here, in the FIND operation (and perhaps
+         passed back at the same time as the peerlist) or in a separate
+         operation?  If we want peers to be able to make multiple FIND
+         calls for one swarm, the overhead of passing the metadata
+         multiple times may imply we want a separate message.
 
-               OPEN ISSUE: In BitTorrent, metadata about the particular
-               file of information/swarm is encoded in a torrent file,
-               which also provides information about the location of the
-               tracker.  This mechanism is NOT likely to be reused in
-               this protocol, since we wish to allow various mechanisms
-               for bootstrapping/locating the tracker.  As a result, we
-               must also pass the appropriate meta information about a
-               swarm to the peers from the tracker.  Should that be
-               handled here, in the FIND operation (and perhaps passed
-               back at the same time as the peerlist) or in a separate
-               operation?  If we want peers to be able to make multiple
-               FIND calls for one swarm, the overhead of passing the
-               metadata multiple times may imply we want a separate
-               message.
+      KEEPALIVE: Keepalive messages are periodically sent from peers to
+      the tracker to notify the tracker that the peer is still alive.
+      If a tracker does not receive keep-alive message for some pre-
+      configured time, the tracker will assume that the peer is no
+      longer available and will perform the same logical operations as
+      in Leave.
 
-         KEEPALIVE: Keepalive messages are periodically sent from peers
-         to the tracker to notify the tracker that the peer is still
-         alive.  If a tracker does not receive keep-alive message for
-         some pre-configured time, the tracker will assume that the peer
-         is no longer available and will perform the same logical
-         operations as in Leave.
+      STAT_REPORT: This method works in two directions.  One is from
+      Peer to Tracker which allows peers to submit statistic data to the
+      tracker improve system performance.  The other is from Tracker to
+      Peer to notify the general information of the the whole PPSP
+      system, e.g. the rarest chunks, the average downloading bandwidth,
+      etc..
 
-         STAT_REPORT: This method works in two directions.  One is from
-         Peer to Tracker which allows peers to submit statistic data to
-         the tracker improve system performance.  The other is from
-         Tracker to Peer to notify the general information of the the
-         whole PPSP system, e.g. the rarest chunks, the average
-         downloading bandwidth, etc..
+      STAT_QUERY: This method works in two directions.  One is from Peer
+      to Tracker which allows peers to query statistical information
+      about the status of the system (and possibly about particular
+      peers?)  The other is from Tracker to Peers to request statistical
+      information from a particular peer.
 
-         STAT_QUERY: This method works in two directions.  One is from
-         Peer to Tracker which allows peers to query statistical
-         information about the status of the system (and possibly about
-         particular peers?)  The other is from Tracker to Peers to
-         request statistical information from a particular peer.
-
-               Open Issue: How often shall the peer report its status?
-               When make the decision, we should take the status updated
-               through PUT and Keepalive message into account.
-
-               STAT_QUERY: This method allows trackers to collect
-               statistic data to improve system performance.  STAT_QUERY
-               is an optional method.
-
-
-
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 13]
-
-Internet-Draft              Tracker Protocol                October 2010
-
+         Open Issue: How often shall the peer report its status?  When
+         make the decision, we should take the status updated through
+         PUT and Keepalive message into account.
 
 4.4.  Responses
 
@@ -744,6 +663,15 @@ Internet-Draft              Tracker Protocol                October 2010
       message is a request for information, the body of the message will
       also include the requested information.  As a result, the
       following information is returned for each message:
+
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 12]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
 
          CONNECT, DISCONNECT, JOIN, JOIN_CHUNK, KEEPALIVE and
          STAT_REPORT return any required status information about the
@@ -777,14 +705,6 @@ Internet-Draft              Tracker Protocol                October 2010
       MESSAGE FORBIDDEN: The requester is not allowed to make this
       request For example. a peer may not be able to query statistical
       information from a tracker. (this may be handled at the HTTP level
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 14]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
       in the HTTP/XML case)
 
       OBJECT NOT FOUND: The requested object (i.e., a swarm to be joined
@@ -798,11 +718,17 @@ Internet-Draft              Tracker Protocol                October 2010
       PAYMENT REQUIRED: Payment is required to access this service.
       (this may be handled at the HTTP level in the HTTP/XML case)
 
-4.4.1.  Response Bodies
-
    Responses may contain peer lists, statistical information, and meta
    data.  At the current time, the authors have not defined a specific
    format for this information, but expect that a reasonable encoding
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 13]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    format may be XML.  As a result, It may be possible to reuse
    encodings, particularly for statistical information and metadata,
    from other protocols or standards organizations.
@@ -819,10 +745,15 @@ Internet-Draft              Tracker Protocol                October 2010
    are lighter in both bandwidth and processing, though are sometimes
    considered more difficult to understand.
 
-   Note: this is an open issue for the WG to discuss and make a
-   determination.  No matter which one is chosen, many of the basic
-   design principles, including communication methods and terminology
-   presented in this draft may be applicable.
+   The authors have quried the WG to provide their opinions on encoding
+   format, and we got some responses, most of which support Text-based
+   encoding.  And, according to the voice announced from the WG, we
+   think Text-based encoding will not cost much more bandwidth than
+   Binary encoding.  Hence, in this version, we describe only Text-based
+   encoding format.  But this is not finally decided.  If there are more
+   preference on Binary encoding than on Text encoding, and the reasons
+   are overwhelming, we can change to Binary encoding, which is also
+   temprarily moved to Appendix.
 
    These encodings are currently rather skeletal.  For example, while we
    offer mechanisms to encode particular chunks, we do not currently
@@ -833,13 +764,6 @@ Internet-Draft              Tracker Protocol                October 2010
    features.  The authors will extend (and prune, in the case of two
    encodings) and refine the protocol as the WG makes specific decisions
    about design of the protocol.
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 15]
-
-Internet-Draft              Tracker Protocol                October 2010
-
 
 5.1.  HTTP/XML Encoding
 
@@ -853,13 +777,19 @@ Internet-Draft              Tracker Protocol                October 2010
    an existing XML encoding from another protocol may be able to be used
    in some places.
 
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 14]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    The authors acknowledge they are not experts in either HTTP or XML,
    and may have made significant mistakes in this initial encoding
    attempt.  As a result, this section may change dramatically in the
    next version as the authors continue their research into how to use
    HTTP/XML.
-
-5.1.1.  Use of HTTP
 
    For simplicity, the current proposal uses only HTTP POST as a
    mechanism.  Error codes from HTTP are reused when possible, with the
@@ -867,13 +797,11 @@ Internet-Draft              Tracker Protocol                October 2010
    would be the use of HTTP CONNECT in connection with the security
    model to be defined later.  This basic approach is subject to change.
 
-5.1.2.  HTTP Encoding
+5.1.1.  HTTP Encoding
 
    The format of the shared message XML body is as follows.  This is not
    a formal XML schema, but will be elaborated to be such at a future
    date.
-
-
    <PPSPTrackerProtocol version="***">
      <Method>***</Method>
      <Response>***</Response>
@@ -881,21 +809,10 @@ Internet-Draft              Tracker Protocol                October 2010
      ...Method specific xml information...
    </PPSPTrackerProtocol>
 
-
                     Figure 3: Common Message XML Header
 
    In this representation, *** is used to represent data to be inserted.
    The fields in the header are:
-
-
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 16]
-
-Internet-Draft              Tracker Protocol                October 2010
-
 
    version:  The version of the PPSP Tracker Protocol being used in the
          form of a fixed point integer between 0.1 and 25.4.  For the
@@ -904,17 +821,25 @@ Internet-Draft              Tracker Protocol                October 2010
 
    Method:  Indicates the method type for the message.  The Method is
          encoded as a string, and is case insensitive.  The valid
-         strings are defined in Section 5.2.1.1.  Only one of Method or
+         strings are defined in Section 9.1.1.1.  Only one of Method or
          Response will be present in any given method -- the presence of
          both constitutes an error.
 
    Response:  Indicates the response type for the message.  The Response
          is encoded as a string, and is case insensitive.  The valid
-         strings are defined in Section 5.2.1.1.  Only one of Method or
+         strings are defined in Section 9.1.1.1.  Only one of Method or
          Response will be present in any given method -- the presence of
          both constitutes an error.  Some responses that are defined as
          protocol responses in the binary encoding below are not present
          here, as standard HTTP responses are used instead.
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 15]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
 
    Transaction ID:  A unique 64 bit integer that identifies the
          transaction and also allows receivers to disambiguate
@@ -923,7 +848,7 @@ Internet-Draft              Tracker Protocol                October 2010
          be possible to a use native HTTP construct in place of this
          value.
 
-5.1.2.1.  Method Field Encoding
+5.1.1.1.  Method Field Encoding
 
    As discussed earlier, the PPSP Tracker Protocol uses a request-
    response approach to protocol messages.  Messages are either a
@@ -934,24 +859,7 @@ Internet-Draft              Tracker Protocol                October 2010
 
    The tables below define the valid string representations for the
    requests and responses.  These values MUST be treated as case-
-   insensitive.  Note that currently, the strings for each request are
-   identical to the name of the operation defined in Section 4.3.1
-
-
-
-
-
-
-
-
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 17]
-
-Internet-Draft              Tracker Protocol                October 2010
-
+   insensitive.
 
                +--------------+----------------------------+
                | PPSP Request | PPSP Request Method String |
@@ -968,6 +876,26 @@ Internet-Draft              Tracker Protocol                October 2010
                +--------------+----------------------------+
 
                     Table 1: Valid Strings for Requests
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 16]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
 
    +----------------------+---------------------+----------------------+
    | Response Method Name |    HTTP Response    |  XML Response Value  |
@@ -999,17 +927,7 @@ Internet-Draft              Tracker Protocol                October 2010
    appropriate. (the device supports POST, but not the particular PPSP
    XML body included)
 
-
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 18]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
-5.1.3.  Common Message Processing
+5.1.2.  Common Message Processing
 
    When a PPSP Peer Protocol message is received, some basic processing
    is performed, regardless of the message type or the type of receiver
@@ -1027,6 +945,14 @@ Internet-Draft              Tracker Protocol                October 2010
 
    The common message XML MUST be examined to obtain the version number
    of the message.  In the event that the version number is for a
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 17]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    version the receiver does not support, the receiver MUST reply with
    an HTTP 400 response with a PPSP XML payload with the Response
    attribute set to VERSION NOT SUPPORTED.
@@ -1046,7 +972,7 @@ Internet-Draft              Tracker Protocol                October 2010
    with a PPSP XML payload INTERNAL ERROR message indicating this has
    occurred.
 
-5.1.4.  CONNECT Messages
+5.1.3.  CONNECT Messages
 
    The CONNECT message is sent when a peer wishes to join a system and
    connect to the tracker.  Note that a peer must have obtained a
@@ -1056,20 +982,11 @@ Internet-Draft              Tracker Protocol                October 2010
    1)  A CONNECT message is sent from the new peer to the tracker,
        indicating the desire to connect;
 
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 19]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
    2)  A response is generated by the tracker indicating success,
        failure, or some condition that must be satisfied to succeed (for
        example, providing credentials).
 
-5.1.4.1.  Forming and Sending a CONNECT Message
+5.1.3.1.  Forming and Sending a CONNECT Message
 
    To form a CONNECT Message, the sender constructs the common message
    XML.  The sender MUST properly form the XML, set the Method attribute
@@ -1078,25 +995,29 @@ Internet-Draft              Tracker Protocol                October 2010
 
    The method specific XML of the CONNECT message takes the form shown
    below:
-
-
-     <PeerID>###</PeerID>
-
-
-                   Figure 4: CONNECT Method Specific XML
+   <PeerID>###</PeerID>
 
    The PeerID of the body MUST be set to the PeerID of the peer.  This
    reports that the peer is connecting.
 
-5.1.4.2.  Recieving and Processing a CONNECT Message
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 18]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
+5.1.3.2.  Recieving and Processing a CONNECT Message
 
    TODO: There will be extensive processing to be performed here, but
    this is largely tied to the security and authentication model, which
    is TBD by the WG.
 
-5.1.5.  DISCONNECT Messages
+5.1.4.  DISCONNECT Messages
 
-5.1.5.1.  Forming and Sending a DISCONNECT Message
+5.1.4.1.  Forming and Sending a DISCONNECT Message
 
    To form a DISCONNECT Message, the sender constructs the common
    message XML.  The sender MUST properly form the XML, set the Method
@@ -1111,21 +1032,13 @@ Internet-Draft              Tracker Protocol                October 2010
      <PeerID>###</PeerID>
 
 
-                 Figure 5: DISCONNECT Method Specific XML
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 20]
-
-Internet-Draft              Tracker Protocol                October 2010
-
+             Figure 4: DISCONNECT Method          Specific XML
 
    The PeerID of the body MUST be set to the PeerID of the peer.  This
    reports that the peer is disconnecting, and implicitly informs the
    tracker that the peer is no longer involved in any swarms.
 
-5.1.5.2.  Recieving and Processing a DISCONNECT Message
+5.1.4.2.  Recieving and Processing a DISCONNECT Message
 
    Upon receiving a DISCONNECT message, the tracker MUST remove the peer
    from the peer list.  It will honor no more requests from the peer
@@ -1140,10 +1053,18 @@ Internet-Draft              Tracker Protocol                October 2010
    local index of swarms->peers is stored, which for fast lookup seems
    essential.
 
-5.1.6.  JOIN and JOIN_CHUNK Messages
+5.1.5.  JOIN and JOIN_CHUNK Messages
 
    The JOIN messages (JOIN and JOIN_CHUNK) are used by the Peer to
    inform the Tracker that it would like to participate in a particular
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 19]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    swarm, and optionally what portions of that swarm it has available.
    JOIN is used when the Peer has some chunks or wishes to join a live
    stream, but does not provide the list of chunks or location in the
@@ -1157,7 +1078,7 @@ Internet-Draft              Tracker Protocol                October 2010
    the protocol would look like, but a more detailed version encoding
    position will also be required.
 
-5.1.6.1.  Forming and Sending a JOIN Message
+5.1.5.1.  Forming and Sending a JOIN Message
 
    To form a JOIN Message, the sender constructs the common message XML.
    The sender MUST properly form the XML, set the Method attribute to
@@ -1168,21 +1089,12 @@ Internet-Draft              Tracker Protocol                October 2010
    below:
 
 
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 21]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
      <PeerID>###</PeerID>
      <SwarmID>###</SwarmID>
      <ExpireTime>###</ExpireTime>
 
 
-                    Figure 6: JOIN Method Specific XML
+                    Figure 5: JOIN Method Specific XML
 
    The PeerID of the body MUST be set to the PeerID of the peer, and
    SwarmID MUST be set to the SwarmID of the swarm the peer is
@@ -1197,10 +1109,18 @@ Internet-Draft              Tracker Protocol                October 2010
    consider what the meaning of these fields are in a streaming context,
    where one would potentially have a sliding window of chunks.
 
-5.1.6.2.  Forming and Sending a JOIN_CHUNK Message
+5.1.5.2.  Forming and Sending a JOIN_CHUNK Message
 
    To form a JOIN_CHUNK Message, the sender constructs the common
    message XML.  The sender MUST properly form the XML, set the Method
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 20]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    attribute to JOIN_CHUNK, and randomly generate and set the
    Transaction ID.  The method specific information formed as discussed
    below.
@@ -1218,21 +1138,13 @@ Internet-Draft              Tracker Protocol                October 2010
      </Chunks>
 
 
-                 Figure 7: JOIN_CHUNK Method Specific XML
+                 Figure 6: JOIN_CHUNK Method Specific XML
 
    As with a JOIN message, the PeerID of the body MUST be set to the
    PeerID of the peer, and SwarmID MUST be set to the SwarmID of the
    swarm the peer is interested in.  Expiration Time MAY be set to some
    non-zero value in seconds, indicating that the peer expects to no
    longer be participating at the end of the time.  If the peer does not
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 22]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
    wish to set an Expiration Time, this field MUST be set to zero.
 
    Following these fields, one or more 32 bit ChunkID fields are
@@ -1240,7 +1152,7 @@ Internet-Draft              Tracker Protocol                October 2010
    available for actual ChunkID, but in this case, all 32 bits are
    available)
 
-5.1.6.3.  Recieving and Processing a JOIN or JOIN_CHUNK Message
+5.1.5.3.  Recieving and Processing a JOIN or JOIN_CHUNK Message
 
    When a JOIN or JOIN_CHUNK Message is received, the tracker will
    process the request.  The tracker MAY reject the request using one of
@@ -1257,6 +1169,14 @@ Internet-Draft              Tracker Protocol                October 2010
    MUST not contain any additional body information.
 
    When implementing JOIN_CHUNK, one may wonder how often shall a peer
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 21]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    notify the tracker of its chunk availability?  Shall a peer report
    every single chunk as soon as it is received, or report periodically?
    In real-time reporting, both the peer and the tracker will be busy
@@ -1270,24 +1190,17 @@ Internet-Draft              Tracker Protocol                October 2010
    peer, according to the caching size and time difference between
    JOIN_CHUNK and current.
 
-5.1.7.  LEAVE Messages
+5.1.6.  LEAVE Messages
 
    The LEAVE message is used by the Peer to inform the Tracker that it
    no longer wishes to participate in a particular swarm.
 
-5.1.7.1.  Forming and Sending a LEAVE Message
+5.1.6.1.  Forming and Sending a LEAVE Message
 
    To form a LEAVE Message, the sender constructs the common message
    XML.  The sender MUST properly form the XML, set the Method attribute
    to LEAVE, and randomly generate and set the Transaction ID.  The
    method specific information formed as discussed below.
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 23]
-
-Internet-Draft              Tracker Protocol                October 2010
-
 
    The method specific XML of the LEAVE message takes the form shown
    below:
@@ -1297,13 +1210,13 @@ Internet-Draft              Tracker Protocol                October 2010
      <SwarmID>###</SwarmID>
 
 
-                    Figure 8: LEAVE Method Specific XML
+               Figure 7: LEAVE Method          Specific XML
 
    The PeerID of the body MUST be set to the PeerID of the peer, and
    SwarmID MUST be set to the SwarmID of the swarm the peer is no longer
    interested in participating in.
 
-5.1.7.2.  Recieving and Processing a LEAVE Message
+5.1.6.2.  Recieving and Processing a LEAVE Message
 
    When a LEAVE Message is received, the tracker will process the
    request.  The tracker MAY reject the request using one of the error
@@ -1312,6 +1225,14 @@ Internet-Draft              Tracker Protocol                October 2010
    for JOIN_CHUNK messages) and MUST reject the message with an HTTP 400
    response with a PPSP XML payload INVALID SYNTAX indicating this has
    occurred.  If the message is well formed and accepted, the tracker
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 22]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    will remove the peer from the list of peers participating in a
    particular swarm and will respond with an HTTP 200 OK SUCCESS message
    response with a PPSP XML payload SUCCESSFUL.  The tracker does not
@@ -1321,9 +1242,9 @@ Internet-Draft              Tracker Protocol                October 2010
    The response MUST have the same Transaction ID as the request, and
    MUST not contain any additional body information.
 
-5.1.8.  FIND Messages
+5.1.7.  FIND Messages
 
-5.1.8.1.  Forming and Sending a FIND Message
+5.1.7.1.  Forming and Sending a FIND Message
 
    To form a FIND Message, the sender constructs the common message XML.
    The sender MUST properly form the XML, set the Method attribute to
@@ -1339,13 +1260,7 @@ Internet-Draft              Tracker Protocol                October 2010
      <ChunkID>###</ChunkID>
 
 
-
-Gu, et al.               Expires April 28, 2011                [Page 24]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
-                    Figure 9: FIND Method Specific XML
+                Figure 8: FIND Method          Specific XML
 
    The PeerID of the body MUST be set to the PeerID of the peer, and
    SwarmID MUST be set to the SwarmID of the swarm the peer is
@@ -1367,7 +1282,14 @@ Internet-Draft              Tracker Protocol                October 2010
    sort.  For example, peers with a particular bandwidth (obtained by
    the tracker from an ALTO server), processing power, etc.
 
-5.1.8.2.  Recieving and Processing a FIND Message
+
+
+Gu, et al.             Expires September 15, 2011              [Page 23]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
+5.1.7.2.  Recieving and Processing a FIND Message
 
    When a FIND Message is received, the tracker will process the
    request.  The tracker MAY reject the request using one of the error
@@ -1392,14 +1314,7 @@ Internet-Draft              Tracker Protocol                October 2010
      </Peers>
 
 
-                       Figure 10: FIND Response XML
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 25]
-
-Internet-Draft              Tracker Protocol                October 2010
-
+                        Figure 9: FIND Response XML
 
    The SwarmID MUST be set to the swarm to which the chunks belong.
 
@@ -1418,9 +1333,19 @@ Internet-Draft              Tracker Protocol                October 2010
    no way the tracker can really know this -- i.e., a peer could leave
    at any time.
 
-5.1.9.  KEEPALIVE Messages
+5.1.8.  KEEPALIVE Messages
 
-5.1.9.1.  Forming and Sending a KEEPALIVE Message
+
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 24]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
+5.1.8.1.  Forming and Sending a KEEPALIVE Message
 
    To form a KEEPALIVE Message, the sender constructs the common message
    XML.  The sender MUST properly form the XML, set the Method attribute
@@ -1434,7 +1359,7 @@ Internet-Draft              Tracker Protocol                October 2010
      <PeerID>###</PeerID>
 
 
-                 Figure 11: KEEPALIVE Method Specific XML
+              Figure 10: KEEPALIVE Method       Specific XML
 
    The PeerID of the body MUST be set to the PeerID of the peer
 
@@ -1442,36 +1367,39 @@ Internet-Draft              Tracker Protocol                October 2010
    Should we use the same XML structure used below for STATS?  Can we
    send additional information besides this?
 
-5.1.9.2.  Recieving and Processing a KEEPALIVE Message
+5.1.8.2.  Recieving and Processing a KEEPALIVE Message
 
    TODO: What is the behavior on getting back a KEEPALIVE?  Obviously we
    should update an internal timer that we have heard from the peer, but
    do we stop sending the peer out as a suggestion if it reports
    congestion?  Is this an attack for leeches (In other words, can I
    report I am in congestion and keep others from using me to obtain
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 26]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
    data?)
 
-5.1.10.  STAT Messages
+5.1.9.  STAT Messages
 
    There are two types of STAT Messages.  STAT_REPORT messages are used
    to report statistics information, and STAT_QUERY messages are used to
    request information.
 
-5.1.10.1.  Property Types for STAT Messages
+5.1.9.1.  Property Types for STAT Messages
 
    The following statistics are listed as examples of information that
    might be useful, and we define example type values here.  As the
    protocol firms up, we will likely want to reconsider these and add to
    them or remove.  These values are intended as examples for discussion
    only.
+
+
+
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 25]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
 
    +------------------+------------------------------------------------+
    |     XML Value    | Definitions/Description                        |
@@ -1500,19 +1428,11 @@ Internet-Draft              Tracker Protocol                October 2010
    this with values, or specify that if a stat request for that is
    received, it causes the peer to generates JOIN_CHUNK messages?
 
-5.1.10.2.  Forming and Sending a STAT_REPORT Message
+5.1.9.2.  Forming and Sending a STAT_REPORT Message
 
    To form a STAT_REPORT Message, the sender constructs the common
    message XML.  The sender MUST properly form the XML, set the Method
    attribute to STAT_REPORT, and randomly generate and set the
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 27]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
    Transaction ID.  The method specific information formed as discussed
    below.
 
@@ -1527,21 +1447,29 @@ Internet-Draft              Tracker Protocol                October 2010
      </Stats>
 
 
-                Figure 12: STAT_REPORT Method Specific XML
+             Figure 11: STAT_REPORT Method       Specific XML
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 26]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
 
    The PeerID of the body MUST be set to the PeerID of the peer.
    Following this field, one or more Stat attributes are provided, with
    a property field corresponding to the data as described in Table 3
    and an appropriate value provided.
 
-5.1.10.3.  Recieving and Processing a STAT_REPORT Message
+5.1.9.3.  Recieving and Processing a STAT_REPORT Message
 
    In addition to normal processing rules, when a Tracker receives a
    STAT_REPORT message, it MAY process the message and store the
    statistical information for future use.  The response MUST contain
    the same Transaction ID as the request.
 
-5.1.10.4.  Forming and Sending a STAT_QUERY Message
+5.1.9.4.  Forming and Sending a STAT_QUERY Message
 
    To form a STAT_QUERY Message, the sender constructs the common
    message XML.  The sender MUST properly form the XML, set the Method
@@ -1559,20 +1487,12 @@ Internet-Draft              Tracker Protocol                October 2010
      </Stats>
 
 
-                 Figure 13: STAT_QUERY Method Specific XML
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 28]
-
-Internet-Draft              Tracker Protocol                October 2010
-
+              Figure 12: STAT_QUERY Method       Specific XML
 
    Each Stat in the StatRequest MUST have the property set as defined in
    Table 3 and MUST NOT have any value.
 
-5.1.10.5.  Recieving and Processing a STAT_QUERY Message
+5.1.9.5.  Recieving and Processing a STAT_QUERY Message
 
    When a STAT_QUERY message is received by the peer, it MUST respond,
    using one of the response codes defined above.  The body contains one
@@ -1587,14 +1507,93 @@ Internet-Draft              Tracker Protocol                October 2010
 
 
 
-            Figure 14: STAT_QUERY Response Method Specific XML
+
+Gu, et al.             Expires September 15, 2011              [Page 27]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
+            Figure 13: STAT_QUERY Response Method Specific XML
 
    The PeerID of the body MUST be set to the PeerID of the peer.
    Following this field, one or more Stat attributes are provided, with
    a property field corresponding to the data as described in Table 3
    and an appropriate value provided.
 
-5.2.  Binary Encoding
+
+6.  Acknowledgments
+
+   We would like to acknowledgments to the following for their help and
+   comments: Roni Even, Bhumip Khasnabish, Wu Yichuan, Peng Jin, Chi
+   Jing, Zong Ning, Song Haibin, Zhijia Chen, Christian Schmidt, Lars
+   Eggert, David Harrington, Henning Schulzrinne, and Kangheng Wu.
+
+   The fragmentation mechanism used in the binary protocol proposal, and
+   some text describing it, was borrowed from [I-D.ietf-p2psip-base].
+
+
+7.  Revision History
+
+7.1.  Changes since -02
+
+   o  Leave HTTP/XML encoding in text and move the Binary encoding to
+      Appendix.
+
+   o  Improve HTTP/XML encoding.
+
+   o  Resolve some Open Issues.
+
+
+8.  Open Issues and TODO
+
+      Need to decide if an HTTP/XML or a binary encoding the optimal
+      encoding for this protocol.
+
+      Do we want a mechanism to obtain Peer-IDs in join?  Details would
+      need to be specified
+
+      Need to expand NAT traversal section, documenting how ICE and/or
+      the RELOAD connect mechanism would be used.
+
+      Need to better decide and address issue of tracker promotion and
+      distributed tracker
+
+      Need to decide what additional information may be needed in the
+      Peerlist, and how to encode this information.
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 28]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
+      Need to document the retransmission mechanism for the binary
+      protocol.
+
+      Need to determine the correct encoding for the metadata, and
+      determine if this should be returned within the FIND message, or
+      if it should instead be returned in a new message.
+
+      Security (i.e., how to verify you are really a participant,
+      securing the messages, etc.) is not currently covered.  It is
+      anticipated that a public certificate scheme will be used, but
+      this must be properly specified in a final protocol.
+
+      Bit Torrent uses a Tracker ID as well, but it isn't clear if one
+      is needed here.  Comments on this would be appreciated.
+
+      Do we need to handle wrapping of chunk IDs?  Discussion of global/
+      local uniqueness of these IDs.
+
+      Need to define timeout and expire, discuss how KEEPALIVE or
+      periodic PUTs address this.
+
+
+9.  Appendix
+
+9.1.  Binary Encoding
 
    Considering that peers may communicate with the tracker frequently,
    and that streaming applications are sensitive to delay, we also
@@ -1617,39 +1616,21 @@ Internet-Draft              Tracker Protocol                October 2010
 
       Message body: Message body is not in a fixed format, but varies
       for each message type.  Interpreting the body requires knowing the
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 29]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
       message type, obtained from the message header.
 
-5.2.1.  Common Message Header
+
+
+Gu, et al.             Expires September 15, 2011              [Page 29]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
+9.1.1.  Common Message Header
 
    The format of the shared message header is as follows:
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | PPSP Tracker Protocol Token | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Version | Reserved | Method | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Transaction ID +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Fragmentation | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Message Length | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                  PPSP Tracker Protocol Token                  |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |   Version     |    Reserved   |              Method           |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                         Transaction ID
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                                                                   |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                         Fragmentation                         |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                         Message Length                        |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-                     Figure 15: Common Message Header
+                     Figure 14: Common Message Header
 
    The fields in the header are:
 
@@ -1668,18 +1649,7 @@ Internet-Draft              Tracker Protocol                October 2010
 
    Method:  Indicates the method type for the message.  The Method field
          is two bytes long.  Method types are defined below in
-         Section 5.2.1.1
-
-
-
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 30]
-
-Internet-Draft              Tracker Protocol                October 2010
-
+         Section 9.1.1.1
 
    Transaction ID:  A unique 64 bit number that identifies the
          transaction and also allows receivers to disambiguate
@@ -1688,7 +1658,7 @@ Internet-Draft              Tracker Protocol                October 2010
          Transaction IDs are also used for fragment reassembly.
 
    Fragmentation:  The fragmentation mechanism is described in more
-         detail in Section 5.2.3.
+         detail in Section 9.1.3.
 
    Message Length:  The length of the message, including header, in
          bytes.  The length field is four bytes long.  Note if the
@@ -1699,7 +1669,19 @@ Internet-Draft              Tracker Protocol                October 2010
          uses, such as to extend the namespace when it become exhausted.
          Reserved values are not available for general assignment.
 
-5.2.1.1.  Method Field Encoding
+
+
+
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 30]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
+9.1.1.1.  Method Field Encoding
 
    As discussed earlier, the PPSP Tracker Protocol uses a request-
    response approach to protocol messages.  Messages are either a
@@ -1723,20 +1705,6 @@ Internet-Draft              Tracker Protocol                October 2010
    is done in the responses -- 880? for success, 88F? for errors, 881?
    For non-error responses
 
-
-
-
-
-
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 31]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
                +---------------------+--------------------+
                | Request Method Name | Method Field Value |
                +---------------------+--------------------+
@@ -1752,6 +1720,22 @@ Internet-Draft              Tracker Protocol                October 2010
                +---------------------+--------------------+
 
                Table 4: Method Field Encodings for Requests
+
+
+
+
+
+
+
+
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 31]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
 
              +-------------------------+--------------------+
              |   Response Method Name  | Method Field Value |
@@ -1770,12 +1754,12 @@ Internet-Draft              Tracker Protocol                October 2010
 
                Table 5: Method Field Encodings for Responses
 
-5.2.2.  Timeout and Retransmission
+9.1.2.  Timeout and Retransmission
 
    TODO: A reasonable timeout and retransmission mechanism needs to be
    incorporated here.
 
-5.2.3.  Fragmentation
+9.1.3.  Fragmentation
 
    OPEN ISSUE: We have borrowed the RELOAD fragmentation for now, but
    this is up for debate.  Currently, there is no fragment-by-fragment
@@ -1785,14 +1769,6 @@ Internet-Draft              Tracker Protocol                October 2010
    traffic, an end-to-end PMTU discovery might make sense to determine
    total fragment length.  Similarly, need to decide on an optimal
    retransmission time for this protocol.  Finally, with this approach,
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 32]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
    messages are effectively limited to 2^24 + (PMTU - 32), which may be
    insufficient.  While it seems likely, we may want to discuss if this
    is sufficient in this context.
@@ -1809,6 +1785,13 @@ Internet-Draft              Tracker Protocol                October 2010
    When a message must be fragmented, it SHOULD be split into equal-
    sized fragments that are no larger than the PMTU of the next network
    link minus 32 bytes.
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 32]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
 
    Upon receipt of a fragmented message by the intended peer, the peer
    holds the fragments in a holding buffer until the entire message has
@@ -1831,7 +1814,7 @@ Internet-Draft              Tracker Protocol                October 2010
    After fully assembling the message, processing occurs normally, as
    described below.
 
-5.2.4.  Common Message Processing
+9.1.4.  Common Message Processing
 
    When a PPSP Peer Protocol message is received, some basic processing
    is performed, regardless of the message type or the type of receiver
@@ -1841,14 +1824,6 @@ Internet-Draft              Tracker Protocol                October 2010
    message is properly formed.  The initial check MUST verify that the
    common header is properly formed and that the message length matches
    the length encoded in the common message header.  If the message is
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 33]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
    found to be incorrectly formed or the length does not match the
    length encoded in the common header, the receiver MUST reply with an
    INVALID SYNTAX response.
@@ -1866,15 +1841,23 @@ Internet-Draft              Tracker Protocol                October 2010
    If the receiver is unable to process the message at this time because
    it is in an overloaded state, a TEMPORARILY OVERLOADED message SHOULD
    be returned to the sender, indicating that the message is not able to
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 33]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    be processed at this time.  Note that a server may not be able to
    generate such a message if it is truly overloaded, so senders MUST
-   also rely on the timeout mechanisms described in Section 5.2.2.
+   also rely on the timeout mechanisms described in Section 9.1.2.
 
    If the receiver encounters an internal error while attempting to
    process the message, the receiver MUST generate an INTERNAL ERROR
    message indicating this has occurred.
 
-5.2.5.  CONNECT Messages
+9.1.5.  CONNECT Messages
 
    The CONNECT message is sent when a peer wishes to join a system and
    connect to the tracker.  Note that a peer must have obtained a
@@ -1888,7 +1871,7 @@ Internet-Draft              Tracker Protocol                October 2010
        failure, or some condition that must be satisfied to succeed (for
        example, providing credentials).
 
-5.2.5.1.  Forming and Sending a CONNECT Message
+9.1.5.1.  Forming and Sending a CONNECT Message
 
    To form a CONNECT Message, the sender constructs the common message
    header.  The sender MUST properly set the PPSP Tracker Protocol Token
@@ -1897,38 +1880,34 @@ Internet-Draft              Tracker Protocol                October 2010
    message is then formed as discussed below, and the Message Length and
    Fragmentation (if required) fields set.
 
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 34]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
    The body of the CONNECT message takes the form shown below:
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | PeerID (160 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     PeerID (160 bits...)                     ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-                      Figure 16: CONNECT Message Body
+                      Figure 15: CONNECT Message Body
 
    The PeerID of the body MUST be set to the PeerID of the peer.  This
    reports that the peer is connecting.
 
-5.2.5.2.  Recieving and Processing a CONNECT Message
+9.1.5.2.  Recieving and Processing a CONNECT      Message
 
    TODO: There will be extensive processing to be performed here, but
    this is largely tied to the security and authentication model, which
    is TBD by the WG.
 
-5.2.6.  DISCONNECT Messages
 
-5.2.6.1.  Forming and Sending a DISCONNECT Message
+
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 34]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
+9.1.6.  DISCONNECT Messages
+
+9.1.6.1.  Forming and Sending a DISCONNECT Message
 
    To form a DISCONNECT Message, the sender constructs the common
    message header.  The sender MUST properly set the PPSP Tracker
@@ -1938,30 +1917,15 @@ Internet-Draft              Tracker Protocol                October 2010
    the Message Length and Fragmentation (if required) fields set.
 
    The body of the DISCONNECT message takes the form shown below:
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | PeerID (160 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     PeerID (160 bits...)                     ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-                    Figure 17: DISCONNECT Message Body
+                    Figure 16: DISCONNECT Message Body
 
    The PeerID of the body MUST be set to the PeerID of the peer.  This
    reports that the peer is disconnecting, and implicitly informs the
    tracker that the peer is no longer involved in any swarms.
 
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 35]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
-5.2.6.2.  Recieving and Processing a DISCONNECT Message
+9.1.6.2.  Recieving and Processing a DISCONNECT Message
 
    Upon receiving a DISCONNECT message, the tracker MUST remove the peer
    from the peer list.  It will honor no more requests from the peer
@@ -1976,7 +1940,7 @@ Internet-Draft              Tracker Protocol                October 2010
    local index of swarms->peers is stored, which for fast lookup seems
    essential.
 
-5.2.7.  JOIN and JOIN_CHUNK Messages
+9.1.7.  JOIN and JOIN_CHUNK Messages
 
    The JOIN messages (JOIN and JOIN_CHUNK) are used by the Peer to
    inform the Tracker that it would like to participate in a particular
@@ -1989,11 +1953,19 @@ Internet-Draft              Tracker Protocol                October 2010
    detailed list of chunks or a position in the stream to the tracker.
 
    TODO: We do not yet have a mechanism to represent a position in a
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 35]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    stream, but currently only encode chunks.  This gives an idea of what
    the protocol would look like, but a more detailed version encoding
    position will also be required.
 
-5.2.7.1.  Forming and Sending a JOIN Message
+9.1.7.1.  Forming and Sending a JOIN Message
 
    To form a JOIN Message, the sender constructs the common message
    header.  The sender MUST properly set the PPSP Tracker Protocol Token
@@ -2003,32 +1975,9 @@ Internet-Draft              Tracker Protocol                October 2010
    Fragmentation (if required) fields set.
 
    The body of the JOIN message takes the form shown below:
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | PeerID (160 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | SwarmID (128 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Expiration Time | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-
-
-
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 36]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     PeerID (160 bits...)                     ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     SwarmID (128 bits...)                    ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                       Expiration Time                         |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-                       Figure 18: JOIN Message Body
+                       Figure 17: JOIN Message Body
 
    The PeerID of the body MUST be set to the PeerID of the peer, and
    SwarmID MUST be set to the SwarmID of the swarm the peer is
@@ -2043,7 +1992,7 @@ Internet-Draft              Tracker Protocol                October 2010
    consider what the meaning of these fields are in a streaming context,
    where one would potentially have a sliding window of chunks.
 
-5.2.7.2.  Forming and Sending a JOIN_CHUNK Message
+9.1.7.2.  Forming and Sending a JOIN_CHUNK Message
 
    To form a JOIN_CHUNK Message, the sender constructs the common
    message header.  The sender MUST properly set the PPSP Tracker
@@ -2053,48 +2002,21 @@ Internet-Draft              Tracker Protocol                October 2010
    the Message Length and Fragmentation (if required) fields set.
 
    The body of the JOIN message takes the form shown below:
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | PeerID (160 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | SwarmID (128 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Expiration Time | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | NumChunks | Reserved | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Chunk ID | S | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | ... Additional Chunk IDs ... | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 37]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     PeerID (160 bits...)                     ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     SwarmID (128 bits...)                    ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                       Expiration Time                         |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |              NumChunks        |           Reserved            |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                        Chunk ID                           | S |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                  ... Additional Chunk IDs ...                 |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-                    Figure 19: JOIN_CHUNK Message Body
+                    Figure 18: JOIN_CHUNK Message Body
 
    As with a JOIN message, the PeerID of the body MUST be set to the
    PeerID of the peer, and SwarmID MUST be set to the SwarmID of the
    swarm the peer is interested in.  Expiration Time MAY be set to some
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 36]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    non-zero value in seconds, indicating that the peer expects to no
    longer be participating at the end of the time.  If the peer does not
    wish to set an Expiration Time, this field MUST be set to zero.
@@ -2114,21 +2036,13 @@ Internet-Draft              Tracker Protocol                October 2010
    pairs.  That is, a range MUST consist of two ChunkIDs, the first with
    01 and the second with 10.  Ranges MUST be continuous and increasing.
 
-5.2.7.3.  Recieving and Processing a JOIN or JOIN_CHUNK Message
+9.1.7.3.  Recieving and Processing a JOIN or JOIN_CHUNK Message
 
    When a JOIN or JOIN_CHUNK Message is received, the tracker will
    process the request.  The tracker MAY reject the request using one of
    the error codes in Table 5.  If the tracker accepts the message, it
    MUST verify the fields are properly formed (including any
    continuation messages for JOIN_CHUNK messages) and MUST reject the
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 38]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
    message with an INVALID syntax response if the message is malformed.
    If the message is well formed and accepted, the tracker enters the
    information into the internal data store, and respond with a
@@ -2151,12 +2065,20 @@ Internet-Draft              Tracker Protocol                October 2010
    peer, according to the caching size and time difference between
    JOIN_CHUNK and current.
 
-5.2.8.  LEAVE Messages
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 37]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
+9.1.8.  LEAVE Messages
 
    The LEAVE message is used by the Peer to inform the Tracker that it
    no longer wishes to participate in a particular swarm.
 
-5.2.8.1.  Forming and Sending a LEAVE Message
+9.1.8.1.  Forming and Sending a LEAVE Message
 
    To form a LEAVE Message, the sender constructs the common message
    header.  The sender MUST properly set the PPSP Tracker Protocol Token
@@ -2166,32 +2088,15 @@ Internet-Draft              Tracker Protocol                October 2010
    Fragmentation (if required) fields set.
 
    The body of the LEAVE message takes the form shown below:
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | PeerID (160 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | SwarmID (128 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     PeerID (160 bits...)                     ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     SwarmID (128 bits...)                    ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 39]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
-                       Figure 20: LEAVE Message Body
+                       Figure 19: LEAVE Message Body
 
    The PeerID of the body MUST be set to the PeerID of the peer, and
    SwarmID MUST be set to the SwarmID of the swarm the peer is no longer
    interested in participating in.
 
-5.2.8.2.  Recieving and Processing a LEAVE Message
+9.1.8.2.  Recieving and Processing a LEAVE Message
 
    When a LEAVE Message is received, the tracker will process the
    request.  The tracker MAY reject the request using one of the error
@@ -2207,39 +2112,29 @@ Internet-Draft              Tracker Protocol                October 2010
    The response MUST have the same Transaction ID as the request, and
    MUST not contain any additional body information.
 
-5.2.9.  FIND Messages
+9.1.9.  FIND Messages
 
-5.2.9.1.  Forming and Sending a FIND Message
+9.1.9.1.  Forming and Sending a FIND Message
 
    To form a FIND Message, the sender constructs the common message
    header.  The sender MUST properly set the PPSP Tracker Protocol Token
    and Version fields.  The sender MUST set the Method field to FIND,
    and randomly generate and set the Transaction ID.  The body of the
    message is then formed as discussed below, and the Message Length and
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 38]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    Fragmentation (if required) fields set.
 
    The body of the FIND message takes the form shown below:
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | PeerID (160 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | SwarmID (128 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Chunk ID | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     PeerID (160 bits...)                     ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     SwarmID (128 bits...)                    ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                           Chunk ID                            |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-                       Figure 21: FIND Message Body
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 40]
-
-Internet-Draft              Tracker Protocol                October 2010
-
+                       Figure 20: FIND Message Body
 
    The PeerID of the body MUST be set to the PeerID of the peer, and
    SwarmID MUST be set to the SwarmID of the swarm the peer is
@@ -2261,7 +2156,7 @@ Internet-Draft              Tracker Protocol                October 2010
    sort.  For example, peers with a particular bandwidth (obtained by
    the tracker from an ALTO server), processing power, etc.
 
-5.2.9.2.  Recieving and Processing a FIND Message
+9.1.9.2.  Recieving and Processing a FIND Message
 
    When a FIND Message is received, the tracker will process the
    request.  The tracker MAY reject the request using one of the error
@@ -2275,31 +2170,21 @@ Internet-Draft              Tracker Protocol                October 2010
    The response MUST have the same Transaction ID as the request
 
    The FIND response MUST include a body of the form below:
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | SwarmID (128 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | NumPeers | Reserved | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Peer List (SEE BELOW) | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     SwarmID (128 bits...)                    ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |              NumPeers         |           Reserved            |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     Peer List (SEE BELOW)                     |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-                       Figure 22: FIND Response Body
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 41]
-
-Internet-Draft              Tracker Protocol                October 2010
-
+                       Figure 21: FIND Response Body
 
    The SwarmID MUST be set to the swarm to which the chunks belong, and
    NumPeers MUST be set to the number of Peers being returned (NOT the
    length of the list).  If no peers are in the swarm, this length MUST
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 39]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    be set to zero and no peers will follow in the list.
 
    The peer list consists of a list of one or more RELOAD Peer-IDs,
@@ -2321,9 +2206,9 @@ Internet-Draft              Tracker Protocol                October 2010
    Address or Peer ID?  This issue has close relationship with Peer
    Protocol.
 
-5.2.10.  KEEPALIVE Messages
+9.1.10.  KEEPALIVE Messages
 
-5.2.10.1.  Forming and Sending a KEEPALIVE Message
+9.1.10.1.  Forming and Sending a KEEPALIVE Message
 
    To form a KEEPALIVE Message, the sender constructs the common message
    header.  The sender MUST properly set the PPSP Tracker Protocol Token
@@ -2333,46 +2218,40 @@ Internet-Draft              Tracker Protocol                October 2010
    Message Length and Fragmentation (if required) fields set.
 
    The body of the KEEPALIVE message takes the form shown below:
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | PeerID (160 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     PeerID (160 bits...)                     ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-                     Figure 23: KEEPALIVE Message Body
+                     Figure 22: KEEPALIVE Message Body
 
    The PeerID of the body MUST be set to the PeerID of the peer
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 42]
-
-Internet-Draft              Tracker Protocol                October 2010
-
 
    Open Issue: Need to set congestion state and link status here.
    Should we use the same Property type TLV structure used below for
    STATS?  Can we send additional information besides this?
 
-5.2.10.2.  Recieving and Processing a KEEPALIVE Message
+9.1.10.2.  Recieving and Processing a KEEPALIVE Message
 
    TODO: What is the behavior on getting back a KEEPALIVE?  Obviously we
    should update an internal timer that we have heard from the peer, but
    do we stop sending the peer out as a suggestion if it reports
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 40]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
    congestion?  Is this an attack for leeches (In other words, can I
    report I am in congestion and keep others from using me to obtain
    data?)
 
-5.2.11.  STAT Messages
+9.1.11.  STAT Messages
 
    There are two types of STAT Messages.  STAT_REPORT messages are used
    to report statistics information, and STAT_QUERY messages are used to
    request information.
 
-5.2.11.1.  Property Types for STAT Messages
+9.1.11.1.  Property Types for STAT Messages
 
    The following statistics are listed as examples of information that
    might be useful, and we define example type values here.  As the
@@ -2402,13 +2281,6 @@ Internet-Draft              Tracker Protocol                October 2010
 
              Table 6: Sample Property Types for STAT messages
 
-
-
-Gu, et al.               Expires April 28, 2011                [Page 43]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
    If the Property Value is Empty, the value is a boolean flag, the
    presence of which indicates true.
 
@@ -2417,7 +2289,15 @@ Internet-Draft              Tracker Protocol                October 2010
    this with values, or specify that if a stat request for that is
    received, it causes the peer to generates JOIN_CHUNK messages?
 
-5.2.11.2.  Forming and Sending a STAT_REPORT Message
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 41]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
+9.1.11.2.  Forming and Sending a STAT_REPORT Message
 
    To form a STAT_REPORT Message, the peer constructs the common message
    header.  The sender MUST properly set the PPSP Tracker Protocol Token
@@ -2427,54 +2307,18 @@ Internet-Draft              Tracker Protocol                October 2010
    Message Length and Fragmentation (if required) fields set.
 
    The body of the STAT_REPORT message takes the form shown below:
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | PeerID (160 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | NumStats | Reserved | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | STAT TLVs | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | ... Additional STAT TLVs ... | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     PeerID (160 bits...)                     ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |              NumStats         |           Reserved            |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                            STAT TLVs                          |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                  ... Additional STAT TLVs ...                 |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-                    Figure 24: STAT_REPORT Message Body
+                    Figure 23: STAT_REPORT Message Body
 
    The PeerID of the body MUST be set to the PeerID of the peer.
    Following this field, NumStats reports on the number of STAT TLV
    structures (NOT the length of them) to follow, followed by zero or
    more variable length STAT TLV structures follow.  The structure of
    the STAT TLVs is as follows:
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | P_Type | Length | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Property Value . . . +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-
-
-
-
-
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 44]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |              P_Type           |            Length             |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                         Property Value                       . . .
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-                  Figure 25: TLV Format of Peer Property
+                  Figure 24: TLV Format of Peer Property
 
    The value of P_TYPE is as defined above, and the length is the length
    of the Property Value in bits (limiting values to 8K).  For P_TYPES
@@ -2484,14 +2328,14 @@ Internet-Draft              Tracker Protocol                October 2010
    tracker, assembles them into a message and transmits the message to
    the tracker.
 
-5.2.11.3.  Recieving and Processing a STAT_REPORT Message
+9.1.11.3.  Recieving and Processing a STAT_REPORT Message
 
    In addition to normal processing rules, when a Tracker receives a
    STAT_REPORT message, it MAY process the message and store the
    statistical information for future use.  The response MUST contain
    the same Transaction ID as the request.
 
-5.2.11.4.  Forming and Sending a STAT_QUERY Message
+9.1.11.4.  Forming and Sending a STAT_QUERY Message
 
    To form a STAT_QUERY Message, the tracker constructs the common
    message header.  The sender MUST properly set the PPSP Tracker
@@ -2503,25 +2347,15 @@ Internet-Draft              Tracker Protocol                October 2010
    The body of the STAT_QUERY message takes the form shown below:
 
 
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |              NumP_Types       |           Reserved            |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |               P_Type          |  ... Additional P_Types ...   |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | ... Additional P_Types ...    |     Reserved (for odd)        |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 45]
+Gu, et al.             Expires September 15, 2011              [Page 42]
 
-Internet-Draft              Tracker Protocol                October 2010
+Internet-Draft            PPSP Tracker Protocol               March 2011
 
 
-                    Figure 26: STAT_QUERY Message Body
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | NumP_Types | Reserved | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | P_Type | ... Additional P_Types ... | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | ... Additional P_Types ... | Reserved (for odd) | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+                    Figure 25: STAT_QUERY Message Body
 
    NumP_Types encodes the number of P_Types NOT the length of them to
    follow.  Following this, zero or more P_Types that the tracker would
@@ -2534,189 +2368,101 @@ Internet-Draft              Tracker Protocol                October 2010
    bit intervals.  Should we have a reserved field after each P_type?
    Is there a need to actually included the reserved field?
 
-5.2.11.5.  Recieving and Processing a STAT_QUERY Message
+9.1.11.5.  Recieving and Processing a STAT_QUERY Message
 
    When a STAT_QUERY message is received by the peer, it MUST respond,
    using one of the response codes defined above.  The body contains one
    TLV for each requested statistic:
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | PeerID (160 bits...) ... +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | NumStats | Reserved | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | STAT TLVs | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | ... Additional STAT TLVs ... | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                     PeerID (160 bits...)                     ...
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |              NumStats         |           Reserved            |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                            STAT TLVs                          |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                  ... Additional STAT TLVs ...                 |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-                    Figure 27: STAT_QUERY Response Body
+                    Figure 26: STAT_QUERY Response Body
 
    The PeerID of the body MUST be set to the PeerID of the peer.
    Following this field, NumStats reports on the number of STAT TLV
    structures (NOT the length of them) to follow, followed by zero or
    more variable length STAT TLV structures follow.  The structure of
-   the STAT TLVs is as defined in Figure 25
+   the STAT TLVs is as defined in Figure 24
 
 
-6.  Acknowledgments
+10.  References
 
-   We would like to acknowledgments to the following for their help and
-   comments: Roni Even, Bhumip Khasnabish, Wu Yichuan, Peng Jin, Chi
-   Jing, Zong Ning, Song Haibin, Zhijia Chen, Christian Schmidt,
-   Kangheng Wu, Henning Schulzrinne and Lars Eggert.
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 46]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
-   The fragmentation mechanism used in the binary protocol proposal, and
-   some text describing it, was borrowed from [I-D.ietf-p2psip-base].
-
-
-7.  Revision History
-
-7.1.  Changes since -00
-
-   o  Revised document to separate logical functions from their
-      encoding.  Provided a sample binary encoding and discussion of an
-      HTTP/XML encoding.
-
-   o  Revised the set of messages/message names.  Version -00 used
-      confusing names for the messages which confused the reader as far
-      as the logical operation of joining a cluster vs. joining a swarm.
-      The functions have been revised to address this concern.  JOIN/
-      LEAVE (old) have now been replaced by CONNECT/DISCONNECT (new), to
-      show that the action occurring here is connecting or disconnecting
-      from the tracker and the system.  PUT/PUT_CHUNK (old) was
-      confusing, as it implied to many that the actual data was being
-      transferred, which was not the intent -- this was simply the peer
-      listing the chunks it had.  These messages have been replaced with
-      JOIN/JOIN_CHUNK (new), which now implies the peer is joining a
-      particular swarm, rather than the system.  A corresponding LEAVE
-      (new) now allows a peer to remove the chunk listing and to stop
-      participating in a particular swarm.
-
-
-8.  Open Issues and TODO
-
-      Need to decide if an HTTP/XML or a binary encoding the optimal
-      encoding for this protocol.
-
-      Do we want a mechanism to obtain Peer-IDs in join?  Details would
-      need to be specified
-
-      Need to expand NAT traversal section, documenting how ICE and/or
-      the RELOAD connect mechanism would be used.
-
-      Need to better decide and address issue of tracker promotion and
-      distributed tracker
-
-      Need to decide what additional information may be needed in the
-      Peerlist, and how to encode this information.
-
-      Need to document the retransmission mechanism for the binary
-      protocol.
-
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 47]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
-      Need to determine the correct encoding for the metadata, and
-      determine if this should be returned within the FIND message, or
-      if it should instead be returned in a new message.
-
-      Security (i.e., how to verify you are really a participant,
-      securing the messages, etc.) is not currently covered.  It is
-      anticipated that a public certificate scheme will be used, but
-      this must be properly specified in a final protocol.
-
-      Bit Torrent uses a Tracker ID as well, but it isn't clear if one
-      is needed here.  Comments on this would be appreciated.
-
-      Do we need to handle wrapping of chunk IDs?  Discussion of global/
-      local uniqueness of these IDs.
-
-      Need to define timeout and expire, discuss how KEEPALIVE or
-      periodic PUTs address this.
-
-
-9.  References
-
-9.1.  Normative References
+10.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
 
    [RFC5245]  Rosenberg, J., "Interactive Connectivity Establishment
               (ICE): A Protocol for Network Address Translator (NAT)
-              Traversal for Offer/Answer Protocols", RFC 5245,
-              April 2010.
+              Traversal for Offer/Answer Protocols", April 2010.
 
-9.2.  Informative References
+10.2.  Informative References
+
+   [I-D.ietf-ppsp-problem-statement]
+              Zhang, Y., Zong, N., Camarillo, G., Seng, J., and R. Yang,
+              "PPSP Problem Statement".
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 43]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
+
+
+   [I-D.ietf-ppsp-survey]
+              Yingjie, G., Zong, N., Zhang, H., Zhang, Y., Lei, J.,
+              Camarillo, G., and L. Yong, "Survey of P2P Streaming
+              Applications", draft-gu-ppsp-survey-02 (work in progress),
+              March 2011.
+
+   [I-D.ietf-p2psip-base]
+              Jennings, C., Lowekamp, B., Rescorla, E., Baset, S., and
+              H. Schulzrinne, "REsource LOcation And Discovery (RELOAD)
+              Base Protocol", draft-ietf-p2psip-base-12 (work in
+              progress), November 2010.
+
+   [I-D.ietf-ppsp-reqs]
+              Zong, N., Zhang, Y., Avila, V., Williams, C., and L. Xiao,
+              "P2P Streaming Protocol (PPSP) Requirements",
+              draft-zong-ppsp-reqs-04 (work in progress), February 2011.
 
    [I-D.gu-ppsp-peer-protocol]
               Yingjie, G. and D. Bryan, "Peer Protocol",
               draft-gu-ppsp-peer-protocol-01 (work in progress),
               October 2010.
 
-   [I-D.gu-ppsp-survey]
-              Yingjie, G., Zong, N., Zhang, H., Zhang, Y., Lei, J.,
-              Camarillo, G., and L. Yong, "Survey of P2P Streaming
-              Applications", draft-gu-ppsp-survey-02 (work in progress),
-              October 2010.
-
-   [I-D.ietf-p2psip-base]
-              Jennings, C., Lowekamp, B., Rescorla, E., Baset, S., and
-              H. Schulzrinne, "REsource LOcation And Discovery (RELOAD)
-              Base Protocol", draft-ietf-p2psip-base-11 (work in
-
-
-
-Gu, et al.               Expires April 28, 2011                [Page 48]
-
-Internet-Draft              Tracker Protocol                October 2010
-
-
-              progress), October 2010.
-
-   [I-D.ietf-ppsp-reqs]
-              Zong, N., Zhang, Y., Avila, V., Williams, C., and L. Xiao,
-              "P2P Streaming Protocol (PPSP) Requirements",
-              draft-ietf-ppsp-reqs-00 (work in progress), October 2010.
-
 
 Authors' Addresses
 
-   Yingjie Gu
+   Gu Yingjie
    Huawei
-   Baixia Road No. 91
-   Nanjing, Jiangsu Province  210001
-   P.R.China
 
-   Phone: +86-25-84565868
+   Phone: +86-25-56624760
+   Fax:   +86-25-56624702
    Email: guyingjie@huawei.com
 
 
    David A. Bryan
-   Cogent Force, LLC / Huawei
+   Cogent Force, LLC
    P.O. Box 6741
    Williamsburg, Virginia  23188
    United States of America
 
    Phone: +1.571.314.0256
    Email: dbryan@ethernot.org
+
+
+
+
+
+
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 44]
+
+Internet-Draft            PPSP Tracker Protocol               March 2011
 
 
    Zhang Yunfei
@@ -2740,6 +2486,35 @@ Authors' Addresses
 
 
 
-Gu, et al.               Expires April 28, 2011                [Page 49]
-
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gu, et al.             Expires September 15, 2011              [Page 45]
+

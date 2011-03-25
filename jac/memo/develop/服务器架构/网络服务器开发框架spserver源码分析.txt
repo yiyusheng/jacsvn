@@ -1,0 +1,99 @@
+最近工作比较轻松，有时间学习一些开源代码， 本系列文章主要分析网络服务器框架spserver， 采用的版本是最新的0.9.5（http://code.google.com/p/spserver/）。 在这个版本作者抛弃了libevent，而是自己实现了异步事件的机制。
+
+ 
+
+一 主要的类和结构
+
+
+
+ 
+
+SP_Handler 基于spserver实现网络服务的基类，包含start，handle等方法，用户可以通过覆盖这些方法，实现网络服务的真正逻辑。  
+
+
+
+
+
+SP_IOChannel 网络IO操作基类，包含receive，transmit等方法，用户可以通过覆盖这些方法，实现不同的IO操作，比如文件读写，SSL等。
+
+SP_IocpServer 实现服务器的用户接口类，负责配置服务器的各项属性（例如：最大连接数， 连接超时等）， 引用用户的业务服务类（SP_Handler）并引用底层IO类（SP_IOChannel），并提供runforever方法实现spserver运行。
+
+
+SP_IocpEventCallback 定义了一系列回调函数，比如OnAccept（当发生accept事件时回调），eventloop（spserver主循环回调）等等
+
+
+SP_IocpEventHelper 封装doClose，doStart，doError和doWork等成为SP_Task，利用线程池异步执行，这些被封装的函数会调用
+
+
+SP_Handler中用户覆盖的方法，从而实现用户业务逻辑。
+
+
+SP_MsgDecoder 把buffer内的数据（raw data）decode，例如接收数据后，decode判断接收到的数据是否拥有完整语义，如果完整就进行处理，如果不完整，就继续接收。
+
+
+SP_Task 封装线程的函数名，传入参数等，线程池管理类读取SP_Task并运行
+
+
+
+SP_ThreadPool 线程池类.
+
+SP_Executor 线程池管理类，引用SP_ThreadPool，并实现线程池管理线程，当有任务（SP_Task）被加入后，该线程dispatch这个task到SP_ThreadPool。
+
+SP_Request 封装client端的request，包含client端的ip，端口等等，同时也封装了SP_MsgDecoder。
+
+
+SP_Response 封装server端回复client的reponse，所有的response被SP_Message封装。
+
+ 
+
+二 从测试程序看spserver使用
+
+
+在0.9.5代码中，作者提供了很多示例程序，下面以聊天室示例来快速了解spserver的使用方式。
+
+
+首先，用户需要提供一个factory类用以创建SP_Handler类，这样spserver只需要调用factory的create方法便可以创建用户相应的SP_Handler类，保证了程序设计的低耦合。
+
+
+其次，用户需要继承SP_Handler来实现自己的业务类，在这个示例内，作者的SP_ChatHandler类便是这样的一个类。
+
+
+最后，用户需要按照各自服务器的性能和需求，设置spserver的具体参数，并调用runforever启动服务器。
+
+ 
+
+SP_ChatHandler类中start方法用以当某个client连接到server上时调用，这里的示例会把该client的信息记录下来（任何连接都会被封装在一个session中，所有的session会被保存在hash table内，而这里仅仅是记录这个hash table的key），并发送欢迎信息，同时将这个client发送的信息，广播给所有clients（注意：这里的广播是基于应用层的，也就是把消息推给所有的clients并不是协议栈级别的广播）。
+
+ 
+
+SP_ChatHandler类中handle方法是当decode成功（参见SP_MsgDecoder类说明）时调用的，同时将这个client发送的信息，广播给所有clients。
+
+ 
+
+可以看到spserver使用是相当灵活的和简单的。
+
+ 
+
+在本系列的第二章中，我将主要分析连接的建立。
+
+（未完待续。。。）
+
+
+ 连接到服务器是进行网络通信的第一步，同时对于网络服务器来说面临的第一个问题便是如何处理大量的client接入，本文主要分析spserver中是如何处理client接入，session管理和利用超时机制避免“空连接”的问题的。
+
+     上一篇中提到了SP_IcopServer负责提供服务器的用户接口，其中runforever会调用start方法，服务器的初始化和主循环都是在这个函数中完成的。由于spserver使用IOCP作为底层实现，在连接处理这里也不例外。start首先初始化一个socket用于接受client接入，并将socket与一个IOCP（其实系统所有的IO都经过同一个IOCP）绑定。绑定完成后，发起一个线程（acceptthread），专门处理client的接入。
+
+   
+
+    acceptthread 首先利用WasSocket新建用户连接socket，随后调用异步函数AcceptEx；同时需要注意的是，所有与连接相关的信息都存入了一个类型为SP_IocpAcceptArg_t的变量acceptArg中，AcceptEx成功完成后，会等待在acceptArg的连接事务上，这样起了类似于同步调用的效果。
+
+    由于监听accept的socket与IOCP绑定，start函数主循环便会调用GetQueuedCompletionStatus来等待异步IO事件，如果此时有client接入，通过GetQueuedCompletionStatus的completion key来判断：用于监听accept的socket上用IO事件，随后调用回调函数OnAccept（）。
+
+   spserver为每个接入的连接都建立session来进行管理，同时为了提高性能，作者提供了session manager来管理session并为每个session都分配了一个ID，这个ID可以看作是一个key。利用这个key，可以使得session manager快速找到制定的session。（这个ID会作为针对该session操作IOCP的completion key，这样可以快速得知某个IO事件属于哪个socket）。分派完ID，利用GetAcceptExSockaddrs来获取client socket的地址信息并存在session中。我们在上篇中提到了SP_Handler 和 SP_IOChannel来提供灵活性， 这里这两者的信息也会记录在session之中，可以想象当以后针对这个session进行IO操作时，真正完成IO操作的一定是SP_IOChannel中的receive和transmit。同时在连接建立，断开，服务等时，用可以利用SP_Handler来“插入”上层模块的逻辑，这种灵活的设计也保证了spserver的易用性。
+
+    在session记录完信息后，就会调用CreateIoCompletionPort来将client socket与IOCP绑定，之后就会调用SP_Handler内的start函数。这里作者将这个函数的调用包装成任务，利用线程池来运行一个简单任务来完成上层应用的逻辑。
+
+    如何用户连接后一直不进行通信，这样的连接白白消耗服务器资源，所以必须关闭；或者在通信一段后，client端出现问题，连接超时，那么该如何甄别这些无效连接呢？spserver是这样解决这个问题的：每当发起一个IO操作，就把这个IO操作记录在一个SP_IocpEvent_t的类型中，这个类型会记录当前的IO操作的超时的绝对时间（IO发起时间+超时忍耐时间），然后利用小顶堆来管理所有的IOevent事件。在服务器的主循环内GetQueuedCompletionStatus的超时时间，就设置为当前顶堆event的超时时间与当前时间的差，这样只要判断GetQueuedCompletionStatus是不是超时退出，如果是，那么顶堆的这个event一定就超时了，这样就可以对这个IO操作通知失败进而关闭连接。
+
+   下一篇将主要分析接收数据，发送数据的实现。
+

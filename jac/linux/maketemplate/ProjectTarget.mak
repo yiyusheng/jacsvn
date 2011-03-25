@@ -18,7 +18,7 @@ $(ProjectDependList):
 
 #创建需要的文件夹
 $(ProjectFolders):
-	-mkdir $@
+	mkdir -p $@
 
 #确保在只有debug和release一个参数时，make能够正常执行
 SingleConfigurationDepend :=

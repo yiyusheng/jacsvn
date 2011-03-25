@@ -1,5 +1,3 @@
-#对依赖项目列表过滤
-ProjectDependList := $(filter-out $(ProjectExcludeList),$(ProjectDependList))
 #项目目录
 export ProjectDir := $(shell pwd)
 #项目名称
@@ -66,9 +64,9 @@ export AttachDll :=
 #附加静态库
 export AttachLib :=
 #编译选项
-export CPPFLAGS := -O3
+export CPPFLAGS := -O3 -pthread -Wall
 #静态库生成选项
-export ARFLAGS := -r -s
+export ARFLAGS := -c -r -s
 
 ifdef GCHHead
 #预编译头的输出文件的路径

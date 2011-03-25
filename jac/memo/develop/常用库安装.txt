@@ -20,20 +20,34 @@ STLPort
 boost
  1. 修改配置文件boost_1_46_0/tools/build/v2/user-config.jam
     using gcc;
-    using stlport : 5.2.1 : /home/jacteefan/CPP/STLport-5.2.1 : /home/jacteefan/CPP/STLport-5.2.1 ;   
+    using stlport : 5.2.1 : /home/jacteefan/CPP/STLport-5.2.1 : /home/jacteefan/CPP/STLport-5.2.1/lib ;   
  2. ./bootstrap.sh --prefix=/home/jacteefan/CPP/boost_1_46_0
  3.  ./bjam stdlib=stlport install
+ 
+log4cxx
+1.安装apr
+./configure --prefix=/usr/local/apr
+make 
+make install 
+2.安装apr-util
+./configure --with-apr=/usr/local/apr --prefix=/usr/local/apr-util
+make 
+make install 
+3.安装log4cxx
+./configure --with-apr=/usr/local/apr --with-apr-util=/usr/local/apr-util --prefix=/home/jacteefan/log4cxx
+make 
+make install 
 
  
  windows环境下
 windows下先执行"C:\Program Files\Microsoft Visual Studio 8\Common7\Tools\vsvars32.bat"
 STLport
 1. 同上
-2. 根目录下configure msvc8 --with-static-rtl --with-boost=目录
+2. 根目录下configure msvc8 --with-static-rtl --use-boost 目录
 3. 进入build/lib
 4. nmake clean install
 5. 重新到根目录下configure msvc8 --clean
-6. configure msvc8 --with-dynamic-rtl --with-boost=目录
+6. configure msvc8 --with-dynamic-rtl --use-boost 目录
 7. 进入build/lib
 8. nmake clean install
 
