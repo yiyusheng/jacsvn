@@ -1,0 +1,61 @@
+log4cpp用了多年了, 一直用得很得心应手.
+现在做网游服务器, 日志类换成了log4cxx.
+
+log4xx会自动加载工作目录下的log4j.properties, 这一点比较好, 使用更方便了.
+log4j.properties应该与log4j的配置文件完全一样吧? 通用性好.
+
+其他方面两个日志类差不多. log4cxx::Logger对应log4cpp::Category.
+Appender, Layout都是相同的概念.
+
+自从log4cxx从0.9.7升到0.10, 据说内部架构重大更改, 而且有apache的大名顶着, 好像支持者大增. 
+而log4cpp成熟较早, 一直以来没什么更新, 日渐衰落.
+
+有一点重大区别, log4cxx不支持如printf格式的变参数日志:
+    log4cpp::Category::getRoot().info("%s %d", "test", 3);
+
+而log4cxx只能先格式化一个字符串后再记日志.
+    log4cxx::Logger::getRootLogger()->info("A string");
+
+这样log4cxx的性能会差很多. 当日志等级不需要记日志时, 就应该不要格式化字符串.
+
+log4cxx有一组宏, 可以先判断日志等级, 然后再输出.
+    LOG4CXX_DEBUG(logger, message)
+
+可以这样调用:
+    LOG4CXX_DEBUG(logger, "test " << 3);
+
+可能是出于安全的考虑, 故意禁止用户使用格式化串. 因为格式化串无法检测类型.
+我以前在使用log4cpp的时候, 总是要多次检查格式化串参数是否匹配.
+也碰到过因为日志导致程序崩溃的例子.
+因为像警告,错误类的日志几乎是不太可能出现的.
+测试时, 可能无法覆盖这类日志代码. 
+而使用流就可以大胆放心.
+
+但是有大半的使用情况下, 流方式输出会显得冗长, 格式控制也没有printf简洁.
+只有简单的输出才会使用流.
+
+幸好有boost::format. 它就是类型安全的printf. log4cxx配合boost::format真是绝配.
+例如:
+    LOG4CXX_DEBUG(logger, format("%1% %2%") % "test" % 3)
+
+想起了好用的MFC CString::Format()和Delphi的Format(), 
+boost::format虽然用'%'显得怪怪的, 但绝对是更安全的格式化串.
+
+
+不过我发现logcxx和boost::lexical_cast结合同样好用。下面是测试代码：
+#include <string>
+using std::string;
+#include "boost/format.hpp"
+#include "boost/lexical_cast.hpp"
+#include "log4cxx/logger.h"
+#include "log4cxx/propertyconfigurator.h"
+
+// 获取日志配置信息，定义日志类变量
+    log4cxx::PropertyConfigurator::configure(_T("Paint.config"));
+    log4cxx::LoggerPtr  rootLogger = log4cxx::Logger::getLogger(_T("Paint"));
+    LOG4CXX_DEBUG(rootLogger,_T("系统准备初始化\n"));
+// 将变量i、j的地址输出到日志
+    int i = 0;
+    int j = 0;
+ LOG4CXX_DEBUG(rootLogger,boost::format("i、j的地址分别是%1%和%2%")%(&i)%(&j));
+    LOG4CXX_DEBUG(rootLogger,_T("i、j的地址分别是")+boost::lexical_cast<string>(&i)+_T("和")+boost::lexical_cast<string>(&j));

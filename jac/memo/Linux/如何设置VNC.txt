@@ -1,0 +1,148 @@
+（1）如何设置VNC使之在启动时运行GNOME或KDE？
+
+相关版本：Red Hat Enterprise Linux 3，Red Hat Enterprise Linux 4，Red Hat Enterprise Linux 5
+
+VNC xstartup程序中默认的设定值是启动twm，而不是GNOME或KDE。
+
+默认的配置文件在第一次启动vncserver之前，运行vncpasswd命令创建密码的时候生成在用户的家目录中：
+
+
+${HOME}/.vnc/xstartup
+$是用户家目录。其中包含如下内容：
+
+（根据不同操作系统版本具体内容可能稍有差异）
+
+
+#!/bin/sh
+
+# Uncomment the following two lines for normal desktop:
+# unset SESSION_MANAGER
+# exec /etc/X11/xinit/xinitrc
+
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+xsetroot -solid grey
+vncconfig -iconic &
+xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+twm &
+为了启动GNOME或者KDE，先去掉“unset SESSION_MANAGER“和”exec /etc/X11/xinit/xinitrc“这两行的注释，然后将twm&注释掉，最后添加“gnome-session”，其设置如下：
+
+
+#!/bin/sh
+
+# Uncomment the following two lines for normal desktop:
+unset SESSION_MANAGER
+exec /etc/X11/xinit/xinitrc
+
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+xsetroot -solid grey
+vncconfig -iconic &
+xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+#twm &
+gnome-session &
+类似的，如果要启动KDE，需要修改为：
+
+
+#!/bin/sh
+
+# Uncomment the following two lines for normal desktop:
+unset SESSION_MANAGER
+exec /etc/X11/xinit/xinitrc
+
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+xsetroot -solid grey
+vncconfig -iconic &
+xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+#twm &
+startkde &
+修改配置文件后，关闭所有客户端vncviewer连接，然后重启动VNC，GNOME或KDE即已做为默认桌面。
+
+
+service vncserver restart
+
+
+（2）客户端方式和Web方式
+
+客户端方式访问，是在VncViewer的启动对话框中，输入服务器地址和VncServer显示序号(Display 
+number)，例如：192.168.0.254:1，如下图所示。显示序号从1开始，开启多个VncServer时，显示序号依次递增。
+（vncviewer访问的服务器端口是5900+display number）
+
+以Web方式访问VncServer，需要在网络浏览器的地址栏内输入服务器地址和端口号，端口号从5801开始(如果
+显示编号为1，一般第一次设置的显示编号都是1，就用5800＋1＝5801) 。如：http://192.168.0.254:5801。
+端口号与VncViewer访问时的显示序号有对应关系，例如，用VncViewer访问VncServer输入的服务器地址和显示序
+号为192.168.0.254:3，则在Web方式下输入192.168.0.254:5803，访问的是同一个VncServer服务进程。
+
+（3）保持连接端口不变
+
+经分析，启动时加载的
+VncServer，运行时，要在/tmp/.X11-unix目录下创建临时文件，例如X1、X2等；在/.vnc目录下创建进程标识文件和日志文件，
+例如router:1.pid，router:1.log等(这里的router是该Linux主机名)。只要在每次启动VncServer之前，把上次
+创建的临时文件删除，就可以让VncServer采用最初的显示序号启动了。做法如下：
+在/etc/rc.d/rc.local文件中添加命令：
+rm -f /tmp/.X11-unix/X*
+rm -f /.vnc/*.pid
+rm -f /.vnc/*.log
+vncserver
+这样，每次启机，系统会先把上次非正常关机时留下的临时文件删除，然后启动VncServer，从而保证端口号是固定的，可以随时使用http://192.168.0.254:5801来访问该主机了。
+ 
+注：使用VNC时出现无法输入数字和字母问题
+     
+    是输入法在作怪。VNC中要求本地的输入法必须与远程连接的操作系统语言匹配，否则就会出现这样的问题。如果连接的linux系统是英文版的，在使用VNC cient时本地的输入法切换在中文状态下就会出现无法输入的情况，若切换到英语[英国]这个状态就没有问题了。
+ 
+
+ 
+使用VNC登录远程Linux时如何设定VNC的显示分辨率
+2008年11月20日 星期四 16:26
+       在服务器端启动VNC服务时按如下命令启动：vncserver -geometry 1152x864 -depth 24 即可以1152x864的分辨率和24位的颜色深度来显示。
+
+-geometry x指定显示桌面的分辨率，默认为1024x768
+
+vncserver -geometry 800x600
+
+这个命令实际中很有用，例如本地分辨率为1024x768 如果不设定远程VNC服务分辨率就会造成桌面显示不全的问题。
+
+-depth 指定显示颜色,设定范围8～32
+
+vncserver -depth 16
+
+用16bits颜色显示
+
+-pixelformat 指定色素格式与-depth大致相同，只是表示方法不一样
+
+vncserver -pixelformat RGB888
+
+用24bits颜色显示
+
+vncserver -kill :display
+
+附录：
+
+查看VNC已启用的桌面号及监听进程
+
+[root@Linux /]# netstat -tlnp |grep vnc
+
+vncserver 命令带有一些很有用的参数，用vncserver --help 查看。
+
+简单解释一下：
+
+vncserver [:] [-name ] [-geometry x] [-depth ]
+
+[-pixelformat format]
+
+vncserver -kill :display
+
+:
+
+VNC服务的display号，可以自行指定，尽量不要使用系统默认的以保证安全，必须为非0的正整数
+
+vncserver :99
+
+使用时必须输入正确的display号才能连接；用浏览器要在端口号加上display号，默认端口5800，远程连接输入 XXX.XXX.XXX.XXX:5899
+
+-name 指定VNCserver桌面名字
+
+比如要让名字显示为 “红帽”
+
+vncserver -name 红帽

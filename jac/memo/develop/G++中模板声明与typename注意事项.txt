@@ -1,0 +1,33 @@
+G++中模板声明与typename注意事项
+2008-09-25 20:13
+GNU C++中对模板的语法要求与VC++不同
+1.模板声明时，模板实例化前面不能加typename前缀，例：
+typedef typename map<int, int> intmap; // VC++中有效
+typedef map<int, int> intmap; //GNU C++中只能这样声明
+
+2.使用模板内部的类型时，需要加typename，例：
+typedef typename map<int, int>::Iterator intmappointer; //GNC C++中的声明
+
+3.在类成员函数内调用父类模板数据成员和成员函数时前面必须加父类模板作域限定，或者用using限定，或者用this指针限定，例：
+template <typename T1, typename T2>
+void child<T1, T2>::info()
+{
+    ...
+    a = father<T1,T2>::b;//GNU C++必须对父类模板成员函数做显示声明
+    A = this->B;//此处B也为父类模板的成员变量，也可通过this指针做限定
+    using father<T1,T2>::C;//经过using限定后，父类模板变量可被识别
+    c = C;
+    ...
+}
+
+4.在模板中声明友元时，必须在友元声明前加上模板结构做修饰，例：
+template <typename key, typename val>
+class map
+{
+    ...
+    template <typename T1,typename T2> // 1
+    //template <typename key, typename val> //2
+    friend class maphelper;
+    ...
+};
+1处模板声明只需声明一个列表结构即可，说明maphelper在这样一个模板中，且模板列表中的类型名不能与所在模板类的模板类型名冲突，如2所示。

@@ -25,7 +25,7 @@ ObjectDepend := $(Folders) depend object $(SubDirs)
 objectsAll: $(ObjectDepend)
 
 $(Folders):
-	-mkdir $@
+	mkdir -p $@
 
 #根据.c文件自动生成依赖项.d文件
 depend: $(depends)

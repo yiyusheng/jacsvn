@@ -59,7 +59,7 @@ endif
 debug release: $(SingleConfigurationDepend)
 	@echo Solution:$(SolutionName) SUCCESS! Target:$@
 
-.PHONY: all debug release
+.PHONY: all debug release $(AllProjectList)
 
 #构造生成命令
 define ProjectCmd

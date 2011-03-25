@@ -1,0 +1,1 @@
+To use the static link log4cxx library, the macro LOG4CXX_STATIC MUST be defined in your projects preprocessor, otherwise your compilation will suffer unresolved linking error.
