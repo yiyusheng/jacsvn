@@ -38,6 +38,14 @@ make install
 make 
 make install 
 
+wxWidget
+1. mkdir buildgtk
+2. cd buildgtk
+3. ../configure --with-gtk --prefix=/home/jacteefan/CPP/wsWidgets
+4. make
+5. make install
+6. ldconfig
+
  
  windows环境下
 windows下先执行"C:\Program Files\Microsoft Visual Studio 8\Common7\Tools\vsvars32.bat"
@@ -58,6 +66,16 @@ boost
  2. bootstrap
  3. bjam stdlib=stlport --build-type=complete msvc-8.0 stage
  注意编译debug 版本设置工程-〉c++ -> 命令行附加选项加入 /GX  /D_STLP_DEBUG。代码生成-〉运行时库必须选择多线程版本的
+ 
+log4cxx
+使用log4cxx-0.10.0-vc6-June2008.rar
+ 
+wxWidgt
+1. cd build\msw
+2. nmake -f makefile.vc BUILD=debug UNICODE=1 SHARED=1
+3. nmake -f makefile.vc BUILD=debug UNICODE=1 SHARED=0
+4. nmake -f makefile.vc BUILD=release UNICODE=1 SHARED=1
+5. nmake -f makefile.vc BUILD=release UNICODE=1 SHARED=0
  
 ACE
 1. 新建文件ace/config.h, 内容#include "ace/config-win32.h"
