@@ -41,10 +41,11 @@ make install
 wxWidget
 1. mkdir buildgtk
 2. cd buildgtk
-3. ../configure --with-gtk --prefix=/home/jacteefan/CPP/wsWidgets
+3. ../configure --with-gtk --enable-unicode --prefix=/home/jacteefan/CPP/wxWidgets
 4. make
 5. make install
 6. ldconfig
+7. 使用./wx-config --cxxflags查看符号定义./wx-config --libs查看库
 
  
  windows环境下
