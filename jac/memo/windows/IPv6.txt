@@ -1,0 +1,22 @@
+隧道
+netsh interface ipv6 isatap set router 10.10.5.56
+netsh interface ipv6 isatap set state enable
+
+isatap.tsinghua.edu.cn(清华大学的)
+isatap.shu.edu.cn (上大的)
+isatap.hust.edu.cn(华中科大的)
+isatap.sjtu.edu.cn (上交的)
+
+重置
+netsh interface teredo set state disable
+netsh interface 6to4 set state disabled
+netsh interface isatap set state disabled
+
+若想还原则用以下命令:
+
+netsh interface teredo set state default
+netsh interface 6to4 set state default
+netsh interface isatap set state default
+
+
+双栈
