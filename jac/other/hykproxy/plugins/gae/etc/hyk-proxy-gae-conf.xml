@@ -15,11 +15,11 @@
     <httpConnectionPoolSize>7</httpConnectionPoolSize>
     <httpUpStreamEncrypter>se1</httpUpStreamEncrypter>
     <localProxy>
-        <host>www.google.com.hk</host>
-        <port>443</port>
+        <host>www.google.cn</host>
+        <port>80</port>
         <user></user>
         <passwd></passwd>
-        <type>HTTPS</type>
+        <type>HTTP</type>
     </localProxy>
     <hyk-proxy-server passwd="anonymouse" user="anonymouse" appid="jachykgae"/>
     <maxFetcherNumber>3</maxFetcherNumber>
