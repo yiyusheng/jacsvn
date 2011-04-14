@@ -63,6 +63,7 @@ STLport
 boost
 1. 修改配置文件boost_1_37_0\tools\build\v2\user-config.jam
     using msvc : 8.0 : : <compileflags>/wd4819 <compileflags>/D_CRT_SECURE_NO_DEPRECATE <compileflags>/D_SCL_SECURE_NO_DEPRECATE <compileflags>/D_SECURE_SCL=0 ;
+	using msvc : 9.0 : : /wd4819 /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /D_SECURE_SCL=0 ;
     using stlport : 5.2.1 : "D:\\work\\VS\\Projects\\STLport-5.2.1\\stlport" : "D:\\work\\VS\\Projects\\STLport-5.2.1\\lib" ;
  2. bootstrap
  3. bjam stdlib=stlport --build-type=complete msvc-8.0 stage
@@ -77,6 +78,10 @@ wxWidgt
 3. nmake -f makefile.vc BUILD=debug UNICODE=1 SHARED=0
 4. nmake -f makefile.vc BUILD=release UNICODE=1 SHARED=1
 5. nmake -f makefile.vc BUILD=release UNICODE=1 SHARED=0
+6. nmake -f makefile.vc BUILD=debug UNICODE=0 SHARED=1
+7. nmake -f makefile.vc BUILD=debug UNICODE=0 SHARED=0
+8. nmake -f makefile.vc BUILD=release UNICODE=0 SHARED=1
+9. nmake -f makefile.vc BUILD=release UNICODE=0 SHARED=0
  
 ACE
 1. 新建文件ace/config.h, 内容#include "ace/config-win32.h"
