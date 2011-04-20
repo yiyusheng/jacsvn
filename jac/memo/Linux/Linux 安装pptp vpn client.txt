@@ -1,0 +1,158 @@
+   Linux使用pptp vpn client 其实很简单的，只是相对文档较少或是落后造成很多Linuxer报怨。下面我简单的列一下操作步骤。
+
+背景： 
+    系统使用Redhat Enterprise 5.4(CentOS也支持)
+    该文档应该能适应不同的Linux。
+    基于命令行的操作。我的开发机器上没装图形界面。
+
+需要软件： 
+     pptp 该软件可以从：
+     http://pptpclient.sourceforge.net/#download 
+     pppd 一般系统自带。
+
+安装： 
+      下载pptp,下载相应的pptp的RPM包即可。
+      rpm -ivh pptp-*.rpm
+      这样基本上完成了50%的工作了。
+配置：    
+     pptp安装后有一个配置命令：pptpsetup
+
+# pptpsetup –help
+
+pptpsetup –create <TUNNEL> –server <SERVER> [--domain <DOMAIN>]
+
+          –username <USERNAME> [--password <PASSWORD>]
+
+          [--encrypt] [--start]
+
+ 
+
+pptpsetup –delete <TUNNEL>
+
+Options:
+* <TUNNEL>  配置文件的名称，可以根据不同的连接用不同的名字，自已指定，我这里有vpn.
+* <SERVER>  PPTP SERVER的IP。
+* <DOMAIN> 所在的域，可以省略，一般不用。
+* <USERNAME>  VPN 上认证用的用户名，VPN用户
+* <PASSWORD>  VPN上用户认证用的密码
+* –encrypt 启用加密
+*           当没使用–encrypt 连接时出现下面的错误时，表示使用了加密，这点也可以和VPN的管理员联系确认一下，遇到下面的*           情况可以加上该参数。
+*                    CHAP authentication succeeded
+*                          LCP terminated by peer (ZM-76-^@<M-Mt^@^@^BM-f ) 
+*                            
+* –start  直接连接，第一次使用。
+
+创建配置文件
+
+假设VPN的用户名和密码都是wubx,IP是：xxx.xxx.xxx.xx
+
+#pptpsetup –create vpn –server XXX.XXX.XXX.XX  –username wubx –password wubx –encrypt –start
+
+         运气好了，就可以看到连接成功的信息了。
+    如：
+
+Using interface ppp0
+
+Connect: ppp0 <–> /dev/pts/2
+
+CHAP authentication succeeded
+
+MPPE 128-bit stateless compression enabled
+
+local  IP address 192.168.111.103
+
+remote IP address 192.168.111.100
+
+以后的启动可以使用：
+
+pppd call vpn
+
+相应的LOG也可以在/var/log/message中查看。
+
+然后可以利用route命令添加相应的路由：
+如我这边VPN的机器所在网段是192.168.110.0/24 那么我就可以使用：
+
+【原文路由配置】
+
+#route add -net  192.168.110.0 netmask 255.255.255.0  gw 192.168.112.100 device ppp0
+
+添加完路由就可以使用了。
+
+ 
+
+【我的实际配置】
+
+route add -net 0.0.0.0 dev ppp0
+
+ 
+
+备注：
+
+建立连接：     
+
+对于以后VPN的启动可以写一个ppp-on 放到/usr/local/bin内容：
+#!/bin/bash
+
+exec /usr/sbin/pppd call vpn
+
+关闭连接：
+
+可以写一个ppp-off放到/usr/local/bin/下，内容如下：
+
+#!/bin/bash
+
+if [ "$1" = "" ]; then
+
+        DEVICE=ppp0
+
+else
+
+        DEVICE=$1
+
+fi
+
+if [ -r /var/run/$DEVICE.pid ]; then
+
+        kill -INT `cat /var/run/$DEVICE.pid`
+
+        if [ !"$?" = "0" ]; then
+
+                rm -rf /var/run/$DEVICE.pid
+
+                echo “ERROR: Removed stale pid file”
+
+                exit 1
+
+        fi
+
+echo “PPP link to $DEVICE terminated.”
+
+exit 0
+
+fi
+
+echo “ERROR: PPP link is not active on $DEVICE”
+
+exit 1
+
+【我的脚本】
+
+#ppp-on.sh
+
+#!/bin/bash
+
+/usr/sbin/pptpsetup -create vpn -server xxx.xxx.xxx.xxx  -username xxxx -password xxxx  -encrypt -start
+
+sleep 10
+
+/sbin/route add -net 0.0.0.0 dev ppp0
+
+
+修改/etc/ppp/peers/vpn67为
+# written by pptpsetup
+pty "pptp 211.69.198.67 --nolaunchpppd"
+name jacteefan1
+remotename vpn67
+ipparam vpn67
+require-mppe-128
+file /etc/ppp/options.pptp
