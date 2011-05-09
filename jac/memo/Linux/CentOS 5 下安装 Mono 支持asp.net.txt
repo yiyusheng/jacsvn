@@ -1,0 +1,382 @@
+CentOS 5 下安装 Mono 支持asp.net
+
+Centos5.3 yum源里面自带mono 1.2.4
+
+1.安装 
+yum install mono* xsp mod_mono
+
+ 
+
+2.然后配置mod_mono，测试能否与apache整合 
+vim /etc/httpd/conf.d/mod_mono.conf 
+添加到最后： 
+Alias /test "/usr/lib64/xsp/test" 
+MonoApplications "/test:/usr/lib64/xsp/test" 
+<Location /test> 
+        SetHandler mono 
+</Location>
+
+ 
+
+3.重启httpd 
+service httpd restart
+
+ 
+
+4.访问测试 
+http://localhost/test/
+
+ 
+
+完成！
+
+
+  本文为需要ASP.NET跨平台应用提供帮助。并且有成功案例，希望你们能得到帮助。 
+    mono在Linux上配置很繁琐，还涉及到很多.net环境的支持。要保证安装过程中大部分不报错才行。经过几位兄弟很长时间努力终于完成，并且成功运用到互联网上的门户网站上。文章可能分上下部分,最后附上一些安装文件。废话不多开始写文章了...
+
+    先对Linux不熟悉的同学一点小提示：
+
+在安装的需要以root用户进行安装(系统自带的)，本安装是linux系统源码安装。
+
+tar：解压文件
+
+cd：进入目录
+
+configure：配置
+
+prefix：安装路径
+
+make：安装前
+
+make install：安装
+
+ 
+
+1. 安装apache2
+
+Tar zxvf httpd-2.2.11.tar.gz
+
+cd httpd-2.2.11
+
+.configure --prefix=/usr/local/apache2
+
+make 
+
+make install
+
+(apache2文件夹是不存在的也不需你来创建，它会自己创建。)
+
+开启apache服务：/usr/local/apache2/bin/apachectl restart(对于我自己所操作的系统需要回车后再输入一次才能开启)
+
+ 
+
+2. 安装EXIF支持
+
+EXIF格式是专门为数码相机照片设定的。这个格式可以记录数字照片属性信息。
+
+tar jxvf libexif-0.6.17.tar.bz2
+
+cd libexif-0.6.17           
+
+./configure 
+
+make 
+
+make install 
+
+ 
+
+tar jxvf exif-0.6.17.tar.bz2 
+
+cd exif-0.6.17 
+
+./configure --prefix=/usr/local/exif 
+
+make 
+
+make install
+
+ 
+
+3. 安装TIFF支持
+
+TIFF格式是一种主要用来存储包括照片和艺术图在内的图像的文件格式。
+
+tar zxvf tiff-3.8.2.tar.gz 
+
+cd tiff-3.8.2 
+
+./configure --prefix=/usr/local/tiff 
+
+make 
+
+make install
+
+ 
+
+4. 安装GIF支持
+
+GIF格式是用于压缩具有单调颜色和清晰细节的图像（如线状图、徽标或带文字的插图）的标准格式。
+
+tar jxvf giflib-4.1.6.tar.bz2 
+
+cd giflib-4.1.6 
+
+./configure --prefix=/usr/local/gif 
+
+make 
+
+make install
+
+（注意：配置Lib及include支持
+
+　　因为源码安装后其lib和include的位置会因源码的设定各有不同，而Mono只会在/usr/lib的目录中查找，所以需要用下面的命令来配置相应的支持。
+
+cp /usr/local/lib/pkgconfig/libexif.pc /usr/lib/pkgconfig/ 
+
+cp /usr/local/gif/lib/* /usr/lib/ 
+
+cp /usr/local/gif/include/* /usr/include/ 
+
+cp /usr/local/tiff/lib/* /usr/lib/ 
+
+cp /usr/local/tiff/include/* /usr/include/）
+
+ 
+
+5.      安装libgdiplus
+
+完成支持System.Drawing类。
+
+tar jxvf libgdiplus-2.2.tar.bz2 
+
+cd libgdiplus-2.2 
+
+./configure 
+
+make 
+
+make install
+
+ 
+
+6. 安装Mono
+
+Mono是一个由Novell公司(先前是Ximian)主持的项目.该项目的目标是创建一系列符合标准ECMA (Ecma-334和Ecma-335)的.Net 工具, 包括C #编译器和共同语言(CL 即 Common Language)执行平台(Platform). Mono项目不仅可以运行Windows系统内,还可以运行于Linux, FreeBSD, Unix, Mac OS X和Solaris. 
+
+ 
+
+这里需要说明的是，安装mono的目录需要指定为/usr，否则会出现503之类的错误。编译mono的时间会比较长，在编译会有一些警示，这些不会影响到后面的正常编译。
+
+tar jxvf mono-2.2.tar.bz2 
+
+cd mono-2.2 
+
+./configure --prefix=/usr 
+
+make 
+
+make install
+
+安装完成后输入：mono回车会显示mono的相关信息，反之就什么都没有。
+
+ 
+
+7.      安装xsp
+
+xsp是asp.net的解析执行引擎，xsp相当于jsp/apache环境的tomcat。
+
+tar jxvf xsp-2.2.tar.bz2 
+
+cd xsp-2.2 
+
+./configure --prefix=/usr 
+
+make 
+
+make install
+
+安装完成后在终端输入：xsp --root/usr/lib/xsp/test回车
+
+然后在浏览器中输入：http://localhost:8080/出现欢迎xsp界面
+
+ 
+
+ 
+
+8.      安装mod-mono支持
+
+mod_mono是apache到xsp的连接器，mod_mono相当于jsp/apache环境的mod_jk(或 mod_jk2)。
+
+tar jxvf mod_mono-2.2.tar.bz2 
+
+cd mod_mono-2.2 
+
+./configure --with-apxs=/usr/local/apache2/bin/apxs 
+
+make 
+
+make install 
+
+
+ 
+
+--------------------------------------------------------------------------------------------------------
+
+ 
+
+9．配置apache 设定一下httpd.conf用以支持asp.net
+
+1. httpd.conf文件在/usr/local/apache2/conf文件夹下(需要注意的是在/ect/httpd/conf文件下也有httpd.conf文件，此文件是Red Hat系统自带的apache服务)
+
+找到该文件后打开该文件在最上面把mod_mono模块包含到里面：
+
+Include usr/local/apache2/conf/mod_mono.conf
+
+2. 在httpd.conf文件最下面中配置虚拟路径：
+
+Alias /虚拟路径名 “/实际路径”
+
+ADDMonoApplicatons default “/虚拟路径名:/ 实际路径”
+
+ 
+
+Alias /test “/var/www/ test”
+
+ADDMonoApplicatons default “/test:/var/www/test”
+
+<Location /test>
+
+       SetHandler mono
+
+       Options None
+
+       Order allow,deny
+
+       Allow from all
+
+</Location>
+
+3. 保存该文件后重启apache服务器在终端输入：
+
+/usr/local/apache2/bin/apachectl restart
+
+(可能会没有反应(在输入一次)或者报错，如果是这样的话，那就输入：
+
+/usr/local/apache2/bin/apachectl stop(若没有反应就再输入一次)
+
+/usr/local/apache2/bin/apachectl start(同上)
+
+)
+
+打开浏览器输入：http://localhost/test/回车后会看到xsp的欢迎界面(这是复制xsp文件夹下的test文件夹)
+
+提示：
+
+在终端输入：service httpd start 是启动系统自带的apache服务器。
+
+对于自己安装的apache服务器打开的命令：
+
+/usr/local/apache2/bin/apachectl start
+
+(如果没有反应就再输入一次：/usr/local/apache2/bin/apachectl start)
+
+4.如果需应用C#2.0(有两种方法)
+
+第一种：在mod_mono.conf文件的节点里加入
+
+在LoadModule mono_module /usr/lib/apache2/mod_mono.so下面加入
+
+MonoServerPath /usr/bin/mod-mono-server2
+
+第二种：在httpd.conf文件中加入
+
+MonoServerPath /usr/bin/mod-mono-server2
+
+如：
+
+       Alias /test “/var/www/ test”
+
+ADDMonoApplicatons default “/test:/var/www/test”
+
+MonoServerPath /usr/bin/mod-mono-server2
+
+<Location /test>
+
+              SetHandler mono
+
+              Options None
+
+              Order allow,deny
+
+              Allow from all
+
+</Location>
+
+ 
+
+5.设置多个虚拟路径
+
+如：
+
+       Alias /test “/var/www/ test”
+
+Alias /demo “/var/www/ demo”
+
+ 
+
+ADDMonoApplicatons default “/test:/var/www/test, /demo:/var/www/demo”
+
+MonoServerPath /usr/bin/mod-mono-server2
+
+<Location /test>
+
+              SetHandler mono
+
+              Options None
+
+              Order allow,deny
+
+              Allow from all
+
+</Location>
+
+<Location /demo>
+
+              SetHandler mono
+
+              Options None
+
+              Order allow,deny
+
+              Allow from all
+
+</Location>
+
+ 
+
+注意：
+
+       如果在项目放入虚拟路径中打开浏览器出现错误则需要在该项目中加入controls文件，该文件在xsp文件夹下test文件夹下。然后在aspx页面加上指令
+
+<%@ Register Tagprefix=”mono” TagName=”MonoSamplesHader” src=”controls/MonoSaplesHeader.ascx”>(具体参照test文件下的aspx页面)
+
+需要安装文件：
+
+exif-0.6.17.tar.bz2
+
+giflib-4.1.6.tar.bz2
+
+httpd-2.2.11.tar.gz
+
+libexif-0.6.17.tar.bz2
+
+libgdiplus-2.2.tar.bz2
+
+mod_mono-2.2.tar.bz2
+
+mono-2.2.tar.bz2
+
+tiff-3.8.2.tar.gz
+
+xsp-2.2.tar.bz2
