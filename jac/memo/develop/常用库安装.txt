@@ -67,6 +67,7 @@ boost
     using stlport : 5.2.1 : "D:\\work\\VS\\Projects\\STLport-5.2.1\\stlport" : "D:\\work\\VS\\Projects\\STLport-5.2.1\\lib" ;
  2. bootstrap
  3. bjam stdlib=stlport --build-type=complete msvc-8.0 stage
+ bjam --toolset=msvc-10.0 --build-type=complete
  注意编译debug 版本设置工程-〉c++ -> 命令行附加选项加入 /GX  /D_STLP_DEBUG。代码生成-〉运行时库必须选择多线程版本的
  
 log4cxx
