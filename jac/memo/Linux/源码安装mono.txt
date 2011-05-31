@@ -1,0 +1,114 @@
+在Redhat Enterprise AS 3 下源码安装配置 MONO
+
+
+一、Mono版本
+============
+
+ * 最新版本能够到 http://www.mono-project.com 查看下载
+ * Mono的版本安装能够分为两种，一种是源码安装，一种是二进制包安装，二进制安装包只提供常用的几种操作系统。
+ * 当前使用的LINUX为Redhat Enterprise AS 3，MONO没有提供该操作系统下的二进制包，只能由源码
+安装。使用的MONO版本为 1.0.4
+-----
+ * 下载文档 
+|-- mono-1.0.4
+ |-- xsp-1.0.4
+ |-- mod_mono-1.0.4
+
+二、源码安装MONO的环境配置
+==========================
+
+ 1、必需的
+ ---------
+** pkg-config 能够从 http://www.freedesktop.org/Software/pkgconfig 下载
+(这是Mono Readme中需要的，但实际安装过程没有安装这个文档，mono安装能够通过)
+
+ ** glib 2.0 能够从http://www.gtk.org/下载
+(这是Mono Readme中需要的，实际中系统自带glib-1.2.*，没有去安装glib2.0，mono安装也能够通过)
+
+ * gcc 编译源码，能够从 添加删除程式 中添加
+* httpd-devel Apache的研发工具包，安装Mono的Apache模块(mod_mono)必须的，从 添加删除程式 中添加。
+ 
+
+2、可选的
+
+* ICU library 能够从 http://oss.software.ibm.com/icu/index.html 下载
+You will need this one to get complete support for the international
+ features of the .NET Framework.
+
+ * Cairo and libgdiplus
+
+ If you want to get support for System.Drawing, you will need to get
+ both Libgdiplus and Cairo.
+三、安装配置MONO
+================
+
+ 在/usr下新建 目录mono 
+
+1、安装 Mono
+ ------------
+
+在终端中执行以下命令：
+# tar zxf mono-1.0.4.tar.gz /usr/mono
+ # cd /usr/mono/mono-1.0.4
+ # ./configure --prefix=/usr
+ # make
+ # make install
+
+假如上面操作没有什么错误，说明mono的运行环境己经安装成功，在终端中输入 mono 回车后，会出现mono的帮助提示
+ 
+2、安装XSP服务器
+ ----------------
+
+在终端中执行以下命令：
+# tar zxf xsp-1.0.4.tar.gz /usr/mono
+ # cd /usr/mono/xsp-1.0.4
+ # ./configure --prefix=/usr
+ # make
+ # make install
+ 
+假如上面操作没有什么错误，说明XSP己经安装成功，在终端中输入 xsp --root /usr/share/doc/xsp/test 回车后，
+ 打开网页浏览器，输入 http://localhost:8080/，会出现XSP的欢迎页面
+
+ 3、安装Apache模块
+ -----------------
+
+在终端中执行以下命令：
+# tar zxf mod_mono-1.0.4.tar.gz /usr/mono
+ # cd /usr/mono/mod_mono-1.0.4
+ # ./configure --prefix=/usr
+ # make
+ # make install
+ 
+假如上面操作没有什么错误，说明Apache模块己经安装成功
+ 
+把 /etc/httpd/conf/od_mono.conf 文档复制到 /etc/httpd/conf.d下
+
+ 使用编辑工具打开 /etc/httpd/conf/httpd.conf
+ 
+加入以下几行
+
+Alias /demo "/usr/share/doc/xsp/test"
+ MonoApplications "/demo:/usr/share/doc/xsp/test"
+ <Directory /usr/share/doc/xsp/test>
+ SetHandler mono
+ </Directory>
+
+保存后重启Apache，打开网页浏览器，输入 http://localhost/demo，会出现XSP的欢迎页面
+
+
+四、安装MySQL
+=============
+
+ 系统自带的MYSQL是客户端程式
+ 到http://www.mysql.com下载服务器版本
+ 下载的版本 4.1.10
+ |-- MySQL-server-4.1.10-0.i386.rpm
+ |-- MySQL-client-4.1.10-0.i386.rpm
+
+ 先安装 Server,再安装Client
+
+
+五、MySQL中文乱码问题
+=====================
+ 
+页面编码统一使用 UTF-8 编码格式，能够解决从面页写入和读取中文字符乱码的问题
