@@ -1,0 +1,132 @@
+       由于服务器购买时间比较久远了，配置比较低，不支持从U盘启动，光驱也牺牲好几年了，原来装的windows 2003 也是远程部署的，  但是现在想让它跑些东西，所以决定安装linux。
+
+        linux的网络安装就是安装的源文件来源于网络，其它的跟从光盘安装无异。要实现网络安装需要三个条件
+
+       1.DHCP服务器；
+
+       2.tftp服务器；
+
+       3.ftp服务器。
+
+       我提供服务的主机是CentOS 5.5，要部署的也是CentOS 5.5。
+
+       1. 安装并配置DHCP服务器
+
+        直接安装系统盘自带的DHCP服务软件
+
+        再把默认的配置文件复制到/etc/ 目录下并改名，覆盖原文件：
+        cp /usr/share/doc/dhcp*/dhcpd.conf.sample /etc/dhcpd.conf
+
+        修改配置文件
+          在配置文件最后一行添加下面这一段,请按实际情况修改
+          subnet 192.168.0.0 netmask 255.255.255.0 { 
+          range 192.168.0.90 192.168.0.96; 
+          option routers 192.168.0.254; 
+          option subnet-mask 255.255.255.0; 
+          option domain-name "domain.org"; 
+          option domain-name-servers 202.96.128.86,202.96.128.166; 
+          next-server 192.168.0.22; 
+          filename "pxelinux.0"; 
+          } 
+          =====================================================
+          subnet 192.168.0.0 netmask 255.255.255.0 { 
+          ###DHCP服务器本身内网的IP段和子网掩码,网卡静态IP地址那个网段
+          range 192.168.0.90 192.168.0.96; 
+          ###分配给客户端IP 的范围
+          option routers 192.168.0.254; 
+          ###分配给客户端的路由网关
+          option subnet-mask 255.255.255.0; 
+          ###分配给客户端的子网掩码
+          option domain-name "domain.org"; 
+          ####为客户端指明DNS名字，可以随便填
+          option domain-name-servers 202.96.128.86,202.96.128.166; 
+          ###为客户端指明DNS服务器IP地址,多个DNS地址请用逗号隔开
+          next-server 192.168.0.22; 
+          ###TFTP Server 的IP地址，网络安装时用到
+          filename "pxelinux.0"; 
+          ###PXE 启动文件,网络安装时用到,这个文件是syslinux套件提供的
+
+          启动DHCP服务器
+          service dhcpd start 或 /etc/rc.d/init.d/dhcpd start
+          chkconfig dhcpd on ####设为开机自行启动DHCP 服务
+
+          2)安装配置tftp服务器
+
+          直接安装系统盘内的tftp server 即可
+
+          修改配置文件
+          vi /etc/xinetd.d/tftp
+          server_args = -s /var/lib/tftpboot ####这个是TFTP默认的目录
+          把它修改为
+          erver_args = -s /tftpboot
+          启动TFTP
+          service xinetd start
+          chkconfig tftp on ####设为开机启动
+
+          3. PXE Boot loader (PXE引导加载程序）
+          pxelinux.0是syslinux套件提供的，用以下命令查看系统是否已安装和存放的目录，如果没有请安装
+          rpm -ql syslinux | grep pxelinux.0
+          发现pxelinux.0存放在
+          /usr/share/syslinux/pxelinux.0
+          把pxelinux.0复制到/tftpboot
+          cp -v /usr/share/syslinux/pxelinux.0 /tftpboot
+          提取需要的文件。
+          把CentOS-5.5-i386-bin-DVD.iso/images/pxeboot 目录中的initrd.img vmlinuz 也复制到/tftpboot 目录下
+          建立PXE开机设置文件的存放目录
+          mkdir -pv /tftpboot/pxelinux.cfg
+          把CentOS-5.5-i386-bin-DVD.iso/isolinux/isolinux.cfg 这个文件复制到 /tftpboot/pxelinux.cfg 目录下，并重命名为default
+          内容如下，每个lable是一个启动选项，输入lable后面的单词，然后回车来启动相应的选项。可根据实际情况自行修改。
+          如果在规定的时间内没输入，会以自动启动default那一项。
+          ===================================================
+          default linux ###默认启动项，也就是label linux那一段
+          prompt 1 ###开启提示信息
+          timeout 600 ###默认的时间内没输入要选择哪一项，会自动启动上面默认那一项
+          display boot.msg ###启动选项信息，boot.msg 这个文件里有一些说明信息。
+          F1 boot.msg ###按相应的按键可以查看说明信息，前提是文件夹里有这些文件。
+          F2 options.msg ###其实这些文件就在CentOS-5.5-i386-bin-DVD.iso/isolinux/ 中
+          F3 general.msg 
+          F4 param.msg 
+          F5 rescue.msg 
+          label linux ####这个是第一个启动选项，图形介面安装
+          kernel vmlinuz
+          append initrd=initrd.img 
+          label text ###这个是文字介面安装模式
+          kernel vmlinuz
+          append initrd=initrd.img text 
+          label ks ###这个要使用kickstart来安装
+          kernel vmlinuz
+          append ks initrd=initrd.img
+          label local ###从本地硬盘启动
+          localboot 1
+          label memtest86 ###内存测试选项
+          kernel memtest
+          append -
+          =================================================
+          注意事项：
+          文中###号和后面文字是备注，不要写入配置文件哦。
+          =================================================
+
+          把系统CentOS-5.5-i386-bin-DVD.iso/isolinux/boot.msg 这个文件复制到 /tftpboot 目录下。
+          文件内容如下，只是开机信息而已，可以根椐实际情况修改。
+          这是对 /tftpboot/pxelinux.cfg/default 的设置选项的一些说明。
+          ================================================
+          NSTALLATION MENU
+          Choose installation type:
+          0 Local Boot (default)
+          1 RHEL5.1 Base System
+          2 RHEL5.1 Workstation
+          ===============================================
+
+          4）安装并配置ftp服务
+
+          直接安装系统盘里的vsftpd即可
+
+          由于默认支持匿名访问，所以可以不做配置
+
+          5）把系统盘里的文件全部拷贝到/var/ftp/pub目录下或者直接把光盘挂载到该目录下即可
+
+=========================================================================================================
+
+客户端开机摁下F12，从pxe启动，看到选项摁下enter键，继续进行配置，后边选择从ftp安装，服务器名为配置的服务器的IP地址，目录   为pub
+
+开始安装。
