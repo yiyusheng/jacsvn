@@ -1,0 +1,110 @@
+1.根据需要，要改变nc区的大小.
+　响应WM_NCCALCSIZE可改变nc区的大小.关键在于lParam,msdn上说当wParam为True时，
+　lParam为LPNCCALCSIZE_PARAMS的指定，当wParam为False时为LPRECT,做了些实验发现
+　只有第一次时wParam为False，LPNCCALCSIZE_PARAMS的语义相当复杂，不过我们只用
+　看第一个RECT就成.它表是窗口客户区的大小.当lParam为LPRECT时，也同样.只用改变
+　客户区的大小，相应的就改变了非客户区的大小.
+
+
+2.响应WM_NCPAINT绘制窗口的Title和Border
+
+
+3.响应WM_NCHITTEST，在这里要做的是改变原来的HTMAXBUTTON,HTMINBUTTON,HTMINBUTTON　区域.
+
+
+4.响应WM_NCACTIVATE,在这里不能调用默认的处理因为当窗口是非激活状态时会画出默认的Title
+
+
+5.响应WM_ACTIVATEAPP,在这里先调用默认的处理.然后再自绘nc区.
+
+
+6.响应       
+
+        0x00AE://WM_NCUAHDRAWCAPTION
+        0x00AF://WM_NCUAHDRAWFRAME
+　这两条消息是在xp sp2后加的.xp在以前有个bug在某些时候Titlebar会画错.
+　在这里不能调用默认处理，直接自绘nc区.
+
+
+7.最后要响应WM_NCMOUSEMOVE,WM_NCLBUTTONDOWN,WM_NCLBUTTONUP,
+　WM_NCMOUSELEAVE,来处理Titlebar上的鼠标动作.
+
+另外最好调用SetWindowTheme(hWnd, L"", L""),和
+DWORD dwAttr = 1;
+DwmSetWindowAttribute(hWnd, 2, &dwAttr, 4));
+以防止xp,和vista用主题绘制窗口nc区.
+这两条函数分别是xp和vista特有的，所以只能动态加载相应的dll以调用之.  
+在CDBFrame::OnCreate里面
+ModifyStyle(WS_CAPTION, 0);	//没有这行，最大化的时候有窗口边缘8像素的被截掉了
+
+HINSTANCE hInst = LoadLibrary(_T("UxTheme.dll"));
+if (hInst)
+{
+typedef HRESULT (WINAPI *PFUN_SetWindowTheme)(HWND, LPCWSTR, LPCWSTR);
+
+PFUN_SetWindowTheme pFun = (PFUN_SetWindowTheme)GetProcAddress(hInst, "SetWindowTheme");
+
+if (pFun)
+pFun(GetSafeHwnd(), L"", L"");	 //去掉xp主体
+
+FreeLibrary(hInst);
+}
+
+hInst = LoadLibrary(_T("dwmapi.dll"));
+if (hInst)
+{
+typedef HRESULT (WINAPI * TmpFun)(HWND,DWORD,LPCVOID,DWORD);
+TmpFun DwmSetWindowAttributeEX = (TmpFun)::GetProcAddress(hInst, "DwmSetWindowAttribute");
+
+if (DwmSetWindowAttributeEX)
+{
+DWORD dwAttr = 1;
+DwmSetWindowAttributeEX(GetSafeHwnd(), 2, &dwAttr, 4);	//去掉vista特效
+}
+
+FreeLibrary(hInst);
+}
+
+BOOL CDBFrame::OnNcActivate( BOOL bActive )	 //避免每次激活时vista重画边框
+{
+return TRUE;
+}
+
+XP下一切正常的时候, 在WIN7下会出现厚边框.  经过常规非客户区的NC_XXX处理后, 当窗口失去焦点, 就会发现WIN7给绘了一个厚厚的边框.
+————————————————————————-
+网上找了一下, 发现统统抄录一个解法:
+就是在OnNcActivate( BOOL bActive )的时候直接返回TRUE, 如下:
+BOOL CFrameWnd::OnNcActivate( BOOL bActive )
+{
+return TRUE;
+}
+事实上这个方法确实看不见厚边框了, 但是这个方法是不对的, bActive需要判断, 否则windows可能不会响应你的弹出对话框, 因为直接返回TRUE, 表示消息中止, 后续的WM_ACTIVATE靠谁来接续呢?  所以这个直接返回是错误的.
+下面进入正解:
+————————————————————————-
+先放代码:
+BOOL CFrameWnd::OnNcActivate( BOOL bActive )
+{
+if(bActive)
+{
+OnNcPaint(0);
+return TRUE;
+}
+else
+{
+LockWindowUpdate();
+OnNcPaint(0);
+return FALSE;
+}
+}
+BOOL  CFrameWnd::OnActivate( UINT nState,HWND hwndPrevious, BOOL bMinimized )
+{
+if(WA_INACTIVE==nState)
+{
+LockWindowUpdate(0);
+}
+return FALSE;
+};
+简要说一下原理, OnNcActivate的时候先阻止窗口绘制, 接下来window会收到绘制消息, 这个时候就绘制不了, 再然后window会收到WM_ACTIVATE, 这个时候再解锁,  不然窗口界面会死锁在那里
+总结:
+一. 如何正确处理OnNcActivate,  必须按它的参数来处理不同类型, 不能直接返回TRUE, 以解决对话框问题
+二. 如何正确处理LockWindowUpdate, 让它在合理的时候锁定, 合理的时候解锁.
