@@ -108,3 +108,185 @@ return FALSE;
 总结:
 一. 如何正确处理OnNcActivate,  必须按它的参数来处理不同类型, 不能直接返回TRUE, 以解决对话框问题
 二. 如何正确处理LockWindowUpdate, 让它在合理的时候锁定, 合理的时候解锁.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// RYFrameWnd.cpp : implementation file
+//
+
+#include "stdafx.h"
+#include "EEE.h"
+#include "RYFrameWnd.h"
+
+
+const CRect CRYFrameWnd::rcNcRect(5, 25, 5, 5);
+
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+// CRYFrameWnd
+
+IMPLEMENT_DYNCREATE(CRYFrameWnd, CFrameWnd)
+
+CRYFrameWnd::CRYFrameWnd()
+{
+}
+
+CRYFrameWnd::~CRYFrameWnd()
+{
+}
+
+
+BEGIN_MESSAGE_MAP(CRYFrameWnd, CFrameWnd)
+//{{AFX_MSG_MAP(CRYFrameWnd)
+ON_WM_NCCALCSIZE()
+ON_WM_NCPAINT()
+ON_WM_NCHITTEST()
+ON_WM_NCLBUTTONDOWN()
+ON_WM_SETCURSOR()
+//}}AFX_MSG_MAP
+END_MESSAGE_MAP()
+
+/////////////////////////////////////////////////////////////////////////////
+// CRYFrameWnd message handlers
+
+void CRYFrameWnd::OnNcCalcSize( BOOL bCalcValidRects, NCCALCSIZE_PARAMS* lpncsp )
+{
+CRect rc = lpncsp->rgrc[0];
+rc.DeflateRect(rcNcRect);
+lpncsp->rgrc[0] = rc;
+}
+
+void CRYFrameWnd::OnNcPaint()
+{
+CWindowDC dc(this);
+
+CRect rc;
+GetWindowRect(rc);
+
+CRect rcClip;
+GetClientRect(rcClip);
+ClientToScreen(rcClip);
+
+rcClip.OffsetRect(-rc.left, -rc.top);
+rc.OffsetRect(-rc.left, -rc.top);
+
+dc.ExcludeClipRect(rcClip);
+
+CRect rcOut = rcClip;
+rcOut.InflateRect(rcNcRect);
+
+CRect rcIn = rcClip;
+rcIn.InflateRect(1, 1, 1, 1);
+
+dc.FillSolidRect(rcOut, 0xFFDABE);
+dc.Draw3dRect(rcOut, 0xA79A94, 0xA79A94);
+dc.Draw3dRect(rcIn, 0xFFC599, 0xFFC599);
+}
+
+UINT CRYFrameWnd::OnNcHitTest( CPoint point )
+{
+CRect rcWnd;
+GetWindowRect(rcWnd);
+
+CRect rcCap = rcWnd;
+rcCap.bottom = rcCap.top + rcNcRect.top;
+rcCap.top += 5;
+rcCap.DeflateRect(20, 0, 20, 0);
+
+CRect rcLeft = rcWnd;
+rcLeft.right = rcLeft.left + 5;
+rcLeft.DeflateRect(0, 20, 0, 20);
+
+CRect rcTop = rcWnd;
+rcTop.bottom = rcTop.top + 5;
+rcTop.DeflateRect(20, 0, 20, 0);
+
+CRect rcRight = rcWnd;
+rcRight.left = rcRight.right - 5;
+rcRight.DeflateRect(0, 20, 0, 20);
+
+CRect rcBottom = rcWnd;
+rcBottom.top = rcBottom.bottom - 5;
+rcBottom.DeflateRect(20, 0, 20, 0);
+
+CRect rcLeftTop = rcWnd;
+rcLeftTop.right = rcLeftTop.left + 20;
+rcLeftTop.bottom = rcLeftTop.top + 20;
+
+CRect rcRightTop = rcWnd;
+rcRightTop.left = rcRightTop.right - 20;
+rcRightTop.bottom = rcRightTop.top + 20;
+
+CRect rcLeftBottom = rcWnd;
+rcLeftBottom.right = rcLeftBottom.left + 20;
+rcLeftBottom.top = rcLeftBottom.bottom - 20;
+
+CRect rcRightBottom = rcWnd;
+rcRightBottom.left = rcRightBottom.right - 20;
+rcRightBottom.top = rcRightBottom.bottom - 20;
+
+if (rcCap.PtInRect(point))
+return HTCAPTION;
+else if (rcLeft.PtInRect(point))
+return HTLEFT;
+else if (rcTop.PtInRect(point))
+return HTTOP;
+else if (rcRight.PtInRect(point))
+return HTRIGHT;
+else if (rcBottom.PtInRect(point))
+return HTBOTTOM;
+else if (rcLeftTop.PtInRect(point))
+return HTTOPLEFT;
+else if (rcRightTop.PtInRect(point))
+return HTTOPRIGHT;
+else if (rcLeftBottom.PtInRect(point))
+return HTBOTTOMLEFT;
+else if (rcRightBottom.PtInRect(point))
+return HTBOTTOMRIGHT;
+else
+return CFrameWnd::OnNcHitTest(point);
+}
+
+
+BOOL CRYFrameWnd::PreCreateWindow(CREATESTRUCT& cs)  
+{
+// TODO: Add your specialized code here and/or call the base class
+cs.style = WS_VISIBLE | WS_POPUP | WS_SYSMENU  
+//	 | WS_MINIMIZEBOX | WS_MAXIMIZEBOX
+| WS_THICKFRAME
+//	 | WS_BORDER
+;
+
+cs.dwExStyle = WS_EX_WINDOWEDGE;
+
+return CFrameWnd::PreCreateWindow(cs);
+}
+
+void CRYFrameWnd::OnNcLButtonDown(UINT nHitTest, CPoint point )
+{
+CFrameWnd::OnNcLButtonDown( nHitTest, point );
+}
+
+BOOL CRYFrameWnd::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)  
+{
+// TODO: Add your message handler code here and/or call default
+
+return CWnd::OnSetCursor(pWnd, nHitTest, message);
+}
