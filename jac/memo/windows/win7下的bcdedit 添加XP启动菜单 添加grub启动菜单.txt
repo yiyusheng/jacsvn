@@ -1,0 +1,18 @@
+1. 添加grub启动菜单
+a.利用ntldr
+用bcdedit添加或者自己写个boot.ini添加都可以
+[boot loader]
+[operating systems]
+c:\grldr.mbr="grub4dos"
+然后将grldr和grldr.mbr复制到根目录
+b.用bcdedit
+bcdedit /create /d "grub" /application bootsector
+bcdedit /set {id} device partition=c:
+bcdedit /set {id} path \grldr.mbr
+bcdedit /displayorder {id} /addlast
+
+2.添加XP启动菜单
+Bcdedit /create {ntldr} /d "Windows XP Professional" 
+Bcdedit /set {ntldr} device partition=c: 
+Bcdedit /set {ntldr} path \ntldr 
+Bcdedit /displayorder {ntldr} /addlast
