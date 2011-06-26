@@ -1,0 +1,62 @@
+1.使用apt-get安装 apache2 和 subversion , 同时还要安装 mod_dav, dav_svn , neon
+
+ 
+
+2.安装完后的一些路径说明
+
+/etc/apache2/    放置了apache2的所有配置文件
+
+/var/www/    apache2虚拟目录
+
+/log/apache2/    apache2的日志文件
+
+ 
+
+3.sudo vi /etc/apache2/mods-enabled/dav_svn.conf （编辑文件，以取消注释为主）
+
+<Location /svn>
+  DAV svn
+  SVNParentPath /var/svn
+  AuthType Basic
+  AuthName "Subversion repository"
+  AuthUserFile /var/svn/dav_svn.passwd
+
+  <LimitExcept GET PROPFIND OPTIONS REPORT>
+    Require valid-user
+  </LimitExcept>
+
+</Location>
+
+ 
+
+4.sudo mkdir /var/svn
+
+ 
+
+5.sudo htpasswd -m /var/svn/dav_svn.passwd 用户名（接着会提示输密码，有多少个用户就操作几次）
+注：第一次使用sudo htpasswd -cm /var/svn/dav_svn.passwd 用户名（用来创建密码文件）
+
+ 
+
+6.sudo svnadmin create /var/svn/目录名 （创建具体的目录，需要创建几个就执行几次命令）
+
+ 
+
+7.查看apache2进程的用户和组，默认应该是www-data:www-data
+
+ 
+
+8.sudo chown -R www-data:www-data /var/svn (以后每用一次svnadmin create都要记得修改目录所有者）
+
+ 
+
+9.sudo vi /var/svn/目录名/conf/svnserve.conf （编辑文件，以取消注释为主）
+
+anon-access = read
+auth-access = write
+
+realm = My First Repository （按情况修改My First Repository为你需要的uuid）
+
+ 
+
+10.重新启动apache2, 以 http://主机名/svn/目录名  的形式来访问即可
