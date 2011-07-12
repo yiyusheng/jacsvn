@@ -1,5 +1,5 @@
 
-set GW=192.168.225.1
+set GW=115.156.232.254
 
 route -p add 1.51.0.0 mask 255.255.0.0 %GW% METRIC 15
 route -p add 1.184.0.0 mask 255.254.0.0 %GW% METRIC 15
