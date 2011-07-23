@@ -28,7 +28,7 @@ include $(MakeInc)/ProjectVar.def
 #UndoMacro := $(UndoMacro) -UWIN32
 
 #附加动态库
-#AttachDll := $(AttachDll)  -lsomelib
+#AttachDll := $(AttachDll) -lsomelib
 
 #附加静态库
 #AttachLib := $(AttachLib) libsome.a
