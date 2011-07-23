@@ -1,3 +1,5 @@
+#对依赖项目列表过滤
+ProjectDependList := $(filter-out $(ProjectExcludeList),$(ProjectDependList))
 #项目目录
 export ProjectDir := $(shell pwd)
 #项目名称
@@ -19,7 +21,7 @@ export OutDir := $(ProjectBin)
 #目标名称
 export TargetName := $(ProjectName)
 #代码生成选项
-export LDFLAGS :=
+export LDFLAGS := $(SolutionLDFLAGS)
 else
 ifeq ($(ConfigurationType),dll)
 #输出目录
@@ -27,14 +29,14 @@ export OutDir := $(ProjectLib)
 #目标名称
 export TargetName := lib$(ProjectName).so
 #代码生成选项
-export LDFLAGS := -shared -fPIC
+export LDFLAGS := $(SolutionLDFLAGS) -shared -fPIC
 else
 #输出目录
 export OutDir := $(ProjectLib)
 #目标名称
 export TargetName := lib$(ProjectName).a
 #代码生成选项
-export LDFLAGS :=
+export LDFLAGS := $(SolutionLDFLAGS)
 endif
 endif
 
@@ -62,11 +64,11 @@ export UndoMacro :=
 #附加动态库
 export AttachDll :=
 #附加静态库
-export AttachLib :=
+export AttachLib := $(SolutionAttachLib)
 #编译选项
-export CPPFLAGS := -O3 -pthread -Wall
+export CPPFLAGS := $(SolutionCPPFLAGS) -O3
 #静态库生成选项
-export ARFLAGS := -c -r -s
+export ARFLAGS := $(SolutionARFLAGS) -r -s
 
 ifdef GCHHead
 #预编译头的输出文件的路径

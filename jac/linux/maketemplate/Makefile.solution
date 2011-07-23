@@ -4,3 +4,29 @@ export ProjectExcludeList :=
 
 include include/makeinclude/SolutionVar.def
 
+#附加包含目录
+#export SolutionAttachInc := -ISomeInc
+
+#附加库目录
+#export SolutionAttachDllDir := -LSomeLib
+
+#定义宏
+#export SolutionDefMacro := -D_DEBUG
+
+#取消定义宏
+#export SolutionUndoMacro := -UWIN32
+
+#附加动态库
+#export SolutionAttachDll := -lsomelib
+
+#附加静态库
+#export SolutionAttachLib := libsome.a
+
+#代码生成选项
+export SolutionLDFLAGS := $(SolutionAttachDll)
+
+#编译选项
+export SolutionCPPFLAGS := $(SolutionAttachInc) $(SolutionAttachDllDir) $(SolutionDefMacro) $(SolutionUndoMacro)
+
+#静态库生成选项
+#export SolutionARFLAGS :=

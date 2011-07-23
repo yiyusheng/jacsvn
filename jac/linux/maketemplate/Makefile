@@ -35,7 +35,10 @@ solution.clean:
 $(ProjectList):
 	cp Makefile.project $(SolutionDir)/src/$@/Makefile
 
-all: solution $(ProjectList) makeinclude
+$(Folders):
+	-mkdir $@
+
+all: $(Folders) solution $(ProjectList) makeinclude
 
 .PHONY: help solution $(ProjectList) clean solution.clean $(ProjectList:%=%.clean)
 
