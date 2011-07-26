@@ -9,11 +9,12 @@ CurInt := $(IntDir)/$(RefPath)
 SubDirs := $(shell ls -p | grep -o -P ".+(?=/)")
 
 #源文件
-sources := $(wildcard *.cpp)
+sources := $(wildcard *.cpp) $(wildcard *.cxx) $(wildcard *.cc) $(wildcard *.C) $(wildcard *.c)
+basenames := $(basename $(sources))
 #二进制目标文件
-objects := $(sources:.cpp=.o)
+objects := $(addsuffix .o,$(basenames))
 #依赖项文件
-depends := $(sources:.cpp=.d)
+depends := $(addsuffix .d,$(basenames))
 
 #需要创建的文件夹
 Folders := $(CurInt)
@@ -27,11 +28,11 @@ objectsAll: $(ObjectDepend)
 $(Folders):
 	-mkdir $@
 
-#根据.c文件自动生成依赖项.d文件
+#根据.cpp文件自动生成依赖项.d文件
 depend: $(depends)
 $(depends):
 	@set -e; rm -f $(CurInt)/$@; \
-	$(CXX) -MM $(CPPFLAGS) $(basename $@).cpp > $(CurInt)/$@.$$$$; \
+	$(CXX) -MM $(CPPFLAGS) $(shell find . ! -name "." -type d -prune -o \( -name "$(basename $@).cpp" -o -name "$(basename $@).cxx" -o -name "$(basename $@).cc" -o -name "$(basename $@).C" -o -name "$(basename $@).c" \) -print) > $(CurInt)/$@.$$$$; \
 	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $(CurInt)/$@.$$$$ > $(CurInt)/$@; \
 	rm -f $(CurInt)/$@.$$$$
 
@@ -39,7 +40,7 @@ $(depends):
 object: $(objects)
 $(objects):
 	@echo Project:$(ProjectName) create object $(RefPath)/$@;
-	$(CXX) -c $(CPPFLAGS) $(basename $@).cpp -o $(CurInt)/$@
+	$(CXX) -c $(CPPFLAGS) $(shell find . ! -name "." -type d -prune -o \( -name "$(basename $@).cpp" -o -name "$(basename $@).cxx" -o -name "$(basename $@).cc" -o -name "$(basename $@).C" -o -name "$(basename $@).c" \) -print) -o $(CurInt)/$@
 
 #将生成的.d文件包含在内
 -include $(depends:%=$(CurInt)/%)

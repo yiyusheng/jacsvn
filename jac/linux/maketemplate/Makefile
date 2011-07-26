@@ -7,7 +7,7 @@ MakeInc := $(SolutionDir)/include/makeinclude
 ProjectList := $(patsubst $(SolutionDir)/src/%/,%,$(shell ls -d $(SolutionDir)/src/*/))
 
 #需要创建的文件夹
-Folders := $(MakeInc)
+Folders := $(MakeInc) $(SolutionDir)/bin $(SolutionDir)/bin/debug $(SolutionDir)/bin/release $(SolutionDir)/doc $(SolutionDir)/lib $(SolutionDir)/src $(SolutionDir)/tmp
 
 help:
 	@echo 请输入具体的命令
