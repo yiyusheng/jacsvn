@@ -80,9 +80,10 @@ GCH :=
 endif
 
 #项目所有的源文件
-export AllSources := $(shell find $(ProjectDir) \( -name "*.cpp" \))
+export AllSources := $(shell find $(ProjectDir) \( -name "*.cpp" -o -name "*.cxx" -o -name "*.cc" -o -name "*.C" -o -name "*.c" \))
+export AllBasenames := $(basename $(AllSources))
 #项目所有的信赖文件
-export AllDepends := $(AllSources:$(ProjectDir)%.cpp=$(IntDir)%.d)
+export AllDepends := $(AllBasenames:$(ProjectDir)%=$(IntDir)%.d)
 #项目所有的二进制目标文件
-export AllObjects := $(AllSources:$(ProjectDir)%.cpp=$(IntDir)%.o)
+export AllObjects := $(AllBasenames:$(ProjectDir)%=$(IntDir)%.o)
 
