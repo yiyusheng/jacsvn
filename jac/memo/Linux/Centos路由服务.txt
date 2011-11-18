@@ -1,0 +1,110 @@
+1.配置IP地址
+
+/etc/sysconfig/network-stripts/ifcfg-eth0  配置网卡一（连外网）
+
+/etc/sysconfig/network-stripts/ifcfg-eth1  配置网卡二（连内网）
+
+2.打开包转发功能:
+输入vim /etc/sysctl.conf命令打开配置文件，找到其中net.ipv4.ip_forward所在的行，将"="后面的数值由0更改为1，之后将文件保存后退出vi编辑器。
+
+3.将配置文件修改完成后，可以使用sysctl -p 
+/etc/sysctl.conf命令或将操作系统重新启动，以使参数生效。
+
+4.打开iptables的NAT功能:（这一步重要的）
+  /sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+  说明：上面的语句中eth0是连接外网或者连接Internet的网卡. 
+
+
+执行下面的命令，保存iptables的规则:   service iptables save      &&     /sbin/service iptables restart
+5.查看路由表:
+   netstat -rn 或  route -n
+6.查看iptables规则:
+   iptables -L
+
+这时候的Centos主机就相当于一台路由器了哈。
+
+
+
+端口映射
+设我们有一台计算机,有两块网卡,eth0连外网,ip为1.2.3.4;eth1连内网,ip为192.168.0.1.现在需要把发往地址1.2.3.4的81端口的ip包转发到ip地址192.168.0.2的8180端口,设置如下: 
+　　1. iptables -t nat -A PREROUTING -d 1.2.3.4 -p tcp -m tcp --dport 81 -j DNAT --to-destination192.168.0.2:8180 
+
+　　2. iptables -t nat -A POSTROUTING -s 192.168.0.0/255.255.0.0 -d 192.168.0.2 -p tcp -m tcp --dport 8180 -j SNAT --to-source 192.168.0.1 
+
+还有一点, 在filter表中还应该允许从eth0连接192.168.0.2地址的8180端口: 
+	3. iptables -A INPUT -d 192.168.0.2 -p tcp -m tcp --dport 8180 -i eth0 -j ACCEPT 
+	
+	4. service iptables save      &&     /sbin/service iptables restart
+
+
+
+ipables规则设置：
+vim /etc/sysconfig/iptables命令，打开规则配置文件，按照下面给出的配置文件模板进行设置:
+ 1             # Firewall configuration written by system-config-securitylevel
+ 2             # Manual customization of this file is not recommended.
+ 3             *filter
+ 4             :FORWARD ACCEPT [0:0]
+ 5             :INPUT ACCEPT [0:0]
+ 6             :RH-Firewall-1-INPUT - [0:0]
+ 7             :OUTPUT ACCEPT [0:0]
+ 8             -A INPUT -i eth1 -j ACCEPT            //此处的eth1按实际更改为内网设备号
+ 9             -A INPUT -j RH-Firewall-1-INPUT
+10             -A FORWARD -j RH-Firewall-1-INPUT
+11             -A RH-Firewall-1-INPUT -i lo -j ACCEPT
+12             -A RH-Firewall-1-INPUT -i eth1 -j ACCEPT    //此处的eth1按实际更改为内网设备号
+13             -A RH-Firewall-1-INPUT -p icmp --icmp-type any -j ACCEPT
+14             -A RH-Firewall-1-INPUT -p 50 -j ACCEPT
+15             -A RH-Firewall-1-INPUT -p 51 -j ACCEPT
+16             -A RH-Firewall-1-INPUT -p udp -d 224.0.0.251 --dport 5353 -j ACCEPT
+17             -A RH-Firewall-1-INPUT -p udp -m udp --dport 631 -j ACCEPT
+18             -A RH-Firewall-1-INPUT -p tcp -m tcp --dport 631 -j ACCEPT
+19             -A RH-Firewall-1-INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+20             -A RH-Firewall-1-INPUT -p tcp -m state -m tcp --dport 22 --state NEW -j ACCEPT
+21             -A RH-Firewall-1-INPUT -j REJECT --reject-with icmp-host-prohibited
+22             COMMIT
+23             *nat
+24             :PREROUTING ACCEPT [0:0]
+25             :POSTROUTING ACCEPT [0:0]
+26             :OUTPUT ACCEPT [0:0]
+27             -A POSTROUTING -s 192.168.1.1 -o eth0 -j MASQUERADE    //此处为转发规则设置，增加访问外网复制此行即可
+28             //上述中ip地址要按实际设置为允许访问外网机器的ip地址,eth0也要按实际更改为外网设备号
+29             COMMIT
+30             # Completed
+
+
+
+
+Q：一局域网192.168.1.0/24，有web和ftp服务器192.168.1.10、192.168.1.11,网关linux，内网eth0，IP为192.168.1.1，外网eth1，IP为a.b.c.d，怎样作NAT能使内外网都能访问公司的服务器？ 
+A：# web 
+# 用DNAT作端口映射 
+iptables -t nat -A PREROUTING -d a.b.c.d -p tcp --dport 80 -j DNAT --to 192.168.1.10 
+# 用SNAT作源地址转换（关键），以使回应包能正确返回 
+iptables -t nat -A POSTROUTING -d 192.168.1.10 -p tcp --dport 80 -j SNAT --to 192.168.1.1 
+# 一些人经常忘了打开FORWARD链的相关端口，特此增加 
+iptables -A FORWARD -o eth0 -d 192.168.1.10 -p tcp --dport 80 -j ACCEPT 
+iptables -A FORWARD -i eth0 -s 192.168.1.10 -p tcp --sport 80 -m --state ESTABLISHED -j ACCEPT 
+
+# ftp 
+modprobe ip_nat_ftp ###加载ip_nat_ftp模块（若没有编译进内核），以使ftp能被正确NAT 
+modprobe ip_conntrack_ftp ###加载ip_conntrack_ftp模块 
+# 用DNAT作端口映射 
+iptables -t nat -A PREROUTING -d a.b.c.d -p tcp --dport 21 -j DNAT --to 192.168.1.11 
+iptables -A FORWARD -o eth0 -d 192.168.1.11 -p tcp --dport 21 -j ACCEPT 
+iptables -A FORWARD -i eth0 -s 192.168.1.11 -p tcp --sport 21 -m --state ESTABLISHED -j ACCEPT 
+iptables -A FORWARD -i eth0 -s 192.168.1.11 -p tcp --sport 20 -m --state ESTABLISHED,RELATED -j ACCEPT 
+iptables -A FORWARD -o eth0 -d 192.168.1.11 -p tcp --dport 20 -m --state ESTABLISHED -j ACCEPT 
+iptables -A FORWARD -o eth0 -d 192.168.1.11 -p tcp --dport 1024: -m --state ESTABLISHED,RELATED -j ACCEPT 
+iptables -A FORWARD -i eth0 -s 192.168.1.11 -p tcp --sport 1024: -m --state ESTABLISHED -j ACCEPT 
+# 用SNAT作源地址转换（关键），以使回应包能正确返回 
+iptables -t nat -A POSTROUTING -d 192.168.1.11 -p tcp --dport 21 -i eth0 -j SNAT --to 192.168.1.1  
+
+Q：网络环境如上一问题，还在网关上用squid进行透明代理，也作了SNAT了，为什么内网还是不能访问公司的web服务器?iptables如下： 
+iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 80 -i eth0 -j REDIRECT --to 3128 
+iptables -t nat -A PREROUTING -d a.b.c.d -p tcp --dport 80 -j DNAT --to 192.168.1.10 
+iptables -t nat -A POSTROUTING -d 192.168.1.10 -p tcp --dport 80 -j SNAT --to 192.168.1.1 
+A：问题主要在PREROUTING链中REDIRECT和DNAT的顺序，由于先进行了REDIRECT（重定向），则到第二句DNAT时，端口已变为3128，不匹配第二句的目的端口80，DNAT也就不会执行，不能到达正确的目的地。解决的办法有两个： 
+1、把REDIRECT语句放到DNAT语句的后面，如下： 
+iptables -t nat -A PREROUTING -d a.b.c.d -p tcp --dport 80 -j DNAT --to 192.168.1.10 
+iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 80 -i eth0 -j REDIRECT --to 3128 
+2、在REDIRECT语句中增加匹配目的地址"-d ! a.b.c.d"，如下： 
+iptables -t nat -A PREROUTING -s 192.168.1.0/24 -d ! a.b.c.d -p tcp --dport 80 -i eth0 -j REDIRECT --to 3128 
