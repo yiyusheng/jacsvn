@@ -1,0 +1,23 @@
+前两天安装一个 CentOS 虚拟机，复制后，进入，发现（ifconfig）找不到 eth0 设备，但 /etc/sysconfig/network-script/ifcfg-eth0存在，而 ifcfg-eth1 不存在。虽然使用:
+
+ifconfg eth1 192.168.1.2 netmask 255.255.255.0
+
+route add default gw 192.168.1.1 
+
+配置临时IP地址后能正常使用，但还是找不到根本原因，
+后找到解决办法如下：
+
+1、vi /etc/udev/rules.d/70-persistent-net.rules
+
+其内容如下：
+
+
+SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="00:0c:29:96:cc:5e", ATTR{type}=="1", KERNEL=="eth*", NAME="eth0"
+
+
+2、将其中 NAME="eth1" 修改为 NAME="eth0"，重新启动。
+
+3、执行 ifconfig ，此时就能找到 eth0 设备，记录其 MAC 地址，然后将其替换 /etc/sysconfig/network-script/ifcfg-eth0 文件中的 HWADDR 项。
+
+4、执行 service network restart
+
