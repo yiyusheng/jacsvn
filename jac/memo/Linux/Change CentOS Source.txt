@@ -1,3 +1,13 @@
+备份/etc/yum.repos.d文件夹
+复制
+备份/etc/pki/rpm-gpg
+复制
+rpm --import /etc/pki/rpm-gpg/RPM* 
+yum -y update
+
+
+
+
 1.备份/etc/yum.repos.d/CentOS-Base.repo
 2.修改
 #3.
