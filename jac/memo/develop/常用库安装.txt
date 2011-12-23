@@ -37,6 +37,7 @@ make install
 ./configure --with-apr=/usr/local/apr --with-apr-util=/usr/local/apr-util --prefix=/home/jacteefan/log4cxx
 make 
 make install 
+注:64位Centos上log4cxx在make时可能会出现link问题，解决办法：在log4cxx安装目录下mv libtool libtool.bak & ln -s /usr/bin/libtool libtool
 
 wxWidget
 1. mkdir buildgtk
