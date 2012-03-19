@@ -100,6 +100,7 @@ vncserver
 -geometry x指定显示桌面的分辨率，默认为1024x768
 
 vncserver -geometry 800x600
+vncserver -geometry 1214x1000 :22
 
 这个命令实际中很有用，例如本地分辨率为1024x768 如果不设定远程VNC服务分辨率就会造成桌面显示不全的问题。
 
