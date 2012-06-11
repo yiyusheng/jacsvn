@@ -79,7 +79,7 @@ $(TargetName): $(AllObjects) $(AttachLib)
 	@echo Project:$(ProjectName) create target $(TargetName)
 	$(CreateTargetCmd)
 
-.PHONY : all clean debug release $(ProjectDependList) objects dependGCH
+.PHONY : all clean debug release $(ProjectDependList) objects
 
 clean :
 	@echo Project:$(ProjectName) clean
