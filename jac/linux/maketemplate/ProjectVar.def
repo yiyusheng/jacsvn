@@ -77,8 +77,12 @@ export AttachDllDir := -L$(ProjectLib) -L$(SolutionLib)
 export DefMacro :=
 ifeq ($(ConfigurationName),debug)
 DefMacro := $(DefMacro) -D_DEBUG
+#编译选项
+export CPPFLAGS := $(SolutionCPPFLAGS) -g
 else
 DefMacro := $(DefMacro) -DNDEBUG
+#编译选项
+export CPPFLAGS := $(SolutionCPPFLAGS) -O3
 endif
 #取消定义宏
 export UndoMacro :=
@@ -86,8 +90,6 @@ export UndoMacro :=
 export AttachDll :=
 #附加静态库
 export AttachLib := $(SolutionAttachLib)
-#编译选项
-export CPPFLAGS := $(SolutionCPPFLAGS) -O3
 #静态库生成选项
 export ARFLAGS := $(SolutionARFLAGS) -r -s
 
