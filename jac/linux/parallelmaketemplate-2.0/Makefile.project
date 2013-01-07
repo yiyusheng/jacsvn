@@ -1,0 +1,74 @@
+#################################################################################
+#    asyframe for asyframe@gmail.com											#
+#																				#
+#    Copyright (C) 2011, asyframe@gmail.com, http://asyframe.googlecode.com/	#
+#																				#
+#    This program is free software: you can redistribute it and/or modify		#
+#    it under the terms of the GNU General Public License as published by		#
+#    the Free Software Foundation, either version 3 of the License, or			#
+#	(at your option) any later version.											#
+#																				#
+#    This program is distributed in the hope that it will be useful,			#
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of				#
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the				#
+#    GNU General Public License for more details.								#
+#																				#
+#    You should have received a copy of the GNU General Public License			#
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.		#
+#################################################################################
+
+#默认应该是解决方案调用过来的
+ifdef SolutionDir
+#配置类型
+#ConfigurationType := exe/dll/lib
+export ConfigurationType := exe
+
+#依赖项目列表
+ProjectDependList :=
+
+#预编译头文件
+export GCHHead := stdafx.h
+
+include $(MakeInc)/ProjectVar.def
+
+#目标名称
+#TargetName :=
+
+#附加包含目录(修改VPATH)
+#AttachInc := $(AttachInc) -ISomeInc
+
+#附加库目录
+#AttachDllDir := $(AttachDllDir) -LSomeLib
+
+#定义宏
+#DefMacro := $(DefMacro) -D_DEBUG
+
+#取消定义宏
+#UndoMacro := $(UndoMacro) -UWIN32
+
+#附加动态库
+#AttachDll := $(AttachDll) -lsomelib
+
+#附加静态库
+#AttachLib := $(AttachLib) libsome.a
+
+#代码生成选项
+LDFLAGS := $(LDFLAGS) $(AttachDll)
+
+#编译选项
+CPPFLAGS := $(CPPFLAGS) $(AttachInc) $(AttachDllDir) $(DefMacro) $(UndoMacro)
+
+#静态库生成选项
+#ARFLAGS := $(ARFLAGS)
+
+include $(MakeInc)/ProjectTarget.mak
+
+else
+#说明是在当前目录下进行make，先跳转到解决方案获取变量
+#解决方案目录
+SolutionDir := ../../
+#makefile包含目录
+MakeInc := $(SolutionDir)/include/makeinclude
+include $(MakeInc)/ProjectToSolution.def
+endif
+

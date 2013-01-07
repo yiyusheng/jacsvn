@@ -1,0 +1,58 @@
+#################################################################################
+#    asyframe for asyframe@gmail.com											#
+#																				#
+#    Copyright (C) 2011, asyframe@gmail.com, http://asyframe.googlecode.com/	#
+#																				#
+#    This program is free software: you can redistribute it and/or modify		#
+#    it under the terms of the GNU General Public License as published by		#
+#    the Free Software Foundation, either version 3 of the License, or			#
+#	(at your option) any later version.											#
+#																				#
+#    This program is distributed in the hope that it will be useful,			#
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of				#
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the				#
+#    GNU General Public License for more details.								#
+#																				#
+#    You should have received a copy of the GNU General Public License			#
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.		#
+#################################################################################
+
+#项目目录
+ProjectDir := $(shell pwd)
+#项目名称
+ProjectName := $(shell basename $(ProjectDir))
+
+#make工具
+Make := make
+MGLAGS := -s -r
+
+#配置名称
+#ConfigurationName := release/debug
+ConfigurationName :=
+ifeq ($(findstring debug,$(MAKECMDGOALS)),debug)
+ConfigurationName := debug
+else
+ifeq ($(findstring release,$(MAKECMDGOALS)),release)
+ConfigurationName := release
+endif
+endif
+
+#确保在只有debug和release一个参数时，make能够正常执行
+SingleConfigurationCmd :=
+ifeq ($(MAKECMDGOALS),debug)
+SingleConfigurationCmd := @$(Make) $(ProjectName) $(ConfigurationName) $(MGLAGS) -C $(SolutionDir)
+else
+ifeq ($(MAKECMDGOALS),release)
+SingleConfigurationCmd := @$(Make) $(ProjectName) $(ConfigurationName) $(MGLAGS) -C $(SolutionDir)
+endif
+endif
+
+.PHONY : all release debug
+
+all:
+	@$(Make) $(ProjectName) $(ConfigurationName) $(MGLAGS) -C $(SolutionDir)
+%:
+	@$(Make) $(ProjectName).$@ $(ConfigurationName) $(MGLAGS) -C $(SolutionDir)
+release debug:
+	$(SingleConfigurationCmd)
+

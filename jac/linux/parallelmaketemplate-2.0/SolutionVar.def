@@ -1,0 +1,149 @@
+#################################################################################
+#    asyframe for asyframe@gmail.com											#
+#																				#
+#    Copyright (C) 2011, asyframe@gmail.com, http://asyframe.googlecode.com/	#
+#																				#
+#    This program is free software: you can redistribute it and/or modify		#
+#    it under the terms of the GNU General Public License as published by		#
+#    the Free Software Foundation, either version 3 of the License, or			#
+#	(at your option) any later version.											#
+#																				#
+#    This program is distributed in the hope that it will be useful,			#
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of				#
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the				#
+#    GNU General Public License for more details.								#
+#																				#
+#    You should have received a copy of the GNU General Public License			#
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.		#
+#################################################################################
+
+#配置名称
+#ConfigurationName := release/debug
+export ConfigurationName := release
+#根据输入得到ConfigurationName的值
+ifeq ($(findstring debug,$(MAKECMDGOALS)),debug)
+ConfigurationName := debug
+else
+ifeq ($(findstring release,$(MAKECMDGOALS)),release)
+ConfigurationName := release
+endif
+endif
+
+#临时变量
+tmpNodesIPList :=
+
+#本结点在所有结点IP列表中的索引
+export NodeIndex :=
+
+define CountNodeIndex
+NodeIndex := $(if $(filter $(NodeIP),$(1)),$(words $(tmpNodesIPList)),$(NodeIndex))
+endef
+
+define SetTmpNodesIPList
+tmpNodesIPList := $(tmpNodesIPList) $(1)
+$$(eval $$(call CountNodeIndex,$(1)))
+endef
+
+$(foreach n,$(NodesIPList),$(eval $(call SetTmpNodesIPList,$(n))))
+
+#所有结点的数量
+export AllNodesNum := $(words $(NodesIPList))
+#除自己之外其它结点的IP列表
+export OtherNodesIPList := $(filter-out $(NodeIP),$(NodesIPList))
+
+#解决方案目录
+export SolutionDir := $(shell pwd)
+
+#makefile包含目录
+export MakeInc := $(SolutionDir)/include/makeinclude
+
+#解决方案名称
+export SolutionName := $(shell basename $(SolutionDir))
+#包含目录
+export SolutionInc := $(SolutionDir)/include
+#库目录
+export SolutionLib := $(SolutionDir)/lib
+#bin目录
+export SolutionBin := $(SolutionDir)/bin
+#源目录
+export SolutionSrc := $(SolutionDir)/src
+#临时文件目录
+export SolutionTmp := $(SolutionDir)/tmp
+
+#项目列表
+export AllProjectList := $(shell ls src/ -p | grep -o -P ".+(?=/)")
+export ProjectList := $(filter-out $(ProjectExcludeList),$(AllProjectList))
+ProjectFolderList := $(patsubst %,%.folder,$(ProjectList))
+
+#常量空白、空格和跳格
+export empty:=
+export space:= $(empty) $(empty)
+export tab:= $(empty)	$(empty)
+
+#make工具
+export Make := make
+export MGLAGS := -s -r
+
+#默认目标
+all: folders $(ProjectList)
+	@echo Solution:$(SolutionName) SUCCESS! Target:$@
+
+#确保在只有debug和release一个参数时，make能够正常执行
+SingleConfigurationDepend :=
+ifeq ($(MAKECMDGOALS),debug)
+SingleConfigurationDepend := $(ProjectList)
+else
+ifeq ($(MAKECMDGOALS),release)
+SingleConfigurationDepend := $(ProjectList)
+endif
+endif
+
+debug release: $(SingleConfigurationDepend)
+	@echo Solution:$(SolutionName) SUCCESS! Target:$@
+
+.PHONY: all debug release folders $(ProjectFolderList)
+
+#构造生成命令
+define ProjectCmd
+$(1)MakeCmd := $(2)
+$(1)Target := $(3)
+$(1)Flag := $(4)
+$(1)Dir := $(5)
+endef
+
+export Goal := $(firstword $(MAKECMDGOALS))
+export GoalProject := $(basename $(Goal))
+export GoalTarget := $(suffix $(Goal))
+GoalTarget := $(GoalTarget:.%=%)
+ifdef GoalProject
+ifndef GoalTarget
+GoalTarget := $(GoalProject)
+else
+ifneq ($(GoalProject),$(findstring $(GoalProject),$(AllProjectList)))
+$(error unknown project : $(GoalProject))
+endif
+endif
+GoalProject := $(findstring $(GoalProject),$(AllProjectList))
+ifeq ($(GoalTarget),$(findstring $(GoalTarget),$(AllProjectList)))
+GoalTarget :=
+endif
+ifdef GoalProject
+$(foreach project,$(AllProjectList),$(eval $(call ProjectCmd,$(project),,,,)))
+$(eval $(call ProjectCmd,$(GoalProject),$(Make),$(GoalTarget),$(MGLAGS) -C,$(SolutionSrc)/$(GoalProject)))
+else
+$(foreach project,$(AllProjectList),$(eval $(call ProjectCmd,$(project),$(Make),$(GoalTarget),$(MGLAGS) -C,$(SolutionSrc)/$(project))))
+endif
+else
+$(foreach project,$(AllProjectList),$(eval $(call ProjectCmd,$(project),$(Make),,$(MGLAGS) -C,$(SolutionSrc)/$(project))))
+endif
+#将所有规则传递给具体的项目,命名为(项目.规则)
+%: folders $(ProjectList)
+	@echo Solution:$(SolutionName) SUCCESS! Target:$@
+
+$(AllProjectList):
+	@$($@MakeCmd) $($@Target) $($@Flag) $($@Dir)
+
+folders: $(ProjectFolderList)
+
+$(ProjectFolderList):
+	@$(Make) $(MGLAGS) -C $(SolutionSrc)/$(basename $@) folders
