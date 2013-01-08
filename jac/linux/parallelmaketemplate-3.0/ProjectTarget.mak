@@ -66,7 +66,7 @@ $(1).ResponsibleObjects := $$($(1).ResponsibleObjects) $$(word $($(1).NodeIndex)
 endef
 $(foreach n,$(OtherNodesIPList),$(eval $(call SetOtherFinalResponsibleObject,$(n))))
 
-#终级目标信赖项
+#终级目标依赖项
 TargetDepend := $(ProjectDependList) folders chmods $(notdir $(GCHDepend)) $(notdir $(GCH)) objects $(patsubst %,%.wait,$(AllObjects)) $(TargetPath) $(AllTokenFiles) $(TargetName)
 
 #默认目标
