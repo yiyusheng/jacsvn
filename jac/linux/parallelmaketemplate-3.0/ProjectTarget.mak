@@ -67,7 +67,7 @@ endef
 $(foreach n,$(OtherNodesIPList),$(eval $(call SetOtherFinalResponsibleObject,$(n))))
 
 #终级目标依赖项
-TargetDepend := $(ProjectDependList) folders chmods $(notdir $(GCHDepend)) $(notdir $(GCH)) objects $(patsubst %,%.wait,$(AllObjects)) $(TargetPath) $(AllTokenFiles) $(TargetName)
+TargetDepend := $(ProjectDependList) folders chmods $(notdir $(GCHDepend)) $(notdir $(GCH)) objects $(patsubst %,%.wait,$(AllObjects)) $(IntDir)/$(NodeIP).TokenFile $(AllTokenFiles) $(TargetName)
 
 #默认目标
 all: $(TargetDepend)
@@ -132,6 +132,7 @@ CreateTargetCmd := $(CXX) $(CPPFLAGS) $(LDFLAGS) -o $(TargetPath) $(AllObjects) 
 endif
 $(TargetName): $(AllObjects) $(AttachLib)
 	@echo Project:$(ProjectName) create target $(TargetName)
+	cp -f $(ProjectDir)/$(TokenFile) $(IntDir)/$(NodeIP).TokenFile
 	$(CreateTargetCmd)
 
 $(patsubst %,%.wait,$(AllObjects)):
@@ -143,7 +144,7 @@ clean:
 	@echo Project:$(ProjectName) clean
 	-rm -f $(AllObjects) $(patsubst %,%.*,$(AllObjects)) $(AllDepends) $(patsubst %,%.*,$(AllDepends)) $(TargetPath) $(GCH) $(GCHDepend) $(IntDir)/*.TokenFile
 
-$(TargetPath): $(AllObjects)
+$(IntDir)/$(NodeIP).TokenFile: $(AllObjects)
 	$(MakeInc)/batscp.sh $(ProjectDir)/$(TokenFile) $(IntDir)/$(NodeIP).TokenFile $(SCPUsername) $(SCPPassword) $(MakeInc) $(OtherNodesIPList)
 
 $(AllTokenFiles):
