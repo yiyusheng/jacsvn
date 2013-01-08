@@ -67,7 +67,7 @@ endef
 $(foreach n,$(OtherNodesIPList),$(eval $(call SetOtherFinalResponsibleObject,$(n))))
 
 #终级目标信赖项
-TargetDepend := $(ProjectDependList) folders chmods $(notdir $(GCHDepend)) $(notdir $(GCH)) objects $(AllObjects) sendTokenFile $(AllTokenFiles) $(TargetName)
+TargetDepend := $(ProjectDependList) folders chmods $(notdir $(GCHDepend)) $(notdir $(GCH)) objects $(AllObjects) $(TargetPath) $(AllTokenFiles) $(TargetName)
 
 #默认目标
 all: $(TargetDepend)
@@ -130,20 +130,20 @@ CreateTargetCmd := $(AR) $(ARFLAGS) $(TargetPath) $(AllObjects) $(AttachLib)
 else
 CreateTargetCmd := $(CXX) $(CPPFLAGS) $(LDFLAGS) -o $(TargetPath) $(AllObjects) $(AttachLib)
 endif
-$(TargetName): $(AttachLib)
+$(TargetName): $(AllObjects) $(AttachLib)
 	@echo Project:$(ProjectName) create target $(TargetName)
 	$(CreateTargetCmd)
 
 $(AllObjects):
 	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectWaitSCPObject.mak -C $(dir $(patsubst $(IntDir)%,$(ProjectDir)%,$@)) $(notdir $@)
 
-.PHONY : all clean debug release $(ProjectDependList) folders chmods depends objects $(AllObjects) sendTokenFile $(AllTokenFiles)
+.PHONY : all clean debug release $(ProjectDependList) folders chmods depends objects $(AllObjects) $(AllTokenFiles)
 
 clean:
 	@echo Project:$(ProjectName) clean
 	-rm -f $(AllObjects) $(patsubst %,%.*,$(AllObjects)) $(AllDepends) $(patsubst %,%.*,$(AllDepends)) $(TargetPath) $(GCH) $(GCHDepend) $(IntDir)/*.TokenFile
 
-sendTokenFile:
+$(TargetPath): $(AllObjects)
 	$(MakeInc)/batscp.sh $(ProjectDir)/$(TokenFile) $(IntDir)/$(NodeIP).TokenFile $(SCPUsername) $(SCPPassword) $(MakeInc) $(OtherNodesIPList)
 
 $(AllTokenFiles):
