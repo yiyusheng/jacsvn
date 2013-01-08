@@ -67,7 +67,7 @@ endef
 $(foreach n,$(OtherNodesIPList),$(eval $(call SetOtherFinalResponsibleObject,$(n))))
 
 #终级目标信赖项
-TargetDepend := $(ProjectDependList) folders chmods $(notdir $(GCHDepend)) $(notdir $(GCH)) objects $(AllObjects) $(TargetPath) $(AllTokenFiles) $(TargetName)
+TargetDepend := $(ProjectDependList) folders chmods $(notdir $(GCHDepend)) $(notdir $(GCH)) objects $(patsubst %,%.wait,$(AllObjects)) $(TargetPath) $(AllTokenFiles) $(TargetName)
 
 #默认目标
 all: $(TargetDepend)
@@ -134,10 +134,10 @@ $(TargetName): $(AllObjects) $(AttachLib)
 	@echo Project:$(ProjectName) create target $(TargetName)
 	$(CreateTargetCmd)
 
-$(AllObjects):
-	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectWaitSCPObject.mak -C $(dir $(patsubst $(IntDir)%,$(ProjectDir)%,$@)) $(notdir $@)
+$(patsubst %,%.wait,$(AllObjects)):
+	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectWaitSCPObject.mak -C $(dir $(patsubst $(IntDir)%,$(ProjectDir)%,$@)) $(basename $(notdir $@))
 
-.PHONY : all clean debug release $(ProjectDependList) folders chmods depends objects $(AllObjects) $(AllTokenFiles)
+.PHONY : all clean debug release $(ProjectDependList) folders chmods depends objects $(patsubst %,%.wait,$(AllObjects)) $(AllTokenFiles)
 
 clean:
 	@echo Project:$(ProjectName) clean
