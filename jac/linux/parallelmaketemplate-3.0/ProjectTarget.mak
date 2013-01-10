@@ -67,7 +67,7 @@ endef
 $(foreach n,$(OtherNodesIPList),$(eval $(call SetOtherFinalResponsibleObject,$(n))))
 
 #终级目标依赖项
-TargetDepend := $(ProjectDependList) folders chmods $(notdir $(GCHDepend)) $(notdir $(GCH)) objects $(patsubst %,%.wait,$(AllObjects)) $(IntDir)/$(NodeIP).TokenFile $(AllTokenFiles) $(TargetName)
+TargetDepend := $(ProjectDependList) folders chmods $(notdir $(GCHDepend)) $(notdir $(GCH)) depends objects $(patsubst %,%.wait,$(AllObjects)) $(IntDir)/$(NodeIP).TokenFile $(AllTokenFiles) $(TargetName)
 
 #默认目标
 all: $(TargetDepend)
