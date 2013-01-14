@@ -1,0 +1,71 @@
+#################################################################################
+#    asyframe for asyframe@gmail.com											#
+#																				#
+#    Copyright (C) 2011, asyframe@gmail.com, http://asyframe.googlecode.com/	#
+#																				#
+#    This program is free software: you can redistribute it and/or modify		#
+#    it under the terms of the GNU General Public License as published by		#
+#    the Free Software Foundation, either version 3 of the License, or			#
+#	(at your option) any later version.											#
+#																				#
+#    This program is distributed in the hope that it will be useful,			#
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of				#
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the				#
+#    GNU General Public License for more details.								#
+#																				#
+#    You should have received a copy of the GNU General Public License			#
+#	along with this program.  If not, see <http://www.gnu.org/licenses/>.		#
+#################################################################################
+
+#被排除的项目
+export ProjectExcludeList :=
+
+#本结点的IP
+export NodeIP := $(shell ifconfig eth0 |grep "inet addr"| cut -f 2 -d ":"|cut -f 1 -d " ")
+
+#所有结点的IP
+export NodesIPList := $(NodeIP)
+
+#SCP的用户名
+export SCPUsername := 
+
+#SCP的密码
+export SCPPassword := 
+
+#等待SCP传object文件的时间
+export WaitSCPSleepTime := 1
+
+#等待生成object文件的时间
+export WaitCreateSleepTime := 1
+
+#同时编译的object数量
+export ConcurrentJobs := 8
+
+include include/makeinclude/SolutionVar.def
+
+#附加包含目录
+#export SolutionAttachInc := -ISomeInc
+
+#附加库目录
+#export SolutionAttachDllDir := -LSomeLib
+
+#定义宏
+#export SolutionDefMacro := -D_DEBUG
+
+#取消定义宏
+#export SolutionUndoMacro := -UWIN32
+
+#附加动态库
+#export SolutionAttachDll := -lsomelib
+
+#附加静态库
+#export SolutionAttachLib := libsome.a
+
+#代码生成选项
+export SolutionLDFLAGS := $(SolutionAttachDll)
+
+#编译选项
+export SolutionCPPFLAGS := $(SolutionAttachInc) $(SolutionAttachDllDir) $(SolutionDefMacro) $(SolutionUndoMacro)
+
+#静态库生成选项
+#export SolutionARFLAGS :=
