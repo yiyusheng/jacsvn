@@ -67,7 +67,7 @@ endef
 $(foreach n,$(OtherNodesIPList),$(eval $(call SetOtherFinalResponsibleObject,$(n))))
 
 #终级目标依赖项
-TargetDepend := $(ProjectDependList) folders chmods $(notdir $(GCHDepend)) $(notdir $(GCH)) depends objects $(patsubst %,%.wait,$(AllObjects)) $(IntDir)/$(NodeIP).TokenFile $(AllTokenFiles) $(TargetName)
+TargetDepend := $(ProjectDependList) folders chmods $(notdir $(GCHDepend)) $(notdir $(GCH)) depends objects $(patsubst %,%.wait,$(AllObjects)) $(SCPFinishFiles) $(AllTokenFiles) $(TargetName)
 
 #默认目标
 all: $(TargetDepend)
@@ -114,7 +114,6 @@ folders: $(ProjectFolders)
 #改变sh文件的权限
 chmods:
 	chmod +x $(MakeInc)/autoscp.sh
-	chmod +x $(MakeInc)/batscp.sh
 
 #生成所有depends文件
 depends:
@@ -132,7 +131,6 @@ CreateTargetCmd := $(CXX) $(CPPFLAGS) $(LDFLAGS) -o $(TargetPath) $(AllObjects) 
 endif
 $(TargetName): $(AllObjects) $(AttachLib)
 	@echo Project:$(ProjectName) create target $(TargetName)
-	cp -f $(ProjectDir)/$(TokenFile) $(IntDir)/$(NodeIP).TokenFile
 	$(CreateTargetCmd)
 
 $(patsubst %,%.wait,$(AllObjects)):
@@ -142,10 +140,10 @@ $(patsubst %,%.wait,$(AllObjects)):
 
 clean:
 	@echo Project:$(ProjectName) clean
-	-rm -f $(AllObjects) $(patsubst %,%.*,$(AllObjects)) $(AllDepends) $(patsubst %,%.*,$(AllDepends)) $(TargetPath) $(GCH) $(GCHDepend) $(IntDir)/*.TokenFile
+	-rm -f $(AllObjects) $(patsubst %,%.*,$(AllObjects)) $(AllDepends) $(patsubst %,%.*,$(AllDepends)) $(TargetPath) $(GCH) $(GCHDepend) $(IntDir)/*.TokenFile $(IntDir)/*.SCPFinish
 
-$(IntDir)/$(NodeIP).TokenFile: $(AllObjects)
-	$(MakeInc)/batscp.sh $(ProjectDir)/$(TokenFile) $(IntDir)/$(NodeIP).TokenFile $(SCPUsername) $(SCPPassword) $(MakeInc) $(OtherNodesIPList)
+$(SCPFinishFiles): $(AllObjects)
+	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectCreateSCPFinishFile.mak $@ &
 
 $(AllTokenFiles):
 	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectWaitTokenFile.mak $(IntDir)/$@

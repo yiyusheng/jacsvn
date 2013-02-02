@@ -17,7 +17,7 @@
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.		#
 #################################################################################
 
-ifeq ($(MAXMAKELEVEL),$(MAKELEVEL))
+ifeq ($(MAXWAITMAKELEVEL),$(MAKELEVEL))
 $(error Exceed max make level! CURDIR=$(CURDIR) MAKECMDGOALS=$(MAKECMDGOALS))
 endif
 

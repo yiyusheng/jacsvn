@@ -17,7 +17,7 @@
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.		#
 #################################################################################
 
-ifeq (10,$(MAKELEVEL))
+ifeq ($(MAXSCPTRYMAKELEVEL),$(MAKELEVEL))
 $(error Exceed max make level! CURDIR=$(CURDIR) MAKECMDGOALS=$(MAKECMDGOALS))
 endif
 
@@ -31,9 +31,9 @@ CurInt := $(IntDir)/$(RefPath)
 VPATH := $(CurInt):$(ProjectVPATH)
 
 target := $(firstword $(MAKECMDGOALS))
-object := $(notdir $(target))
-OtherNodeIP := $(patsubst %/$(object),%,$(target))
-ObjectTokenFile := $(OtherNodeIP).$(object)
+OtherNodeIP := $(notdir $(target))
+object := $(patsubst %/$(OtherNodeIP),%,$(target))
+ObjectTokenFile := $(object).$(OtherNodeIP)
 
 $(target): $(ObjectTokenFile)
 

@@ -29,7 +29,7 @@ VPATH := $(CurInt):$(ProjectVPATH)
 target := $(firstword $(MAKECMDGOALS))
 object := $(basename $(target))
 depend := $(object:.o=.d)
-allObjectTokenFiles := $(patsubst %,%/$(object),$(OtherNodesIPList))
+allObjectTokenFiles := $(patsubst %,$(object)/%,$(OtherNodesIPList))
 
 $(target): $(object) $(allObjectTokenFiles)
 
@@ -39,7 +39,7 @@ $(object):
 	$(CXX) -c $(CPPFLAGS) $(shell find . ! -name "." -type d -prune -o \( -name "$(basename $@).cpp" -o -name "$(basename $@).cxx" -o -name "$(basename $@).cc" -o -name "$(basename $@).C" -o -name "$(basename $@).c" \) -print) -o $(CurInt)/$@;
 
 $(allObjectTokenFiles):
-	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectCreateObjectTokenFile.mak $@
+	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectCreateObjectTokenFile.mak $@ &
 
 #将生成的.d文件包含在内
 -include $(CurInt)/$(depend)
