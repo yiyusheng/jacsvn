@@ -17,10 +17,14 @@
 #	along with this program.  If not, see <http://www.gnu.org/licenses/>.		#
 #################################################################################
 
-ifeq ($(MAXWAITMAKELEVEL),$(MAKELEVEL))
+ifeq ($(MAXSCPTRYMAKELEVEL),$(MAKELEVEL))
 $(error Exceed max make level! CURDIR=$(CURDIR) MAKECMDGOALS=$(MAKECMDGOALS))
 endif
 
-%.TokenFile: $($(notdir %).ResponsibleObjects)
-	sleep $(WaitSCPSleepTime);
-	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectWaitTokenFile.mak $@
+target := $(firstword $(MAKECMDGOALS))
+OtherNodeIP := $(basename $(notdir $(target)))
+
+#生成二进制目标文件
+$(target): $(AllObjects)
+	$(MakeInc)/autoscp.sh $(ProjectDir)/$(TokenFile) $(IntDir)/$(NodeIP).TokenFile $(SCPUsername) $(SCPPassword) $(OtherNodeIP) $(ProjectDir)/$(TokenFile) $@ 1>/dev/null
+	@$(Make) $(MGLAGS) -f $(MakeInc)/ProjectCreateSCPFinishFile.mak $(target)

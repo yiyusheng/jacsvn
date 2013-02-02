@@ -40,7 +40,8 @@ export TokenFile := Makefile
 export AllTokenFiles := $(patsubst %,%.TokenFile,$(OtherNodesIPList))
 
 #设置make的最大迭代层次
-export MAXMAKELEVEL := 300
+export MAXWAITMAKELEVEL := 300
+export MAXSCPTRYMAKELEVEL := 100
 
 #临时变量
 tmpNodesIPList :=

@@ -112,3 +112,4 @@ export AllDepends := $(AllBasenames:$(ProjectDir)%=$(IntDir)%.d)
 #项目所有的二进制目标文件
 export AllObjects := $(AllBasenames:$(ProjectDir)%=$(IntDir)%.o)
 
+export SCPFinishFiles := $(patsubst %,$(IntDir)/%.SCPFinish,$(OtherNodesIPList))

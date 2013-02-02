@@ -44,12 +44,12 @@ makeinclude:
 	cp ProjectWaitSCPObject.mak $(MakeInc)/ProjectWaitSCPObject.mak;\
 	cp ProjectWaitTokenFile.mak $(MakeInc)/ProjectWaitTokenFile.mak;\
 	cp ProjectCreateObject.mak $(MakeInc)/ProjectCreateObject.mak;\
+	cp ProjectCreateObjectTokenFile.mak $(MakeInc)/ProjectCreateObjectTokenFile.mak;\
+	cp ProjectCreateSCPFinishFile.mak $(MakeInc)/ProjectCreateSCPFinishFile.mak;\
 	cp ProjectFolders.mak $(MakeInc)/ProjectFolders.mak;\
 	cp ProjectDepend.mak $(MakeInc)/ProjectDepend.mak;\
 	cp autoscp.sh $(MakeInc)/autoscp.sh;\
-	cp batscp.sh $(MakeInc)/batscp.sh;\
-	chmod +x $(MakeInc)/autoscp.sh;\
-	chmod +x $(MakeInc)/batscp.sh
+	chmod +x $(MakeInc)/autoscp.sh
 
 makeinclude.clean:
 	-rm -f $(MakeInc)/ProjectObject.mak;\
@@ -61,10 +61,11 @@ makeinclude.clean:
 	rm -f $(MakeInc)/ProjectWaitSCPObject.mak;\
 	rm -f $(MakeInc)/ProjectWaitTokenFile.mak;\
 	rm -f $(MakeInc)/ProjectCreateObject.mak;\
+	rm -f $(MakeInc)/ProjectCreateObjectTokenFile.mak;\
+	rm -f $(MakeInc)/ProjectCreateSCPFinishFile.mak;\
 	rm -f $(MakeInc)/ProjectFolders.mak;\
 	rm -f $(MakeInc)/ProjectDepend.mak;\
-	rm -f $(MakeInc)/autoscp.sh;\
-	rm -f $(MakeInc)/batscp.sh
+	rm -f $(MakeInc)/autoscp.sh
 
 solution.clean:
 	-rm -f $(SolutionDir)/Makefile
