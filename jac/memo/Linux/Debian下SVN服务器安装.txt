@@ -1,0 +1,121 @@
+Subversion是新一代的开源版本控制系统，用以取代CVS。在安装配置SVN时，遇到了一些问题，在网上搜集资料得到解决。由于资料比较杂乱，所以特此重新整理了一下。
+
+第一步 安装测试subversion
+1．安装
+
+# apt-get update# apt-get install subversion subversion-tools 2．创建存储库
+
+# mkdir /home/svn
+
+# svnadmin create –-fs-type fsfs /home/svn/test
+
+
+3．设置权限
+
+# chown –R www-data:www-data /home/svn/*
+
+# chmod –R 770 /home/svn/*
+
+
+4．从本地导入源代码：
+
+# mkdir –p /var/svn/test
+
+# touch /var/svn/test.txt
+
+# cd /var/svn
+
+# svn import ./test http://hi.baidu.com/home/svn/test -m “Initial import.”
+
+如果出错，可能是路径的问题。
+
+
+5．察看代码库内容：
+
+# svn list http://hi.baidu.com/home/svn/test
+
+
+如果以上没有报错，说明subversion已经正确安装。
+
+
+第二步 通过http方式访问subversion
+为了远程访问SVN，通常使用apache服务器。
+
+1．安装组件
+
+# apt-get install apache2 libapache2-svn
+
+
+2．测试apache2
+
+http://服务器地址
+
+
+3．修改配置文件/etc/apache2/mods-enable/dav_svn.conf
+
+# vim /etc/apache2/mods-enabled/dav_svn.conf
+
+
+# dav_svn.conf - Example Subversion/Apache configuration## For details and further options see the Apache user manual and# the Subversion book. # <Location URL> ... </Location># URL controls how the repository appears to the outside world.# In this example clients access the repository as http://hostname/svn/<Location /svn>                                 #设置访问路径   # Uncomment this to enable the repository,   DAV svn                                      #启用   # Set this to the path to your repository    #SVNPath /data/subversion                      #设置储存库路径，仅支持单个储存库，该路径要可被Apache进程访问。  SVNParentPath /home/svn                #如果subversion下有多个储存库，则用SVNParentPath  # The following allows for basic http authentication.  Basic authentication  # should not be considered secure for any particularly rigorous definition of  # secure.   # to create a passwd file                      #按下面的步骤创建Apache用户验证文件  # # rm -f /etc/apache2/dav_svn.passwd  # # htpasswd2 -c /etc/apache2/dav_svn.passwd dwhedon  # New password:  # Re-type new password:  # Adding password for user dwhedon  # #   # Uncomment the following 3 lines to enable Basic Authentication    AuthType Basic                                #启用Apache基础验证    AuthName "Subversion Repository"             #设置验证框标题    AuthUserFile /etc/apache2/dav_svn.passwd     #指定验证用户文件名   # Uncomment the following line to enable Authz Authentication   AuthzSVNAccessFile /etc/apache2/dav_svn.authz  #启用目录级别授权，dav_svn.authz是授权配置文档   # The following three lines allow anonymous read, but make  # committers authenticate themselves.   #<LimitExcept GET PROPFIND OPTIONS REPORT>     #允许匿名访问，不允许Commit，不能与AuthzSVNAccessFile同时使用     Require valid-user                            #</LimitExcept> </Location>
+4．创建/etc/apache2/dav_svn.authz
+
+[test:/]
+
+*=
+
+Zhangsan=rw
+
+Lisi=r
+
+5．设置用户口令：
+
+# htpasswd –c –m /etc/apache2/dav_svn.passwd zhangsan
+
+# htpasswd –c –m /etc/apache2/dav_svn.passwd lisi
+
+
+6．测试：
+
+http://服务器地址/svn/test
+
+
+第三步 添加SSL支持
+为了提供比较安全的远程访问，需要开启apache2的SSL支持。
+
+1.       运行命令 a2enmod ssl 。打开 apache2 的 SSL 支持。
+
+2.       编辑 /etc/apache2/ports.conf 文件。 在此文件中，缺省只有 Listen 80，也就是apache 只接受 80 端口的普通 http 访问。我们再添加一项 "Listen 443"，443 是 https 的端口。
+
+3.       编辑 /etc/apache2/sites-available/default 文件，把 “NameVirtualHost *" 改为 "NameVirtualHost *:80" ， "<VirtualHost *>" 改为 "<VirtualHost *:80>"。
+
+4.       运行命令 apache2-ssl-certificate, 根据提示回答问题， 生成 SSL 的证书，自动被放置在 /etc/apache2/ssl/。
+
+5.       在 /etc/apache2/sites-available/ 下建立一个新的文件，名字可以叫做 ssl . 这个文件可以拷贝 /etc/apache2/sites-availbale/default 获得。 但是要修改 VirtualHost 和 NameVirtualHost 的端口为 443。 在这个文件中加入以下两行："SSLEngine On" 和 "SSLCertificateFile /etc/apache2/ssl/apache.pem"。 
+
+6.       使用 a2ensite ssl 来使我们的 ssl 虚拟主机生效。
+
+7.       /etc/init.d/apache2 force-reload 重新启动 apache2 的系统服务。
+
+8.       使用其他机器的浏览器来登陆本服务器，注意要使用 https 协议来测试我们的 apache 服务器是否接受 https 连接。
+
+9.       使用 a2enmod dav_svn 来加载 subversion 模块。
+
+10.    subversion 模块的配置文件在 /etc/apache2/mods-available/dav_svn.conf 中。 为了限制非 SSL 用户登陆，我们可以使用如下一句 "SSLRequireSSL" 来限制。 为了禁止匿名用户登陆，加上 "Require valid-user" 一句。
+
+在创建证书时，发现系统没有apache2-ssl-certificate命令，查找资料发现这是系统的漏洞。解决方法如下：
+
+Ubuntu feisty中的apache2安装包有BUG，安装后缺少apache2-ssl-certificate命令，这样如果我们要启用apache的 ssl服务，就生成不了站点证书。
+
+不过，现在已经有人做了这个工作了，我们可以通过自己编译apache2源码来安装，安装方法如下：
+
+首先下载并解压这个修复包：
+
+wget http://librarian.launchpad.net/6917265/files.tartar xvf files.tar然后安装Apache2 deb源代码及相关编译依赖包，然后编译安装apache2：
+
+sudo apt-get build-dep apache2sudo apt-get source -d apache2dpkg-source -x apache2_2.2.3-3.2build1.dsccd apache2-2.2.3fakeroot debian/rules binary(如果没有安装fakeroot，请先安装）sudo dpkg -i ../*.deb（您也可以选择性的安装您需要的Apache2 deb包)这样安装的apache2包含完整的工具，下面我们来配置Apache2 ssl支持：
+
+先生成站点证书：
+
+sudo apache2-ssl-certificate -days 365接着启用Apache2 的ssl模块：
+
+sudo a2enmod ssl
